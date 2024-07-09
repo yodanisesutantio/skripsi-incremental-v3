@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
+@import "toastr";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
