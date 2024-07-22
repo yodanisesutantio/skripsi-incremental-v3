@@ -77,7 +77,7 @@
                     @endif
                 {{-- Guest Profile Nav Button --}}
                 @else 
-                    <a href="/login" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                    <a href="#" class="guest-profile-link flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                         <p class="font-league font-medium text-xl w-full">Profil</p>
                     </a>
                 @endauth
@@ -109,4 +109,19 @@
             </p>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('.guest-profile-link').on('click', function(e) {
+                e.preventDefault();
+
+                toastr.warning('Anda harus Login terlebih dahulu'); 
+
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 3000); // Redirect after 3 seconds
+            });
+        });
+    </script>
 </footer>

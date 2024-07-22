@@ -18,3 +18,6 @@ use App\Http\Controllers\generalPage;
 
 // Landing Page
 Route::get('/', [generalPage::class, 'landing']);
+
+// Guest Dashboard Page
+Route::get('/tamu', [generalPage::class, 'tamu']);

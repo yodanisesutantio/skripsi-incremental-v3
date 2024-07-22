@@ -17,4 +17,11 @@ class generalPage extends Controller
             "pageName" => "Selamat Datang di "
         ]);
     }
+
+    public function tamu() {
+        return view('home.tamu', [
+            "pageName" => "Tamu | "
+        ]);
+
+    }
 }
