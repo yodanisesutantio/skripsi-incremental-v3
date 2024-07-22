@@ -34,6 +34,8 @@ Route::get('/contact-us', [generalPage::class, 'contact']);
 Route::get('/login', [loginController::class, 'index'])->middleware('guest')->name('login');
 // Login Logic Handler
 Route::post('/login', [loginController::class, 'authenticate']);
+// Logout Logic Handler
+Route::post('/logout', [loginController::class, 'logout']);
 
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
