@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\generalPage;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\adminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,22 @@ Route::get('/about-app', [generalPage::class, 'about']);
 
 // Contact Us Page
 Route::get('/contact-us', [generalPage::class, 'contact']);
+
+// Login Page
+Route::get('/login', [loginController::class, 'index'])->middleware('guest')->name('login');
+// Login Logic Handler
+Route::post('/login', [loginController::class, 'authenticate']);
+
+// Admin Specific Route
+Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
+    // Admin Dashboard Page
+    Route::get('/admin-index', [adminController::class, 'index']);
+    // Admin Profile Page
+    // Route::get('/admin-profile', [adminController::class, 'profile']);
+    // Admin Edit Profile Page
+    // Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
+    // Admin Edit Profile Logic Handler
+    // Route::post('/admin-profile/edit', [adminController::class, 'update']);
+    // Admin Delete Account Logic Handler
+    // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
+});
