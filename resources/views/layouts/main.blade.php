@@ -20,7 +20,7 @@
     <title>{{ $pageName }} Kemudi</title>
 </head>
 <body class="bg-custom-white">    
-    <div class="lg:px-[3.25rem]">
+    <div class="px-6 lg:px-[4.25rem]">
         @yield('content')
     </div>
 

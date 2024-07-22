@@ -1,6 +1,6 @@
 <footer>
     {{-- Footer for Mobile --}}
-    <div class="flex flex-row lg:hidden justify-between mx-5 mb-2 pt-2 border-t border-custom-dark/40">
+    <div class="flex flex-row lg:hidden justify-between mb-4 pt-2 border-t border-custom-dark/40">
         <p class="font-league font-normal text-base text-custom-grey">
             ©2024 Kemudi.
         </p>
@@ -10,7 +10,7 @@
     </div>
 
     {{-- Footer for Desktop --}}
-    <div class="hidden lg:flex lg:flex-col justify-between mx-[2rem] mb-4">
+    <div class="hidden lg:flex lg:flex-col justify-between mb-4">
         <div class="grid grid-cols-2">
             <div class="flex flex-col gap-5 pl-12 pr-28 py-10 border-y border-r border-custom-dark/40">
                 <img src="img/Logo-Hitam.svg" alt="" class="w-44">

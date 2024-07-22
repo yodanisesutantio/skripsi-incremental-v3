@@ -12,6 +12,18 @@ class generalPage extends Controller
         ]);
     }
 
+    public function about() {
+        return view('about-app', [
+            "pageName" => "Tentang Aplikasi |  "
+        ]);
+    }
+
+    public function contact() {
+        return view('contact-us', [
+            "pageName" => "Hubungi Kami | "
+        ]);
+    }
+
     public function appIntro() {
         return view('app-intro', [
             "pageName" => "Selamat Datang di "
@@ -22,6 +34,5 @@ class generalPage extends Controller
         return view('home.tamu', [
             "pageName" => "Tamu | "
         ]);
-
     }
 }

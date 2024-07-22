@@ -21,3 +21,9 @@ Route::get('/', [generalPage::class, 'landing']);
 
 // Guest Dashboard Page
 Route::get('/tamu', [generalPage::class, 'tamu']);
+
+// About App Page
+Route::get('/about-app', [generalPage::class, 'about']);
+
+// Contact Us Page
+Route::get('/contact-us', [generalPage::class, 'contact']);

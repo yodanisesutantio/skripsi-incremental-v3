@@ -7,7 +7,7 @@
             <svg id="newSvg" class="cursor-pointer hidden" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="#040B0D" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg>
 
             <div class="hidden" id="navbar">
-                <div class="flex flex-col absolute w-[calc(100%-2.5rem)] lg:w-[calc(100%-8.5rem)] top-20 p-2 shadow-lg shadow-custom-grey bg-custom-white-hover border border-custom-green backdrop-blur-sm rounded-xl">
+                <div class="flex flex-col absolute w-[calc(100%-3rem)] lg:w-[calc(100%-8.5rem)] top-20 p-2 shadow-lg shadow-custom-grey bg-custom-white-hover border border-custom-green backdrop-blur-sm rounded-xl">
                     <ul>
                         {{-- Beranda --}}
                         @auth
@@ -35,7 +35,7 @@
                                 <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="admin-profile">Profil</a></li>
                             @endif
                         @else
-                            
+                            <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Profil</a></li>
                         @endauth
 
                         {{-- Garis Pemisah --}}
