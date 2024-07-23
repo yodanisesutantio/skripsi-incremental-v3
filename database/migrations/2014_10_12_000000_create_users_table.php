@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('description')->nullable();
             $table->string('hash_for_profile_picture')->nullable();
-            $table->string('availability')->default('yes');
+            $table->boolean('availability')->default(true);
             $table->timestamps();
         });
     }
