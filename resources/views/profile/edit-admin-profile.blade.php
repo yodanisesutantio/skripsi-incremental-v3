@@ -11,7 +11,20 @@
     <form action="/admin-profile/edit" method="post" enctype="multipart/form-data">
         @csrf
         {{-- Form Sub Headers --}}
-        <div class="flex flex-col gap-1 mb-4">
+        <div class="mb-4">
+            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Kesediaan Lembaga Kursus</h2>
+        </div>
+        {{-- Active Checkbox --}}
+        <div class="flex flex-col gap-2">
+            <label for="availability" class="font-semibold font-league text-xl text-custom-grey">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
+            <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                <option value="yes" selected>Bersedia</option>
+                <option value="no">Tidak Bersedia</option>
+            </select>
+        </div>
+
+        {{-- Form Sub Headers --}}
+        <div class="flex flex-col gap-1 mt-8 mb-4">
             <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Data Personal</h2>
         </div>
         <div class="flex flex-col mt-4 gap-5 lg:gap-7">
