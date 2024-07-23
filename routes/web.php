@@ -49,4 +49,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/admin-profile/edit', [adminController::class, 'update']);
     // Admin Delete Account Logic Handler
     Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
+
+    // Admin's My Course Page
+    Route::get('/admin-manage-course', [adminController::class, 'manageCourse']);
 });

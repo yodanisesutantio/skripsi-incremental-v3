@@ -23,7 +23,7 @@
                         @endauth
 
                         {{-- Kursus --}}
-                        <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="course-list">Kursus</a></li>
+                        <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Kursus</a></li>
 
                         {{-- Profil --}}
                         @auth

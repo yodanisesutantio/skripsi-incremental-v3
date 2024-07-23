@@ -14,7 +14,7 @@ export default {
       'custom-dark-overlay': 'rgba(4,11,13,.7)',
       'custom-dark-low': 'rgba(4,11,13,.6)',
       'custom-white': '#EBF0F2',
-      'custom-white-hover': '#FFF',
+      'custom-white-hover': '#FAFAFA',
       'custom-secondary': '#495D64',
       'custom-disabled-light': '#BDCDD2',
       'custom-disabled-dark': '#9F9F9F',

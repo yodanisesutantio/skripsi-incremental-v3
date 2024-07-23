@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Course;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,6 +29,36 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('magetan'),
             'role' => "admin",
             'description' => 'House of Magetan Driving School'
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Mobil Manual untuk Pemula',
+            'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
+            'course_quota' => 10,
+            'course_price' => 770000,
+            'course_length' => 5,
+            'car_type' => "Manual",
+            'can_use_own_car' => false,
+            'user_id' => 1,
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Mobil Matic untuk Pemula',
+            'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil matic, kursus ini tepat untuk anda.',
+            'course_quota' => 5,
+            'course_price' => 900000,
+            'course_length' => 5,
+            'car_type' => "Automatic",
+            'can_use_own_car' => false,
+            'user_id' => 1,
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Kilat Mobil Manual',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
+            'course_quota' => 3,
+            'course_price' => 650000,
+            'course_length' => 3,
+            'car_type' => "Manual",
+            'can_use_own_car' => false,
+            'user_id' => 1,
         ]);
     }
 }
