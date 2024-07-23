@@ -3,10 +3,10 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-league font-semibold text-center text-3xl lg:text-5xl my-5 lg:mt-10">Hubungi Kami</h1>
+    <h1 class="text-custom-dark font-encode font-semibold text-center text-3xl lg:text-4xl my-5 lg:mt-10 lg:mb-8">Hubungi Kami</h1>
     <div class="grid grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 gap-3">
         {{-- Email Contact --}}
-        <a href="#" class="w-full border border-custom-disabled-dark/40 rounded-lg shadow-md">
+        <a href="#" class="w-full border bg-custom-white-hover border-custom-disabled-dark/40 rounded-lg shadow-md">
             {{-- Wrapper --}}
             <div class="p-3 flex flex-col">
                 {{-- Icons --}}
@@ -17,7 +17,7 @@
             <p class="px-3 py-2.5 border-t border-custom-disabled-dark font-league font-semibold text-lg text-custom-dark underline">email@kemudi.com</p>
         </a>
         {{-- Call Contact --}}
-        <a href="#" class="w-full border border-custom-disabled-dark/40 rounded-lg shadow-md">
+        <a href="#" class="w-full border bg-custom-white-hover border-custom-disabled-dark/40 rounded-lg shadow-md">
             {{-- Wrapper --}}
             <div class="p-3 flex flex-col">
                 {{-- Icons --}}
@@ -28,7 +28,7 @@
             <p class="px-3 py-2.5 border-t border-custom-disabled-dark font-league font-semibold text-lg text-custom-dark underline">(+62) 801 7231 12310</p>
         </a>
         {{-- Whatsapp Contact --}}
-        <a href="#" class="w-full border border-custom-disabled-dark/40 rounded-lg shadow-md">
+        <a href="#" class="w-full border bg-custom-white-hover border-custom-disabled-dark/40 rounded-lg shadow-md">
             {{-- Wrapper --}}
             <div class="p-3 flex flex-col">
                 {{-- Icons --}}
@@ -40,9 +40,9 @@
         </a>
     </div>
 
-    <h1 class="text-custom-dark font-league font-semibold text-center text-3xl lg:text-5xl mt-10 lg:mt-16">Pertanyaan Umum</h1>
+    <h1 class="text-custom-dark font-encode font-semibold text-center text-2xl lg:text-4xl mt-10 lg:mt-16">Pertanyaan Umum</h1>
     {{-- Accordion --}}
-    <div class="mt-2 mb-6 lg:mt-6 lg:mb-16 lg:px-32 flex flex-col gap-1 lg:gap-4">
+    <div class="mt-3 mb-6 lg:mt-6 lg:mb-16 lg:px-32 flex flex-col gap-1 lg:gap-4">
         {{-- Reset Password --}}
         <div class="px-3 border-b border-custom-grey rounded-lg">
             <h2 class="font-league font-medium text-lg/snug lg:text-2xl/snug py-2.5 lg:py-4">

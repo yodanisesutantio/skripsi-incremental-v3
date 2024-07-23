@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Enrollment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'course_length' => 5,
             'car_type' => "Manual",
             'can_use_own_car' => false,
-            'user_id' => 1,
+            'admin_id' => 1,
         ]);
         Course::create([
             'course_name' => 'Kursus Mobil Matic untuk Pemula',
@@ -48,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'course_length' => 5,
             'car_type' => "Automatic",
             'can_use_own_car' => false,
-            'user_id' => 1,
+            'admin_id' => 1,
         ]);
         Course::create([
             'course_name' => 'Kursus Kilat Mobil Manual',
@@ -58,7 +59,17 @@ class DatabaseSeeder extends Seeder
             'course_length' => 3,
             'car_type' => "Manual",
             'can_use_own_car' => false,
-            'user_id' => 1,
+            'admin_id' => 1,
+        ]);
+        Enrollment::create([
+            'course_id' => 3,
+            'instructor_id' => 1,
+            'student_id' => 2,
+        ]);
+        Enrollment::create([
+            'course_id' => 1,
+            'instructor_id' => 1,
+            'student_id' => 2,
         ]);
     }
 }
