@@ -42,11 +42,11 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Dashboard Page
     Route::get('/admin-index', [adminController::class, 'index']);
     // Admin Profile Page
-    // Route::get('/admin-profile', [adminController::class, 'profile']);
+    Route::get('/admin-profile', [adminController::class, 'profile']);
     // Admin Edit Profile Page
-    // Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
+    Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
     // Admin Edit Profile Logic Handler
-    // Route::post('/admin-profile/edit', [adminController::class, 'update']);
+    Route::post('/admin-profile/edit', [adminController::class, 'update']);
     // Admin Delete Account Logic Handler
-    // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
+    Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 });

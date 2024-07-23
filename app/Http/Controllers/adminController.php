@@ -56,7 +56,7 @@ class adminController extends Controller
             'password_confirmation.max' => 'Password terlalu panjang',
         ]);
 
-        $user = User::find(Auth::id());
+    $user = User::find(Auth::id());
         $user->update($request->only(['fullname', 'username', 'description', 'phone_number']));
 
         $fileName = null;
@@ -77,6 +77,8 @@ class adminController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
         }
+
+        $user->save();
 
         $request->session()->flash('success', 'Profil berhasil diperbarui');
 
