@@ -16,32 +16,56 @@
         </div>
         {{-- Active Checkbox --}}
         <div class="flex flex-col gap-2">
-            <label for="availability" class="font-semibold font-league text-xl text-custom-grey">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
+            {{-- <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
             <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                 <option value="yes" selected>Bersedia</option>
                 <option value="no">Tidak Bersedia</option>
-            </select>
+            </select> --}}
+            {{-- Switch --}}
+            <label for="availability" class="flex items-center cursor-pointer">
+                <div class="relative flex flex-row gap-7 justify-between pl-0.5 mr-2 -z-20">
+                    <p class="text-custom-dark text-base lg:text-lg font-medium">Tekan tombol disamping jika anda ingin menutup lembaga anda untuk sementara</p>
+                    <input id="availability" type="checkbox" class="hidden" @if(auth()->user()->availability) checked @endif>
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-12 h-6 bg-custom-green rounded-full"></div>
+                        <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg right-0"></div>
+                    </div>
+                </div>
+            </label>
         </div>
 
         {{-- Form Sub Headers --}}
         <div class="flex flex-col gap-1 mt-8 mb-4">
-            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Data Personal</h2>
+            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Data Lembaga Kursus</h2>
         </div>
         <div class="flex flex-col mt-4 gap-5 lg:gap-7">
             {{-- Input Profile Picture --}}
             <div class="flex flex-col gap-2">
                 <label for="hash_for_profile_picture" class="font-semibold font-league text-xl text-custom-grey">Gambar Profil (Optional)</label>
                 @if (auth()->user()->hash_for_profile_picture)
-                    <img src="{{ asset('storage/profile_pictures/' . auth()->user()->hash_for_profile_picture) }}" alt="profile-picture" class="w-20 lg:w-32 h-20 lg:h-32 object-cover mb-2 rounded-full">
+                    <label for="hash_for_profile_picture">
+                        <div class="w-28 lg:w-32 h-28 lg:h-32 rounded-full bg-cover bg-center cursor-pointer overflow-hidden" style="background-image: url('{{ asset('storage/profile_pictures/' . auth()->user()->hash_for_profile_picture) }}')" id="profilePicture">
+                            <div class="flex items-center justify-center w-full h-full hover:bg-custom-dark/50 duration-300">
+                            </div>
+                        </div>
+                    </label>
+                    <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 hidden">
+                @else
+                    <label for="hash_for_profile_picture">
+                        <div class="w-28 lg:w-32 h-28 lg:h-32 rounded-full bg-cover bg-center cursor-pointer overflow-hidden" style="background-image: url('{{ asset('img/blank-profile.webp') }}')">
+                            <div class="flex items-center justify-center w-full h-full hover:bg-custom-dark/50 duration-300">
+                            </div>
+                        </div>
+                    </label>
+                    <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 hidden">
                 @endif
-                <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833">
                 @error('hash_for_profile_picture')
                     <span class="text-custom-destructive">{{ $message }}</span>
                 @enderror
             </div>
             {{-- Input Full Name --}}
             <div class="flex flex-col gap-1">
-                <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Kursus Mengemudi<span class="text-custom-destructive">*</span></label>
+                <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
                 <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" autofocus value="{{ auth()->user()->fullname }}">
                 @error('fullname')
                     <span class="text-custom-destructive">{{ $message }}</span>
@@ -174,6 +198,18 @@
                 event.preventDefault(); // Prevent space on keydown
             } else if (event.type === "input") {
                 $(this).val($(this).val().replace(/\s/g, "")); // Remove spaces on input
+            }
+        });
+
+        // ... existing code ...
+        $('#hash_for_profile_picture').on('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#profilePicture').css('background-image', 'url(' + e.target.result + ')'); // Update the background image
+                }
+                reader.readAsDataURL(file); // Read the file as a data URL
             }
         });
     </script>
