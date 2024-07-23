@@ -39,6 +39,7 @@ class adminController extends Controller
             'phone_number' => 'required|max:20',
             'password' => 'nullable|min:5|max:255|confirmed',
             'password_confirmation' => 'nullable|min:5|max:255',
+            'availability' => 'required|boolean',
         ],[
             'hash_for_profile_picture.mimes' => 'Format yang didukung adalah .jpg, .png, dan .webp',
             'hash_for_profile_picture.max' => 'Ukuran gambar maksimal adalah 2 MB',
@@ -57,8 +58,8 @@ class adminController extends Controller
             'password_confirmation.max' => 'Password terlalu panjang',
         ]);
 
-    $user = User::find(Auth::id());
-        $user->update($request->only(['fullname', 'username', 'description', 'phone_number']));
+        $user = User::find(Auth::id());
+        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability']));
 
         $fileName = null;
         if ($request->hasFile('hash_for_profile_picture')) {

@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Forms Header --}}
-    <div class="sticky top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-1">
+    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-1">
         <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Ubah Data Profil</h1>
         <p class="text-custom-grey text-lg font-league lg:text-xl">Perbarui informasi personal anda</p>
     </div>
@@ -16,22 +16,12 @@
         </div>
         {{-- Active Checkbox --}}
         <div class="flex flex-col gap-2">
-            {{-- <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
+            {{-- Dropdown --}}
+            <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
             <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                <option value="yes" selected>Bersedia</option>
-                <option value="no">Tidak Bersedia</option>
-            </select> --}}
-            {{-- Switch --}}
-            <label for="availability" class="flex items-center cursor-pointer">
-                <div class="relative flex flex-row gap-7 justify-between pl-0.5 mr-2 -z-20">
-                    <p class="text-custom-dark text-base lg:text-lg font-medium">Tekan tombol disamping jika anda ingin menutup lembaga anda untuk sementara</p>
-                    <input id="availability" type="checkbox" class="hidden" @if(auth()->user()->availability) checked @endif>
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0 w-12 h-6 bg-custom-green rounded-full"></div>
-                        <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg right-0"></div>
-                    </div>
-                </div>
-            </label>
+                <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
+                <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
+            </select>
         </div>
 
         {{-- Form Sub Headers --}}
