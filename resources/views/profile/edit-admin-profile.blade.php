@@ -1,14 +1,14 @@
 @extends('layouts.form')
 
-@section('content')
-    {{-- Forms Header --}}
-    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-2">
-        <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Ubah Data Profil</h1>
-        <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi personal anda</p>
-    </div>
+{{-- Forms Header --}}
+<div class="sticky z-40 top-0 pt-8 pb-4 px-5 lg:px-[27rem] bg-custom-white flex flex-col gap-2" id="form-header">
+    <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Ubah Data Profil</h1>
+    <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi personal anda</p>
+</div>
 
+@section('content')
     {{-- Forms --}}
-    <form action="/admin-profile/edit" method="post" enctype="multipart/form-data">
+    <form action="/admin-profile/edit" method="post" enctype="multipart/form-data" class="pb-[4.5rem] lg:pb-[5rem]">
         @csrf
         {{-- Form Sub Headers --}}
         <div class="mb-4">
@@ -56,7 +56,7 @@
             {{-- Input Full Name --}}
             <div class="flex flex-col gap-1">
                 <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
-                <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" autofocus value="{{ auth()->user()->fullname }}">
+                <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
                 @error('fullname')
                     <span class="text-custom-destructive">{{ $message }}</span>
                 @enderror
@@ -129,7 +129,7 @@
         </div>
     
         {{-- Button Groups --}}
-        <div class="flex flex-row sticky z-20 bottom-0 py-4 items-center justify-between bg-custom-white mt-3">
+        <div class="flex flex-row fixed w-[calc(100%-2.5rem)] lg:w-[calc(100%-54rem)] z-20 bottom-0 py-4 lg:py-5 items-center justify-between bg-custom-white">
             <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
             <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
         </div>
@@ -148,6 +148,15 @@
         phoneInputField.addEventListener('keypress', function(event) {
             if (isNaN(event.key)) {
                 event.preventDefault(); // Prevent non-numerical input
+            }
+        });
+
+        $(window).on('scroll', function () {
+            const scrolled = $(this).scrollTop();
+            if (scrolled > 30) {
+                $('#form-header').addClass('shadow-lg');
+            } else {
+                $('#form-header').removeClass('shadow-lg');
             }
         });
 

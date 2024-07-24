@@ -19,8 +19,10 @@
 
     <title>{{ $pageName }} Kemudi</title>
 </head>
-<body class="bg-custom-white px-5 lg:px-[27rem]">
-    @yield('content')
+<body class="bg-custom-white">
+    <div class="px-5 lg:px-[27rem]">
+        @yield('content')
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
