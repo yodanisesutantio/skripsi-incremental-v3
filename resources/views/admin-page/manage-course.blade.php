@@ -6,10 +6,10 @@
     <h1 class="text-custom-dark font-encode font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Kelas Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg lg:text-2xl mt-1">Kelola kelas anda agar lebih menarik</p>
 
-    <a href="admin-manage-course/create"> <div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
+    <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
 
     {{-- Class List --}}
-    <div class="flex flex-col gap-6 mt-8 mb-7 lg:mb-8">
+    <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mt-8 mb-7 lg:mb-8">
         @if ($course->isEmpty())
             <p class="font-league text-center lg:text-xl my-3 lg:my-6">(Anda belum mempunyai kursus)</p>
         @else

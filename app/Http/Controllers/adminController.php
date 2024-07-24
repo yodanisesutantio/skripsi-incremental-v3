@@ -125,4 +125,10 @@ class adminController extends Controller
             "course" => $course,
         ]);
     }
+
+    public function createCoursePage() {
+        return view('admin-page.create-course', [
+            'pageName' => "Tambah Kelas Baru | "
+        ]);
+    }
 }

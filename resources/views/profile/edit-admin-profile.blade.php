@@ -2,9 +2,9 @@
 
 @section('content')
     {{-- Forms Header --}}
-    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-1">
+    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-2">
         <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Ubah Data Profil</h1>
-        <p class="text-custom-grey text-lg font-league lg:text-xl">Perbarui informasi personal anda</p>
+        <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi personal anda</p>
     </div>
 
     {{-- Forms --}}

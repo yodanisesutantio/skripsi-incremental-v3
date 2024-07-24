@@ -62,6 +62,16 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 1,
         ]);
+        Course::create([
+            'course_name' => 'Kursus Privat',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobila anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 6,
+            'course_price' => 1200000,
+            'course_length' => 5,
+            'car_type' => "Manual & Automatic",
+            'can_use_own_car' => true,
+            'admin_id' => 1,
+        ]);
         Enrollment::create([
             'course_id' => 3,
             'instructor_id' => 1,
