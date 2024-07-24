@@ -50,6 +50,64 @@
                     <span class="text-custom-destructive">{{ $message }}</span>
                 @enderror
             </div>
+            {{-- Input Course_Quota --}}
+            <div class="flex flex-col gap-1">
+                <label for="course_quota" class="font-semibold font-league text-xl text-custom-grey">Kuota Kelas<span class="text-custom-destructive">*</span></label>
+                <input type="number" min="1" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror">
+                @error('course_quota')
+                    <span class="text-custom-destructive">{{ $message }}</span>
+                @enderror
+            </div>
+            {{-- Input Course_Length --}}
+            <div class="flex flex-col gap-1">
+                <label for="course_length" class="font-semibold font-league text-xl text-custom-grey">Jumlah Pertemuan<span class="text-custom-destructive">*</span></label>
+                <input type="number" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror">
+                @error('course_length')
+                    <span class="text-custom-destructive">{{ $message }}</span>
+                @enderror
+            </div>
+            {{-- Input Course_Price --}}
+            <div class="flex flex-col gap-1">
+                <label for="course_price" class="font-semibold font-league text-xl text-custom-grey">Harga Kelas<span class="text-custom-destructive">*</span></label>
+                <input type="text" name="course_price" id="course_price" placeholder="Harga Kelas" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_price') border-2 border-custom-destructive @enderror" oninput="formatCurrency(this)">
+                @error('course_price')
+                    <span class="text-custom-destructive">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+
+        {{-- Form Sub Headers --}}
+        <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
+            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Kategori Kelas Kursus</h2>
+        </div>
+        <div class="flex flex-col mt-4 gap-5 lg:gap-7">
+            {{-- Input Car_Type --}}
+            <div class="flex flex-col gap-1">
+                {{-- Dropdown --}}
+                <label for="car_type" class="font-semibold font-league text-xl text-custom-grey">Jenis Transmisi Mobil<span class="text-custom-destructive">*</span></label>
+                <select name="car_type" id="car_type" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('car_type') border-2 border-custom-destructive @enderror">
+                    <option disabled selected>-- Jenis Transmisi Mobil --</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Matic</option>
+                    <option value="Both">Manual & Matic</option>
+                </select>
+                @error('car_type')
+                    <span class="text-custom-destructive">{{ $message }}</span>
+                @enderror
+            </div>
+            {{-- Input Can_Use_Own_Car --}}
+            <div class="flex flex-col gap-1">
+                {{-- Dropdown --}}
+                <label for="can_use_own_car" class="font-semibold font-league text-xl text-custom-grey">Siswa Bisa Menggunakan Mobil Sendiri?<span class="text-custom-destructive">*</span></label>
+                <select name="can_use_own_car" id="can_use_own_car" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('can_use_own_car') border-2 border-custom-destructive @enderror">
+                    <option disabled selected>-- Bisa Pakai Mobil Sendiri --</option>
+                    <option value="0">Tidak Bisa</option>
+                    <option value="1">Bisa</option>
+                </select>
+                @error('can_use_own_car')
+                    <span class="text-custom-destructive">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
 
         {{-- Button Groups --}}
@@ -58,4 +116,17 @@
             <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Tambah</button>
         </div>
     </form>
+
+    {{-- jQuery JS --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value) {
+                input.value = 'Rp. ' + value.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ",-"; // Format to "Rp. x.xxx.xxx,-"
+            } else {
+                input.value = ''; // Clear if no value
+            }
+        }
+    </script>
 @endsection
