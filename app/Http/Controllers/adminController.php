@@ -86,6 +86,25 @@ class adminController extends Controller
 
         return redirect()->intended('/admin-profile');
     }
+    
+    public function checkAvailability(Request $request) {
+        $request->validate([
+            'availability' => 'required|boolean',
+        ]);
+
+        $user = auth()->user();
+
+        if ($user->availability === 0) {
+            $request->session()->flash('error', 'Anda sudah nonaktif');
+            return redirect()->intended('/admin-profile');
+        }
+
+        $user->availability = $request->availability;
+        $user->save();
+
+        $request->session()->flash('success', 'Penonaktifan lembaga berhasil!');
+        return redirect()->intended('/admin-profile');
+    }
 
     public function destroy(Request $request)
     {

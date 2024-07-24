@@ -47,6 +47,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
     // Admin Edit Profile Logic Handler
     Route::post('/admin-profile/edit', [adminController::class, 'update']);
+    // Admin Check Availability Logic Handler
+    Route::post('/check-availability', [adminController::class, 'checkAvailability'])->name('changeAvailability');
     // Admin Delete Account Logic Handler
     Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 

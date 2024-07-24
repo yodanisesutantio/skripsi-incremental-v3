@@ -118,10 +118,10 @@
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="closeDeactivate" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
                 <button type="submit" id="yesDeactivate" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Nonaktifkan</button>
-                {{-- <form action="{{ route('account.destroy') }}" method="post" class="mb-1 hidden">
-                    @method('delete')
+                <form action="/check-availability" method="post" class="mb-1 hidden" id="availabilityForm">                    
                     @csrf
-                </form> --}}
+                    <input type="hidden" name="availability" value="0">
+                </form>
             </div>
         </div>
     </div>
@@ -147,13 +147,11 @@
             });
         }
 
-        // function deactivateConfirmation() {
-        //     deactivateOverlay.toggleClass('hidden');
-        //     $('#yesDeactivate').click(function(event) {
-        //         event.preventDefault();
-        //         $('#yesDeactivate').next().submit();
-        //     });
-        // }
+        $('#yesDeactivate').click(function(event) {
+            event.preventDefault();
+            // Submit the form to update availability
+            $('#availabilityForm').submit(); // Adjusted to submit the form
+        });
 
         function toggleDeactivateOverlay() {
             openDeactivatePopup.toggleClass('hidden');
