@@ -43,11 +43,11 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         };
-        @if(session()->has('success'))
-            toastr.success("{{ session()->get('success') }}");
-        @elseif(session()->has('error'))
-            toastr.error("{{ session()->get('error') }}");
-        @endif
+        @foreach(['success', 'error', 'warning', 'info'] as $type)
+            @if(session()->has($type))
+                toastr.{{ $type }}("{{ session()->get($type) }}");
+            @endif
+        @endforeach
     </script>
 </body>
 </html>
