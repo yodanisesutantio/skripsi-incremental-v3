@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             'course_length' => 5,
             'car_type' => "Automatic",
             'can_use_own_car' => false,
+            'course_availability' => 0,
             'admin_id' => 1,
         ]);
         Course::create([

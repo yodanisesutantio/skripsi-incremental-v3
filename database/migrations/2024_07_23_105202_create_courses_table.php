@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('course_length');
             $table->string('car_type');
             $table->boolean('can_use_own_car')->default(false);
-            $table->boolean('availability')->default(true);
+            $table->boolean('course_availability')->default(true);
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

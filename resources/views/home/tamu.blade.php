@@ -58,6 +58,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         toastr.options.timeOut = 2500;
+        toastr.options.closeButton = true;
+        toastr.options.progressBar = true;
         toastr.info('Anda Masuk Sebagai Tamu');
     </script>
 @endsection

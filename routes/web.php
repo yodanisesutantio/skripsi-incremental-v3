@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\courseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +55,9 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
     // Admin's My Course Page
     Route::get('/admin-manage-course', [adminController::class, 'manageCourse']);
+
+    // Admin Deactivate Course Logic
+    Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
+    // Admin Activate Course Logic
+    Route::post('/admin-activate-course', [courseController::class, 'activateCourse']);
 });
