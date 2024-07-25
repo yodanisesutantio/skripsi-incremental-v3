@@ -30,15 +30,13 @@ class adminController extends Controller
         ]);
     }
 
-    public function update(Request $request) {
+    public function editAccountInfo(Request $request) {
         $this->validate($request, [
             'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
             'fullname' => 'required|max:255',
             'username' => 'required|max:255|unique:users,username,' . Auth::id(),
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
-            'password' => 'nullable|min:5|max:255|confirmed',
-            'password_confirmation' => 'nullable|min:5|max:255',
             'availability' => 'required|boolean',
         ],[
             'hash_for_profile_picture.mimes' => 'Format yang didukung adalah .jpg, .png, dan .webp',
@@ -51,11 +49,6 @@ class adminController extends Controller
             'description.max' => 'Deskripsi terlalu panjang',
             'phone_number.required' => 'Kolom ini harus diisi',
             'phone_number.max' => 'Nomor Terlalu Panjang',
-            'password.min' => 'Password minimal berisi 5 karakter',
-            'password.max' => 'Password terlalu panjang',
-            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
-            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
-            'password_confirmation.max' => 'Password terlalu panjang',
         ]);
 
         $user = User::find(Auth::id());
@@ -75,12 +68,31 @@ class adminController extends Controller
             $user->save();            
         }     
 
+        $user->save();
+
+        $request->session()->flash('success', 'Profil berhasil diperbarui');
+
+        return redirect()->intended('/admin-profile');
+    }
+
+    public function editPassword(Request $request) {
+        $request->validate([
+            'password' => 'nullable|min:5|max:255|confirmed',
+            'password_confirmation' => 'nullable|min:5|max:255',
+        ],[
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password terlalu panjang',
+            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
+            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
+            'password_confirmation.max' => 'Password terlalu panjang',
+        ]);
+
+        $user = User::find(Auth::id());
+
         if ($request->has('password') && $request->has('password_confirmation') && !empty($request->password)) {
             $user->password = bcrypt($request->password);
             $user->save();
         }
-
-        $user->save();
 
         $request->session()->flash('success', 'Profil berhasil diperbarui');
 
