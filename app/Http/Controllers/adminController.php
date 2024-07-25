@@ -26,7 +26,7 @@ class adminController extends Controller
 
     public function editProfile() {
         return view('profile.edit-admin-profile', [
-            "pageName" => "Ubah Profil Anda | ",
+            "pageName" => "Edit Profil | ",
         ]);
     }
 
