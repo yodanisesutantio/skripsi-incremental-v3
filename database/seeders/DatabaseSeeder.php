@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\PaymentMethod;
 
 class DatabaseSeeder extends Seeder
 {
@@ -81,6 +82,13 @@ class DatabaseSeeder extends Seeder
             'course_id' => 1,
             'instructor_id' => 1,
             'student_id' => 2,
+        ]);
+        PaymentMethod::create([
+            'payment_vendor' => "BCA",
+            'payment_receiver_name' => "Agus",
+            'payment_address' => "282831039210",
+            'is_active' => 1,
+            'admin_id' => 1,
         ]);
     }
 }

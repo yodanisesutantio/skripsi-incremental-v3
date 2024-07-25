@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_name');
+            $table->string('payment_vendor');
             $table->string('payment_receiver_name');
             $table->string('payment_address');
-            $table->date('expiration_date')->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

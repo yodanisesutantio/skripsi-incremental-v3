@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Course;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -25,8 +26,10 @@ class adminController extends Controller
     }
 
     public function editProfile() {
+        $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
         return view('profile.edit-admin-profile', [
             "pageName" => "Edit Profil | ",
+            "paymentMethod" => $paymentMethod,
         ]);
     }
 

@@ -11,25 +11,25 @@
             <ul class="flex flex-row gap-5 font-league text-custom-dark text-lg font-medium text-center">
                 {{-- Account Info --}}
                 <li class="whitespace-nowrap rounded-lg duration-300">
-                    <button class="lg:hover:bg-custom-grey/30 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 ml-6" id="accountInfoButton">Informasi Akun</button>
+                    <button class="lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 ml-6" id="accountInfoButton">Informasi Akun</button>
                 </li>
                 {{-- Payment Method --}}
                 <li class="whitespace-nowrap rounded-lg duration-300">
-                    <button class="lg:hover:bg-custom-grey/30 py-1 opacity-40" id="paymentMethodButton">Pembayaran Kursus</button>
+                    <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="paymentMethodButton">Pembayaran Kursus</button>
                 </li>
                 {{-- Keamanan Akun --}}
                 <li class="whitespace-nowrap rounded-lg duration-300">
-                    <button class="lg:hover:bg-custom-grey/30 py-1 opacity-40 mr-6" id="securityButton">Keamanan Akun</button>
+                    <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40 mr-6" id="securityButton">Keamanan Akun</button>
                 </li>
             </ul>
         </div>
     </div>
 
-    <div class="swiper h-auto">
+    <div class="swiper">
         <div class="swiper-wrapper">
             {{-- Account Info Form --}}
             <div class="swiper-slide overflow-y-auto">
-                <form action="/edit-admin-account-info" method="post" enctype="multipart/form-data" class="px-6 pt-2 pb-24">
+                <form action="/edit-admin-account-info" method="post" enctype="multipart/form-data" class="px-6 pt-1 pb-24">
                     @csrf
                     {{-- Form Sub Headers --}}
                     <div class="mb-4">
@@ -78,7 +78,7 @@
                             @enderror
                         </div>
                         {{-- Input Full Name --}}
-                        <div class="flex flex-col gap-1">
+                        <div class="flex flex-col gap-2">
                             <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
                             <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
                             @error('fullname')
@@ -86,7 +86,7 @@
                             @enderror
                         </div>
                         {{-- Input Username --}}
-                        <div class="flex flex-col gap-1">
+                        <div class="flex flex-col gap-2">
                             <label for="username" class="font-semibold font-league text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
                             <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->username }}">
                             @error('username')
@@ -98,7 +98,7 @@
                             @enderror
                         </div>
                         {{-- Input Description --}}
-                        <div class="flex flex-col gap-1">
+                        <div class="flex flex-col gap-2">
                             <label for="description" class="font-semibold font-league text-xl text-custom-grey">Deskripsi (opsional)</label>
                             <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
                             @error('description')
@@ -106,7 +106,7 @@
                             @enderror
                         </div>
                         {{-- Input Phone Number --}}
-                        <div class="flex flex-col gap-1">
+                        <div class="flex flex-col gap-2">
                             <label for="phone_number" class="font-semibold font-league text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
                             <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}">
                             @error('phone_number')
@@ -119,11 +119,71 @@
 
             {{-- Payment Methods --}}
             <div class="swiper-slide">
+                <form action="/edit-admin-payment-method" method="post" class="px-6 pt-1 pb-24">
+                    @csrf
+                    @foreach ($paymentMethod as $methodOfPayment)
+                        {{-- Form Sub Headers --}}
+                        <div class="mb-4">
+                            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
+                        </div>
 
+                        <div class="flex flex-col gap-5 lg:gap-7">
+                            {{-- is_active --}}
+                            <div class="flex flex-col gap-2">
+                                {{-- Dropdown --}}
+                                <label for="is_payment_active" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
+                                <select name="is_payment_active" id="is_payment_active" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                    <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
+                                    <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                </select>
+                            </div>
+
+                            {{-- Select Bank Name --}}
+                            <div class="flex flex-col gap-2">
+                                {{-- Dropdown --}}
+                                <label for="payment_vendor" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
+                                <select name="payment_vendor" id="payment_vendor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                    <option value="" disabled>-- Metode Pembayaran --</option>
+                                    <option value="BCA" {{ $methodOfPayment['is_payment_active'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
+                                    <option value="BNI" {{ $methodOfPayment['is_payment_active'] === "BNI" ? 'selected' : '' }}>Bank BNI</option>
+                                    <option value="BRI" {{ $methodOfPayment['is_payment_active'] === "BRI" ? 'selected' : '' }}>Bank BRI</option>
+                                    <option value="Mandiri" {{ $methodOfPayment['is_payment_active'] === "Mandiri" ? 'selected' : '' }}>Bank Mandiri</option>
+                                    <option value="Mega" {{ $methodOfPayment['is_payment_active'] === "Mega" ? 'selected' : '' }}>Bank Mega</option>
+                                    <option value="BTN" {{ $methodOfPayment['is_payment_active'] === "BTN" ? 'selected' : '' }}>Bank BTN</option>
+                                    <option value="Jatim" {{ $methodOfPayment['is_payment_active'] === "Jatim" ? 'selected' : '' }}>Bank Jatim</option>
+                                    <option value="BCA Syariah" {{ $methodOfPayment['is_payment_active'] === "BCA Syariah" ? 'selected' : '' }}>Bank BCA Syariah</option>
+                                    <option value="BNI Syariah" {{ $methodOfPayment['is_payment_active'] === "BNI Syariah" ? 'selected' : '' }}>Bank BNI Syariah</option>
+                                    <option value="BRI Syariah" {{ $methodOfPayment['is_payment_active'] === "BRI Syariah" ? 'selected' : '' }}>Bank BRI Syariah</option>
+                                    <option value="Jenius" {{ $methodOfPayment['is_payment_active'] === "Jenius" ? 'selected' : '' }}>Jenius</option>
+                                </select>
+                            </div>
+
+                            {{-- Input Receiver Name --}}
+                            <div class="flex flex-col gap-2">
+                                <label for="payment_receiver_name" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
+                                <input type="text" name="payment_receiver_name" id="payment_receiver_name" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
+                                @error('payment_receiver_name')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- Input Payment Address --}}
+                            <div class="flex flex-col gap-2">
+                                <label for="payment_address" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
+                                <input type="text" name="payment_address" id="payment_address" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
+                                @error('payment_address')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    @endforeach
+                    <button type="button" class="mt-7 px-6 py-5 w-full rounded-lg lg:rounded-lg border-2 border-custom-grey border-dashed bg-custom-disabled-light/60 hover:bg-custom-disabled-light text-center lg:text-lg text-custom-grey font-semibold lg:order-2 duration-500">+ Tambah Metode Pembayaran</button>
+                </form>
             </div>
+            
             {{-- Security --}}
             <div class="swiper-slide">
-                <form action="/edit-admin-password" method="post" class="px-6 pt-2 pb-24">
+                <form action="/edit-admin-password" method="post" class="px-6 pt-1 pb-24">
                     @csrf
                     {{-- Form Sub Headers --}}
                     <div class="mb-4">
@@ -235,7 +295,7 @@
         // Add Shadow to Form Header
         $(window).on('scroll', function () {
             const scrolled = $(this).scrollTop();
-            if (scrolled > 30) {
+            if (scrolled > 15) {
                 $('#form-header').addClass('shadow-lg');
             } else {
                 $('#form-header').removeClass('shadow-lg');
