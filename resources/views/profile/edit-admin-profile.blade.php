@@ -118,69 +118,88 @@
             </div>
 
             {{-- Payment Methods --}}
-            <div class="swiper-slide">
+            <div class="swiper-slide overflow-y-auto">
                 <form action="/edit-admin-payment-method" method="post" class="px-6 pt-1 pb-24">
                     @csrf
-                    @foreach ($paymentMethod as $methodOfPayment)
-                        {{-- Form Sub Headers --}}
-                        <div class="mb-4">
-                            <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
+
+                    @if ($paymentMethod && $paymentMethod->count() > 0)
+                        <div id="existingPaymentMethods">
+                            @foreach ($paymentMethod as $index => $methodOfPayment)
+                                <div class="form-wrapper mb-8">
+                                    {{-- Hidden Attribute --}}
+                                    <input type="hidden" name="payment_methods[{{ $index }}][id]" value="{{ $methodOfPayment['id'] }}">
+                                    <input type="hidden" name="payment_methods[{{ $index }}][admin_id]" value="{{ auth()->user()->id }}">
+
+                                    {{-- Form Sub Headers --}}
+                                    <div class="flex flex-row w-full justify-between mb-4">
+                                        <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
+                                        @if ($paymentMethod->count() > 1)
+                                            <button type="button" class="removePaymentMethods" data-index="{{ $index }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
+                                            </button>
+                                        @endif
+                                    </div>
+
+                                    <div class="flex flex-col gap-5 lg:gap-7">
+                                        {{-- is_active --}}
+                                        <div class="flex flex-col gap-2">
+                                            {{-- Dropdown --}}
+                                            <label for="payment_methods[{{ $index }}][is_payment_active]" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
+                                            <select name="payment_methods[{{ $index }}][is_payment_active]" id="payment_methods[{{ $index }}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                                <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
+                                                <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                            </select>
+                                        </div>
+
+                                        {{-- Select Bank Name --}}
+                                        <div class="flex flex-col gap-2">
+                                            {{-- Dropdown --}}
+                                            <label for="payment_methods[{{ $index }}][payment_vendor]" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
+                                            <select name="payment_methods[{{ $index }}][payment_vendor]" id="payment_methods[{{ $index }}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                                <option value="" disabled>-- Metode Pembayaran --</option>
+                                                <option value="BCA" {{ $methodOfPayment['payment_vendor'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
+                                                <option value="BNI" {{ $methodOfPayment['payment_vendor'] === "BNI" ? 'selected' : '' }}>Bank BNI</option>
+                                                <option value="BRI" {{ $methodOfPayment['payment_vendor'] === "BRI" ? 'selected' : '' }}>Bank BRI</option>
+                                                <option value="Mandiri" {{ $methodOfPayment['payment_vendor'] === "Mandiri" ? 'selected' : '' }}>Bank Mandiri</option>
+                                                <option value="Mega" {{ $methodOfPayment['payment_vendor'] === "Mega" ? 'selected' : '' }}>Bank Mega</option>
+                                                <option value="BTN" {{ $methodOfPayment['payment_vendor'] === "BTN" ? 'selected' : '' }}>Bank BTN</option>
+                                                <option value="Jatim" {{ $methodOfPayment['payment_vendor'] === "Jatim" ? 'selected' : '' }}>Bank Jatim</option>
+                                                <option value="BCA Syariah" {{ $methodOfPayment['payment_vendor'] === "BCA Syariah" ? 'selected' : '' }}>Bank BCA Syariah</option>
+                                                <option value="BNI Syariah" {{ $methodOfPayment['payment_vendor'] === "BNI Syariah" ? 'selected' : '' }}>Bank BNI Syariah</option>
+                                                <option value="BRI Syariah" {{ $methodOfPayment['payment_vendor'] === "BRI Syariah" ? 'selected' : '' }}>Bank BRI Syariah</option>
+                                                <option value="Jenius" {{ $methodOfPayment['payment_vendor'] === "Jenius" ? 'selected' : '' }}>Jenius</option>
+                                            </select>
+                                        </div>
+
+                                        {{-- Input Receiver Name --}}
+                                        <div class="flex flex-col gap-2">
+                                            <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
+                                            <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
+                                            @error('payment_receiver_name')
+                                                <span class="text-custom-destructive">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Input Payment Address --}}
+                                        <div class="flex flex-col gap-2">
+                                            <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
+                                            <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
+                                            @error('payment_address')
+                                                <span class="text-custom-destructive">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
+                    @else
 
-                        <div class="flex flex-col gap-5 lg:gap-7">
-                            {{-- is_active --}}
-                            <div class="flex flex-col gap-2">
-                                {{-- Dropdown --}}
-                                <label for="is_payment_active" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
-                                <select name="is_payment_active" id="is_payment_active" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                                    <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
-                                    <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                                </select>
-                            </div>
-
-                            {{-- Select Bank Name --}}
-                            <div class="flex flex-col gap-2">
-                                {{-- Dropdown --}}
-                                <label for="payment_vendor" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
-                                <select name="payment_vendor" id="payment_vendor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                                    <option value="" disabled>-- Metode Pembayaran --</option>
-                                    <option value="BCA" {{ $methodOfPayment['is_payment_active'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
-                                    <option value="BNI" {{ $methodOfPayment['is_payment_active'] === "BNI" ? 'selected' : '' }}>Bank BNI</option>
-                                    <option value="BRI" {{ $methodOfPayment['is_payment_active'] === "BRI" ? 'selected' : '' }}>Bank BRI</option>
-                                    <option value="Mandiri" {{ $methodOfPayment['is_payment_active'] === "Mandiri" ? 'selected' : '' }}>Bank Mandiri</option>
-                                    <option value="Mega" {{ $methodOfPayment['is_payment_active'] === "Mega" ? 'selected' : '' }}>Bank Mega</option>
-                                    <option value="BTN" {{ $methodOfPayment['is_payment_active'] === "BTN" ? 'selected' : '' }}>Bank BTN</option>
-                                    <option value="Jatim" {{ $methodOfPayment['is_payment_active'] === "Jatim" ? 'selected' : '' }}>Bank Jatim</option>
-                                    <option value="BCA Syariah" {{ $methodOfPayment['is_payment_active'] === "BCA Syariah" ? 'selected' : '' }}>Bank BCA Syariah</option>
-                                    <option value="BNI Syariah" {{ $methodOfPayment['is_payment_active'] === "BNI Syariah" ? 'selected' : '' }}>Bank BNI Syariah</option>
-                                    <option value="BRI Syariah" {{ $methodOfPayment['is_payment_active'] === "BRI Syariah" ? 'selected' : '' }}>Bank BRI Syariah</option>
-                                    <option value="Jenius" {{ $methodOfPayment['is_payment_active'] === "Jenius" ? 'selected' : '' }}>Jenius</option>
-                                </select>
-                            </div>
-
-                            {{-- Input Receiver Name --}}
-                            <div class="flex flex-col gap-2">
-                                <label for="payment_receiver_name" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
-                                <input type="text" name="payment_receiver_name" id="payment_receiver_name" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
-                                @error('payment_receiver_name')
-                                    <span class="text-custom-destructive">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            {{-- Input Payment Address --}}
-                            <div class="flex flex-col gap-2">
-                                <label for="payment_address" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
-                                <input type="text" name="payment_address" id="payment_address" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
-                                @error('payment_address')
-                                    <span class="text-custom-destructive">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                    @endforeach
-                    <button type="button" class="mt-7 px-6 py-5 w-full rounded-lg lg:rounded-lg border-2 border-custom-grey border-dashed bg-custom-disabled-light/60 hover:bg-custom-disabled-light text-center lg:text-lg text-custom-grey font-semibold lg:order-2 duration-500">+ Tambah Metode Pembayaran</button>
+                    @endif
+                    
+                    <button type="button" id="addPaymentMethods" class="px-6 py-3 w-full rounded-lg lg:rounded-lg border-2 border-custom-grey border-dashed bg-custom-disabled-light/60 hover:bg-custom-disabled-light text-center lg:text-lg text-custom-grey font-semibold lg:order-2 duration-500">+ Tambah Metode Pembayaran</button>
                 </form>
             </div>
-            
+
             {{-- Security --}}
             <div class="swiper-slide">
                 <form action="/edit-admin-password" method="post" class="px-6 pt-1 pb-24">
@@ -357,11 +376,113 @@
             }
         });
 
+        // Function to submit all forms
         $('#submitAllForms').on('click', function() {
             $('form[action="/edit-admin-account-info"]').submit();
             setTimeout(function() {
                 $('form[action="/edit-admin-password"]').submit();
             }, 400);
+        });
+
+        let paymentMethodIndex = $('#existingPaymentMethods .form-wrapper').length; // Initialize with existing count
+        $('#addPaymentMethods').on('click', function() {
+            const $container = $('#existingPaymentMethods');
+            const newMethod = `
+            <div class="form-wrapper new-payment-method">
+                {{-- Hidden Attribute --}}
+                <input type="hidden" name="payment_methods[${paymentMethodIndex}][id]" value="">
+                <input type="hidden" name="payment_methods[${paymentMethodIndex}][admin_id]" value="{{ auth()->user()->id }}">
+
+                {{-- Form Sub Headers --}}
+                <div class="flex flex-row w-full justify-between mb-4">
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank Baru</h2>
+                    <button type="button" class="removePaymentMethods" data-index="${paymentMethodIndex}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-5 lg:gap-7">
+                    {{-- is_active --}}
+                    <div class="flex flex-col gap-2">
+                        {{-- Dropdown --}}
+                        <label for="payment_methods[${paymentMethodIndex}][is_payment_active]" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
+                        <select name="payment_methods[${paymentMethodIndex}][is_payment_active]" id="payment_methods[${paymentMethodIndex}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                            <option value="1">Aktif</option>
+                            <option value="0">Tidak Aktif</option>
+                        </select>
+                    </div>
+
+                    {{-- Select Bank Name --}}
+                    <div class="flex flex-col gap-2">
+                        {{-- Dropdown --}}
+                        <label for="payment_methods[${paymentMethodIndex}][payment_vendor]" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <select name="payment_methods[${paymentMethodIndex}][payment_vendor]" id="payment_methods[${paymentMethodIndex}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                            <option value="" disabled selected>-- Metode Pembayaran --</option>
+                            <option value="BCA">Bank BCA</option>
+                            <option value="BNI">Bank BNI</option>
+                            <option value="BRI">Bank BRI</option>
+                            <option value="Mandiri">Bank Mandiri</option>
+                            <option value="Mega">Bank Mega</option>
+                            <option value="BTN">Bank BTN</option>
+                            <option value="Jatim">Bank Jatim</option>
+                            <option value="BCA Syariah">Bank BCA Syariah</option>
+                            <option value="BNI Syariah">Bank BNI Syariah</option>
+                            <option value="BRI Syariah">Bank BRI Syariah</option>
+                            <option value="Jenius">Jenius</option>
+                        </select>
+                    </div>
+
+                    {{-- Input Receiver Name --}}
+                    <div class="flex flex-col gap-2">
+                        <label for="payment_methods[${paymentMethodIndex}][payment_receiver_name]" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <input type="text" name="payment_methods[${paymentMethodIndex}][payment_receiver_name]" id="payment_methods[${paymentMethodIndex}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="">
+                        @error('payment_receiver_name')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Input Payment Address --}}
+                    <div class="flex flex-col gap-2">
+                        <label for="payment_methods[${paymentMethodIndex}][payment_address]" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <input type="text" name="payment_methods[${paymentMethodIndex}][payment_address]" id="payment_methods[${paymentMethodIndex}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="">
+                        @error('payment_address')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            `;
+            $container.append(newMethod);
+            paymentMethodIndex++;
+            swiper.update();
+
+            // Hide the add button after adding a new payment method
+            $(this).hide();
+        });
+
+        // jQuery function to remove payment methods
+        $(document).on('click', '.removePaymentMethods', function() {
+            const $formWrapper = $(this).closest('.form-wrapper'); // Get the form wrapper
+            $formWrapper.remove(); // Remove the corresponding form-wrapper
+
+            // Check the number of remaining payment methods
+            const remainingMethods = $('#existingPaymentMethods .form-wrapper').length;
+
+            // Show the add button again if no new payment method is present
+            if ($('#existingPaymentMethods .new-payment-method').length === 0) {
+                $('#addPaymentMethods').show(); // Show the add button if no new payment method exists
+            }
+
+            // If only one method remains, hide the remove button for that method
+            if (remainingMethods <= 1) {
+                $('#existingPaymentMethods .removePaymentMethods').hide(); // Hide all remove buttons if only one method remains
+            } else {
+                // Show the remove buttons for remaining methods
+                $('#existingPaymentMethods .removePaymentMethods').show();
+            }
+
+            // Update the Swiper instance if needed
+            swiper.update(); // Update the Swiper instance
         });
     </script>
 @endsection

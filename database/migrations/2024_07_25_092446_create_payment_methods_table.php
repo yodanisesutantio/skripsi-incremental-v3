@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('payment_vendor');
             $table->string('payment_receiver_name');
             $table->string('payment_address');
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_payment_active')->default(true);
             $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

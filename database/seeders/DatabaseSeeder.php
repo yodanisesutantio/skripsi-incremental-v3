@@ -87,7 +87,14 @@ class DatabaseSeeder extends Seeder
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Agus",
             'payment_address' => "282831039210",
-            'is_active' => 1,
+            'is_payment_active' => 1,
+            'admin_id' => 1,
+        ]);
+        PaymentMethod::create([
+            'payment_vendor' => "Jenius",
+            'payment_receiver_name' => "Bapak Kao Pecah",
+            'payment_address' => "1283101141201",
+            'is_payment_active' => 1,
             'admin_id' => 1,
         ]);
     }
