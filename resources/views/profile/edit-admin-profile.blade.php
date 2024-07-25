@@ -33,7 +33,7 @@
             <div class="flex flex-col gap-2">
                 <label for="hash_for_profile_picture" class="font-semibold font-league text-xl text-custom-grey">Gambar Profil (Optional)</label>
                 @if (auth()->user()->hash_for_profile_picture)
-                    <label for="hash_for_profile_picture">
+                    <label for="hash_for_profile_picture" class="relative">
                         <div class="w-28 lg:w-32 h-28 lg:h-32 rounded-full bg-cover bg-center cursor-pointer overflow-hidden" style="background-image: url('{{ asset('storage/profile_pictures/' . auth()->user()->hash_for_profile_picture) }}')" id="profilePicture">
                             <div class="flex items-center justify-center w-full h-full hover:bg-custom-dark/50 duration-300">
                             </div>
@@ -41,7 +41,10 @@
                     </label>
                     <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 hidden">
                 @else
-                    <label for="hash_for_profile_picture">
+                    <label for="hash_for_profile_picture" class="relative w-fit">
+                        <div class="p-2 w-fit rounded-full bg-custom-disabled-dark/90 absolute bottom-0 right-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="#EBF0F2" d="m11.4 18.161l7.396-7.396a10.289 10.289 0 0 1-3.326-2.234a10.29 10.29 0 0 1-2.235-3.327L5.839 12.6c-.577.577-.866.866-1.114 1.184a6.556 6.556 0 0 0-.749 1.211c-.173.364-.302.752-.56 1.526l-1.362 4.083a1.06 1.06 0 0 0 1.342 1.342l4.083-1.362c.775-.258 1.162-.387 1.526-.56c.43-.205.836-.456 1.211-.749c.318-.248.607-.537 1.184-1.114m9.448-9.448a3.932 3.932 0 0 0-5.561-5.561l-.887.887l.038.111a8.754 8.754 0 0 0 2.092 3.32a8.754 8.754 0 0 0 3.431 2.13z"/></svg>
+                        </div>
                         <div class="w-28 lg:w-32 h-28 lg:h-32 rounded-full bg-cover bg-center cursor-pointer overflow-hidden" style="background-image: url('{{ asset('img/blank-profile.webp') }}')">
                             <div class="flex items-center justify-center w-full h-full hover:bg-custom-dark/50 duration-300">
                             </div>
@@ -135,16 +138,37 @@
         </div>
     </form>
 
+    {{-- Swiper CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        const phoneInputField = document.getElementById('phone_number');
-        
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: false,
+
+            navigation: {
+                prevEl: '',
+                nextEl: '',
+            },
+
+            on: {
+                slideChange: function() {
+                    const currentSlide = swiper.activeIndex + 1;
+                    const isLastSlide = currentSlide === swiper.slides.length; 
+
+                    document.getElementById('continue').style.display = isLastSlide ? 'none' : 'block';
+                    document.getElementById('sendDocument').style.display = isLastSlide ? 'block' : 'none';
+                }
+            }
+        })
+
+        // Tel Input Script
+        const phoneInputField = document.getElementById('phone_number');        
         const intlTelInput = window.intlTelInput(phoneInputField, {
             initialCountry: "ID", 
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
         });
-
         phoneInputField.addEventListener('keypress', function(event) {
             if (isNaN(event.key)) {
                 event.preventDefault(); // Prevent non-numerical input

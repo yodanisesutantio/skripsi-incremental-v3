@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/BG-Login.webp')">
-        <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#EBF0F212] border-0 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
+        <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#EBF0F212] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
             <h1 class="text-3xl lg:text-4xl/snug text-center tracking-normal text-custom-white font-encode font-semibold">Selamat Datang!</h1>
 
