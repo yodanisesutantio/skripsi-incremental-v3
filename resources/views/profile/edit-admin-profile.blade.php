@@ -35,7 +35,7 @@
         
         <div class="lg:col-span-2 lg:px-24">
             {{-- Tabs --}}
-            <div class="overflow-x-auto lg:px-6 lg:pt-8 lg:mb-6 hidden lg:block" style="scrollbar-width: none;">
+            <div class="overflow-x-auto lg:mx-6 lg:pt-8 lg:mb-6 hidden lg:block" style="scrollbar-width: none;">
                 <ul class="flex flex-row lg:gap-8 font-league text-custom-dark text-lg lg:text-xl font-medium text-center">
                     {{-- Account Info --}}
                     <li class="whitespace-nowrap rounded-lg duration-300">
