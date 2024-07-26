@@ -24,8 +24,10 @@
         @yield('content')
     </div>
 
+    {{-- Toastr CDN --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
+        // Toastr Setup
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -43,6 +45,8 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         };
+
+        // Import all of the toastr message types
         @foreach(['success', 'error', 'warning', 'info'] as $type)
             @if(session()->has($type))
                 toastr.{{ $type }}("{{ session()->get($type) }}");
