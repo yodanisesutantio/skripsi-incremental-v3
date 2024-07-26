@@ -1,7 +1,9 @@
 @extends('layouts.relative')
 
 @section('content')
+    {{-- Body Background Image --}}
     <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/BG-Login.webp')">
+        {{-- Glass Effect --}}
         <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#EBF0F212] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
             <h1 class="text-3xl lg:text-4xl/snug text-center tracking-normal text-custom-white font-encode font-semibold">Selamat Datang!</h1>
@@ -10,6 +12,7 @@
             <form action="/login" method="post">
                 @csrf
                 <div class="flex flex-col mt-8 lg:my-8 gap-5 lg:gap-7">
+                    {{-- Input Username --}}
                     <div class="flex flex-col gap-1">
                         <label for="username" class="font-normal font-league text-xl text-custom-white">Username<span class="text-custom-destructive">*</span></label>
                         <input type="text" name="username" id="username" autofocus placeholder="Username" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-white/20 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
@@ -17,6 +20,8 @@
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
+                    {{-- Input Password --}}
                     <div class="flex flex-col gap-1">
                         <label for="password" class="font-normal font-league text-xl text-custom-white">Password<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
@@ -33,9 +38,12 @@
                     </div>
                 </div>
 
+                {{-- Submit Button --}}
                 <div class="flex mt-7">
                     <button name="submit" type="submit" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Login</button>
                 </div>
+
+                {{-- Redirect to Register Link --}}
                 <p class="mt-8 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="/register" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
             </form>
         </div>
@@ -47,6 +55,7 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // To Show and Hide the Password Input
         function showHidePass() {
             const $showPass = $('#showPass');
             const $hidePass = $('#hidePass');
@@ -63,6 +72,7 @@
             $passwordInput.attr('type', $passwordInput.attr('type') === "password" ? "text" : "password");
         }
 
+        // To assist user so they can't press space when typing the username
         $("#username").on("keydown input", function(event) {
             if (event.type === "keydown" && event.keyCode === 32) {
                 event.preventDefault();
