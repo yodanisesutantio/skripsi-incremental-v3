@@ -218,9 +218,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                </div>
-                            @else
-        
+                                </div>        
                             @endif
                             
                             <button type="button" id="addPaymentMethods" class="px-6 py-3 w-full rounded-lg lg:rounded-lg border-2 border-custom-grey border-dashed bg-custom-disabled-light/60 hover:bg-custom-disabled-light text-center lg:text-lg text-custom-grey font-semibold lg:order-2 duration-500">+ Tambah Metode Pembayaran</button>

@@ -7,6 +7,7 @@ use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\courseController;
+use App\Http\Controllers\paymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +51,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Edit Account Info Logic Handler
     Route::post('/edit-admin-account-info', [adminController::class, 'editAccountInfo']);
     // Admin Edit Payment Method Handler
-    Route::post('/edit-admin-payment-method', [adminController::class, 'editPaymentMethod']);
+    Route::post('/edit-admin-payment-method', [paymentMethodController::class, 'editPaymentMethod']);
     // Admin Edit Password Logic Handler
     Route::post('/edit-admin-password', [adminController::class, 'editPassword']);
     
