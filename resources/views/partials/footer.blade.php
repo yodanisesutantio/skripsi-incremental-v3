@@ -13,7 +13,9 @@
     <div class="hidden lg:flex lg:flex-col justify-between mb-4">
         <div class="grid grid-cols-2">
             <div class="flex flex-col gap-5 pl-12 pr-28 py-10 border-y border-r border-custom-dark/40">
+                {{-- Website Mark --}}
                 <img src="img/Logo-Hitam.svg" alt="" class="w-44">
+                {{-- Website Description --}}
                 <p class="font-league text-lg/snug text-custom-dark">Sebuah platform untuk Penyedia Jasa Kursus Mengemudi dapat menawarkan jasanya kepada masyarakat umum. Platform untuk menjembatani Instruktur, Lembaga Kursus, dan Siswa Kursus</p>
             </div>
     
@@ -112,6 +114,7 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Toastr Warning for Guest when clicked Profile Nav in either Navbar or Footer
         $(document).ready(function() {
             $('.guest-profile-link').on('click', function(e) {
                 e.preventDefault();
