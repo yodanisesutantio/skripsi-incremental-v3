@@ -23,7 +23,7 @@ use App\Http\Controllers\courseController;
 Route::get('/', [generalPage::class, 'landing']);
 
 // Guest Dashboard Page
-Route::get('/tamu', [generalPage::class, 'tamu']);
+Route::get('/tamu', [generalPage::class, 'tamu'])->middleware('guest');
 
 // About App Page
 Route::get('/about-app', [generalPage::class, 'about']);
