@@ -44,14 +44,19 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-index', [adminController::class, 'index']);
     // Admin Profile Page
     Route::get('/admin-profile', [adminController::class, 'profile']);
+
     // Admin Edit Profile Page
     Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
     // Admin Edit Account Info Logic Handler
     Route::post('/edit-admin-account-info', [adminController::class, 'editAccountInfo']);
+    // Admin Edit Payment Method Handler
+    Route::post('/edit-admin-payment-method', [adminController::class, 'editPaymentMethod']);
     // Admin Edit Password Logic Handler
     Route::post('/edit-admin-password', [adminController::class, 'editPassword']);
+    
     // Admin Check Availability Logic Handler
     Route::post('/check-availability', [adminController::class, 'checkAvailability'])->name('changeAvailability');
+
     // Admin Delete Account Logic Handler
     Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 
