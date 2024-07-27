@@ -26,6 +26,13 @@ class PaymentMethodController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            // Handle deletions
+            if ($request->has('payment_methods_to_delete')) {
+                foreach ($request->payment_methods_to_delete as $paymentMethodId) {
+                    PaymentMethod::findOrFail($paymentMethodId)->delete();
+                }
+            }
+
             foreach ($request->payment_methods as $paymentMethodData) {
                 if (isset($paymentMethodData['id'])) {
                     $paymentMethod = PaymentMethod::findOrFail($paymentMethodData['id']);
@@ -43,15 +50,5 @@ class PaymentMethodController extends Controller
         });
 
         return redirect()->intended('/admin-profile');
-    }
-
-    public function deletePaymentMethod(Request $request)
-    {
-        $paymentMethodId = $request->input('id');
-
-        $paymentMethod = PaymentMethod::findOrFail($paymentMethodId);
-        $paymentMethod->delete();
-
-        return response()->json(['success' => true]);
     }
 }
