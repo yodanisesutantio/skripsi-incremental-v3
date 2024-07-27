@@ -50,8 +50,10 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
     // Admin Edit Account Info Logic Handler
     Route::post('/edit-admin-account-info', [adminController::class, 'editAccountInfo']);
-    // Admin Edit Payment Method Handler
+    // Admin Edit Payment Method Logic Handler
     Route::post('/edit-admin-payment-method', [paymentMethodController::class, 'editPaymentMethod']);
+    // Admin Remove Payment Method Logic Handler
+    Route::post('/delete-admin-payment-method', [paymentMethodController::class, 'deletePaymentMethod'])->name('deletePaymentMethod');
     // Admin Edit Password Logic Handler
     Route::post('/edit-admin-password', [adminController::class, 'editPassword']);
     

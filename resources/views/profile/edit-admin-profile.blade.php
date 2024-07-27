@@ -512,25 +512,44 @@
         // jQuery function to remove payment methods
         $(document).on('click', '.removePaymentMethods', function() {
             const $formWrapper = $(this).closest('.form-wrapper'); // Get the form wrapper
-            $formWrapper.remove(); // Remove the corresponding form-wrapper
+            const paymentMethodId = $formWrapper.find('input[name*="[id]"]').val(); // Get the payment method ID
 
-            // Check the number of remaining payment methods
-            const remainingMethods = $('#existingPaymentMethods .form-wrapper').length;
+            $.ajax({
+                url: '{{ route('deletePaymentMethod') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // Add CSRF token
+                    id: paymentMethodId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $formWrapper.remove(); // Remove the corresponding form-wrapper
 
-            // Show the add button again if no new payment method is present
-            if ($('#existingPaymentMethods .new-payment-method').length === 0) {
-                $('#addPaymentMethods').show(); // Show the add button if no new payment method exists
-            }
+                        // Check the number of remaining payment methods
+                        const remainingMethods = $('#existingPaymentMethods .form-wrapper').length;
 
-            // If only one method remains, hide the remove button for that method
-            if (remainingMethods <= 1) {
-                $('#existingPaymentMethods .removePaymentMethods').hide(); // Hide all remove buttons if only one method remains
-            } else {
-                // Show the remove buttons for remaining methods
-                $('#existingPaymentMethods .removePaymentMethods').show();
-            }
+                        // Show the add button again if no new payment method is present
+                        if ($('#existingPaymentMethods .new-payment-method').length === 0) {
+                            $('#addPaymentMethods').show(); // Show the add button if no new payment method exists
+                        }
 
-            swiper.update(); // Update the Swiper instance
+                        // If only one method remains, hide the remove button for that method
+                        if (remainingMethods <= 1) {
+                            $('#existingPaymentMethods .removePaymentMethods').hide(); // Hide all remove buttons if only one method remains
+                        } else {
+                            // Show the remove buttons for remaining methods
+                            $('#existingPaymentMethods .removePaymentMethods').show();
+                        }
+
+                        swiper.update(); // Update the Swiper instance
+                    } else {
+                        alert('Failed to delete the payment method. Please try again.');
+                    }
+                },
+                error: function() {
+                    alert('Failed to delete the payment method. Please try again.');
+                }
+            });
         });
     </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class PaymentMethodController extends Controller
 {
@@ -36,11 +37,21 @@ class PaymentMethodController extends Controller
                 $paymentMethod->is_payment_active = $paymentMethodData['is_payment_active'];
                 $paymentMethod->payment_vendor = $paymentMethodData['payment_vendor'];
                 $paymentMethod->payment_receiver_name = $paymentMethodData['payment_receiver_name'];
-                $paymentMethod->payment_address = $paymentMethodData['payment_address'];
+                $paymentMethod->payment_address = Crypt::encryptString($paymentMethodData['payment_address']);
                 $paymentMethod->save();
             }
         });
 
         return redirect()->intended('/admin-profile');
+    }
+
+    public function deletePaymentMethod(Request $request)
+    {
+        $paymentMethodId = $request->input('id');
+
+        $paymentMethod = PaymentMethod::findOrFail($paymentMethodId);
+        $paymentMethod->delete();
+
+        return response()->json(['success' => true]);
     }
 }

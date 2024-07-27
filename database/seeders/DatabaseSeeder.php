@@ -3,11 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Crypt;
 
 class DatabaseSeeder extends Seeder
 {
@@ -86,7 +87,7 @@ class DatabaseSeeder extends Seeder
         PaymentMethod::create([
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Agus",
-            'payment_address' => "282831039210",
+            'payment_address' => Crypt::encryptString("282831039210"),
             'is_payment_active' => 1,
             'admin_id' => 1,
         ]);

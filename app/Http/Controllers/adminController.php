@@ -8,6 +8,7 @@ use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 
 class adminController extends Controller
 {
@@ -27,6 +28,11 @@ class adminController extends Controller
 
     public function editProfile() {
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
+
+        foreach ($paymentMethod as $methodOfPayment) {
+            $methodOfPayment->payment_address = Crypt::decryptString($methodOfPayment->payment_address);
+        }
+
         return view('profile.edit-admin-profile', [
             "pageName" => "Edit Profil | ",
             "paymentMethod" => $paymentMethod,
