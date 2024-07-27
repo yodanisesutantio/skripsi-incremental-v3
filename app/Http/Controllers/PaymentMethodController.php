@@ -26,14 +26,18 @@ class PaymentMethodController extends Controller
 
         DB::transaction(function () use ($request) {
             foreach ($request->payment_methods as $paymentMethodData) {
-                $paymentMethod = PaymentMethod::findOrFail($paymentMethodData['id']);
-                $paymentMethod->update([
-                    'admin_id' => Auth::id(),
-                    'is_payment_active' => $paymentMethodData['is_payment_active'],
-                    'payment_vendor' => $paymentMethodData['payment_vendor'],
-                    'payment_receiver_name' => $paymentMethodData['payment_receiver_name'],
-                    'payment_address' => $paymentMethodData['payment_address'],
-                ]);
+                if (isset($paymentMethodData['id'])) {
+                    $paymentMethod = PaymentMethod::findOrFail($paymentMethodData['id']);
+                } else {
+                    $paymentMethod = new PaymentMethod();
+                    $paymentMethod->admin_id = Auth::id();
+                }
+
+                $paymentMethod->is_payment_active = $paymentMethodData['is_payment_active'];
+                $paymentMethod->payment_vendor = $paymentMethodData['payment_vendor'];
+                $paymentMethod->payment_receiver_name = $paymentMethodData['payment_receiver_name'];
+                $paymentMethod->payment_address = $paymentMethodData['payment_address'];
+                $paymentMethod->save();
             }
         });
 
