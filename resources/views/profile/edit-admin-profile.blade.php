@@ -275,7 +275,7 @@
             {{-- Button Groups --}}
             <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
                 <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-                <button type="submit" id="submitAllForms" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+                <button type="submit" class="submitAllForms px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
             </div>
         </div>
     </div>
@@ -283,7 +283,7 @@
     {{-- Button Groups --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
         <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-        <button type="submit" id="submitAllForms" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" class="submitAllForms px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -423,7 +423,7 @@
         });
 
         // Function to submit all forms
-        $('#submitAllForms').on('click', function() {
+        $('.submitAllForms').on('click', function() {
             $('form[action="/edit-admin-account-info"]').submit();
             setTimeout(function() {
                 $('form[action="/edit-admin-payment-method"]').submit();
