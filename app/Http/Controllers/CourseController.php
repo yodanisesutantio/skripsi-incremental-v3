@@ -93,4 +93,20 @@ class CourseController extends Controller
 
         return redirect()->intended('/admin-manage-course');
     }
+
+    public function deleteCourse($id)
+    {
+        $course = Course::findOrFail($id);
+
+        // Optionally, delete the thumbnail from storage
+        if ($course->course_thumbnail) {
+            Storage::delete('course_thumbnail/' . $course->course_thumbnail);
+        }
+
+        $course->delete();
+
+        session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
+
+        return redirect()->intended('/admin-manage-course');
+    }
 }
