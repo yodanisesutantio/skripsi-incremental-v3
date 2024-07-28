@@ -98,15 +98,21 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
 
-        // Optionally, delete the thumbnail from storage
-        if ($course->course_thumbnail) {
-            Storage::delete('course_thumbnail/' . $course->course_thumbnail);
+        $activeStudentsCount = $course->enrollments()->count();
+        if ($activeStudentsCount > 0) {
+            session()->flash('warning', 'Anda Tidak Boleh Menghapus Kelas dengan Siswa Aktif');
+            return redirect()->intended('/admin-manage-course');
+        } else {
+            // Optionally, delete the thumbnail from storage
+            if ($course->course_thumbnail) {
+                Storage::delete('course_thumbnail/' . $course->course_thumbnail);
+            }
+
+            $course->delete();
+
+            session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
+
+            return redirect()->intended('/admin-manage-course');
         }
-
-        $course->delete();
-
-        session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
-
-        return redirect()->intended('/admin-manage-course');
     }
 }
