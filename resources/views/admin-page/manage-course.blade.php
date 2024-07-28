@@ -6,7 +6,9 @@
     <h1 class="text-custom-dark font-encode font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Kelas Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg lg:text-2xl mt-1">Kelola kelas anda agar lebih menarik</p>
 
-    <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
+    <div class="flex">
+        <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
+    </div>
 
     {{-- Class List --}}
     <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mt-8 mb-7 lg:mb-8">
@@ -41,31 +43,22 @@
                                 {{-- Course Availability Toggle --}}
                                 @if ($myCourse['course_availability'] === 1)
                                     <div class="flex flex-row items-center gap-2.5">
-                                        <button type="submit" class="relative flex items-center deactivate-course">
+                                        <button type="button" class="relative flex items-center deactivate-course" data-id="{{ $myCourse['id'] }}">
                                             <div class="flex-shrink-0 w-12 h-4 bg-custom-green rounded-full"></div>
                                             <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg right-0"></div>
                                         </button>
-                                        <form action="/admin-deactivate-course" method="post" class="mb-1 hidden">
-                                            @csrf
-                                            <input type="hidden" name="course_id" value="{{ $myCourse['id'] }}">
-                                            <input type="hidden" name="course_availability" value="0">
-                                        </form>
                                         <p class="text-base/tight mt-1">Aktif</p>
                                     </div>
-                                @else
+                                    @else
                                     <div class="flex flex-row items-center gap-2.5">
-                                        <button type="submit" class="relative flex items-center activate-course">
+                                        <button type="button" class="relative flex items-center activate-course" data-id="{{ $myCourse['id'] }}">
                                             <div class="flex-shrink-0 w-12 h-4 bg-custom-disabled-light/50 rounded-full"></div>
                                             <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg left-0"></div>
                                         </button>
-                                        <form action="/admin-activate-course" method="post" class="mb-1 hidden">
-                                            @csrf
-                                            <input type="hidden" name="course_id" value="{{ $myCourse['id'] }}">
-                                            <input type="hidden" name="course_availability" value="1">
-                                        </form>
                                         <p class="text-base/tight mt-1">Nonaktif</p>
                                     </div>
                                 @endif
+
                                 {{-- Course Price --}}
                                 <h3 class="font-semibold text-right text-lg/tight">Rp. {{ number_format($myCourse['course_price'], 0, ',', '.') }},-</h3>
                             </div>
@@ -81,14 +74,42 @@
     {{-- jQuery CDN --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        // Deactivate Course
-        $('.deactivate-course').on('click', function() {
-            $(this).closest('div').find('form[action="/admin-deactivate-course"]').submit();
-        });
+        $(document).on('click', '.deactivate-course, .activate-course', function() {
+            var button = $(this);
+            var courseId = button.data('id');
+            var actionUrl = button.hasClass('deactivate-course') ? '/admin-deactivate-course' : '/admin-activate-course';
+            var newAvailability = button.hasClass('deactivate-course') ? 0 : 1;
 
-        // Activate Course
-        $('.activate-course').on('click', function() {
-            $(this).closest('div').find('form[action="/admin-activate-course"]').submit();
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    course_id: courseId,
+                    course_availability: newAvailability
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Update the button and text dynamically
+                        if (newAvailability === 0) {
+                            button.removeClass('deactivate-course').addClass('activate-course');
+                            button.find('.w-7').removeClass('right-0').addClass('left-0');
+                            button.find('.w-12').removeClass('bg-custom-green').addClass('bg-custom-disabled-light/50');
+                            button.next('p').text('Nonaktif');
+                        } else {
+                            button.removeClass('activate-course').addClass('deactivate-course');
+                            button.find('.w-7').removeClass('left-0').addClass('right-0');
+                            button.find('.w-12').removeClass('bg-custom-disabled-light/50').addClass('bg-custom-green');
+                            button.next('p').text('Aktif');
+                        }
+                    } else {
+                        alert('Failed to update course availability');
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred');
+                }
+            });
         });
     </script>
 @endsection

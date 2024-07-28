@@ -11,32 +11,27 @@ use Illuminate\Support\Facades\Storage;
 class CourseController extends Controller
 {
     public function deactivateCourse(Request $request) {
-        // dd($request->all());
-        $request->validate([
-            'course_availability' => 'required|boolean',
-        ]);
-
-        $user = auth()->user();
-
         $course = Course::find($request->course_id);
-        $course->course_availability = $request->course_availability;
-        $course->save();
 
-        return redirect()->intended('/admin-manage-course');
+        if ($course) {
+            $course->course_availability = 0;
+            $course->save();
+    
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false], 400);
     }
 
     public function activateCourse(Request $request) {
-        // dd($request->all());
-        $request->validate([
-            'course_availability' => 'required|boolean',
-        ]);
-
-        $user = auth()->user();
-
         $course = Course::find($request->course_id);
-        $course->course_availability = $request->course_availability;
-        $course->save();
+        if ($course) {
+            $course->course_availability = 1;
+            $course->save();
 
-        return redirect()->intended('/admin-manage-course');
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 400);
     }
 }
