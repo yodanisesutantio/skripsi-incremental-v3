@@ -67,6 +67,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-manage-course', [adminController::class, 'manageCourse']);
     // Admin's Create Course Page
     Route::get('/admin-manage-course/create', [adminController::class, 'createCoursePage']);
+    // Admin's Create Course Page
+    Route::post('/admin-manage-course/create', [courseController::class, 'createCourseLogic']);
 
     // Admin Deactivate Course Logic
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);

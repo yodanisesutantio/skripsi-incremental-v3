@@ -18,7 +18,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/admin-profile/edit" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="/admin-manage-course/create" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
                 {{-- Form Sub Headers --}}
                 <div class="mb-4 lg:mt-4">
@@ -34,12 +34,12 @@
                                 <p class="mt-4 mb-2 text-base text-center text-custom-grey"><span class="font-semibold">Tekan untuk memilih foto yang akan diupload</span> atau seret foto anda ke area ini</p>
                                 <p class="text-sm text-custom-grey text-center">Format yang didukung .jpg, .png, atau .webp (MAX. 2 MB)</p>
                             </div>
-                            <input id="course_thumbnail" type="file" class="hidden">
-                            @error('course_thumbnail')
-                                <span class="text-custom-destructive">{{ $message }}</span>
-                            @enderror
+                            <input id="course_thumbnail" name="course_thumbnail" type="file" class="hidden">
                         </div>
                     </label>
+                    @error('course_thumbnail')
+                        <span class="text-custom-destructive">{{ $message }}</span>
+                    @enderror
                 </div>        
         
                 {{-- Form Sub Headers --}}
@@ -66,7 +66,7 @@
                     {{-- Input Course_Quota --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_quota" class="font-semibold font-league text-xl text-custom-grey">Kuota Kelas<span class="text-custom-destructive">*</span></label>
-                        <input type="number" min="1" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror">
+                        <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror">
                         @error('course_quota')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -74,7 +74,7 @@
                     {{-- Input Course_Length --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_length" class="font-semibold font-league text-xl text-custom-grey">Jumlah Pertemuan<span class="text-custom-destructive">*</span></label>
-                        <input type="number" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror">
+                        <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror">
                         @error('course_length')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
