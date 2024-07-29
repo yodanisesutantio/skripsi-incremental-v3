@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             'course_quota' => 6,
             'course_price' => 1200000,
             'course_length' => 5,
-            'car_type' => "Manual & Automatic",
+            'car_type' => "Both",
             'can_use_own_car' => true,
             'admin_id' => 1,
         ]);

@@ -1,19 +1,20 @@
 @extends('layouts.relative')
 
 @section('content')
-    {{-- Forms Header --}}
+    {{-- Desktop View Forms Header --}}
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
-            <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Tambah Kelas Baru</h1>
-            <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Masukkan informasi tentang kelas kursus baru anda</p>
+            <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Informasi Kelas</h1>
+            <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Edit informasi tentang kelas <strong class="font-semibold text-custom-dark">{{ $course['course_name'] }}</strong></p>
         </div>
     </div>
 
+    {{-- Mobile View Forms Header --}}
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
-                <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Tambah Kelas Baru</h1>
-                <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Masukkan informasi tentang kelas kursus baru anda</p>
+                <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Informasi Kelas</h1>
+                <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Edit informasi tentang kelas <strong class="font-semibold text-custom-dark">{{ $course['course_name'] }}</strong></p>
             </div>
         </div>
 
@@ -99,10 +100,10 @@
                         {{-- Dropdown --}}
                         <label for="car_type" class="font-semibold font-league text-xl text-custom-grey">Jenis Transmisi Mobil<span class="text-custom-destructive">*</span></label>
                         <select name="car_type" id="car_type" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('car_type') border-2 border-custom-destructive @enderror">
-                            <option disabled selected>-- Jenis Transmisi Mobil --</option>
-                            <option value="Manual">Manual</option>
-                            <option value="Automatic">Matic</option>
-                            <option value="Both">Manual & Matic</option>
+                            <option disabled>-- Jenis Transmisi Mobil --</option>
+                            <option value="Manual" {{ $course['car_type'] === "Manual" ? 'selected' : '' }}>Manual</option>
+                            <option value="Automatic" {{ $course['car_type'] === "Automatic" ? 'selected' : '' }}>Matic</option>
+                            <option value="Both" {{ $course['car_type'] === "Both" ? 'selected' : '' }}>Manual & Matic</option>
                         </select>
                         @error('car_type')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -113,9 +114,9 @@
                         {{-- Dropdown --}}
                         <label for="can_use_own_car" class="font-semibold font-league text-xl text-custom-grey">Siswa Bisa Menggunakan Mobil Sendiri?<span class="text-custom-destructive">*</span></label>
                         <select name="can_use_own_car" id="can_use_own_car" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('can_use_own_car') border-2 border-custom-destructive @enderror">
-                            <option disabled selected>-- Bisa Pakai Mobil Sendiri --</option>
-                            <option value="0">Tidak Bisa</option>
-                            <option value="1">Bisa</option>
+                            <option disabled>-- Bisa Pakai Mobil Sendiri --</option>
+                            <option value="0" {{ $course['can_use_own_car'] === "0" ? 'selected' : '' }}>Tidak Bisa</option>
+                            <option value="1" {{ $course['can_use_own_car'] === "1" ? 'selected' : '' }}>Bisa</option>
                         </select>
                         @error('can_use_own_car')
                             <span class="text-custom-destructive">{{ $message }}</span>
