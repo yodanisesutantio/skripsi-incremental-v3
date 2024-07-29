@@ -97,37 +97,14 @@ class CourseController extends Controller
     public function deleteCourse($id)
     {
         $course = Course::findOrFail($id);
-
-        $activeStudentsCount = $course->enrollments()->count();
-        if ($activeStudentsCount === 1 && $course->course_availability === 1) {
-            return response()->json([
-                'message' => 'Kelas masih Aktif dan mempunyai Siswa Aktif.',
-                'deactivate' => true
-            ]);
-        } else if ($activeStudentsCount > 0 && $course->course_availability === 0) {
-            return response()->json(['error' => 'Anda Tidak Boleh Menghapus Kelas dengan Siswa Aktif'], 400);
-        } else {
-            // Optionally, delete the thumbnail from storage
-            if ($course->course_thumbnail) {
-                Storage::delete('course_thumbnail/' . $course->course_thumbnail);
-            }
-            $course->delete();
-
-            session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
-
-            return redirect()->intended('/admin-manage-course');
+        // Optionally, delete the thumbnail from storage
+        if ($course->course_thumbnail) {
+            Storage::delete('course_thumbnail/' . $course->course_thumbnail);
         }
-    }
 
-    public function deactivateInsteadDelete($id)
-    {
-        $course = Course::findOrFail($id);
+        $course->delete();
 
-        // Deactivate the course
-        $course->course_availability = 0;
-        $course->save();
-
-        session()->flash('success', 'Kelas Kursus Berhasil Dinonaktifkan');
+        session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
         return redirect()->intended('/admin-manage-course');
     }
 }
