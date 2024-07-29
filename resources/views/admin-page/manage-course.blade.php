@@ -137,11 +137,34 @@
         </div>
     </div>
 
+    {{-- Deactivate Course Overlay --}}
+    <div id="deactivateCourseOverlay" class="fixed hidden z-40 flex items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">
+        {{-- Deactivate Course Confirmation --}}
+        <div id="deactivateCourseDialogBox" class="relative w-80 lg:w-[28rem] bottom-0 py-4 z-40 bg-custom-white rounded-xl">
+            <div class="flex flex-row sticky px-5 bg-custom-white justify-between items-center pt-1 pb-4">
+                <h2 class="font-league text-[27px]/none pt-1 lg:text-3xl font-semibold text-custom-dark ">Nonaktifkan Kelas?</h2>
+                <button type="button" id="XDeactivateCourseDialogBox"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="#040B0D" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
+            </div>
+            <div class="px-5 mt-2">
+                <p class="font-league text-lg/snug lg:text-xl/tight text-custom-dark mb-1 lg:mb-12">Kelas Kursus masih memiliki Siswa Aktif. Saat ini anda tidak dapat menghapus kelas, apakah anda ingin menonaktifkan kelas <strong id="courseNameToDeactivate"></strong> saja ?</p>
+            </div>
+            <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
+                <button type="button" id="closeDeactivateCourseDialogBox" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
+                <button type="submit" id="yesDeactivateCourse" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Nonaktifkan</button>
+                <form id="deactivateCourseForm" method="post" class="mb-1 hidden">
+                    @csrf
+                    <input type="hidden" name="course_availability" value="0">
+                </form>
+            </div>
+        </div>
+    </div>
+
     @include('partials.footer')
 
     {{-- jQuery CDN --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Deactivate or Activate Using Switch Function
         $(document).on('click', '.deactivate-course, .activate-course', function() {
             var button = $(this);
             var courseId = button.data('id');
@@ -174,14 +197,18 @@
                         alert('Failed to update course availability');
                     }
                 },
-                error: function(xhr) {
-                    alert('An error occurred');
+                error: function(response) {
+                    if (response.responseJSON && response.responseJSON.error) {
+                        alert(response.responseJSON.error);
+                    } else {
+                        alert('An error occurred');
+                    }
                 }
             });
         });
 
+        // Delete or Deactivate from Dialog Box Function
         let courseId;
-
         $('.deleteCourseButton').on('click', function() {
             courseId = $(this).data('id');
             const courseName = $(this).data('name');
@@ -197,7 +224,42 @@
         // Handle the form submission
         $('#yesDeleteCourse').on('click', function (e) {
             e.preventDefault();
-            $('#deleteCourseForm').submit();
+            const actionUrl = $('#deleteCourseForm').attr('action');
+        
+            $.ajax({
+                url: actionUrl,
+                type: 'DELETE',
+                data: $('#deleteCourseForm').serialize(),
+                success: function(response) {
+                    if (response.deactivate) {
+                        // Show deactivate dialog if needed
+                        $('#courseNameToDeactivate').text($('#deleteCourseName').text());
+                        $('#deactivateCourseForm').attr('action', `/admin-deactivate-course/${courseId}`);
+                        $('#deleteCourseOverlay').addClass('hidden');
+                        $('#deactivateCourseOverlay').removeClass('hidden');
+                    } else {
+                        // Submit the form for successful deletion
+                        $('#deleteCourseForm').submit();
+                    }
+                },
+                error: function(response) {
+                    if (response.responseJSON && response.responseJSON.error) {
+                        toastr.error(response.responseJSON.error);
+                        $('#deleteCourseOverlay').addClass('hidden');
+                    } else {
+                        toastr.error('An error occurred');
+                    }
+                }
+            });
+        });
+
+        $('#XDeactivateCourseDialogBox, #closeDeactivateCourseDialogBox').on('click', function() {
+            $('#deactivateCourseOverlay').addClass('hidden');
+        });
+
+        $('#yesDeactivateCourse').on('click', function (e) {
+            e.preventDefault();
+            $('#deactivateCourseForm').submit();
         });
     </script>
 @endsection
