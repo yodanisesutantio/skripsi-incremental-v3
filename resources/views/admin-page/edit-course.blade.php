@@ -19,7 +19,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/admin-manage-course/create" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/admin-manage-course/edit/' . $course->admin->username . '/' . $course['course_name']) }}" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
                 {{-- Form Sub Headers --}}
                 <div class="mb-4 lg:mt-4">
@@ -130,7 +130,7 @@
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
                     <a href="/admin-manage-course" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-                    <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Tambah</button>
+                    <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
                 </div>
             </form>
         </div>
