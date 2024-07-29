@@ -125,16 +125,20 @@ class adminController extends Controller
         return redirect()->intended('/admin-profile');
     }
 
+    // I'll do this later, make sure that we are not deleting an entire data, just, instructor data and their course data, keep the account data
     public function destroy(Request $request)
     {
-        $user = Auth::user();
-        // $request->session()->flash('success', 'Login Berhasil');
+        $course = Course::where('admin_id', auth()->id())->get();
+        if ($course->enrollments()->count() === 0) {
+            $user = Auth::user();
+            Auth::logout();
+            $user->delete();
+    
+            return redirect('/');
+        }
 
-        Auth::logout();
-
-        $user->delete();
-
-        return redirect('/');
+        $request->session()->flash('error', 'Anda masih memiliki Siswa Aktif! Selesaikan semua kursus dengan Siswa, kemudian Coba Lagi.');
+        return redirect()->intended('/admin-profile');
     }
 
     public function manageCourse() {

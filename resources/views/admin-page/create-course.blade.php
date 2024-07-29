@@ -170,14 +170,17 @@
         dropArea.on({
             dragover: function(e) {
                 e.preventDefault();
+                $(this).removeClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
                 $(this).addClass('bg-custom-disabled-light'); // Optional: Add hover styling
             },
             dragleave: function(e) {
                 e.preventDefault();
+                $(this).addClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
                 $(this).removeClass('bg-custom-disabled-light'); // Optional: Remove hover styling
             },
             drop: function(e) {
                 e.preventDefault();
+                $(this).addClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
                 $(this).removeClass('bg-custom-disabled-light'); // Optional: Remove hover styling
 
                 const file = e.originalEvent.dataTransfer.files[0];
