@@ -142,7 +142,7 @@
                                 {{-- Input Phone Number --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="phone_number" class="font-semibold font-league text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
-                                    <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}">
+                                    <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}" oninput="deleteAnyString(this)">
                                     @error('phone_number')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
@@ -387,10 +387,15 @@
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
         });
         phoneInputField.addEventListener('keypress', function(event) {
+            let value = input.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
                 event.preventDefault(); // Prevent non-numerical input
             }
         });
+        function deleteAnyString(input) {
+            let value = input.value.replace(/\D/g, '');
+            input.value = value;
+        }
 
         // Add Shadow to Form Header
         $(window).on('scroll', function () {

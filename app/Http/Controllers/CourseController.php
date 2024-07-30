@@ -160,6 +160,7 @@ class CourseController extends Controller
     public function deleteCourse($id)
     {
         $course = Course::findOrFail($id);
+    
         // Optionally, delete the thumbnail from storage
         if ($course->course_thumbnail) {
             Storage::delete('course_thumbnail/' . $course->course_thumbnail);
@@ -167,7 +168,15 @@ class CourseController extends Controller
 
         $course->delete();
 
-        session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
+        // Check if the user has any remaining classes
+        $remainingCourses = Course::where('admin_id', auth()->id())->count();
+
+        if ($remainingCourses == 0) {
+            session()->flash('warning', 'Anda sudah tidak memiliki Kelas Kursus lagi!');
+        } else {
+            session()->flash('success', 'Kelas Kursus Berhasil Dihapus');
+        }
+
         return redirect()->intended('/admin-manage-course');
     }
 }

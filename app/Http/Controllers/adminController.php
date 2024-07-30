@@ -144,7 +144,7 @@ class adminController extends Controller
     }
 
     public function manageCourse() {
-        $course = Course::where('admin_id', auth()->id())->get();
+        $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         $user = auth()->user();
         return view('admin-page.manage-course', [
             "pageName" => "Daftar Kelas Anda | ",
