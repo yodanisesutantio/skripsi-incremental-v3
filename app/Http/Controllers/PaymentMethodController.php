@@ -49,6 +49,8 @@ class PaymentMethodController extends Controller
             }
         });
 
+        $request->session()->flash('success', 'Anda berhasil mengubah Metode Pembayaran!');
+
         return redirect()->intended('/admin-profile');
     }
 }

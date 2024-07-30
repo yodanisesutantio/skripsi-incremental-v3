@@ -79,6 +79,8 @@ class adminController extends Controller
 
         $user->save();
 
+        $request->session()->flash('success', 'Profil berhasil diperbarui!');
+
         return redirect()->intended('/admin-profile');
     }
 
@@ -101,7 +103,7 @@ class adminController extends Controller
             $user->save();
         }
 
-        $request->session()->flash('success', 'Profil berhasil diperbarui');
+        $request->session()->flash('success', 'Password berhasil diubah!');
 
         return redirect()->intended('/admin-profile');
     }

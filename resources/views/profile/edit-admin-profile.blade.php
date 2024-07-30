@@ -52,6 +52,10 @@
                 </ul>
             </div>
 
+            @php
+                $currentSlide = 1; // Initial slide index
+            @endphp
+
             <div class="swiper">
                 <div class="swiper-wrapper">
                     {{-- Account Info Form --}}
@@ -146,6 +150,7 @@
                             </div>
                         </form>
                     </div>
+
         
                     {{-- Payment Methods --}}
                     <div class="swiper-slide overflow-y-auto">
@@ -205,7 +210,7 @@
                                                 <div class="flex flex-col gap-2">
                                                     <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
                                                     <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
-                                                    @error('payment_receiver_name')
+                                                    @error('payment_methods.' . $index . '.payment_receiver_name')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -214,7 +219,7 @@
                                                 <div class="flex flex-col gap-2">
                                                     <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
                                                     <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
-                                                    @error('payment_address')
+                                                    @error('payment_methods.' . $index . '.payment_address')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -278,7 +283,9 @@
             {{-- Button Groups for Desktop View --}}
             <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
                 <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-                <button type="submit" class="submitAllForms px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+                <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+                <button type="submit" id="submitEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+                <button type="submit" id="submitEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
             </div>
         </div>
     </div>
@@ -286,7 +293,9 @@
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
         <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-        <button type="submit" class="submitAllForms px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="submitEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="submitEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -338,14 +347,37 @@
             }
         });
 
+        $('.submit-button').addClass('hidden');
+        $('#submitEditProfileForms').removeClass('hidden');
         $('#accountInfoButton, #accountInfoLargeButton').on('click', function() {
             swiper.slideTo(0);
+            $('.submit-button').addClass('hidden');
+            $('#submitEditProfileForms').removeClass('hidden');
         });
         $('#paymentMethodButton, #paymentMethodLargeButton').on('click', function() {
             swiper.slideTo(1);
+            $('.submit-button').addClass('hidden');
+            $('#submitEditPaymentForms').removeClass('hidden');
         });
         $('#securityButton, #securityLargeButton').on('click', function() {
             swiper.slideTo(2);
+            $('.submit-button').addClass('hidden');
+            $('#submitEditPasswordForms').removeClass('hidden');
+        });
+
+        // Function to submit editProfile forms
+        $('#submitEditProfileForms').on('click', function() {
+            $('form[action="/edit-admin-account-info"]').submit();
+        });
+
+        // Function to submit editProfile forms
+        $('#submitEditPaymentForms').on('click', function() {
+            $('form[action="/edit-admin-payment-method"]').submit();
+        });
+
+        // Function to submit editProfile forms
+        $('#submitEditPasswordForms').on('click', function() {
+            $('form[action="/edit-admin-password"]').submit();
         });
 
         // Tel Input Script
@@ -425,17 +457,7 @@
             }
         });
 
-        // Function to submit all forms
-        $('.submitAllForms').on('click', function() {
-            $('form[action="/edit-admin-account-info"]').submit();
-            setTimeout(function() {
-                $('form[action="/edit-admin-payment-method"]').submit();
-            }, 200);
-            setTimeout(function() {
-                $('form[action="/edit-admin-password"]').submit();
-            }, 400);
-        });
-
+        // Dynamic Forms
         let paymentMethodIndex = $('#existingPaymentMethods .form-wrapper').length; // Initialize with existing count
         $('#addPaymentMethods').on('click', function() {
             const $container = $('#existingPaymentMethods');
