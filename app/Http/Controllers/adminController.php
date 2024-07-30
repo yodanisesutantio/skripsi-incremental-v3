@@ -108,7 +108,7 @@ class adminController extends Controller
         return redirect()->intended('/admin-profile');
     }
     
-    public function checkAvailability(Request $request) {
+    public function changeAvailability(Request $request) {
         $request->validate([
             'availability' => 'required|boolean',
         ]);

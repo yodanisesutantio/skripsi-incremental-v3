@@ -96,7 +96,7 @@
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="openDeactivate" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Tidak, Nonaktifkan Sementara</button>
                 <button type="submit" id="yesDelete" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Akun</button>
-                <form action="{{ route('admin.account.destroy') }}" method="post" class="mb-1 hidden">
+                <form action="/admin-delete-account" method="post" class="mb-1 hidden">
                     @method('delete')
                     @csrf
                 </form>

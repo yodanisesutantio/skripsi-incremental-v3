@@ -61,7 +61,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/edit-admin-password', [adminController::class, 'editPassword']);
     
     // Admin Check Availability Logic Handler
-    Route::post('/check-availability', [adminController::class, 'checkAvailability'])->name('changeAvailability');
+    Route::post('/change-availability', [adminController::class, 'changeAvailability'])->name('changeAvailability');
 
     // Admin Delete Account Logic Handler
     // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
