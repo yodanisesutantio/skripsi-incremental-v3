@@ -42,12 +42,15 @@ Route::post('/logout', [loginController::class, 'logout']);
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
     // Admin Dashboard Page
-    Route::get('/admin-index', [adminController::class, 'index']);
+    Route::get('/admin-index', [adminController::class, 'indexPage']);
     // Admin Profile Page
-    Route::get('/admin-profile', [adminController::class, 'profile']);
+    Route::get('/admin-profile', [adminController::class, 'profilePage']);
+
+    // Admin License Page
+    Route::get('/admin-driving-school-license', [adminController::class, 'drivingSchoolLicensePage']);
 
     // Admin Edit Profile Page
-    Route::get('/admin-profile/edit', [adminController::class, 'editProfile']);
+    Route::get('/admin-profile/edit', [adminController::class, 'editProfilePage']);
     // Admin Edit Account Info Logic Handler
     Route::post('/edit-admin-account-info', [adminController::class, 'editAccountInfo']);
     // Admin Edit Payment Method Logic Handler
@@ -61,10 +64,10 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/check-availability', [adminController::class, 'checkAvailability'])->name('changeAvailability');
 
     // Admin Delete Account Logic Handler
-    Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
+    // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 
     // Admin's My Course Page
-    Route::get('/admin-manage-course', [adminController::class, 'manageCourse']);
+    Route::get('/admin-manage-course', [adminController::class, 'manageCoursePage']);
     // Admin's Create Course Page
     Route::get('/admin-manage-course/create', [adminController::class, 'createCoursePage']);
     // Admin's Create Course Logic Handler
@@ -78,6 +81,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
     // Admin Deactivate Course Switch Logic Handler
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
-    // Admin Activate Course Switch Logic
+    // Admin Activate Course Switch Logic Handler
     Route::post('/admin-activate-course', [courseController::class, 'activateCourse']);
 });

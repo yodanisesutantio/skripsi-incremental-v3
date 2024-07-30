@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class adminController extends Controller
 {
-    public function index() {
+    public function indexPage() {
         $view = 'home.admin';
     
         return view($view, [
@@ -20,13 +20,13 @@ class adminController extends Controller
         ]);
     }
 
-    public function profile() {
+    public function profilePage() {
         return view('profile.admin-profile', [
             "pageName" => "Profil Anda | ",
         ]);
     }
 
-    public function editProfile() {
+    public function editProfilePage() {
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
 
         foreach ($paymentMethod as $methodOfPayment) {
@@ -143,7 +143,7 @@ class adminController extends Controller
         return redirect()->intended('/admin-profile');
     }
 
-    public function manageCourse() {
+    public function manageCoursePage() {
         $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         $user = auth()->user();
         return view('admin-page.manage-course', [
