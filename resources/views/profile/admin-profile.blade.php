@@ -59,7 +59,7 @@
                 </div>
             </a>
             {{-- Driving School License --}}
-            <a href="" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/add-driving-school.webp')">
+            <a href="/admin-driving-school-license" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/add-driving-school.webp')">
                 <div class="flex flex-col gap-1 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Izin Penyelenggaraan Kursus</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Pastikan izin kursus anda sah dan aktif</p>
@@ -118,7 +118,7 @@
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="closeDeactivate" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
                 <button type="submit" id="yesDeactivate" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Nonaktifkan</button>
-                <form action="/check-availability" method="post" class="mb-1 hidden" id="availabilityForm">                    
+                <form action="/change-availability" method="post" class="mb-1 hidden" id="availabilityForm">                    
                     @csrf
                     <input type="hidden" name="availability" value="0">
                 </form>

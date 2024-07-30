@@ -26,6 +26,12 @@ class adminController extends Controller
         ]);
     }
 
+    public function drivingSchoolLicensePage() {
+        return view('admin-page.driving-school-license', [
+            "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
+        ]);
+    }
+
     public function editProfilePage() {
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
 
