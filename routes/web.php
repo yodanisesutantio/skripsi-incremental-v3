@@ -48,6 +48,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
     // Admin License Page
     Route::get('/admin-driving-school-license', [adminController::class, 'drivingSchoolLicensePage']);
+    // Admin License Page Update Logic
+    Route::post('/admin-driving-school-license/{username}', [licenseController::class, 'drivingSchoolLicensePage']);
 
     // Admin Edit Profile Page
     Route::get('/admin-profile/edit', [adminController::class, 'editProfilePage']);
