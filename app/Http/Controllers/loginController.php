@@ -36,6 +36,7 @@ class loginController extends Controller
 
         return back()->withErrors([
             'username' => 'Periksa kembali username anda',
+            'password' => 'Periksa kembali password anda',
         ])->onlyInput('username');
     }
 
