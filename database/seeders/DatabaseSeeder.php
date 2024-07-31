@@ -35,24 +35,24 @@ class DatabaseSeeder extends Seeder
             'description' => 'House of Magetan Driving School'
         ]);
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.pdf',
+            'licensePath' => '1644230171.png',
             'startLicenseDate' => '2024-08-21',
             'endLicenseDate' => '2026-08-21',
-            'licenseStatus' => 'Confirmed',
+            'licenseStatus' => 'Sudah Tervalidasi',
             'admin_id' => 1,
         ]);
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.pdf',
+            'licensePath' => '1644230171.png',
             'startLicenseDate' => '2022-08-21',
             'endLicenseDate' => '2024-08-21',
-            'licenseStatus' => 'Active',
+            'licenseStatus' => 'Aktif',
             'admin_id' => 1,
         ]);
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.pdf',
+            'licensePath' => '1644230171.png',
             'startLicenseDate' => '2020-08-21',
             'endLicenseDate' => '2022-08-21',
-            'licenseStatus' => 'Expired',
+            'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 1,
         ]);
         Course::create([

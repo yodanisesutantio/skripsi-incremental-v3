@@ -34,7 +34,7 @@ class adminController extends Controller
     
         $activeDrivingSchoolLicense = DrivingSchoolLicense::query()
             ->where('admin_id', $adminId)
-            ->where('licenseStatus', 'Confirmed')
+            ->where('licenseStatus', 'Aktif')
             ->first();
 
         if ($activeDrivingSchoolLicense) {
@@ -44,7 +44,14 @@ class adminController extends Controller
     
         $drivingSchoolLicenses = DrivingSchoolLicense::query()
             ->where('admin_id', $adminId)
+            ->orderby('created_at', 'desc')
             ->get();
+
+        if ($drivingSchoolLicenses->isNotEmpty()) {
+            $drivingSchoolLicenses->each(function ($license) {
+                $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->translatedFormat('d M Y');
+            });
+        }
     
         return view('admin-page.driving-school-license', [
             "pageName" => "Izin Penyelenggaraan Kursus Anda | ",

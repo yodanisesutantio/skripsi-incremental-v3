@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('licensePath');
             $table->date('startLicenseDate');
             $table->date('endLicenseDate');
-            $table->string('licenseStatus')->nullable();
+            $table->string('licenseStatus')->default('Belum Divalidasi');
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
