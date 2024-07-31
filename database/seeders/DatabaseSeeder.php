@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1644230171.pdf',
+            'startLicenseDate' => '2022-08-21',
             'endLicenseDate' => '2024-08-21',
             'licenseStatus' => 'Confirmed',
             'admin_id' => 1,

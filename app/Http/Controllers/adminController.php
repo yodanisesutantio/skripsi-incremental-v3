@@ -36,6 +36,15 @@ class adminController extends Controller
         ]);
     }
 
+    public function drivingSchoolLicenseForm() {
+        $drivingSchoolLicense = DrivingSchoolLicense::query()->where('admin_id', auth()->id())->where('licenseStatus', 'Confirmed')->first();
+
+        return view('admin-page.driving-school-license', [
+            "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
+            "license" => $drivingSchoolLicense,
+        ]);
+    }
+
     public function editProfilePage() {
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('driving_school_licenses', function (Blueprint $table) {
             $table->id();
             $table->string('licensePath');
+            $table->date('startLicenseDate');
             $table->date('endLicenseDate');
             $table->string('licenseStatus');
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
