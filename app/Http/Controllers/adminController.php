@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+
 use App\Models\User;
 use App\Models\DrivingSchoolLicense;
 use App\Models\Course;
@@ -28,20 +30,32 @@ class adminController extends Controller
     }
 
     public function drivingSchoolLicensePage() {
-        $drivingSchoolLicense = DrivingSchoolLicense::query()->where('admin_id', auth()->id())->where('licenseStatus', 'Confirmed')->first();
+        $adminId = auth()->id();
+    
+        $activeDrivingSchoolLicense = DrivingSchoolLicense::query()
+            ->where('admin_id', $adminId)
+            ->where('licenseStatus', 'Confirmed')
+            ->first();
 
+        if ($activeDrivingSchoolLicense) {
+            $activeDrivingSchoolLicense->formattedStartDate = Carbon::parse($activeDrivingSchoolLicense->startLicenseDate)->translatedFormat('d M Y');
+            $activeDrivingSchoolLicense->formattedEndDate = Carbon::parse($activeDrivingSchoolLicense->endLicenseDate)->translatedFormat('d M Y');
+        }
+    
+        $drivingSchoolLicenses = DrivingSchoolLicense::query()
+            ->where('admin_id', $adminId)
+            ->get();
+    
         return view('admin-page.driving-school-license', [
             "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
-            "license" => $drivingSchoolLicense,
+            "activeLicense" => $activeDrivingSchoolLicense,
+            "licenses" => $drivingSchoolLicenses,
         ]);
-    }
+    }    
 
     public function drivingSchoolLicenseForm() {
-        $drivingSchoolLicense = DrivingSchoolLicense::query()->where('admin_id', auth()->id())->where('licenseStatus', 'Confirmed')->first();
-
         return view('admin-page.driving-school-license', [
-            "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
-            "license" => $drivingSchoolLicense,
+            "pageName" => "Unggah Izin Penyelenggaraan Kursus Baru | ",
         ]);
     }
 
