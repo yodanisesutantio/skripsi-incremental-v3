@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\DrivingSchoolLicense;
 use App\Models\Course;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
@@ -27,8 +28,11 @@ class adminController extends Controller
     }
 
     public function drivingSchoolLicensePage() {
+        $drivingSchoolLicense = DrivingSchoolLicense::query()->where('admin_id', auth()->id())->where('licenseStatus', 'Confirmed')->first();
+
         return view('admin-page.driving-school-license', [
             "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
+            "license" => $drivingSchoolLicense,
         ]);
     }
 

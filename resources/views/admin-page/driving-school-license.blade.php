@@ -7,6 +7,19 @@
             <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Dokumen Izin Penyelenggaraan Kursus</h1>
             <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Unggah Dokumen Izin Penyelenggaraan Kursus Anda</p>
         </div>
+        {{-- Tabs --}}
+        <div class="overflow-x-auto" style="scrollbar-width: none;">
+            <ul class="flex flex-row gap-5 font-league text-custom-dark text-lg font-medium text-center">
+                {{-- Current Licenses --}}
+                <li class="whitespace-nowrap rounded-lg duration-300">
+                    <button class="lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 ml-6" id="accountInfoButton">Izin Berlaku</button>
+                </li>
+                {{-- Upload New --}}
+                <li class="whitespace-nowrap rounded-lg duration-300">
+                    <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="paymentMethodButton">Unggah Baru</button>
+                </li>
+            </ul>
+        </div>
     </div>
 
     {{-- Mobile View Forms Header --}}
@@ -19,6 +32,20 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
+            {{-- Tabs --}}
+            <div class="overflow-x-auto lg:pt-8 hidden lg:block" style="scrollbar-width: none;">
+                <ul class="flex flex-row lg:gap-8 font-league text-custom-dark text-lg lg:text-xl font-medium text-center">
+                    {{-- Current Licenses --}}
+                    <li class="whitespace-nowrap rounded-lg duration-300">
+                        <button class="lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 ml-6" id="accountInfoButton">Izin Berlaku</button>
+                    </li>
+                    {{-- Upload New --}}
+                    <li class="whitespace-nowrap rounded-lg duration-300">
+                        <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="paymentMethodButton">Unggah Baru</button>
+                    </li>
+                </ul>
+            </div>
+
             <form action="{{ url('admin-driving-school-license/' . auth()->user()->username) }}" method="post" enctype="multipart/form-data" id="uploadNewLicenseForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
                 {{-- Form Sub Headers --}}
@@ -28,9 +55,10 @@
                 {{-- Input licensePath --}}
                 <div class="flex flex-col gap-2">
                     <label for="licensePath" class="cursor-pointer rounded-lg">
-                        <!-- Display the thumbnail if it exists -->
-                        <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-[18rem] bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light overflow-hidden duration-300" id="licensePath_wrapper" {{-- style="background-image: url('{{ asset('storage/classOrlicensePath/' . $license['licensePath']) }}')"--}}>
+                        <!-- Display the PDF thumbnail if it exists -->
+                        <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-[18rem] bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light overflow-hidden duration-300" id="licensePath_wrapper">
                             <div class="absolute top-0 left-0 w-full h-full hover:bg-custom-dark/30 duration-300" id="licensePath_overlay"></div>
+                            <div id="pdfViewer" class="w-full h-full"></div>
                             <input id="licensePath" name="licensePath" type="file" class="hidden">
                         </div>
                     </label>
@@ -41,9 +69,9 @@
 
                 {{-- Input endDateLicense --}}
                 <div class="flex flex-col gap-1 mt-8">
-                    <label for="endDateLicense" class="font-semibold font-league text-xl text-custom-grey">Tenggat Akhir Dokumen<span class="text-custom-destructive">*</span></label>
-                    <input type="date" name="endDateLicense" id="endDateLicense" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endDateLicense') border-2 border-custom-destructive @enderror" {{-- value="{{ $license['endDateLicense'] }}"--}}>
-                    @error('endDateLicense')
+                    <label for="endLicenseDate" class="font-semibold font-league text-xl text-custom-grey">Tenggat Akhir Dokumen<span class="text-custom-destructive">*</span></label>
+                    <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror" value="{{ $license->endLicenseDate }}">
+                    @error('endLicenseDate')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
                 </div>
@@ -119,5 +147,62 @@
             };
             reader.readAsDataURL(file); // Read the file as a data URL
         }
+
+        // Include PDF.js from CDN
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', function() {
+            // Function to render PDF
+            function renderPDF(url) {
+                const loadingTask = pdfjsLib.getDocument(url);
+                loadingTask.promise.then(function(pdf) {
+                    // Fetch the first page
+                    pdf.getPage(1).then(function(page) {
+                        const pdfViewer = $('#pdfViewer');
+                        const wrapperWidth = $('#licensePath_wrapper').width();
+
+                        // Determine scale based on container width
+                        const viewport = page.getViewport({ scale: 1 });
+                        const scale = wrapperWidth / viewport.width;
+                        const scaledViewport = page.getViewport({ scale: scale });
+
+                        // Prepare canvas using PDF page dimensions
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = scaledViewport.height;
+                        canvas.width = scaledViewport.width;
+
+                        // Render PDF page into canvas context
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: scaledViewport
+                        };
+                        const renderTask = page.render(renderContext);
+                        renderTask.promise.then(function() {
+                            pdfViewer.empty(); // Clear previous content
+                            pdfViewer.append(canvas); // Append the canvas with the PDF page
+                        });
+                    });
+                });
+            }
+
+            // Handle file input change
+            $('#licensePath').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        renderPDF({ data: new Uint8Array(e.target.result) });
+                    };
+                    reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
+                } else {
+                    alert('Please upload a valid PDF file.');
+                }
+            });
+
+            // Render existing PDF if exists
+            const existingPDFUrl = "{{ asset('storage/drivingSchoolLicensePDF/' . $license->licensePath) }}";
+            if (existingPDFUrl) {
+                renderPDF(existingPDFUrl);
+            }
+        });
     </script>
 @endsection

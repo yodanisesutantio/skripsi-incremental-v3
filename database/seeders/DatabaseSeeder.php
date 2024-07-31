@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\DrivingSchoolLicense;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
@@ -32,6 +33,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('magetan'),
             'role' => "admin",
             'description' => 'House of Magetan Driving School'
+        ]);
+        DrivingSchoolLicense::create([
+            'licensePath' => '1644230171.pdf',
+            'endLicenseDate' => '2024-08-21',
+            'licenseStatus' => 'Confirmed',
+            'admin_id' => 1,
         ]);
         Course::create([
             'course_name' => 'Kursus Mobil Manual untuk Pemula',

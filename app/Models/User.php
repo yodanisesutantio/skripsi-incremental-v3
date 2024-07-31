@@ -25,6 +25,11 @@ class User extends Authenticatable
     //     return $this->hasOne(drivingSchoolLicense::class);
     // }
 
+    public function drivingSchoolLicense()
+    {
+        return $this->hasMany(drivingSchoolLicense::class); // For admins/instructors
+    }
+
     public function courses()
     {
         return $this->hasMany(Course::class); // For admins/instructors

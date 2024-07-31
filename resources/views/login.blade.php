@@ -15,7 +15,7 @@
                     {{-- Input Username --}}
                     <div class="flex flex-col gap-1">
                         <label for="username" class="font-normal font-league text-xl text-custom-white">Username<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="username" id="username" autofocus placeholder="Username" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-white/20 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
+                        <input type="text" name="username" id="username" autofocus placeholder="Username" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                         @error('username')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -25,7 +25,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="password" class="font-normal font-league text-xl text-custom-white">Password<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
-                            <input type="password" name="password" id="password" placeholder="Password" class="relative py-4 pl-4 pr-10 w-full font-league text-lg/[0] text-custom-white bg-custom-white/20 placeholder:#FAFAFA rounded-lg @error('password') border-2 border-custom-destructive @enderror">
+                            <input type="password" name="password" id="password" placeholder="Password" class="relative py-4 pl-4 pr-10 w-full font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHidePass()">
                                 <svg id="showPass" class="cursor-pointer" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#fefefe77" d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"/><path fill="#fefefe77" fill-rule="evenodd" d="M2 12c0 1.64.425 2.191 1.275 3.296C4.972 17.5 7.818 20 12 20c4.182 0 7.028-2.5 8.725-4.704C21.575 14.192 22 13.639 22 12c0-1.64-.425-2.191-1.275-3.296C19.028 6.5 16.182 4 12 4C7.818 4 4.972 6.5 3.275 8.704C2.425 9.81 2 10.361 2 12m10-3.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5" clip-rule="evenodd"/></svg>
 
