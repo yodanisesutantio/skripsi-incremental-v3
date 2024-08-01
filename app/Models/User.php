@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasOne(Course::class); // For users/students
     }
 
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'instructor_id');
+    }
+
     // Setting Relationship where Admin can have more than 1 Payment Methods
     public function payment_methods()
     {

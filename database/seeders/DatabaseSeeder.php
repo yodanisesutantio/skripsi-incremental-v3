@@ -55,6 +55,16 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 1
         ]);
         User::create([
+            'fullname' => 'Instruktur C',
+            'username' => 'instruktur_C',
+            'phone_number' => '+6281401503103',
+            'password' => bcrypt('sayaC'),
+            'age' => 30,
+            'role' => "instructor",
+            'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'admin_id' => 1
+        ]);
+        User::create([
             'fullname' => 'Siswa 1',
             'username' => 'Siswa_1',
             'phone_number' => '+6281403203103',
@@ -145,18 +155,18 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 3,
-            'instructor_id' => 4,
-            'student_id' => 5,
-        ]);
-        Enrollment::create([
-            'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'student_id' => 6,
         ]);
         Enrollment::create([
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 5,
             'student_id' => 7,
+        ]);
+        Enrollment::create([
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'student_id' => 8,
         ]);
         PaymentMethod::create([
             'payment_vendor' => "BCA",

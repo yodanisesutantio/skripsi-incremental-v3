@@ -10,14 +10,45 @@
         <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Instruktur</div></a>
     </div>
 
-    {{-- @if ($course->isEmpty()) --}}
+    @if ($instructors->isEmpty())
         <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai instruktur)</p>
-    {{-- @else --}}
-    {{-- Class List --}}
-    <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mt-8 mb-7 lg:mb-14">
-        
-    </div>
-    {{-- @endif --}}
+    @else
+        {{-- Instructors List --}}
+        <div class="w-full flex lg:grid flex-col lg:grid-cols-3 gap-4 lg:gap-6 mt-4 lg:mt-10 mb-7 lg:mb-14">
+            @foreach ($instructors as $myInstructor)
+            <div class="w-full grid grid-cols-3 rounded-xl overflow-hidden text-custom-dark drop-shadow-lg">
+                @if ($myInstructor['hash_for_profile_picture'])
+                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor['hash_for_for_profile_picture']) }}" alt="" class="object-cover object-center h-full">
+                @else
+                    <img src="img/blank-profile.webp" alt="" class="object-cover object-center h-full">
+                @endif
+                    <div class="col-span-2 flex flex-col justify-center bg-custom-white-hover px-3 py-2">                        
+                        <div class="flex flex-col">
+                            <h2 class="font-encode text-xl/tight lg:text-2xl font-semibold">{{ $myInstructor['fullname'] }}</h2>
+                            <p class="font-league text-base/tight lg:text-lg/tight font-medium text-custom-grey mt-1 lg:mt-0">Sedang Mengajar {{ $myInstructor->enrollments()->count() }} Siswa</p>
+                        </div>
+
+                        {{-- Instructor Availability Toggle --}}
+                        @if ($myInstructor['availability'] === 1)
+                        <div class="flex flex-row items-center gap-2.5 mt-8 mb-3">
+                            <button type="button" class="relative flex items-center deactivate-instructor" data-id="{{ $myInstructor['id'] }}">
+                                <div class="flex-shrink-0 w-12 h-4 bg-custom-green rounded-full"></div>
+                                <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg right-0"></div>
+                            </button>
+                        </div>
+                        @else
+                        <div class="flex flex-row items-center gap-2.5">
+                            <button type="button" class="relative flex items-center activate-instructor" data-id="{{ $myInstructor['id'] }}">
+                                <div class="flex-shrink-0 w-12 h-4 bg-custom-disabled-light/50 rounded-full"></div>
+                                <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg left-0"></div>
+                            </button>
+                        </div>
+                        @endif
+                    </div>
+            </div>
+            @endforeach
+        </div>
+    @endif
 
     {{-- Delete Course Overlay --}}
     <div id="deleteCourseOverlay" class="fixed hidden z-40 items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">

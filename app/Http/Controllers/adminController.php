@@ -211,12 +211,10 @@ class adminController extends Controller
     }
 
     public function manageInstructorPage() {
-        // $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        // $user = auth()->user();
+        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('admin-page.manage-instructor', [
             "pageName" => "Daftar Instruktur Anda | ",
-            // "course" => $course,
-            // "user" => $user,
+            "instructors" => $instructors,
         ]);
     }
 }
