@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\instructorController;
 use App\Http\Controllers\courseController;
 use App\Http\Controllers\drivingSchoolLicenseController;
 use App\Http\Controllers\paymentMethodController;
@@ -91,4 +92,9 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
     // Admin Activate Course Switch Logic Handler
     Route::post('/admin-activate-course', [courseController::class, 'activateCourse']);
+
+    // Admin Deactivate Instructor Switch Logic Handler
+    Route::post('/admin-deactivate-instructor', [instructorController::class, 'deactivateInstructor']);
+    // Admin Activate Instructor Switch Logic Handler
+    Route::post('/admin-activate-instructor', [instructorController::class, 'activateInstructor']);
 });
