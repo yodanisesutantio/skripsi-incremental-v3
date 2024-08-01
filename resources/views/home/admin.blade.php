@@ -16,7 +16,7 @@
 
     {{-- Schedule Interface --}}
     <div class="flex flex-col mb-8 lg:mb-11">
-        <h2 class="text-custom-dark font-encode font-semibold text-xl lg:text-3xl">Jadwal Kursus</h2>
+        <h2 class="mb-8 text-custom-dark font-encode font-semibold text-xl lg:text-3xl">Jadwal Kursus</h2>
         <p class="font-league text-center lg:text-xl my-3 lg:my-6">(Tidak ada kursus mendatang)</p>
     </div>
 

@@ -84,16 +84,24 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/admin-manage-course/edit/{username}/{course_name}', [courseController::class, 'editCourseLogic']);
     // Admin's Delete Course Logic Handler
     Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);
-
-    // Admin's My Instructor Page
-    Route::get('/admin-manage-instructor', [adminController::class, 'manageInstructorPage']);
-    // Admin's Delete Instructor Logic Handler
-    Route::delete('/admin-delete-instructor/{id}', [instructorController::class, 'deleteInstructor']);
-
+    
     // Admin Deactivate Course Switch Logic Handler
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
     // Admin Activate Course Switch Logic Handler
     Route::post('/admin-activate-course', [courseController::class, 'activateCourse']);
+
+    // Admin's My Instructor Page
+    Route::get('/admin-manage-instructor', [adminController::class, 'manageInstructorPage']);
+    // Admin's Create Instructor Page
+    Route::get('/admin-manage-instructor/create', [adminController::class, 'createInstructorPage']);
+    // Admin's Create Instructor Logic Handler
+    Route::post('/admin-manage-instructor/create', [instructorController::class, 'createInstructorLogic']);
+    // Admin's Edit Instructor Page
+    Route::get('/admin-manage-instructor/edit/{username}/{instructor_name}', [adminController::class, 'editInstructorPage']);
+    // Admin's Edit Instructor Logic Handler
+    Route::post('/admin-manage-instructor/edit/{username}/{instructor_name}', [instructorController::class, 'editInstructorLogic']);
+    // Admin's Delete Instructor Logic Handler
+    Route::delete('/admin-delete-instructor/{id}', [instructorController::class, 'deleteInstructor']);
 
     // Admin Deactivate Instructor Switch Logic Handler
     Route::post('/admin-deactivate-instructor', [instructorController::class, 'deactivateInstructor']);

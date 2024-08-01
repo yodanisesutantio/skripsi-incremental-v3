@@ -14,7 +14,7 @@
         <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai kursus)</p>
     @else
     {{-- Class List --}}
-    <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mt-8 mb-7 lg:mb-14">
+    <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mt-8 lg:mt-10 mb-7 lg:mb-14">
         @foreach ($course as $myCourse)
         <div class="w-full rounded-xl overflow-hidden drop-shadow-lg course-container">
             @if ($myCourse['course_thumbnail'])
