@@ -7,7 +7,7 @@
     <p class="text-custom-grey font-league font-medium text-lg lg:text-2xl mt-1">Pilih salah satu Instruktur untuk anda kelola!</p>
 
     <div class="flex">
-        <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Instruktur</div></a>
+        <a href="admin-manage-instructor/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Instruktur</div></a>
     </div>
 
     @if ($instructors->isEmpty())

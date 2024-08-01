@@ -217,4 +217,10 @@ class adminController extends Controller
             "instructors" => $instructors,
         ]);
     }
+
+    public function createInstructorPage() {
+        return view('admin-page.create-instructor', [
+            'pageName' => "Tambah Instruktur Baru | "
+        ]);
+    }
 }
