@@ -7,7 +7,7 @@ use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\courseController;
-use App\Http\Controllers\DrivingSchoolLicenseController;
+use App\Http\Controllers\drivingSchoolLicenseController;
 use App\Http\Controllers\paymentMethodController;
 
 /*
@@ -83,6 +83,9 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/admin-manage-course/edit/{username}/{course_name}', [courseController::class, 'editCourseLogic']);
     // Admin's Delete Course Logic Handler
     Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);
+
+    // Admin's My Course Page
+    Route::get('/admin-manage-instructor', [adminController::class, 'manageInstructorPage']);
 
     // Admin Deactivate Course Switch Logic Handler
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);

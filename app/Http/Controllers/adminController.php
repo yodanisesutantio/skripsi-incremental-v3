@@ -209,4 +209,14 @@ class adminController extends Controller
             'course' => $course,
         ]);
     }
+
+    public function manageInstructorPage() {
+        // $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        // $user = auth()->user();
+        return view('admin-page.manage-instructor', [
+            "pageName" => "Daftar Instruktur Anda | ",
+            // "course" => $course,
+            // "user" => $user,
+        ]);
+    }
 }

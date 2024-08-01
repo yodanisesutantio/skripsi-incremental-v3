@@ -34,6 +34,53 @@ class DatabaseSeeder extends Seeder
             'role' => "admin",
             'description' => 'House of Magetan Driving School'
         ]);
+        User::create([
+            'fullname' => 'Instruktur A',
+            'username' => 'instruktur_A',
+            'phone_number' => '+6281401203102',
+            'password' => bcrypt('sayaA'),
+            'age' => 28,
+            'role' => "instructor",
+            'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'admin_id' => 1
+        ]);
+        User::create([
+            'fullname' => 'Instruktur B',
+            'username' => 'instruktur_B',
+            'phone_number' => '+6281401203103',
+            'password' => bcrypt('sayaB'),
+            'age' => 33,
+            'role' => "instructor",
+            'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'admin_id' => 1
+        ]);
+        User::create([
+            'fullname' => 'Siswa 1',
+            'username' => 'Siswa_1',
+            'phone_number' => '+6281403203103',
+            'password' => bcrypt('sayasiswa1'),
+            'age' => 19,
+            'role' => 'user',
+            'description' => 'Saya adalah Siswa',
+        ]);
+        User::create([
+            'fullname' => 'Siswa 2',
+            'username' => 'Siswa_2',
+            'phone_number' => '+6281503203103',
+            'password' => bcrypt('sayasiswa2'),
+            'age' => 27,
+            'role' => 'user',
+            'description' => 'Saya adalah Siswa',
+        ]);
+        User::create([
+            'fullname' => 'Siswa 3',
+            'username' => 'Siswa_3',
+            'phone_number' => '+6281703203103',
+            'password' => bcrypt('sayasiswa3'),
+            'age' => 24,
+            'role' => 'user',
+            'description' => 'Saya adalah Siswa',
+        ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1644230171.png',
             'startLicenseDate' => '2024-08-21',
@@ -98,13 +145,18 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 3,
-            'instructor_id' => 1,
-            'student_id' => 2,
+            'instructor_id' => 4,
+            'student_id' => 5,
         ]);
         Enrollment::create([
             'course_id' => 1,
-            'instructor_id' => 1,
-            'student_id' => 2,
+            'instructor_id' => 4,
+            'student_id' => 6,
+        ]);
+        Enrollment::create([
+            'course_id' => 1,
+            'instructor_id' => 3,
+            'student_id' => 7,
         ]);
         PaymentMethod::create([
             'payment_vendor' => "BCA",

@@ -21,25 +21,37 @@ class User extends Authenticatable
         'id',
     ];
 
-    // public function drivingSchoolLicense() {
-    //     return $this->hasOne(drivingSchoolLicense::class);
-    // }
-
-    public function drivingSchoolLicense()
+    // Setting Relationship where an Instructor can only have 1 Admin
+    public function admin()
     {
-        return $this->hasMany(drivingSchoolLicense::class); // For admins/instructors
+        return $this->belongsTo(User::class, 'admin_id');
     }
 
+    // Setting Relationship where an Admin can have more than 1 Instructors
+    public function instructors()
+    {
+        return $this->hasMany(User::class, 'admin_id');
+    }
+
+    // Setting Relationship where an Admin can have more than Driving School Licenses, to keep all the past records
+    public function drivingSchoolLicense()
+    {
+        return $this->hasMany(drivingSchoolLicense::class);
+    }
+
+    // Setting Relationship where Admin and Instructor can have more than 1 Course
     public function courses()
     {
         return $this->hasMany(Course::class); // For admins/instructors
     }
 
+    // Setting Relationship where Student can have only 1 Course
     public function singleCourse()
     {
         return $this->hasOne(Course::class); // For users/students
     }
 
+    // Setting Relationship where Admin can have more than 1 Payment Methods
     public function payment_methods()
     {
         return $this->hasMany(PaymentMethod::class);
