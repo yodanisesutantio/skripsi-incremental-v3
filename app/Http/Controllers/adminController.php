@@ -61,7 +61,7 @@ class adminController extends Controller
     }    
 
     public function drivingSchoolLicenseForm() {
-        return view('admin-page.driving-school-license', [
+        return view('admin-page.create-driving-school-license', [
             "pageName" => "Unggah Izin Penyelenggaraan Kursus Baru | ",
         ]);
     }
