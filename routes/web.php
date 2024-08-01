@@ -7,6 +7,7 @@ use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\courseController;
+use App\Http\Controllers\DrivingSchoolLicenseController;
 use App\Http\Controllers\paymentMethodController;
 
 /*
@@ -51,7 +52,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Upload License Form
     Route::get('/admin-driving-school-license/create', [adminController::class, 'drivingSchoolLicenseForm']);
     // Admin Upload License Form Logic Handler
-    Route::post('/admin-driving-school-license/create', [licenseController::class, 'drivingSchoolLicenseCreate']);
+    Route::post('/admin-driving-school-license/create', [DrivingSchoolLicenseController::class, 'drivingSchoolLicenseCreate']);
 
     // Admin Edit Profile Page
     Route::get('/admin-profile/edit', [adminController::class, 'editProfilePage']);

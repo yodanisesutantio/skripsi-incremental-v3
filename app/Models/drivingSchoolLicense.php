@@ -18,6 +18,10 @@ class drivingSchoolLicense extends Model
         'id',
     ];
 
+    protected $attributes = [
+        'licenseStatus' => 'Belum Divalidasi',
+    ];
+
     public function admin()
     {
         return $this->belongsTo(User::class, 'admin_id');
