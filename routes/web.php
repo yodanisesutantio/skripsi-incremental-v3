@@ -85,8 +85,10 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Delete Course Logic Handler
     Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);
 
-    // Admin's My Course Page
+    // Admin's My Instructor Page
     Route::get('/admin-manage-instructor', [adminController::class, 'manageInstructorPage']);
+    // Admin's Delete Instructor Logic Handler
+    Route::delete('/admin-delete-instructor/{id}', [instructorController::class, 'deleteInstructor']);
 
     // Admin Deactivate Course Switch Logic Handler
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
