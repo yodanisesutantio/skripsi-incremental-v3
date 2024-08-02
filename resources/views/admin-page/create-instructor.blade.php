@@ -18,7 +18,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/admin-manage-course/create" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="/admin-manage-instructor/create" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 
                 {{-- Form Sub Headers --}}
@@ -110,7 +110,7 @@
                     </div>
                     {{-- Input Age --}}
                     <div class="flex flex-col gap-2">
-                        <label for="age" class="font-semibold font-league text-xl text-custom-grey">Usia Instruktur<span class="text-custom-destructive">*</span></label>
+                        <label for="age" class="font-semibold font-league text-xl text-custom-grey">Usia Instruktur (opsional)</label>
                         <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror">
                         @error('age')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -134,7 +134,7 @@
                     </div>
                     {{-- Input Password --}}
                     <div class="flex flex-col gap-2">
-                        <label for="password" class="font-semibold font-league text-xl text-custom-grey">Masukkan Password Baru</label>
+                        <label for="password" class="font-semibold font-league text-xl text-custom-grey">Masukkan Password Baru<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
                             <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHidePass()">
@@ -150,7 +150,7 @@
 
                     {{-- Confirm Password --}}
                     <div class="flex flex-col gap-2">
-                        <label for="password_confirmation" class="font-semibold font-league text-xl text-custom-grey">Ketik Ulang Password Baru`</label>
+                        <label for="password_confirmation" class="font-semibold font-league text-xl text-custom-grey">Ketik Ulang Password Baru<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
                             <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHideConfirmPass()">
@@ -184,21 +184,21 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
         // Tel Input Script
-        // const phoneInputField = document.getElementById('phone_number');        
-        // const intlTelInput = window.intlTelInput(phoneInputField, {
-        //     initialCountry: "ID", 
-        //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
-        // });
-        // phoneInputField.addEventListener('keypress', function(event) {
-        //     let value = input.value.replace(/\D/g, '');
-        //     if (isNaN(event.key)) {
-        //         event.preventDefault(); // Prevent non-numerical input
-        //     }
-        // });
-        // function deleteAnyString(input) {
-        //     let value = input.value.replace(/\D/g, '');
-        //     input.value = value;
-        // }
+        const phoneInputField = document.getElementById('phone_number');        
+        const intlTelInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "ID", 
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+        });
+        phoneInputField.addEventListener('keypress', function(event) {
+            let value = input.value.replace(/\D/g, '');
+            if (isNaN(event.key)) {
+                event.preventDefault(); // Prevent non-numerical input
+            }
+        });
+        function deleteAnyString(input) {
+            let value = input.value.replace(/\D/g, '');
+            input.value = value;
+        }
 
         // Add Shadow to Form Header
         $(window).on('scroll', function () {

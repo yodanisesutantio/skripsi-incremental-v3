@@ -123,11 +123,17 @@
                             button.next('p').text('Aktif');
                         }
                     } else {
-                        alert('Failed to update instructor availability');
+                        toastr.options.timeOut = 2500;
+                        toastr.options.closeButton = true;
+                        toastr.options.progressBar = true;
+                        toastr.error('Sistem tidak bisa melanjutkan proses. Silahkan Coba Lagi');
                     }
                 },
                 error: function(xhr) {
-                    alert('An error occurred');
+                    toastr.options.timeOut = 2500;
+                    toastr.options.closeButton = true;
+                    toastr.options.progressBar = true;
+                    toastr.error('Terjadi Kesalahan. Silahkan Coba Lagi');
                 }
             });
         });

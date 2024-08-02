@@ -95,7 +95,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Create Instructor Page
     Route::get('/admin-manage-instructor/create', [adminController::class, 'createInstructorPage']);
     // Admin's Create Instructor Logic Handler
-    Route::post('/admin-manage-instructor/create', [instructorController::class, 'createInstructorLogic']);
+    Route::post('/admin-manage-instructor/create', [instructorController::class, 'createInstructorLogic']); 
     // Admin's Edit Instructor Page
     Route::get('/admin-manage-instructor/edit/{username}/{instructor_name}', [adminController::class, 'editInstructorPage']);
     // Admin's Edit Instructor Logic Handler
