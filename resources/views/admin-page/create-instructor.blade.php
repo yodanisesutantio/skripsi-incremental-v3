@@ -37,13 +37,13 @@
                                     <p class="mt-4 mb-2 text-base text-center text-custom-grey"><span class="font-semibold">Tekan untuk memilih foto yang akan diupload</span> atau seret foto anda ke area ini</p>
                                     <p class="text-sm text-custom-grey text-center">Format yang didukung .jpg, .png, atau .webp (MAX. 2 MB)</p>
                                 </div>
-                                <input id="certificatePath" name="certificatePath" type="file" class="hidden">
                             </div>
                         </label>
+                        <input id="certificatePath" name="certificatePath" type="file" class="hidden">
                         @error('certificatePath')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div>        
     
                     {{-- Input startDateCertificate --}}
                     <div class="flex flex-col gap-2">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </label>
-                        <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 hidden">
+                        <input type="file" name="hash_for_profile_picture" id="hash_for_profile_picture" class="hidden">
                         @error('hash_for_profile_picture')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -119,7 +119,7 @@
                     {{-- Input Description --}}
                     <div class="flex flex-col gap-2">
                         <label for="description" class="font-semibold font-league text-xl text-custom-grey">Deskripsi (opsional)</label>
-                        <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror"></textarea>
+                        <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ old('description') }}</textarea>
                         @error('description')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -183,6 +183,12 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Mobile Submit Button Function
+        $('#mobileSubmitButton').click(function(event) {
+            event.preventDefault();
+            $('form[action="/admin-manage-instructor/create"]').submit();
+        });
+
         // Tel Input Script
         const phoneInputField = document.getElementById('phone_number');        
         const intlTelInput = window.intlTelInput(phoneInputField, {
@@ -264,5 +270,56 @@
                 reader.readAsDataURL(file); // Read the file as a data URL
             }
         });
+
+        // Preview the Uploaded Thumbnail
+        $('#certificatePath').on('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#certificatePath_wrapper').css('background-image', 'url(' + e.target.result + ')'); // Update the background image
+                $('#certificatePath_overlay').removeClass('hidden');
+                $('#certificatePath_wrapper').removeClass('border-2 border-custom-grey border-dashed');
+                $('#uploadInfo').addClass('hidden'); //Hide the uploadInfo
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
+        });
+
+        const dropArea = $('#certificatePath_wrapper');
+        // Prevent default browser behavior for drag/drop events
+        dropArea.on({
+            dragover: function(e) {
+                e.preventDefault();
+                $(this).removeClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
+                $(this).addClass('bg-custom-disabled-light'); // Optional: Add hover styling
+            },
+            dragleave: function(e) {
+                e.preventDefault();
+                $(this).addClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
+                $(this).removeClass('bg-custom-disabled-light'); // Optional: Remove hover styling
+            },
+            drop: function(e) {
+                e.preventDefault();
+                $(this).addClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
+                $(this).removeClass('bg-custom-disabled-light'); // Optional: Remove hover styling
+
+                const file = e.originalEvent.dataTransfer.files[0];
+
+                if (file) {
+                    // Process the dropped file (e.g., display preview, upload)
+                    handleDroppedFile(file);
+                }
+            }
+        });
+
+        function handleDroppedFile(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#certificatePath_wrapper').css('background-image', 'url(' + e.target.result + ')'); // Update the background image
+                $('#certificatePath_overlay').removeClass('hidden');
+                $('#certificatePath_wrapper').removeClass('border-2 border-custom-grey border-dashed');
+                $('#uploadInfo').addClass('hidden'); //Hide the uploadInfo
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
     </script>
 @endsection

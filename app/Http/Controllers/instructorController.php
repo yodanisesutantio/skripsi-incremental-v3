@@ -36,6 +36,8 @@ class instructorController extends Controller
     }
 
     public function createInstructorLogic(Request $request) {
+        // dd($request->allFiles());
+
         $this->validate($request, [
             'certificatePath' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
             'startCertificateDate' => 'required',
@@ -77,11 +79,10 @@ class instructorController extends Controller
 
         $request['phone_number'] = preg_replace('/^(0|62)/', '+62', $request->input('phone_number'));
 
-        $fileName = null;
         if ($request->hasFile('hash_for_profile_picture')) {
             $file = $request->file('hash_for_profile_picture');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('profile_picture', $fileName);
+            $file->storeAs('profile_pictures', $fileName);
         }
         
         $user = User::create([
@@ -97,6 +98,21 @@ class instructorController extends Controller
         ]);
         
         $user->save();
+
+        if ($request->hasFile('certificatePath')) {
+            $fileCertificate = $request->file('certificatePath');
+            $certificateFile = time() . '.' . $fileCertificate->getClientOriginalExtension();
+            $fileCertificate->storeAs('instructor_certificate', $certificateFile);
+        }
+
+        $certificate = InstructorCertificate::create([
+            'certificatePath' => $certificateFile,
+            'startCertificateDate' => $request->startCertificateDate,
+            'endCertificateDate' => $request->endCertificateDate,
+            'instructor_id' => $user->id,
+        ]);
+
+        $certificate->save();
 
         session()->flash('success', 'Instruktur Berhasil Ditambahkan!');
         return redirect()->intended('/admin-manage-instructor');
