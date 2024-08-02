@@ -95,8 +95,6 @@ class instructorController extends Controller
             'availability' => 0,
             'admin_id' => Auth()->id(),
         ]);
-
-        dd($user);
         
         $user->save();
 

@@ -50,7 +50,7 @@
                     {{-- Input Course_Name --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_name" class="font-semibold font-league text-xl text-custom-grey">Nama Kelas Kursus<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="course_name" id="course_name" placeholder="Nama Kelas Kursus Baru" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_name') border-2 border-custom-destructive @enderror">
+                        <input type="text" name="course_name" id="course_name" placeholder="Nama Kelas Kursus Baru" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_name') border-2 border-custom-destructive @enderror" value="{{ old('course_name') }}">
                         @error('course_name')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -66,7 +66,7 @@
                     {{-- Input Course_Quota --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_quota" class="font-semibold font-league text-xl text-custom-grey">Kuota Kelas<span class="text-custom-destructive">*</span></label>
-                        <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror">
+                        <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror" value="{{ old('course_quota') }}">
                         @error('course_quota')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -74,7 +74,7 @@
                     {{-- Input Course_Length --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_length" class="font-semibold font-league text-xl text-custom-grey">Jumlah Pertemuan<span class="text-custom-destructive">*</span></label>
-                        <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror">
+                        <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror" value="{{ old('course_length') }}">
                         @error('course_length')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror

@@ -48,7 +48,7 @@
                     {{-- Input startDateCertificate --}}
                     <div class="flex flex-col gap-2">
                         <label for="startCertificateDate" class="font-semibold font-league text-xl text-custom-grey">Tanggal Awal Berlaku<span class="text-custom-destructive">*</span></label>
-                        <input type="date" name="startCertificateDate" id="startCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCertificateDate') border-2 border-custom-destructive @enderror">
+                        <input type="date" name="startCertificateDate" id="startCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('startCertificateDate') }}">
                         @error('startCertificateDate')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -57,7 +57,7 @@
                     {{-- Input endDateCertificate --}}
                     <div class="flex flex-col gap-2">
                         <label for="endCertificateDate" class="font-semibold font-league text-xl text-custom-grey">Tanggal Akhir Berlaku<span class="text-custom-destructive">*</span></label>
-                        <input type="date" name="endCertificateDate" id="endCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endCertificateDate') border-2 border-custom-destructive @enderror">
+                        <input type="date" name="endCertificateDate" id="endCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('endCertificateDate') }}">
                         @error('endCertificateDate')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -91,7 +91,7 @@
                     {{-- Input Full Name --}}
                     <div class="flex flex-col gap-2">
                         <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Instruktur Kursus<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror">
+                        <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ old('fullname') }}">
                         @error('fullname')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -99,7 +99,7 @@
                     {{-- Input Username --}}
                     <div class="flex flex-col gap-2">
                         <label for="username" class="font-semibold font-league text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror">
+                        <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                         @error('username')
                             @if ($message === 'The username has already been taken.')
                                 <span class="text-custom-destructive">{{ $message }}</span>    
@@ -111,7 +111,7 @@
                     {{-- Input Age --}}
                     <div class="flex flex-col gap-2">
                         <label for="age" class="font-semibold font-league text-xl text-custom-grey">Usia Instruktur (opsional)</label>
-                        <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror">
+                        <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
                         @error('age')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -127,7 +127,7 @@
                     {{-- Input Phone Number --}}
                     <div class="flex flex-col gap-2">
                         <label for="phone_number" class="font-semibold font-league text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
-                        <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" oninput="deleteAnyString(this)">
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ old('phone_number') }}" oninput="deleteAnyString(this)">
                         @error('phone_number')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
