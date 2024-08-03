@@ -31,7 +31,7 @@
                         <button class="bg-custom-dark/60 flex-shrink-0 p-2.5 rounded-xl overflow-hidden deleteCourseButton"  data-id="{{ $myCourse['id'] }}" data-name="{{ $myCourse['course_name'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="1.5" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></button>
                     @else
                         {{-- Unclickable Delete --}}
-                        <div class="bg-custom-dark/60 flex-shrink-0 p-2.5 rounded-xl overflow-hidden opacity-40"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="1.5" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></div>
+                        <div class="bg-custom-dark/60 flex-shrink-0 p-2.5 rounded-xl overflow-hidden opacity-40 cantDeleteCourseButton" data-name="{{ $myCourse['course_name'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="1.5" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></div>
                     @endif
                 </div>
             </div>
@@ -165,6 +165,16 @@
         $('#yesDeleteCourse').on('click', function (e) {
             e.preventDefault();
             $('#deleteCourseForm').submit();
+        });
+
+        // Error Toastr Message to Show When Users force to click the delete button when it cant be deleted
+        $('.cantDeleteCourseButton').on('click', function() {
+            const courseName = $(this).data('name');
+
+            toastr.options.timeOut = 4000;
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.warning('Kelas ' + courseName + ' masih memiliki Siswa aktif!');
         });
     </script>
 @endsection

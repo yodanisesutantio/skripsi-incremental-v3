@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use App\Models\DrivingSchoolLicense;
+use App\Models\InstructorCertificate;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'age' => 28,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'availability' => 0,
             'admin_id' => 1
         ]);
         User::create([
@@ -52,6 +54,7 @@ class DatabaseSeeder extends Seeder
             'age' => 33,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'availability' => 1,
             'admin_id' => 1
         ]);
         User::create([
@@ -62,6 +65,7 @@ class DatabaseSeeder extends Seeder
             'age' => 30,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
+            'availability' => 0,
             'admin_id' => 1
         ]);
         User::create([
@@ -111,6 +115,27 @@ class DatabaseSeeder extends Seeder
             'endLicenseDate' => '2022-08-21',
             'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 1,
+        ]);
+        InstructorCertificate::create([
+            'certificatePath' => '1722614055.webp',
+            'startCertificateDate' => '2020-08-01',
+            'endCertificateDate' => '2025-08-01',
+            'certificateStatus' => 'Belum Divalidasi',
+            'instructor_id' => 3,
+        ]);
+        InstructorCertificate::create([
+            'certificatePath' => '1722614055.webp',
+            'startCertificateDate' => '2020-08-01',
+            'endCertificateDate' => '2025-08-01',
+            'certificateStatus' => 'Sudah Divalidasi',
+            'instructor_id' => 4,
+        ]);
+        InstructorCertificate::create([
+            'certificatePath' => '1722614055.webp',
+            'startCertificateDate' => '2020-08-01',
+            'endCertificateDate' => '2025-08-01',
+            'certificateStatus' => 'Sudah Divalidasi',
+            'instructor_id' => 5,
         ]);
         Course::create([
             'course_name' => 'Kursus Mobil Manual untuk Pemula',

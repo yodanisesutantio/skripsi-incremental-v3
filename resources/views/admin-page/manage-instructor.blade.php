@@ -56,7 +56,7 @@
                             <button class="bg-custom-destructive hover:bg-[#EC2013] duration-300 flex flex-col justify-center p-3 overflow-hidden deleteInstructorButton" data-id="{{ $myInstructor['id'] }}" data-name="{{ $myInstructor['fullname'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></button>
                         @else
                             {{-- Unclickable Delete --}}
-                            <div class="bg-custom-destructive flex flex-col justify-center p-3 overflow-hidden opacity-40"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></div>
+                            <div class="bg-custom-destructive flex flex-col justify-center p-3 overflow-hidden opacity-40 cantDeleteInstructorButton" data-name="{{ $myInstructor['fullname'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></div>
                         @endif
                     </div>
                 </div>
@@ -156,6 +156,16 @@
         $('#yesDeleteInstructor').on('click', function (e) {
             e.preventDefault();
             $('#deleteInstructorForm').submit();
+        });
+
+        // Error Toastr Message to Show When Users force to click the delete button when it cant be deleted
+        $('.cantDeleteInstructorButton').on('click', function() {
+            const instructorName = $(this).data('name');
+
+            toastr.options.timeOut = 4000;
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.warning('Instruktur ' + instructorName + ' masih mengajar Siswa!');
         });
     </script>
 @endsection
