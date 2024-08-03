@@ -166,6 +166,8 @@
                 const file = e.originalEvent.dataTransfer.files[0];
 
                 if (file) {
+                    // Set the file to the hidden input
+                    $('#licensePath').prop('files', e.originalEvent.dataTransfer.files);
                     // Process the dropped file (e.g., display preview, upload)
                     handleDroppedFile(file);
                 }
