@@ -122,6 +122,25 @@
                         @enderror
                     </div>
                 </div>
+
+                {{-- Select Instructor --}}
+                <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Pilih Instruktur</h2>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    {{-- Dropdown --}}
+                    <label for="select_instructor" class="font-semibold font-league text-xl text-custom-grey">Pilih Instruktur yang bertugas (maks: 3)<span class="text-custom-destructive">*</span></label>
+                    <select name="select_instructor" id="select_instructor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('select_instructor') border-2 border-custom-destructive @enderror">
+                        <option disabled selected>-- Jenis Transmisi Mobil --</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Automatic">Matic</option>
+                        <option value="Both">Manual & Matic</option>
+                    </select>
+                    @error('select_instructor')
+                        <span class="text-custom-destructive">{{ $message }}</span>
+                    @enderror
+                </div>
         
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
