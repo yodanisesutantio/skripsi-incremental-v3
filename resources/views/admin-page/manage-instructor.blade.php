@@ -31,7 +31,8 @@
                         </div>
 
                         {{-- Instructor Availability Toggle --}}
-                        @if ($myInstructor['availability'] === 1)
+                        @if ($myInstructor->instructorCertificate->isNotEmpty() && $myInstructor->instructorCertificate->first()->certificateStatus === 'Sudah Divalidasi')
+                            @if ($myInstructor['availability'] === 1)
                             <div class="flex flex-row gap-2.5 mb-1">
                                 <button type="button" class="relative flex items-center deactivate-instructor" data-id="{{ $myInstructor['id'] }}">
                                     <div class="flex-shrink-0 w-12 h-4 bg-custom-green rounded-full"></div>
@@ -39,9 +40,18 @@
                                 </button>
                                 <p class="text-sm/snug lg:text-base/tight">Aktif</p>
                             </div>
-                        @else
+                            @else
                             <div class="flex flex-row gap-2.5 mb-1">
                                 <button type="button" class="relative flex items-center activate-instructor" data-id="{{ $myInstructor['id'] }}">
+                                    <div class="flex-shrink-0 w-12 h-4 bg-custom-disabled-light/50 rounded-full"></div>
+                                    <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg left-0"></div>
+                                </button>
+                                <p class="text-sm/snug lg:text-base/tight">Nonaktif</p>
+                            </div>
+                            @endif
+                        @else
+                            <div class="flex flex-row gap-2.5 mb-1">
+                                <button type="button" class="relative flex items-center cantActivateInstructorButton" data-name="{{ $myInstructor['fullname'] }}">
                                     <div class="flex-shrink-0 w-12 h-4 bg-custom-disabled-light/50 rounded-full"></div>
                                     <div class="flex-shrink-0 absolute w-7 h-7 bg-custom-white-hover rounded-full drop-shadow-lg left-0"></div>
                                 </button>
@@ -166,6 +176,16 @@
             toastr.options.closeButton = true;
             toastr.options.progressBar = true;
             toastr.warning('Instruktur ' + instructorName + ' masih mengajar Siswa!');
+        });
+
+        // Error Toastr Message to Show When Users force to activate the Instructor button when it cant be activated
+        $('.cantActivateInstructorButton').on('click', function() {
+            const instructorName = $(this).data('name');
+
+            toastr.options.timeOut = 4000;
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.warning('Sertifikat Instruktur ' + instructorName + ' belum tervalidasi oleh Admin Sistem. Silahkan Coba Lagi Nanti!');
         });
     </script>
 @endsection

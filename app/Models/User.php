@@ -42,7 +42,7 @@ class User extends Authenticatable
     // Setting Relationship where an Instructor can have more than one Instructor Certificate, to keep all the past records
     public function instructorCertificate()
     {
-        return $this->hasMany(instructorCertificate::class);
+        return $this->hasMany(instructorCertificate::class, 'instructor_id');
     }
 
     // Setting Relationship where Admin and Instructor can have more than 1 Course
