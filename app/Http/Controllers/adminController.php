@@ -194,8 +194,10 @@ class adminController extends Controller
     }
 
     public function createCoursePage() {
+        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('admin-page.create-course', [
-            'pageName' => "Tambah Kelas Baru | "
+            'pageName' => "Tambah Kelas Baru | ",
+            'instructors' => $instructors
         ]);
     }
 

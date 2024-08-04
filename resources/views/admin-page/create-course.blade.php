@@ -130,13 +130,21 @@
 
                 <div class="flex flex-col gap-1">
                     {{-- Dropdown --}}
-                    <label for="select_instructor" class="font-semibold font-league text-xl text-custom-grey">Pilih Instruktur yang bertugas (maks: 3)<span class="text-custom-destructive">*</span></label>
-                    <select name="select_instructor" id="select_instructor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('select_instructor') border-2 border-custom-destructive @enderror">
-                        <option disabled selected>-- Jenis Transmisi Mobil --</option>
-                        <option value="Manual">Manual</option>
-                        <option value="Automatic">Matic</option>
-                        <option value="Both">Manual & Matic</option>
-                    </select>
+                    <ul class="grid w-full gap-2 grid-cols-2 lg:grid-cols-3">
+                        @foreach ($instructors as $myInstructor)
+                        <li class="flex flex-col justify-center items-center">
+                            <input type="checkbox" name="" class="hidden" required>
+                            <label for="" class="flex flex-col items-center gap-1 p-2 flex-grow">
+                                @if ($myInstructor['hash_for_profile_picture'])
+                                <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                @else
+                                <img src="img/blank-profile.webp" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                @endif
+                                <h4 class="font-encode font-semibold text-lg text-center">{{ $myInstructor['fullname'] }}</h4>
+                            </label>
+                        </li>
+                        @endforeach
+                    </ul>
                     @error('select_instructor')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
