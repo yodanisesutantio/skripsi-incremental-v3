@@ -138,9 +138,9 @@
                                 @if ($myInstructor['hash_for_profile_picture'])
                                 <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
                                 @else
-                                <img src="img/blank-profile.webp" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
                                 @endif
-                                <h4 class="font-encode font-semibold text-lg text-center">{{ $myInstructor['fullname'] }}</h4>
+                                <h4 class="font-encode font-semibold text-lg text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                             </label>
                         </li>
                         @endforeach
