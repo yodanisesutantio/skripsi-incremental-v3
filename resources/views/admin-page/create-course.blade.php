@@ -130,22 +130,24 @@
 
                 <div class="flex flex-col gap-1">
                     {{-- Dropdown --}}
-                    <ul class="grid w-full gap-2 grid-cols-2 lg:grid-cols-3">
+                    <label for="course_instructors">
+                        <ul class="grid w-full gap-2 lg:gap-5 grid-cols-2 lg:grid-cols-3">
                         @foreach ($instructors as $myInstructor)
-                        <li class="flex flex-col justify-center items-center">
-                            <input type="checkbox" name="" class="hidden" required>
-                            <label for="" class="flex flex-col items-center gap-1 p-2 flex-grow">
-                                @if ($myInstructor['hash_for_profile_picture'])
-                                <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
-                                @else
-                                <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
-                                @endif
-                                <h4 class="font-encode font-semibold text-lg text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
-                            </label>
-                        </li>
+                            <li class="flex flex-col justify-center items-center">
+                                <input type="checkbox" name="" class="hidden" required>
+                                <label for="" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer hover:bg-custom-dark/10 rounded duration-300">
+                                    @if ($myInstructor['hash_for_profile_picture'])
+                                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                    @else
+                                    <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                    @endif
+                                    <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                </label>
+                            </li>
                         @endforeach
-                    </ul>
-                    @error('select_instructor')
+                        </ul>
+                    </label>
+                    @error('course_instructors')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
                 </div>
