@@ -134,7 +134,7 @@
                                 {{-- Input Description --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="description" class="font-semibold font-league text-xl text-custom-grey">Deskripsi (opsional)</label>
-                                    <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
+                                    <textarea name="description" id="description" rows="5" placeholder="Anda bisa mengisi kolom ini dengan Alamat atau Visi kursus" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
                                     @error('description')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
@@ -293,9 +293,9 @@
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
         <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
-        <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
-        <button type="submit" id="submitEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
-        <button type="submit" id="submitEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="mobileEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="mobileEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+        <button type="submit" id="mobileEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -349,34 +349,38 @@
 
         $('.submit-button').addClass('hidden');
         $('#submitEditProfileForms').removeClass('hidden');
+        $('#mobileEditProfileForms').removeClass('hidden');
         $('#accountInfoButton, #accountInfoLargeButton').on('click', function() {
             swiper.slideTo(0);
             $('.submit-button').addClass('hidden');
             $('#submitEditProfileForms').removeClass('hidden');
+            $('#mobileEditProfileForms').removeClass('hidden');
         });
         $('#paymentMethodButton, #paymentMethodLargeButton').on('click', function() {
             swiper.slideTo(1);
             $('.submit-button').addClass('hidden');
             $('#submitEditPaymentForms').removeClass('hidden');
+            $('#mobileEditPaymentForms').removeClass('hidden');
         });
         $('#securityButton, #securityLargeButton').on('click', function() {
             swiper.slideTo(2);
             $('.submit-button').addClass('hidden');
             $('#submitEditPasswordForms').removeClass('hidden');
+            $('#mobileEditPasswordForms').removeClass('hidden');
         });
 
         // Function to submit editProfile forms
-        $('#submitEditProfileForms').on('click', function() {
+        $('#submitEditProfileForms, #mobileEditProfileForms').on('click', function() {
             $('form[action="/edit-admin-account-info"]').submit();
         });
 
         // Function to submit editProfile forms
-        $('#submitEditPaymentForms').on('click', function() {
+        $('#submitEditPaymentForms, #mobileEditPaymentForms').on('click', function() {
             $('form[action="/edit-admin-payment-method"]').submit();
         });
 
         // Function to submit editProfile forms
-        $('#submitEditPasswordForms').on('click', function() {
+        $('#submitEditPasswordForms, #mobileEditPasswordForms').on('click', function() {
             $('form[action="/edit-admin-password"]').submit();
         });
 
