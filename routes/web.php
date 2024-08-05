@@ -45,6 +45,8 @@ Route::post('/logout', [loginController::class, 'logout']);
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
     // Admin Dashboard Page
     Route::get('/admin-index', [adminController::class, 'indexPage']);
+    // Admin Course Page
+    Route::get('/admin-course', [adminController::class, 'coursePage']);
     // Admin Profile Page
     Route::get('/admin-profile', [adminController::class, 'profilePage']);
 

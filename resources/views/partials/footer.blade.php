@@ -50,9 +50,29 @@
                 </a>
 
                 {{-- Course List --}}
-                <a href="course-list" class="flex flex-col justify-center border-y border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
-                    <p class="font-league font-medium text-xl w-full">Kursus</p>
-                </a>
+                @auth
+                    {{-- User Course Nav Button --}}
+                    @if (auth()->user()->role === 'user')
+                        <a href="user-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                            <p class="font-league font-medium text-xl w-full">Kursus</p>
+                        </a>
+                    {{-- Instructor Course Nav Button --}}
+                    @elseif (auth()->user()->role === 'instructor')
+                        <a href="instructor-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                            <p class="font-league font-medium text-xl w-full">Kursus</p>
+                        </a>
+                    {{-- Admin Course Nav Button --}}
+                    @elseif (auth()->user()->role === 'admin')
+                        <a href="admin-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                            <p class="font-league font-medium text-xl w-full">Kursus</p>
+                        </a>
+                    @endif
+                {{-- Guest Course Nav Button --}}
+                @else 
+                    <a href="#" class="guest-profile-link flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <p class="font-league font-medium text-xl w-full">Kursus</p>
+                    </a>
+                @endauth
 
                 {{-- Contact Us --}}
                 <a href="contact-us" class="flex flex-col justify-center border-y px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">

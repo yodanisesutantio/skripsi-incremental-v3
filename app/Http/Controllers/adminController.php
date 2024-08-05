@@ -24,6 +24,12 @@ class adminController extends Controller
         ]);
     }
 
+    public function coursePage() {
+        return view('admin-page.admin-course', [
+            "pageName" => "Halaman Kursus Anda | ",
+        ]);
+    }
+
     public function profilePage() {
         return view('profile.admin-profile', [
             "pageName" => "Profil Anda | ",
