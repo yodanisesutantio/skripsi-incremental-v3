@@ -133,17 +133,30 @@
                     <label for="course_instructors">
                         <ul class="grid w-full gap-2 lg:gap-5 grid-cols-2 lg:grid-cols-3">
                         @foreach ($instructors as $myInstructor)
+                            @if ($myInstructor['availability'] === 1)
                             <li class="flex flex-col justify-center items-center">
-                                <input type="checkbox" name="" class="hidden" required>
-                                <label for="" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer hover:bg-custom-dark/10 rounded duration-300">
+                                <label for="instructor_{{ $myInstructor['id'] }}" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer hover:bg-custom-dark/10 rounded duration-300" data-id="{{ $myInstructor['id'] }}">
+                                    @if ($myInstructor['hash_for_profile_picture'])
+                                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+                                    @else
+                                    <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+                                    @endif
+                                    <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                </label>
+                                <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="" id="instructor_{{ $myInstructor['id'] }}">
+                            </li>
+                            @else
+                            <li class="flex flex-col justify-center items-center">
+                                <div class="flex flex-col items-center gap-2 p-2 w-full flex-grow opacity-30">
                                     @if ($myInstructor['hash_for_profile_picture'])
                                     <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
                                     @else
                                     <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
                                     @endif
                                     <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
-                                </label>
+                                </div>
                             </li>
+                            @endif
                         @endforeach
                         </ul>
                     </label>
@@ -174,6 +187,13 @@
         $('#mobileSubmitButton').click(function(event) {
             event.preventDefault();
             $('form[action="/admin-manage-course/create"]').submit();
+        });
+
+        // Check the checkbox when the label is clicked
+        $('label[data-id], img[data-id]').click(function() {
+            const id = $(this).data('id');
+            const checkbox = $('#instructor_' + id);
+            checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
         });
 
         // IDR Pricing Format
