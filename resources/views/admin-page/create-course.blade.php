@@ -135,23 +135,28 @@
                         @foreach ($instructors as $myInstructor)
                             @if ($myInstructor['availability'] === 1)
                             <li class="flex flex-col justify-center items-center">
-                                <label for="instructor_{{ $myInstructor['id'] }}" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer hover:bg-custom-dark/10 rounded duration-300" data-id="{{ $myInstructor['id'] }}">
-                                    @if ($myInstructor['hash_for_profile_picture'])
-                                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
-                                    @else
-                                    <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
-                                    @endif
+                                <label for="instructor_{{ $myInstructor['id'] }}" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer lg:hover:bg-custom-dark/10 rounded duration-300" data-id="{{ $myInstructor['id'] }}">
+                                    <div class="profile-picture-wrapper relative">
+                                        @if ($myInstructor['hash_for_profile_picture'])
+                                        <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+                                        @else
+                                        <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+                                        @endif
+                                        <span class="flex items-center justify-center bg-custom-green/80 checkmark hidden w-full h-full absolute top-0 left-0 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#EBF0F2" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
+                                        </span>
+                                    </div>
                                     <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </label>
-                                <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="" id="instructor_{{ $myInstructor['id'] }}">
+                                <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="hidden" id="instructor_{{ $myInstructor['id'] }}">
                             </li>
                             @else
                             <li class="flex flex-col justify-center items-center">
                                 <div class="flex flex-col items-center gap-2 p-2 w-full flex-grow opacity-30">
                                     @if ($myInstructor['hash_for_profile_picture'])
-                                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
                                     @else
-                                    <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center">
+                                    <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
                                     @endif
                                     <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </div>
@@ -190,10 +195,24 @@
         });
 
         // Check the checkbox when the label is clicked
-        $('label[data-id], img[data-id]').click(function() {
-            const id = $(this).data('id');
-            const checkbox = $('#instructor_' + id);
-            checkbox.prop('checked', !checkbox.prop('checked')); // Toggle checkbox state
+        const labels = document.querySelectorAll('label[data-id]');
+        labels.forEach(label => {
+            label.addEventListener('click', function() {
+                event.preventDefault();
+                const id = this.dataset.id;
+                const checkbox = document.getElementById('instructor_' + id);
+                const checkmark = this.querySelector('.checkmark');
+
+                // Toggle checkbox state
+                checkbox.checked = !checkbox.checked;
+
+                // Change image to green checkmark with a timeout
+                if (checkbox.checked) {
+                    checkmark.classList.remove('hidden'); // Show the checkmark after a delay
+                } else {
+                    checkmark.classList.add('hidden'); // Hide the checkmark immediately
+                }
+            });
         });
 
         // IDR Pricing Format
@@ -258,5 +277,15 @@
             };
             reader.readAsDataURL(file); // Read the file as a data URL
         }
+
+        // Error Toastr Message to Show When Users force to click the delete button when it cant be deleted
+        $('.cantChooseInstructor').on('click', function() {
+            const instructorName = $(this).data('name');
+
+            toastr.options.timeOut = 4000;
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.warning('Pastikan Sertifikat Instruktur ' + instructorName + ' sudah divalidasi!');
+        });
     </script>
 @endsection
