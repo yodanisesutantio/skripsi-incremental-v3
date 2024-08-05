@@ -205,10 +205,13 @@ class adminController extends Controller
         $course = Course::whereHas('admin', function ($query) use ($username) {
             $query->where('username', $username);
         })->where('course_name', $course_name)->firstOrFail();
+
+        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         
         return view('admin-page.edit-course', [
             'pageName' => "Edit Kelas | ",
             'course' => $course,
+            'instructors' => $instructors,
         ]);
     }
 
