@@ -163,6 +163,35 @@ class CourseController extends Controller
 
         $course->save();
 
+        // Fetch the current instructor IDs for the course
+        $currentInstructorIds = DB::table('course_instructors')
+            ->where('course_id', $course->id)
+            ->pluck('instructor_id')
+            ->toArray();
+
+        // Get the new instructor IDs from the request
+        $newInstructorIds = $request->input('instructor_ids', []);
+
+        // Determine which instructors to add and which to remove
+        $instructorsToAdd = array_diff($newInstructorIds, $currentInstructorIds);
+        $instructorsToRemove = array_diff($currentInstructorIds, $newInstructorIds);
+
+        // Add new instructors
+        foreach ($instructorsToAdd as $instructorId) {
+            DB::table('course_instructors')->insert([
+                'course_id' => $course->id,
+                'instructor_id' => $instructorId,
+            ]);
+        }
+
+        // Remove instructors that are no longer selected
+        foreach ($instructorsToRemove as $instructorId) {
+            DB::table('course_instructors')
+                ->where('course_id', $course->id)
+                ->where('instructor_id', $instructorId)
+                ->delete();
+        }
+
         $request->session()->flash('success', 'Kelas ' . $course->course_name . ' berhasil diperbarui');
 
         return redirect()->intended('/admin-manage-course');
