@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt;
 
@@ -206,12 +207,19 @@ class adminController extends Controller
             $query->where('username', $username);
         })->where('course_name', $course_name)->firstOrFail();
 
+        // Fetch the course instructors for the current course
+        $courseInstructors = DB::table('course_instructors')
+                            ->where('course_id', $course->id)
+                            ->pluck('instructor_id')
+                            ->toArray();
+
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         
         return view('admin-page.edit-course', [
             'pageName' => "Edit Kelas | ",
             'course' => $course,
             'instructors' => $instructors,
+            'courseInstructors' => $courseInstructors,
         ]);
     }
 

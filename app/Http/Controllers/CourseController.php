@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
@@ -88,6 +89,16 @@ class CourseController extends Controller
         $course->can_use_own_car = $request['can_use_own_car'];
         $course->admin_id = Auth::id();
         $course->save();
+
+        // New code to handle course instructors
+        if ($request->has('instructor_ids')) {
+            foreach ($request->input('instructor_ids') as $instructorId) {
+                DB::table('course_instructors')->insert([
+                    'course_id' => $course->id,
+                    'instructor_id' => $instructorId,
+                ]);
+            }
+        }
 
         $request->session()->flash('success', 'Kelas Kursus Berhasil Ditambahkan');
 

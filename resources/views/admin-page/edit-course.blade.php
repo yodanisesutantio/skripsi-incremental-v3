@@ -166,7 +166,7 @@
                                     </div>
                                     <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </label>
-                                <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="hidden" id="instructor_{{ $myInstructor['id'] }}">
+                                <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="instructor-checkbox hidden" id="instructor_{{ $myInstructor['id'] }}" {{ in_array($myInstructor['id'], $courseInstructors) ? 'checked' : '' }}>
                             </li>
                             @else
                             <li class="flex flex-col justify-center items-center">
@@ -210,6 +210,27 @@
         $('#mobileSubmitButton').click(function(event) {
             event.preventDefault();
             $('#editCourseForm').submit();
+        });
+
+        // Checkboxes and checkmarks
+        const checkboxes = document.querySelectorAll('.instructor-checkbox');
+
+        checkboxes.forEach(checkbox => {
+            // Show checkmark if checkbox is checked on page load
+            if (checkbox.checked) {
+                const checkmark = checkbox.closest('li').querySelector('.checkmark');
+                checkmark.classList.remove('hidden');
+            }
+
+            // Add event listener for change event
+            checkbox.addEventListener('change', function() {
+                const checkmark = this.closest('li').querySelector('.checkmark');
+                if (this.checked) {
+                    checkmark.classList.remove('hidden'); // Show checkmark
+                } else {
+                    checkmark.classList.add('hidden'); // Hide checkmark
+                }
+            });
         });
 
         // Check the checkbox when the label is clicked
