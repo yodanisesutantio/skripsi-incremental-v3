@@ -73,10 +73,14 @@
 
     <div class="swiper my-6">
         <div class="swiper-wrapper">
+            {{-- All Course Slide --}}
             <div class="swiper-slide font-league">
+                {{-- Empty Message --}}
                 @if ($course->isEmpty())
                 <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Belum Ada Kursus yang Ditambahkan)</p>
                 @endif
+
+                {{-- All Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($course as $allCourse)
                         @if ($allCourse['course_thumbnail'])
@@ -106,10 +110,14 @@
                     @endforeach
                 </div>
             </div>
+            {{-- Manual Transmission Course Slide --}}
             <div class="swiper-slide font-league">
+                {{-- Empty Message --}}
                 @if ($courseManual->isEmpty())
                 <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus untuk Mobil Manual)</p>
                 @endif
+
+                {{-- Manual Transmission Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($courseManual as $manualCourse)
                         @if ($manualCourse['course_thumbnail'])
@@ -139,10 +147,14 @@
                     @endforeach
                 </div>
             </div>
+            {{-- Matic Transmission Course Slide --}}
             <div class="swiper-slide font-league">
+                {{-- Empty Message --}}
                 @if ($courseMatic->isEmpty())
                 <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus untuk Mobil Matic)</p>
                 @endif
+
+                {{-- Matic Transmission Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($courseMatic as $maticCourse)
                         @if ($maticCourse['course_thumbnail'])
@@ -172,10 +184,14 @@
                     @endforeach
                 </div>
             </div>
+            {{-- Quick Course Slide --}}
             <div class="swiper-slide font-league">
+                {{-- Empty Message --}}
                 @if ($courseQuick->isEmpty())
                 <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus Kilat)</p>
                 @endif
+
+                {{-- Quick Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($courseQuick as $quickCourse)
                         @if ($quickCourse['course_thumbnail'])
