@@ -37,5 +37,106 @@
     {{-- Kinda CTA --}}
     <a href="admin-course/active-student-list"><div class="w-full py-3 rounded-lg cursor-pointer border border-custom-green lg:hover:bg-custom-grey/20 text-center lg:text-lg text-custom-green font-semibold duration-500">Lihat Daftar Siswa Aktif</div></a>
 
+    {{-- Tabs --}}
+    <div class="overflow-x-auto mt-8" style="scrollbar-width: none;">
+        <ul class="flex flex-row gap-5 justify-between px-1 font-league text-custom-dark text-lg font-medium text-center">
+            {{-- All Course --}}
+            <li class="rounded-lg duration-300">
+                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100" id="allCourseButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="tab-icon" data-index="0"><path fill="none" stroke="#24596A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>
+                    <p>Semua</p>
+                </button>
+            </li>
+            {{-- Manual Course --}}
+            <li class="rounded-lg duration-300">
+                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 opacity-40" id="manualCourseButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="tab-icon" data-index="1"><g fill="none" stroke="#040B0D" stroke-width="2"><path stroke-linecap="round" d="M8 9v6m4-6v6m-4-3h5c.932 0 1.398 0 1.765-.152a2 2 0 0 0 1.083-1.083C16 10.398 16 9.932 16 9"/><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10Z"/></g></svg>
+                    <p>Manual</p>
+                </button>
+            </li>
+            {{-- Matic Course --}}
+            <li class="rounded-lg duration-300">
+                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 opacity-40" id="maticCourseButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="tab-icon" data-index="2"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 4h6a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H7z"/></svg>
+                    <p>Matic</p>
+                </button>
+            </li>
+            {{-- Quick Course --}}
+            <li class="rounded-lg duration-300">
+                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 opacity-40" id="quickCourseButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="tab-icon" data-index="3"><path fill="none" stroke="#040B0D" stroke-width="2" d="m5.67 9.914l3.062-4.143c1.979-2.678 2.969-4.017 3.892-3.734c.923.283.923 1.925.923 5.21v.31c0 1.185 0 1.777.379 2.148l.02.02c.387.363 1.003.363 2.236.363c2.22 0 3.329 0 3.704.673l.018.034c.354.683-.289 1.553-1.574 3.29l-3.062 4.144c-1.98 2.678-2.969 4.017-3.892 3.734c-.923-.283-.923-1.925-.923-5.21v-.31c0-1.185 0-1.777-.379-2.148l-.02-.02c-.387-.363-1.003-.363-2.236-.363c-2.22 0-3.329 0-3.703-.673a1.084 1.084 0 0 1-.019-.034c-.354-.683.289-1.552 1.574-3.29Z"/></svg>
+                    <p>Kilat</p>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="swiper my-6">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"></div>
+            <div class="swiper-slide"></div>
+            <div class="swiper-slide"></div>
+            <div class="swiper-slide"></div>
+        </div>
+    </div>
+
     @include('partials.footer')
+
+    {{-- Swiper CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    {{-- jQuery JS --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: false,
+            autoHeight: true,
+
+            navigation: {
+                prevEl: '',
+                nextEl: '',
+            },
+
+            on: {
+                slideChange: function() {
+                    const currentIndex = swiper.activeIndex;
+                    const buttons = ['#allCourseButton', '#manualCourseButton', '#maticCourseButton', '#quickCourseButton'];
+
+                    // Change stroke color based on the current slide
+                    $('.tab-icon path').each(function() {
+                        const index = $(this).closest('button').find('.tab-icon').data('index');
+                        const strokeColor = index === currentIndex ? '#24596A' : '#040B0D';
+                        $(this).attr('stroke', strokeColor);
+                    });
+
+                    // For Mobile Tabs
+                    buttons.forEach((button, index) => {
+                        if (index === currentIndex) {
+                            $(button).addClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
+                            $(button).removeClass('opacity-40');
+                        } else {
+                            $(button).removeClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
+                            $(button).addClass('opacity-40');
+                        }
+                    });
+                },
+                init: function () {
+                    this.update();
+                }
+            }
+        });
+
+        $('#allCourseButton').on('click', function() {
+            swiper.slideTo(0);
+        });
+        $('#manualCourseButton').on('click', function() {
+            swiper.slideTo(1);
+        });
+        $('#maticCourseButton').on('click', function() {
+            swiper.slideTo(2);
+        });
+        $('#quickCourseButton').on('click', function() {
+            swiper.slideTo(3);
+        });
+    </script>
 @endsection
