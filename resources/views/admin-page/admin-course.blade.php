@@ -35,7 +35,7 @@
     </div>
 
     {{-- Kinda CTA --}}
-    <a href="admin-course/active-student-list"><div class="w-full py-3 rounded-lg cursor-pointer border border-custom-green lg:hover:bg-custom-grey/20 text-center lg:text-lg text-custom-green font-semibold duration-500">Lihat Daftar Siswa Aktif</div></a>
+    <a href="admin-course/active-student-list"><div class="w-full py-3 gap-2 rounded-lg cursor-pointer border border-custom-green lg:hover:bg-custom-grey/20 text-center lg:text-lg text-custom-green font-semibold duration-500">Lihat Daftar Siswa Aktif</div></a>
 
     {{-- Tabs --}}
     <div class="overflow-x-auto mt-8" style="scrollbar-width: none;">
@@ -73,10 +73,138 @@
 
     <div class="swiper my-6">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
-            <div class="swiper-slide"></div>
+            <div class="swiper-slide font-league">
+                @if ($course->isEmpty())
+                <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Belum Ada Kursus yang Ditambahkan)</p>
+                @endif
+                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
+                    @foreach ($course as $allCourse)
+                        @if ($allCourse['course_thumbnail'])
+                            {{-- Course Thumbnail --}}
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $allCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @else
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $allCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @endif     
+                    @endforeach
+                </div>
+            </div>
+            <div class="swiper-slide font-league">
+                @if ($courseManual->isEmpty())
+                <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus untuk Mobil Manual)</p>
+                @endif
+                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
+                    @foreach ($courseManual as $manualCourse)
+                        @if ($manualCourse['course_thumbnail'])
+                            {{-- Course Thumbnail --}}
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $manualCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @else
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $manualCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @endif     
+                    @endforeach
+                </div>
+            </div>
+            <div class="swiper-slide font-league">
+                @if ($courseMatic->isEmpty())
+                <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus untuk Mobil Matic)</p>
+                @endif
+                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
+                    @foreach ($courseMatic as $maticCourse)
+                        @if ($maticCourse['course_thumbnail'])
+                            {{-- Course Thumbnail --}}
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $maticCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @else
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $maticCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @endif     
+                    @endforeach
+                </div>
+            </div>
+            <div class="swiper-slide font-league">
+                @if ($courseQuick->isEmpty())
+                <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Penyedia Kursus belum Menambahkan Kursus Kilat)</p>
+                @endif
+                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
+                    @foreach ($courseQuick as $quickCourse)
+                        @if ($quickCourse['course_thumbnail'])
+                            {{-- Course Thumbnail --}}
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $quickCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @else
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                    <div class="flex flex-col">
+                                        {{-- Course Length --}}
+                                        <p class="text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
+                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $quickCourse['course_name'] }}</h3>
+                                    </div>
+                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
+                                </div>
+                            </a>
+                        @endif     
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 

@@ -26,6 +26,9 @@ class adminController extends Controller
 
     public function coursePage() {
         $course = Course::query()->where('admin_id', auth()->id())->get();
+        $courseManual = Course::query()->where('admin_id', auth()->id())->where('car_type', 'Manual')->orwhere('car_type', 'Both')->get();
+        $courseMatic = Course::query()->where('admin_id', auth()->id())->where('car_type', 'Matic')->orwhere('car_type', 'Both')->get();
+        $courseQuick = Course::query()->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
         $averageCourseLength = (int) $course->avg('course_length'); // Calculate average and cast to integer
 
         $minCoursePrice = (int) $course->min('course_price'); // Get minimum course price
@@ -38,6 +41,9 @@ class adminController extends Controller
         return view('admin-page.admin-course', [
             "pageName" => "Halaman Kursus Anda | ",
             "course" => $course,
+            "courseManual" => $courseManual,
+            "courseMatic" => $courseMatic,
+            "courseQuick" => $courseQuick,
             "averageCourseLength" => $averageCourseLength,
             "minCoursePrice" => $minCoursePrice,
             "maxCoursePrice" => $maxCoursePrice,
