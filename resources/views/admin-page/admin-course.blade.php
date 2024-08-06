@@ -20,5 +20,16 @@
         @endif
     </div>
 
+    <div class="flex flex-row w-full my-5">
+        <div class="flex flex-col items-center justify-center border-r border-custom-grey px-2 gap-2 w-1/2">
+            <h2 class="font-league font-semibold text-2xl text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
+            <p class="font-league font-normal text-base/tight text-center text-custom-grey">Rentang Harga Kursus</p>
+        </div>
+        <div class="flex flex-col items-center justify-center px-2 gap-2 w-1/2">
+            <h2 class="font-league font-semibold text-2xl text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
+            <p class="font-league font-normal text-base/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
+        </div>
+    </div>
+
     @include('partials.footer')
 @endsection
