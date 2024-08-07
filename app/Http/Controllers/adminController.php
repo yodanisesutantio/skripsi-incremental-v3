@@ -268,4 +268,10 @@ class adminController extends Controller
             'pageName' => "Detail Progress Kursus Siswa | "
         ]);
     }
+
+    public function courseProgressPage2() {
+        return view('user-course-details', [
+            'pageName' => "Detail Progress Kursus Siswa | "
+        ]);
+    }
 }

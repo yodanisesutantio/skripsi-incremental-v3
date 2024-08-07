@@ -105,4 +105,5 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
     // Admin's View Course Progress Detail Page
     Route::get('/admin-course-progress', [adminController::class, 'courseProgressPage']);
+    Route::get('/user-course-details', [adminController::class, 'courseProgressPage2']);
 });
