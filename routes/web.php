@@ -70,7 +70,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     
     // Admin Check Availability Logic Handler
     Route::post('/change-availability', [adminController::class, 'changeAvailability'])->name('changeAvailability');
-
     // Admin Delete Account Logic Handler
     // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 
@@ -85,8 +84,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Edit Course Logic Handler
     Route::post('/admin-manage-course/edit/{username}/{course_name}', [courseController::class, 'editCourseLogic']);
     // Admin's Delete Course Logic Handler
-    Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);
-    
+    Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);    
     // Admin Deactivate Course Switch Logic Handler
     Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
     // Admin Activate Course Switch Logic Handler
@@ -100,9 +98,11 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/admin-manage-instructor/create', [instructorController::class, 'createInstructorLogic']);
     // Admin's Delete Instructor Logic Handler
     Route::delete('/admin-delete-instructor/{id}', [instructorController::class, 'deleteInstructor']);
-
     // Admin Deactivate Instructor Switch Logic Handler
     Route::post('/admin-deactivate-instructor', [instructorController::class, 'deactivateInstructor']);
     // Admin Activate Instructor Switch Logic Handler
     Route::post('/admin-activate-instructor', [instructorController::class, 'activateInstructor']);
+
+    // Admin's View Course Progress Detail Page
+    Route::get('/admin-course-progress', [adminController::class, 'courseProgressPage']);
 });
