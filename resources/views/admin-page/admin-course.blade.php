@@ -21,7 +21,22 @@
                     @endif
                 </div>
                 
-                <div class="flex flex-row lg:flex-col my-5 lg:my-0">
+                {{-- For Mobile Screen --}}
+                <div class="flex flex-row my-5 lg:hidden">
+                    {{-- Course Price Range. For marketing purpose --}}
+                    <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rentang Harga Kursus</p>
+                    </div>
+                    {{-- Course Length Average. For student consideration --}}
+                    <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 px-2 lg:px-0 py-1 lg:py-0">
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
+                    </div>
+                </div>
+
+                {{-- For Large Screen --}}
+                <div class="lg:flex lg:flex-col lg:my-0 hidden">
                     {{-- Course Price Range. For marketing purpose --}}
                     <div id="coursePrice" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
                         <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
@@ -44,10 +59,10 @@
 
     {{-- Tabs --}}
     <div class="overflow-x-auto mt-8" style="scrollbar-width: none;">
-        <ul class="flex flex-row gap-5 justify-between px-1 lg:px-60 font-league text-custom-dark text-lg font-medium text-center">
+        <ul class="flex flex-row gap-5 justify-between px-1 lg:px-60 font-league text-custom-dark text-lg font-semibold text-center">
             {{-- All Course --}}
             <li class="rounded-lg duration-300">
-                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 lg:px-12 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 duration-300" id="allCourseButton">
+                <button class="flex flex-col items-center gap-1 lg:hover:bg-custom-grey/25 py-1 lg:px-12 border-b-2 text-custom-green border-custom-green opacity-100 duration-300" id="allCourseButton">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="tab-icon" data-index="0"><path fill="none" stroke="#24596A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>
                     <p>Semua</p>
                 </button>
@@ -261,10 +276,10 @@
                     // For Mobile Tabs
                     buttons.forEach((button, index) => {
                         if (index === currentIndex) {
-                            $(button).addClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
+                            $(button).addClass('border-b-2 text-custom-green border-custom-green opacity-100');
                             $(button).removeClass('opacity-40');
                         } else {
-                            $(button).removeClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
+                            $(button).removeClass('border-b-2 text-custom-green border-custom-green opacity-100');
                             $(button).addClass('opacity-40');
                         }
                     });
