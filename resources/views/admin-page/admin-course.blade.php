@@ -23,12 +23,12 @@
                 
                 <div class="flex flex-row lg:flex-col my-5 lg:my-0">
                     {{-- Course Price Range. For marketing purpose --}}
-                    <div id="coursePrice" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
+                    <div id="coursePrice" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
                         <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
                         <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rentang Harga Kursus</p>
                     </div>
                     {{-- Course Length Average. For student consideration --}}
-                    <div id="courseLength" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:gap-2 px-2 lg:px-0 py-1 lg:py-0 lg:hidden">
+                    <div id="courseLength" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 px-2 lg:px-0 py-1 lg:py-0">
                         <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
                         <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
                     </div>
@@ -290,7 +290,7 @@
 
         let currentIndex = 0;
         const sections = ['#coursePrice', '#courseLength'];
-        const toggleDuration = 3000; // Duration to show each section in milliseconds
+        const toggleDuration = 5500; // Duration to show each section in milliseconds
 
         function toggleSections() {
             $(sections[currentIndex]).fadeOut(500, function() {
@@ -300,6 +300,7 @@
         }
 
         $(sections[0]).show(); // Show the first section initially
+        $(sections[1]).hide(); // Show the first section initially
         setInterval(toggleSections, toggleDuration); // Toggle sections every 3 seconds
     </script>
 @endsection
