@@ -106,7 +106,7 @@
                         @if ($allCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
                             <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
                                         <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
@@ -117,7 +117,7 @@
                             </a>
                         @else
                             <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
+                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
                                         <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
