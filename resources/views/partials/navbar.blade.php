@@ -12,24 +12,24 @@
                         {{-- Beranda --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="user-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-index">Beranda</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="instructor-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-index">Beranda</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="admin-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-index">Beranda</a></li>
                             @endif
                         @else
-                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="tamu">Beranda</a></li>
+                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/tamu">Beranda</a></li>
                         @endauth
 
                         {{-- Kursus --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="user-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-course">Kursus</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="instructor-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-course">Kursus</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="admin-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-course">Kursus</a></li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Kursus</a></li>
@@ -38,11 +38,11 @@
                         {{-- Profil --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="user-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-profile">Profil</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="instructor-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-profile">Profil</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="admin-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-profile">Profil</a></li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Profil</a></li>

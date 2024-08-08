@@ -23,29 +23,29 @@
                 @auth
                     {{-- User Dashboard Nav Button --}}
                     @if (auth()->user()->role === 'user')
-                        <a href="user-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/user-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Beranda</p>
                         </a>
                     {{-- Instructor Dashboard Nav Button --}}
                     @elseif (auth()->user()->role === 'instructor')
-                        <a href="instructor-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/instructor-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Beranda</p>
                         </a>
                     {{-- Admin Dashboard Nav Button --}}
                     @elseif (auth()->user()->role === 'admin')
-                        <a href="admin-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/admin-index" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Beranda</p>
                         </a>
                     @endif
                 {{-- Guest Dashboard Nav Button --}}
                 @else
-                    <a href="tamu" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                    <a href="/tamu" class="flex flex-col justify-center border-t border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                         <p class="font-league font-medium text-xl w-full">Beranda</p>
                     </a>
                 @endauth
 
                 {{-- About App Footer Menu --}}
-                <a href="about-app" class="flex flex-col justify-center border-t px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                <a href="/about-app" class="flex flex-col justify-center border-t px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                     <p class="font-league font-medium text-xl w-full">Tentang Aplikasi</p>
                 </a>
 
@@ -53,17 +53,17 @@
                 @auth
                     {{-- User Course Nav Button --}}
                     @if (auth()->user()->role === 'user')
-                        <a href="user-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/user-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Kursus</p>
                         </a>
                     {{-- Instructor Course Nav Button --}}
                     @elseif (auth()->user()->role === 'instructor')
-                        <a href="instructor-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/instructor-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Kursus</p>
                         </a>
                     {{-- Admin Course Nav Button --}}
                     @elseif (auth()->user()->role === 'admin')
-                        <a href="admin-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/admin-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Kursus</p>
                         </a>
                     @endif
@@ -75,7 +75,7 @@
                 @endauth
 
                 {{-- Contact Us --}}
-                <a href="contact-us" class="flex flex-col justify-center border-y px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                <a href="/contact-us" class="flex flex-col justify-center border-y px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                     <p class="font-league font-medium text-xl w-full">Hubungi Kami</p>
                 </a>
 
@@ -83,17 +83,17 @@
                 @auth
                     {{-- User Profile Nav Button --}}
                     @if (auth()->user()->role === 'user')
-                        <a href="user-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/user-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Profil</p>
                         </a>
                     {{-- Instructor Profile Nav Button --}}
                     @elseif (auth()->user()->role === 'instructor')
-                        <a href="instructor-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/instructor-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Profil</p>
                         </a>
                     {{-- Admin Profile Nav Button --}}
                     @elseif (auth()->user()->role === 'admin')
-                        <a href="admin-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/admin-profile" class="flex flex-col justify-center border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Profil</p>
                         </a>
                     @endif
