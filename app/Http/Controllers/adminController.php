@@ -59,6 +59,9 @@ class adminController extends Controller
 
     public function drivingSchoolLicensePage() {
         $adminId = auth()->id();
+
+        // Set the locale to Indonesian
+        Carbon::setLocale('id');
     
         $activeDrivingSchoolLicense = DrivingSchoolLicense::query()
             ->where('admin_id', $adminId)
@@ -66,8 +69,8 @@ class adminController extends Controller
             ->first();
 
         if ($activeDrivingSchoolLicense) {
-            $activeDrivingSchoolLicense->formattedStartDate = Carbon::parse($activeDrivingSchoolLicense->startLicenseDate)->translatedFormat('d M Y');
-            $activeDrivingSchoolLicense->formattedEndDate = Carbon::parse($activeDrivingSchoolLicense->endLicenseDate)->translatedFormat('d M Y');
+            $activeDrivingSchoolLicense->formattedStartDate = Carbon::parse($activeDrivingSchoolLicense->startLicenseDate)->locale('id')->translatedFormat('d M Y');
+            $activeDrivingSchoolLicense->formattedEndDate = Carbon::parse($activeDrivingSchoolLicense->endLicenseDate)->locale('id')->translatedFormat('d M Y');
         }
     
         $drivingSchoolLicenses = DrivingSchoolLicense::query()
@@ -77,7 +80,7 @@ class adminController extends Controller
 
         if ($drivingSchoolLicenses->isNotEmpty()) {
             $drivingSchoolLicenses->each(function ($license) {
-                $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->translatedFormat('d M Y');
+                $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->locale('id')->translatedFormat('d M Y');
             });
         }
     
@@ -268,7 +271,40 @@ class adminController extends Controller
         $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
             $query->where('admin_id', auth()->id());
         })
-        ->get();
+        ->with('schedule')->get(); // Load schedules with the enrollment
+
+        $now = now(); // Get current date and time
+
+        foreach ($activeEnrolledStudent as $activeStudent) {
+            // Ensure schedules are loaded
+            if ($activeStudent->schedule->isNotEmpty()) {
+                // Find the first upcoming schedule for each student
+                $upcomingSchedule = $activeStudent->schedule->filter(function ($schedule) use ($now) {
+                    return $schedule->start_time >= $now; // Find schedules starting today or later
+                })->first();
+                
+                // Get the meeting number if an upcoming schedule exists
+                $activeStudent->meeting_number = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+
+                // Get the next course date if an upcoming schedule exists
+                if ($upcomingSchedule) {
+                    // Set the locale to Indonesian
+                    Carbon::setLocale('id'); // Set locale to Indonesian
+                    $activeStudent->next_course_date = $activeStudent->next_course_date = Carbon::parse($upcomingSchedule->start_time)->locale('id')->translatedFormat('d F Y'); // Format the date in Indonesian
+
+                    // Format the time
+                    $activeStudent->course_time = Carbon::parse($upcomingSchedule->start_time)->format('H:i') . ' - ' . Carbon::parse($upcomingSchedule->end_time)->format('H:i') . ' WIB'; // Format the time
+
+                } else {
+                    $activeStudent->next_course_date = null; // No schedules available
+                    $activeStudent->course_time = null; // No schedules available
+                }
+            } else {
+                $activeStudent->meeting_number = null; // No schedules available
+                $activeStudent->next_course_date = null; // No schedules available
+                $activeStudent->course_time = null; // No schedules available
+            }
+        }
 
         return view('admin-page.active-student', [
             'pageName' => "Daftar Siswa Aktif | ",

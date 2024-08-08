@@ -8,6 +8,7 @@ use App\Models\DrivingSchoolLicense;
 use App\Models\InstructorCertificate;
 use App\Models\Course;
 use App\Models\CourseInstructor;
+use App\Models\CourseSchedule;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
 use Illuminate\Database\Seeder;
@@ -96,6 +97,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
             'description' => 'Saya adalah Siswa',
         ]);
+
         DrivingSchoolLicense::create([
             'licensePath' => '1644230171.png',
             'startLicenseDate' => '2024-08-21',
@@ -117,6 +119,7 @@ class DatabaseSeeder extends Seeder
             'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 1,
         ]);
+
         InstructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2020-08-01',
@@ -138,6 +141,7 @@ class DatabaseSeeder extends Seeder
             'certificateStatus' => 'Sudah Divalidasi',
             'instructor_id' => 5,
         ]);
+
         Course::create([
             'course_name' => 'Kursus Mobil Manual untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
@@ -183,6 +187,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => true,
             'admin_id' => 1,
         ]);
+
         Enrollment::create([
             'course_id' => 1,
             'instructor_id' => 4,
@@ -193,11 +198,7 @@ class DatabaseSeeder extends Seeder
             'instructor_id' => 5,
             'student_id' => 7,
         ]);
-        Enrollment::create([
-            'course_id' => 3,
-            'instructor_id' => 5,
-            'student_id' => 8,
-        ]);
+
         CourseInstructor::create([
             'course_id' => 1,
             'instructor_id' => 3,
@@ -230,6 +231,99 @@ class DatabaseSeeder extends Seeder
             'course_id' => 4,
             'instructor_id' => 5,
         ]);
+
+        // Pertemuan 1, Enrollment 1
+        CourseSchedule::create([
+            'enrollment_id' => 1,
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'start_time' => '2024-08-01 08:00:00',
+            'end_time' => '2024-08-01 09:30:00',
+            'meeting_number' => 1,
+        ]);
+        // Pertemuan 2, Enrollment 1
+        CourseSchedule::create([
+            'enrollment_id' => 1,
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'start_time' => '2024-08-08 08:00:00',
+            'end_time' => '2024-08-08 09:30:00',
+            'meeting_number' => 2,
+        ]);
+        // Pertemuan 3, Enrollment 1
+        CourseSchedule::create([
+            'enrollment_id' => 1,
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'start_time' => '2024-08-15 08:00:00',
+            'end_time' => '2024-08-15 09:30:00',
+            'meeting_number' => 3,
+        ]);
+        // Pertemuan 4, Enrollment 1
+        CourseSchedule::create([
+            'enrollment_id' => 1,
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'start_time' => '2024-08-22 08:00:00',
+            'end_time' => '2024-08-22 09:30:00',
+            'meeting_number' => 4,
+        ]);
+        // Pertemuan 5, Enrollment 1
+        CourseSchedule::create([
+            'enrollment_id' => 1,
+            'course_id' => 1,
+            'instructor_id' => 4,
+            'start_time' => '2024-08-29 08:00:00',
+            'end_time' => '2024-08-29 09:30:00',
+            'meeting_number' => 5,
+        ]);
+
+        // Pertemuan 1, Enrollment 2
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 2,
+            'instructor_id' => 5,
+            'start_time' => '2024-07-14 13:00:00',
+            'end_time' => '2024-07-14 14:30:00',
+            'meeting_number' => 1,
+        ]);
+        // Pertemuan 2, Enrollment 2
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 2,
+            'instructor_id' => 5,
+            'start_time' => '2024-07-21 13:00:00',
+            'end_time' => '2024-07-21 14:30:00',
+            'meeting_number' => 2,
+        ]);
+        // Pertemuan 3, Enrollment 2
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 2,
+            'instructor_id' => 5,
+            'start_time' => '2024-07-28 13:00:00',
+            'end_time' => '2024-07-28 14:30:00',
+            'meeting_number' => 3,
+        ]);
+        // Pertemuan 4, Enrollment 2
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 2,
+            'instructor_id' => 5,
+            'start_time' => '2024-08-04 13:00:00',
+            'end_time' => '2024-08-04 14:30:00',
+            'meeting_number' => 4,
+        ]);
+        // Pertemuan 5, Enrollment 2
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 2,
+            'instructor_id' => 5,
+            'start_time' => '2024-08-11 13:00:00',
+            'end_time' => '2024-08-11 14:30:00',
+            'meeting_number' => 5,
+        ]);
+
         PaymentMethod::create([
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Agus",

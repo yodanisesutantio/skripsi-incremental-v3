@@ -35,6 +35,6 @@ class enrollment extends Model
 
     public function schedule()
     {
-        return $this->hasMany(CourseSchedule::class);
+        return $this->hasMany(CourseSchedule::class, 'enrollment_id');
     }
 }

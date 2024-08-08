@@ -12,7 +12,7 @@
 
     <h2 class="text-xl lg:text-2xl/snug mt-6 mb-3 lg:mt-6 lg:mb-3 text-custom-dark font-encode tracking-tight font-semibold">Izin Aktif</h2>
     @if ($activeLicense)
-        <a href="{{ asset('storage/drivingSchoolLicense/' . $activeLicense->licensePath) }}" class="flex flex-col w-full lg:w-fit rounded-xl mb-6 drop-shadow-lg overflow-hidden" target="_blank">
+        <a href="{{ asset('storage/drivingSchoolLicense/' . $activeLicense->licensePath) }}" class="flex flex-col w-full lg:w-fit rounded-xl mb-6 overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300" target="_blank">
             <img src="{{ asset('storage/drivingSchoolLicense/' . $activeLicense->licensePath) }}" alt="" class="w-full h-40 lg:h-60 object-cover object-top">
             <div class="flex flex-row p-3 lg:p-5 bg-custom-white-hover w-full lg:w-[30rem] font-league text-custom-dark">
                 <div class="flex flex-col w-1/2">
@@ -33,7 +33,7 @@
     @if ($licenses)
         <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mb-7 lg:mb-14">
             @foreach ($licenses as $listOfLicense)
-                <a href="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" class="flex flex-col w-full rounded-xl drop-shadow-lg overflow-hidden" target="_blank">
+                <a href="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" class="flex flex-col w-full rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300" target="_blank">
                     <img src="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" alt="Dokumen Izin Kursus" class="w-full h-40 lg:h-44 object-cover object-top">
                     <div class="flex flex-row flex-grow p-3 lg:p-5 bg-custom-white-hover w-full font-league text-custom-dark">
                         <div class="grid grid-cols-3 w-full">

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_schedule', function (Blueprint $table) {
+        Schema::create('course_schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enrollment_id')->constrained()->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
+            $table->unsignedInteger('meeting_number');
             $table->timestamps();
 
             $table->unique(['instructor_id', 'start_time', 'end_time']);
