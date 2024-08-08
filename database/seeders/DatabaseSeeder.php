@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\DrivingSchoolLicense;
 use App\Models\InstructorCertificate;
 use App\Models\Course;
+use App\Models\CourseInstructor;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
 use Illuminate\Database\Seeder;
@@ -47,8 +48,8 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 1
         ]);
         User::create([
-            'fullname' => 'Instruktur B',
-            'username' => 'instruktur_B',
+            'fullname' => 'Instruktur Manual',
+            'username' => 'instruktur_manual',
             'phone_number' => '+6281401203103',
             'password' => bcrypt('sayaB'),
             'age' => 33,
@@ -58,8 +59,8 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 1
         ]);
         User::create([
-            'fullname' => 'Instruktur C',
-            'username' => 'instruktur_C',
+            'fullname' => 'Instruktur Matic',
+            'username' => 'instruktur_matic',
             'phone_number' => '+6281401503103',
             'password' => bcrypt('sayaC'),
             'age' => 30,
@@ -143,6 +144,7 @@ class DatabaseSeeder extends Seeder
             'course_quota' => 10,
             'course_price' => 770000,
             'course_length' => 5,
+            'course_duration' => 90,
             'car_type' => "Manual",
             'can_use_own_car' => false,
             'admin_id' => 1,
@@ -153,6 +155,7 @@ class DatabaseSeeder extends Seeder
             'course_quota' => 5,
             'course_price' => 900000,
             'course_length' => 5,
+            'course_duration' => 90,
             'car_type' => "Automatic",
             'can_use_own_car' => false,
             'course_availability' => 0,
@@ -164,6 +167,7 @@ class DatabaseSeeder extends Seeder
             'course_quota' => 3,
             'course_price' => 650000,
             'course_length' => 3,
+            'course_duration' => 90,
             'car_type' => "Manual",
             'can_use_own_car' => false,
             'admin_id' => 1,
@@ -174,24 +178,57 @@ class DatabaseSeeder extends Seeder
             'course_quota' => 6,
             'course_price' => 1200000,
             'course_length' => 5,
+            'course_duration' => 120,
             'car_type' => "Both",
             'can_use_own_car' => true,
             'admin_id' => 1,
         ]);
         Enrollment::create([
-            'course_id' => 3,
-            'instructor_id' => 5,
+            'course_id' => 1,
+            'instructor_id' => 4,
             'student_id' => 6,
         ]);
         Enrollment::create([
-            'course_id' => 1,
+            'course_id' => 2,
             'instructor_id' => 5,
             'student_id' => 7,
         ]);
         Enrollment::create([
+            'course_id' => 3,
+            'instructor_id' => 5,
+            'student_id' => 8,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 1,
+            'instructor_id' => 3,
+        ]);
+        CourseInstructor::create([
             'course_id' => 1,
             'instructor_id' => 4,
-            'student_id' => 8,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 2,
+            'instructor_id' => 3,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 2,
+            'instructor_id' => 5,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 3,
+            'instructor_id' => 4,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 4,
+            'instructor_id' => 3,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 4,
+            'instructor_id' => 4,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 4,
+            'instructor_id' => 5,
         ]);
         PaymentMethod::create([
             'payment_vendor' => "BCA",

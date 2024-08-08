@@ -89,6 +89,21 @@
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+                    {{-- Input Course Duration --}}
+                    <div class="flex flex-col gap-1">
+                        {{-- Dropdown --}}
+                        <label for="course_duration" class="font-semibold font-league text-xl text-custom-grey">Durasi Kursus<span class="text-custom-destructive">*</span></label>
+                        <select name="course_duration" id="course_duration" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_duration') border-2 border-custom-destructive @enderror">
+                            <option disabled>-- Durasi Kursus dalam satuan menit --</option>
+                            <option value="45" {{ (string)$course['course_duration'] === "45" ? 'selected' : '' }}>45 Menit</option>
+                            <option value="60" {{ (string)$course['course_duration'] === "60" ? 'selected' : '' }}>60 Menit</option>
+                            <option value="90" {{ (string)$course['course_duration'] === "90" ? 'selected' : '' }}>90 Menit</option>
+                            <option value="120" {{ (string)$course['course_duration'] === "120" ? 'selected' : '' }}>120 Menit</option>
+                        </select>
+                        @error('course_duration')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                     {{-- Change Price Format to Readable Rupiahs --}}
                     <?php

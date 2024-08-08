@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('course_thumbnail')->nullable();
             $table->integer('course_quota');
             $table->integer('course_price');
+            $table->integer('course_duration');
             $table->integer('course_length');
             $table->string('car_type');
             $table->boolean('can_use_own_car')->default(false);

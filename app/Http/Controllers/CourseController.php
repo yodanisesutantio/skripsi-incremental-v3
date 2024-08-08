@@ -43,6 +43,7 @@ class CourseController extends Controller
             'course_description' => ['required', 'max:255'],
             'course_quota' => ['required', 'integer', 'min:1', 'max:999'],
             'course_length' => ['required', 'integer', 'min:1', 'max:20'],
+            'course_duration' => ['required', 'integer', 'min:45', 'max:120'],
             'course_price' => ['required', 'min:11', 'max:255'],
             'car_type' => ['required', 'min:1'],
             'can_use_own_car' => ['required', 'boolean'],
@@ -61,6 +62,7 @@ class CourseController extends Controller
             'course_length.integer' => 'Masukkan angka saja',
             'course_length.min' => 'Jumlah Pertemuan Kursus Minimal adalah 1',
             'course_length.max' => 'Jumlah Pertemuan Kursus Maksimal adalah 20',
+            'course_duration.required' => 'Anda harus memilih salah satu opsi',
             'course_price.required' => 'Kolom ini harus diisi',
             'course_price.min' => 'Harga Kursus Terlalu Kecil',
             'course_price.max' => 'Harga Kursus Terlalu Besar',
@@ -84,6 +86,7 @@ class CourseController extends Controller
         $course->course_description = $request['course_description'];
         $course->course_quota = $request['course_quota'];
         $course->course_length = $request['course_length'];
+        $course->course_duration = $request['course_duration'];
         $course->course_price = $coursePrice;
         $course->car_type = $request['car_type'];
         $course->can_use_own_car = $request['can_use_own_car'];
@@ -112,6 +115,7 @@ class CourseController extends Controller
             'course_description' => ['required', 'max:255'],
             'course_quota' => ['required', 'integer', 'min:1', 'max:999'],
             'course_length' => ['required', 'integer', 'min:1', 'max:20'],
+            'course_duration' => ['required', 'integer', 'min:45', 'max:120'],
             'course_price' => ['required', 'min:11', 'max:255'],
             'car_type' => ['required', 'min:1'],
             'can_use_own_car' => ['required', 'boolean'],
@@ -130,6 +134,7 @@ class CourseController extends Controller
             'course_length.integer' => 'Masukkan angka saja',
             'course_length.min' => 'Jumlah Pertemuan Kursus Minimal adalah 1',
             'course_length.max' => 'Jumlah Pertemuan Kursus Maksimal adalah 20',
+            'course_duration.required' => 'Anda harus memilih salah satu opsi',
             'course_price.required' => 'Kolom ini harus diisi',
             'course_price.min' => 'Harga Kursus Terlalu Kecil',
             'course_price.max' => 'Harga Kursus Terlalu Besar',
@@ -156,6 +161,7 @@ class CourseController extends Controller
             'course_description' => $request->input('course_description'),
             'course_quota' => $request->input('course_quota'),
             'course_length' => $request->input('course_length'),
+            'course_duration' => $request->input('course_duration'),
             'course_price' => $coursePrice,
             'car_type' => $request->input('car_type'),
             'can_use_own_car' => $request->input('can_use_own_car'),

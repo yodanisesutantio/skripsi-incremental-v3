@@ -79,6 +79,21 @@
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+                    {{-- Input Course Duration --}}
+                    <div class="flex flex-col gap-1">
+                        {{-- Dropdown --}}
+                        <label for="course_duration" class="font-semibold font-league text-xl text-custom-grey">Durasi Kursus<span class="text-custom-destructive">*</span></label>
+                        <select name="course_duration" id="course_duration" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_duration') border-2 border-custom-destructive @enderror">
+                            <option disabled selected>-- Durasi Kursus dalam satuan menit --</option>
+                            <option value="45">45 Menit</option>
+                            <option value="60">60 Menit</option>
+                            <option value="90">90 Menit</option>
+                            <option value="120">120 Menit</option>
+                        </select>
+                        @error('course_duration')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+                    </div>
                     {{-- Input Course_Price --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_price" class="font-semibold font-league text-xl text-custom-grey">Harga Kelas<span class="text-custom-destructive">*</span></label>
