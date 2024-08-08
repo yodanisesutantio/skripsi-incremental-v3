@@ -263,6 +263,12 @@ class adminController extends Controller
         ]);
     }
 
+    public function activeStudentPage() {
+        return view('admin-page.active-student', [
+            'pageName' => "Detail Progress Kursus Siswa | "
+        ]);
+    }
+
     public function courseProgressPage() {
         return view('admin-page.course-progress', [
             'pageName' => "Detail Progress Kursus Siswa | "
