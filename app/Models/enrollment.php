@@ -32,4 +32,9 @@ class enrollment extends Model
     {
         return $this->belongsTo(User::class, 'student_id');
     }
+
+    public function schedule()
+    {
+        return $this->hasMany(CourseSchedule::class);
+    }
 }
