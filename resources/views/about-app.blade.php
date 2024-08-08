@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- Section Header --}}
-    <h1 class="text-custom-dark font-encode font-semibold text-center text-3xl lg:text-4xl my-5 lg:mt-10">Tentang Aplikasi</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-center text-3xl lg:text-4xl my-5 lg:mt-10">Tentang Aplikasi</h1>
     <div class="flex flex-col lg:flex-row lg:items-center my-3 gap-3 lg:gap-6">
         {{-- Website Mark --}}
         <div class="flex flex-col items-center lg:my-3 lg:p-12">

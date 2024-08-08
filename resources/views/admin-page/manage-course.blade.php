@@ -3,7 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Kelas Kursus Anda</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Kelas Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg lg:text-2xl mt-1">Pilih salah satu kelas untuk anda kelola!</p>
 
     <div class="flex">
@@ -44,7 +44,7 @@
                     <p class="font-medium text-base/tight text-custom-grey/80"><span class="text-custom-dark font-semibold">{{ $myCourse->enrollments()->count() }}</span> / {{ $myCourse['course_quota'] }} Siswa</p>
                 </div>
                 {{-- Course Name --}}
-                <h2 class="mt-1.5 mb-5 font-encode font-semibold text-xl/tight">{{ $myCourse['course_name'] }}</h2>
+                <h2 class="mt-1.5 mb-5 font-encode tracking-tight font-semibold text-xl/tight">{{ $myCourse['course_name'] }}</h2>
                 <div class="flex flex-row justify-between">
                     {{-- Course Availability Toggle --}}
                     @if ($myCourse['course_availability'] === 1)

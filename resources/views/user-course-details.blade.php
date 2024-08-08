@@ -5,13 +5,13 @@
     <header class="z-30 bg-custom-white sticky top-0">
         <div class="flex flex-row lg:hidden pt-8 pb-4 px-5 lg:px-10 border-b border-custom-grey gap-5 items-center">
             <a href="#" class="back-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4m0 0l6-6m-6 6l6 6"/></svg></a>
-            <p class="font-encode font-medium text-lg/none">Kursus Saya</p>
+            <p class="font-encode tracking-tight font-medium text-lg/none">Kursus Saya</p>
         </div>
     </header>
 
     {{-- Sub Headers --}}
     <div class="flex flex-col mt-5 px-5 lg:mt-8">
-        <h1 class="text-custom-dark font-encode font-semibold text-2xl lg:text-4xl">Nama Kelas</h1>
+        <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl lg:text-4xl">Nama Kelas</h1>
         <p class="text-custom-grey font-league font-medium text-base lg:text-2xl">Instruktur : Nama Instruktur</p>
 
         {{-- Unpaid Status --}}
@@ -74,7 +74,7 @@
     
         {{-- Achievement Tabs --}}
         <div class="flex flex-col mt-9 lg:mt-0 px-5 lg:px-0 lg:w-3/5">
-            <h2 class="font-encode text-custom-dark font-semibold text-2xl">Capaian</h2>
+            <h2 class="font-encode tracking-tight text-custom-dark font-semibold text-2xl">Capaian</h2>
             <div class="flex flex-col mt-4 mb-6 gap-3">
                     <div class="flex flex-col">
                         <div class="flex flex-row h-[50px] bg-custom-white-hover border border-custom-green justify-between p-4 items-center rounded-xl lg:cursor-pointer" onclick="openDetails(this)">

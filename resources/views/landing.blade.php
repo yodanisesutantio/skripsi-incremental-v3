@@ -8,7 +8,7 @@
         {{-- Content with a Blurred Background --}}
         <div class="flex flex-col w-screen lg:w-1/2 h-50 bg-center bg-[#040B0D80] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 justify-end lg:justify-center rounded-2xl lg:rounded-5xl backdrop-blur">
             <div class="flex flex-col px-8 pt-6 lg:px-20 lg:py-8 gap-3">
-                <h1 class="text-center text-[26px]/snug lg:text-4xl/snug text-custom-white font-encode font-semibold">Tingkatkan Keahlian Mengemudi Anda Bersama Kami</h1>
+                <h1 class="text-center text-[26px]/snug lg:text-4xl/snug text-custom-white font-encode tracking-tight font-semibold">Tingkatkan Keahlian Mengemudi Anda Bersama Kami</h1>
                 <p class="text-center text-base lg:text-xl text-custom-white font-league font-light">Jalanan tidak dapat diprediksi. Jadilah pengemudi yang bertanggung jawab, belajar dengan instruktur berpengalaman.</p>
             </div>
             

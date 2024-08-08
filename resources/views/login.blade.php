@@ -6,7 +6,7 @@
         {{-- Glass Effect --}}
         <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#F7F7F712] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
-            <h1 class="text-3xl lg:text-4xl/snug text-center tracking-normal text-custom-white font-encode font-semibold">Selamat Datang!</h1>
+            <h1 class="text-3xl lg:text-4xl/snug text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
 
             {{-- Forms --}}
             <form action="/login" method="post">

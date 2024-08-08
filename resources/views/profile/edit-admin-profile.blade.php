@@ -3,7 +3,7 @@
 @section('content')
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
-            <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Profil</h1>
+            <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
             <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi akun anda</p>
         </div>
         {{-- Tabs --}}
@@ -28,7 +28,7 @@
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
-                <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Profil</h1>
+                <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
                 <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi akun anda</p>
             </div>
         </div>
@@ -64,7 +64,7 @@
                             @csrf
                             {{-- Form Sub Headers --}}
                             <div class="mb-4">
-                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Kesediaan Lembaga Kursus</h2>
+                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Kesediaan Lembaga Kursus</h2>
                             </div>
                             {{-- Active Checkbox --}}
                             <div class="flex flex-col gap-2">
@@ -78,7 +78,7 @@
                     
                             {{-- Form Sub Headers --}}
                             <div class="flex flex-col gap-1 mt-8 mb-4">
-                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Data Lembaga Kursus</h2>
+                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Data Lembaga Kursus</h2>
                             </div>
                             <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                                 {{-- Input Profile Picture --}}
@@ -167,7 +167,7 @@
         
                                             {{-- Form Sub Headers --}}
                                             <div class="flex flex-row w-full justify-between mb-4">
-                                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
+                                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
                                                 @if ($paymentMethod->count() > 1)
                                                     <button type="button" class="removePaymentMethods" data-index="{{ $index }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
@@ -239,7 +239,7 @@
                             @csrf
                             {{-- Form Sub Headers --}}
                             <div class="mb-4">
-                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Keamanan Akun</h2>
+                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Keamanan Akun</h2>
                             </div>
         
                             <div class="flex flex-col gap-5 lg:gap-7">
@@ -478,7 +478,7 @@
 
                 {{-- Form Sub Headers --}}
                 <div class="flex flex-row w-full justify-between mb-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Bank Baru</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Bank Baru</h2>
                     <button type="button" class="removePaymentMethods" data-index="${paymentMethodIndex}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
                     </button>

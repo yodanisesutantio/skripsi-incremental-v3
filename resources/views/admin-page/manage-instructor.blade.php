@@ -3,7 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Instruktur Anda</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Instruktur Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg lg:text-2xl mt-1">Pilih salah satu Instruktur untuk anda kelola!</p>
 
     <div class="flex">
@@ -26,7 +26,7 @@
                 <div class="flex flex-row justify-between w-full gap-2">
                     <div class="flex flex-col gap-7 pt-2 pb-3">
                         <div class="flex flex-col gap-1">
-                            <h2 class="font-encode font-semibold text-xl lg:text-2xl">{{ $myInstructor['fullname'] }}</h2>
+                            <h2 class="font-encode tracking-tight font-semibold text-xl lg:text-2xl">{{ $myInstructor['fullname'] }}</h2>
                             <i class="font-league font-medium text-base/tight lg:text-lg text-custom-grey">Sedang mengajar {{ $myInstructor->enrollments->count() }} Siswa</i>
                         </div>
 

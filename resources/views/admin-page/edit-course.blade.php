@@ -4,7 +4,7 @@
     {{-- Desktop View Forms Header --}}
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
-            <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Informasi Kelas</h1>
+            <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Informasi Kelas</h1>
             <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Edit informasi tentang kelas <strong class="font-semibold text-custom-dark">{{ $course['course_name'] }}</strong></p>
         </div>
     </div>
@@ -13,7 +13,7 @@
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
-                <h1 class="text-3xl lg:text-4xl/snug tracking-tight text-custom-dark font-encode font-semibold">Edit Informasi Kelas</h1>
+                <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Informasi Kelas</h1>
                 <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Edit informasi tentang kelas <strong class="font-semibold text-custom-dark">{{ $course['course_name'] }}</strong></p>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 @csrf
                 {{-- Form Sub Headers --}}
                 <div class="mb-4 lg:mt-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Thumbnail Kelas Kursus</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Thumbnail Kelas Kursus</h2>
                 </div>
                 {{-- Input Course_Thumbnail --}}
                 <div class="flex flex-col gap-2">
@@ -54,7 +54,7 @@
         
                 {{-- Form Sub Headers --}}
                 <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Informasi Kelas Kursus</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Informasi Kelas Kursus</h2>
                 </div>
                 <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                     {{-- Input Course_Name --}}
@@ -109,7 +109,7 @@
         
                 {{-- Form Sub Headers --}}
                 <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Kategori Kelas Kursus</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Kategori Kelas Kursus</h2>
                 </div>
                 <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                     {{-- Input Car_Type --}}
@@ -143,7 +143,7 @@
 
                 {{-- Select Instructor --}}
                 <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode font-semibold">Pilih Instruktur</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Pilih Instruktur</h2>
                 </div>
 
                 <div class="flex flex-col gap-1">
@@ -164,7 +164,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
                                         </span>
                                     </div>
-                                    <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                    <h4 class="font-encode tracking-tight font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </label>
                                 <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="instructor-checkbox hidden" id="instructor_{{ $myInstructor['id'] }}" {{ in_array($myInstructor['id'], $courseInstructors) ? 'checked' : '' }}>
                             </li>
@@ -176,7 +176,7 @@
                                     @else
                                     <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
                                     @endif
-                                    <h4 class="font-encode font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                    <h4 class="font-encode tracking-tight font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </div>
                             </li>
                             @endif
