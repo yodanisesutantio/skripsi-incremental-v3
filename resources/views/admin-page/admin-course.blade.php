@@ -17,19 +17,19 @@
                     @if (auth()->user()->description)
                     <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-xl/tight text-custom-grey">{{ auth()->user()->description }}</p>    
                     @else
-                    <p class="font-league font-normal text-center lg:text-left text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</p>    
+                    <i class="font-league font-normal text-center lg:text-left text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</i>    
                     @endif
                 </div>
                 
                 {{-- For Mobile Screen --}}
                 <div class="flex flex-row my-5 lg:hidden">
                     {{-- Course Price Range. For marketing purpose --}}
-                    <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
+                    <div class="flex flex-col items-center justify-center w-1/2 border-r border-custom-grey px-2 py-1">
                         <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
                         <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rentang Harga Kursus</p>
                     </div>
                     {{-- Course Length Average. For student consideration --}}
-                    <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 px-2 lg:px-0 py-1 lg:py-0">
+                    <div class="flex flex-col items-center justify-center w-1/2 px-2 py-1">
                         <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
                         <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
                     </div>
@@ -105,7 +105,7 @@
                     @foreach ($course as $allCourse)
                         @if ($allCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -116,7 +116,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -142,7 +142,7 @@
                     @foreach ($courseManual as $manualCourse)
                         @if ($manualCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -153,7 +153,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -179,7 +179,7 @@
                     @foreach ($courseMatic as $maticCourse)
                         @if ($maticCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -190,7 +190,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -212,11 +212,11 @@
                 @endif
 
                 {{-- Quick Course Displayed --}}
-                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
+                <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6">
                     @foreach ($courseQuick as $quickCourse)
                         @if ($quickCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -227,7 +227,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}

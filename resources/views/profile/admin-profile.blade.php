@@ -14,13 +14,13 @@
             <div class="text-content text-center lg:text-left flex flex-col gap-1 lg:gap-2 w-full lg:w-[24rem] px-12 lg:px-0">
                 @if (auth()->user()->age === NULL && auth()->user()->description === NULL)
                     <h1 class="font-encode font-semibold text-2xl lg:text-4xl">{{ auth()->user()->fullname }}</h1>
-                    <p class="font-league text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</p>
+                    <i class="font-league text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</i>
                 @elseif (auth()->user()->age === NULL)
                     <h1 class="font-encode font-semibold text-2xl lg:text-4xl">{{ auth()->user()->fullname }}</h1>
                     <p class="font-league text-custom-grey text-lg/tight lg:text-xl/tight">{{ auth()->user()->description }}</p>
                 @elseif (auth()->user()->description === NULL)
                     <h1 class="font-encode font-semibold text-2xl lg:text-4xl">{{ auth()->user()->fullname }}, {{ auth()->user()->age }}</h1>
-                    <p class="font-league text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</p>
+                    <i class="font-league text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</i>
                 @else
                     <h1 class="font-encode font-semibold text-2xl lg:text-4xl">{{ auth()->user()->fullname }}, {{ auth()->user()->age }}</h1>
                     <p class="font-league text-custom-grey text-lg/tight lg:text-xl/tight">{{ auth()->user()->description }}</p>

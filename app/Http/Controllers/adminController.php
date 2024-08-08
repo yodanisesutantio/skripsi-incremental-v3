@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\DrivingSchoolLicense;
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,10 +26,10 @@ class adminController extends Controller
     }
 
     public function coursePage() {
-        $course = Course::query()->where('admin_id', auth()->id())->get();
-        $courseManual = Course::query()->where('admin_id', auth()->id())->where('car_type', 'Manual')->orwhere('car_type', 'Both')->get();
-        $courseMatic = Course::query()->where('admin_id', auth()->id())->where('car_type', 'Matic')->orwhere('car_type', 'Both')->get();
-        $courseQuick = Course::query()->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
+        $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
+        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Manual')->orwhere('car_type', 'Both')->get();
+        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Matic')->orwhere('car_type', 'Both')->get();
+        $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
         $averageCourseLength = (int) $course->avg('course_length'); // Calculate average and cast to integer
 
         $minCoursePrice = (int) $course->min('course_price'); // Get minimum course price
@@ -264,8 +265,14 @@ class adminController extends Controller
     }
 
     public function activeStudentPage() {
+        $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
+            $query->where('admin_id', auth()->id());
+        })
+        ->get();
+
         return view('admin-page.active-student', [
-            'pageName' => "Daftar Siswa Aktif | "
+            'pageName' => "Daftar Siswa Aktif | ",
+            'activeEnrolledStudent' => $activeEnrolledStudent,
         ]);
     }
 
