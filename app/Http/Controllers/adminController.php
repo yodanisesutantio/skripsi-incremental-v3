@@ -265,7 +265,7 @@ class adminController extends Controller
 
     public function activeStudentPage() {
         return view('admin-page.active-student', [
-            'pageName' => "Detail Progress Kursus Siswa | "
+            'pageName' => "Daftar Siswa Aktif | "
         ]);
     }
 

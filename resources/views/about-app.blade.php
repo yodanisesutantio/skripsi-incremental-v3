@@ -10,9 +10,9 @@
         <div class="flex flex-col items-center lg:my-3 lg:p-12">
             <div class="w-64 lg:w-80 lg:h-72 flex flex-col justify-center lg:bg-custom-dark p-3 lg:p-8">
                 {{-- Black BG and White Logo Variant when in Large Views --}}
-                <img src="img/Logo-Putih.svg" alt="" class="w-full hidden lg:block">
+                <img src="{{ asset('img/Logo-Putih.svg') }}" alt="Logo Kemudi" class="w-full hidden lg:block">
                 {{-- Black Logo Variant when in Mobile Views --}}
-                <img src="img/Logo-Hitam.svg" alt="" class="w-full lg:hidden">
+                <img src="{{ asset('img/Logo-Hitam.svg') }}" alt="Logo Kemudi" class="w-full lg:hidden">
             </div>
         </div>
         <div class="flex flex-col gap-5 lg:p-12">

@@ -9,7 +9,7 @@
             @if (auth()->user()->hash_for_profile_picture)
                 <img src="{{ asset('storage/profile_pictures/' . auth()->user()->hash_for_profile_picture) }}" alt="profile-picture" class="w-24 lg:w-32 h-24 lg:h-32 object-cover rounded-full">
             @else
-                <img src="img/blank-profile.webp" alt="profile-picture" class="w-20 lg:w-32 h-20 lg:h-32 rounded-full">
+                <img src="{{ asset('img/blank-profile.webp') }}" alt="profile-picture" class="w-20 lg:w-32 h-20 lg:h-32 rounded-full">
             @endif
             <div class="flex flex-col lg:gap-2">
                 <div class="flex flex-col gap-1">
@@ -116,7 +116,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -153,7 +153,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -190,7 +190,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
@@ -227,7 +227,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}

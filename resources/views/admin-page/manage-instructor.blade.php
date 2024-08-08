@@ -18,9 +18,9 @@
             @foreach ($instructors as $myInstructor)
             <div class="flex flex-row gap-3 w-full rounded-xl bg-custom-white-hover drop-shadow-lg overflow-hidden">
                 @if ($myInstructor['hash_for_profile_picture'])
-                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="object-cover object-center rounded-lg w-20 lg:w-24 flex-grow">
+                    <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="Profile Pictures" class="object-cover object-center rounded-lg w-20 lg:w-24 flex-grow">
                 @else
-                    <img src="img/blank-profile.webp" alt="" class="object-cover object-center rounded-lg w-20 lg:w-24 flex-grow">
+                    <img src="{{ asset('img/blank-profile.webp') }}" alt="Profile Pictures" class="object-cover object-center rounded-lg w-20 lg:w-24 flex-grow">
                 @endif
 
                 <div class="flex flex-row justify-between w-full gap-2">

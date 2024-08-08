@@ -2,9 +2,9 @@
 
 @section('content')
     {{-- Website Mark --}}
-    <img src="img/Logo-Putih.svg" alt="" class="hidden lg:inline lg:fixed top-6 left-6 w-1/5">
+    <img src="{{ asset('img/Logo-Putih.svg') }}" alt="Logo Kemudi" class="hidden lg:inline lg:fixed top-6 left-6 w-1/5">
 
-    <div class="flex flex-col lg:flex-row justify-end lg:justify-end bg-cover h-screen w-screen bg-center" style="background-image: url('img/BG-Image-Landing.webp')">
+    <div class="flex flex-col lg:flex-row justify-end lg:justify-end bg-cover h-screen w-screen bg-center" style="background-image: url('{{ asset('img/BG-Image-Landing.webp') }}')">
         {{-- Content with a Blurred Background --}}
         <div class="flex flex-col w-screen lg:w-1/2 h-50 bg-center bg-[#040B0D80] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 justify-end lg:justify-center rounded-2xl lg:rounded-5xl backdrop-blur">
             <div class="flex flex-col px-8 pt-6 lg:px-20 lg:py-8 gap-3">

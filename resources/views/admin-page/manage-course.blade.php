@@ -21,7 +21,7 @@
             {{-- Course Thumbnail --}}
             <div class="relative w-full h-36 bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $myCourse['course_thumbnail']) }}')">
             @else
-            <div class="relative w-full h-36 bg-cover bg-center" style="background-image: url('img/BG-Class-4.webp')">
+            <div class="relative w-full h-36 bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
             @endif                            
                 <div class="absolute top-3 right-3 flex flex-row gap-2">
                     {{-- Edit --}}

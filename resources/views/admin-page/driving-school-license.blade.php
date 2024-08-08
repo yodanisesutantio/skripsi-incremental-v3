@@ -34,7 +34,7 @@
         <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6 mb-7 lg:mb-14">
             @foreach ($licenses as $listOfLicense)
                 <a href="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" class="flex flex-col w-full rounded-xl drop-shadow-lg overflow-hidden" target="_blank">
-                    <img src="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" alt="" class="w-full h-40 lg:h-44 object-cover object-top">
+                    <img src="{{ asset('storage/drivingSchoolLicense/' . $listOfLicense['licensePath']) }}" alt="Dokumen Izin Kursus" class="w-full h-40 lg:h-44 object-cover object-top">
                     <div class="flex flex-row flex-grow p-3 lg:p-5 bg-custom-white-hover w-full font-league text-custom-dark">
                         <div class="grid grid-cols-3 w-full">
                             <div class="flex flex-col">
