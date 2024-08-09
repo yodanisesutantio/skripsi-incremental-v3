@@ -73,22 +73,28 @@ class adminController extends Controller
             $startDate = Carbon::parse($license->startLicenseDate);
             $endDate = Carbon::parse($license->endLicenseDate);
     
-            if ($startDate->lte($today) && $endDate->gt($today)) {
-                $license->licenseStatus = 'Aktif';
-                $hasActiveLicense = true;
-            } elseif ($endDate->lt($today)) {
-                $license->licenseStatus = 'Tidak Berlaku';
+            if ($license->licenseStatus !== 'Belum Divalidasi') {
+                if ($startDate->lte($today) && $endDate->gt($today)) {
+                    $license->licenseStatus = 'Aktif';
+                    $hasActiveLicense = true;
+                } elseif ($endDate->lt($today)) {
+                    $license->licenseStatus = 'Tidak Berlaku';
+                }
+                $license->save();
             }
-    
-            $license->save();
     
             $license->formattedStartDate = Carbon::parse($license->startLicenseDate)->locale('id')->translatedFormat('d M Y');
             $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->locale('id')->translatedFormat('d M Y');
         }
     
-        // Update user availability if no active license
-        if (!$hasActiveLicense) {
-            User::where('id', $adminId)->update(['availability' => false]);
+        // Update user availability based on license status
+        $user = User::find($adminId);
+        if ($hasActiveLicense && $user->availability === 0) {
+            $user->availability = true;
+            $user->save();
+        } elseif (!$hasActiveLicense && $user->availability === 1) {
+            $user->availability = false;
+            $user->save();
         }
     
         $activeDrivingSchoolLicense = $drivingSchoolLicenses->firstWhere('licenseStatus', 'Aktif');
@@ -113,9 +119,15 @@ class adminController extends Controller
             $methodOfPayment->payment_address = Crypt::decryptString($methodOfPayment->payment_address);
         }
 
+        // Check for active driving school licenses
+        $hasActiveLicense = DrivingSchoolLicense::where('admin_id', auth()->id())
+        ->where('licenseStatus', 'Aktif')
+        ->exists();
+
         return view('profile.edit-admin-profile', [
             "pageName" => "Edit Profil | ",
             "paymentMethod" => $paymentMethod,
+            "hasActiveLicense" => $hasActiveLicense,
         ]);
     }
 

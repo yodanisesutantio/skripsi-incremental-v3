@@ -66,15 +66,24 @@
                             <div class="mb-4">
                                 <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Kesediaan Lembaga Kursus</h2>
                             </div>
-                            {{-- Active Checkbox --}}
-                            <div class="flex flex-col gap-2">
-                                {{-- Dropdown --}}
-                                <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
-                                <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                                    <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
-                                    <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
-                                </select>
-                            </div>
+                            @if ($hasActiveLicense)
+                                {{-- Active Checkbox --}}
+                                <div class="flex flex-col gap-2">
+                                    {{-- Dropdown --}}
+                                    <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
+                                    <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                        <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
+                                        <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
+                                    </select>
+                                </div>
+                            @else
+                                {{-- Active Checkbox --}}
+                                <div class="flex flex-col gap-2">
+                                    {{-- Dropdown --}}
+                                    <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Saat ini anda tidak dapat mengubah kesediaan anda. Pastikan anda memiliki izin penyelenggaraan kursus aktif.</p>
+                                    <div class="px-4 py-3 font-league font-medium text-lg bg-[#FFF] text-custom-secondary/30 rounded-lg">Tidak Bersedia</div>
+                                </div>
+                            @endif
                     
                             {{-- Form Sub Headers --}}
                             <div class="flex flex-col gap-1 mt-8 mb-4">
