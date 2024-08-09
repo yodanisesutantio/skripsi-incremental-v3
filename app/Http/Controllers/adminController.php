@@ -59,37 +59,46 @@ class adminController extends Controller
 
     public function drivingSchoolLicensePage() {
         $adminId = auth()->id();
-
-        // Set the locale to Indonesian
         Carbon::setLocale('id');
     
-        $activeDrivingSchoolLicense = DrivingSchoolLicense::query()
-            ->where('admin_id', $adminId)
-            ->where('licenseStatus', 'Aktif')
-            ->first();
-
-        if ($activeDrivingSchoolLicense) {
-            $activeDrivingSchoolLicense->formattedStartDate = Carbon::parse($activeDrivingSchoolLicense->startLicenseDate)->locale('id')->translatedFormat('d M Y');
-            $activeDrivingSchoolLicense->formattedEndDate = Carbon::parse($activeDrivingSchoolLicense->endLicenseDate)->locale('id')->translatedFormat('d M Y');
+        $today = Carbon::today();
+    
+        $drivingSchoolLicenses = DrivingSchoolLicense::where('admin_id', $adminId)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        $hasActiveLicense = false;
+    
+        foreach ($drivingSchoolLicenses as $license) {
+            $startDate = Carbon::parse($license->startLicenseDate);
+            $endDate = Carbon::parse($license->endLicenseDate);
+    
+            if ($startDate->lte($today) && $endDate->gt($today)) {
+                $license->licenseStatus = 'Aktif';
+                $hasActiveLicense = true;
+            } elseif ($endDate->lt($today)) {
+                $license->licenseStatus = 'Tidak Berlaku';
+            }
+    
+            $license->save();
+    
+            $license->formattedStartDate = Carbon::parse($license->startLicenseDate)->locale('id')->translatedFormat('d M Y');
+            $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->locale('id')->translatedFormat('d M Y');
         }
     
-        $drivingSchoolLicenses = DrivingSchoolLicense::query()
-            ->where('admin_id', $adminId)
-            ->orderby('created_at', 'desc')
-            ->get();
-
-        if ($drivingSchoolLicenses->isNotEmpty()) {
-            $drivingSchoolLicenses->each(function ($license) {
-                $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->locale('id')->translatedFormat('d M Y');
-            });
+        // Update user availability if no active license
+        if (!$hasActiveLicense) {
+            User::where('id', $adminId)->update(['availability' => false]);
         }
+    
+        $activeDrivingSchoolLicense = $drivingSchoolLicenses->firstWhere('licenseStatus', 'Aktif');
     
         return view('admin-page.driving-school-license', [
             "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
             "activeLicense" => $activeDrivingSchoolLicense,
             "licenses" => $drivingSchoolLicenses,
         ]);
-    }    
+    }
 
     public function drivingSchoolLicenseForm() {
         return view('admin-page.create-driving-school-license', [
