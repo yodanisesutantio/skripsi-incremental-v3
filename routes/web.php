@@ -56,6 +56,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-driving-school-license/create', [adminController::class, 'drivingSchoolLicenseForm']);
     // Admin Upload License Form Logic Handler
     Route::post('/admin-driving-school-license/create', [DrivingSchoolLicenseController::class, 'drivingSchoolLicenseCreate']);
+    // Admin's Delete License Logic Handler
+    Route::delete('/admin-delete-driving-school-license/{id}', [DrivingSchoolLicenseController::class, 'drivingSchoolLicenseDelete']);    
 
     // Admin Edit Profile Page
     Route::get('/admin-profile/edit', [adminController::class, 'editProfilePage']);

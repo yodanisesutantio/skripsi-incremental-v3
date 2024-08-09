@@ -41,4 +41,18 @@ class DrivingSchoolLicenseController extends Controller
 
         return redirect()->intended('/admin-driving-school-license');
     }
+
+    public function drivingSchoolLicenseDelete($id)
+    {
+        $license = DrivingSchoolLicense::findOrFail($id);
+    
+        // Optionally, delete the thumbnail from storage
+        if ($license->licensePath) {
+            Storage::delete('drivingSchoolLicense/' . $license->licensePath);
+        }
+
+        $license->delete();
+
+        return redirect()->intended('/admin-driving-school-license');
+    }
 }

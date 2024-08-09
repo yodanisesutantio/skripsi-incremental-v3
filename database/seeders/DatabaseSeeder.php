@@ -99,21 +99,21 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.png',
+            'licensePath' => '1722480040.jpg',
             'startLicenseDate' => '2024-08-21',
             'endLicenseDate' => '2026-08-21',
             'licenseStatus' => 'Sudah Tervalidasi',
             'admin_id' => 1,
         ]);
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.png',
+            'licensePath' => '1722480040.jpg',
             'startLicenseDate' => '2022-08-21',
             'endLicenseDate' => '2024-08-21',
             'licenseStatus' => 'Aktif',
             'admin_id' => 1,
         ]);
         DrivingSchoolLicense::create([
-            'licensePath' => '1644230171.png',
+            'licensePath' => '1722480040.jpg',
             'startLicenseDate' => '2020-08-21',
             'endLicenseDate' => '2022-08-21',
             'licenseStatus' => 'Tidak Berlaku',
