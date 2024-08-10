@@ -333,9 +333,12 @@ class adminController extends Controller
         ]);
     }
 
-    public function courseProgressPage() {
+    public function courseProgressPage($student_username, $enrollment_id) {
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
         return view('admin-page.course-progress', [
-            'pageName' => "Detail Progress Kursus Siswa | "
+            'pageName' => "Detail Progress Kursus Siswa | ",
+            'enrollment' => $enrollment,
         ]);
     }
 
