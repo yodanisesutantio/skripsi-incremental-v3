@@ -322,7 +322,7 @@
             }
         });
 
-        // Read the dropped file, same as above
+        // Change the states when there's an uploaded file
         function handleDroppedFile(file) {
             const reader = new FileReader();
             reader.onload = function(e) {

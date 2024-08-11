@@ -29,8 +29,11 @@
                 {{-- Input licensePath --}}
                 <div class="flex flex-col gap-2">
                     <label for="licensePath" class="cursor-pointer rounded-lg">
+                        {{-- Dropper --}}
                         <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-60 bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light border-2 border-custom-grey border-dashed overflow-hidden duration-300" id="licensePath_wrapper">
+                            {{-- Hidden Overlays, uncover when there's an uploaded file --}}
                             <div class="absolute top-0 left-0 w-full h-full hover:bg-custom-dark/30 duration-300 hidden" id="licensePath_overlay"></div>
+                            {{-- Upload information such as file size limit, file type, etc. --}}
                             <div class="flex flex-col items-center justify-center px-8 pt-5 pb-6" id="uploadInfo">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#646464" d="M18 8a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill="#646464" fill-rule="evenodd" d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.088c0 1.909 0 3.471-.104 4.743c-.104 1.28-.317 2.347-.795 3.235c-.21.391-.47.742-.785 1.057c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.793-.793-1.203-1.78-1.42-3.006c-.215-1.203-.254-2.7-.262-4.558c-.002-.473-.002-.973-.002-1.501v-.058c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19m-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386v.844l1.001-.876a2.3 2.3 0 0 1 3.141.104l4.29 4.29a2 2 0 0 0 2.564.222l.298-.21a3 3 0 0 1 3.732.225l2.83 2.547c.286-.598.455-1.384.545-2.493c.098-1.205.099-2.707.099-4.653c0-2.378-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176" clip-rule="evenodd"/></svg>
                                 <p class="mt-4 mb-2 text-base text-center text-custom-grey"><span class="font-semibold">Tekan untuk memilih foto yang akan diupload</span> atau seret foto anda ke area ini</p>
@@ -47,7 +50,9 @@
                 {{-- Input startDateLicense --}}
                 <div class="flex flex-col gap-1 mt-8">
                     <label for="startLicenseDate" class="font-semibold font-league text-xl text-custom-grey">Tanggal Awal Berlaku<span class="text-custom-destructive">*</span></label>
+                    {{-- Input Date Column --}}
                     <input type="date" name="startLicenseDate" id="startLicenseDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startLicenseDate') border-2 border-custom-destructive @enderror">
+                    {{-- Error in Validation Message --}}
                     @error('startLicenseDate')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
@@ -56,7 +61,9 @@
                 {{-- Input endDateLicense --}}
                 <div class="flex flex-col gap-1 mt-8">
                     <label for="endLicenseDate" class="font-semibold font-league text-xl text-custom-grey">Tanggal Akhir Berlaku<span class="text-custom-destructive">*</span></label>
+                    {{-- Input Date Column --}}
                     <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror">
+                    {{-- Error in Validation Message --}}
                     @error('endLicenseDate')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
@@ -77,55 +84,9 @@
         <button type="submit" id="mobileSubmitButton" class="px-8 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Ajukan Izin Baru</button>
     </div>
 
-    {{-- Swiper CDN --}}
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        const swiper = new Swiper('.swiper', {
-            direction: 'horizontal',
-            loop: false,
-            autoHeight: true,
-
-            navigation: {
-                prevEl: '',
-                nextEl: '',
-            },
-
-            on: {
-                slideChange: function() {
-                    const currentIndex = swiper.activeIndex;
-                    const buttons = ['#accountInfoButton', '#paymentMethodButton', '#securityButton'];
-                    const largeButtons = ['#accountInfoLargeButton', '#paymentMethodLargeButton', '#securityLargeButton'];
-
-                    // For Mobile Tabs
-                    buttons.forEach((button, index) => {
-                        if (index === currentIndex) {
-                            $(button).addClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
-                            $(button).removeClass('opacity-40');
-                        } else {
-                            $(button).removeClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
-                            $(button).addClass('opacity-40');
-                        }
-                    });
-
-                    // For Large Tabs
-                    largeButtons.forEach((large, index) => {
-                        if (index === currentIndex) {
-                            $(large).addClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
-                            $(large).removeClass('opacity-40');
-                        } else {
-                            $(large).removeClass('border-b-2 font-semibold text-custom-green border-custom-green opacity-100');
-                            $(large).addClass('opacity-40');
-                        }
-                    });
-                },
-                init: function () {
-                    this.update();
-                }
-            }
-        });
-
         // Mobile Submit Button Function
         $('#mobileSubmitButton').click(function(event) {
             event.preventDefault();
@@ -134,7 +95,7 @@
 
         // Preview the Uploaded Thumbnail
         $('#licensePath').on('change', function(event) {
-            const file = event.target.files[0];
+            const file = event.target.files[0]; // Read the uploaded files
             const reader = new FileReader();
             reader.onload = function(e) {
                 $('#licensePath_wrapper').css('background-image', 'url(' + e.target.result + ')'); // Update the background image
@@ -163,6 +124,7 @@
                 $(this).addClass('bg-custom-disabled-light/60');
                 $(this).removeClass('bg-custom-disabled-light');
 
+                // Read the dropped files
                 const file = e.originalEvent.dataTransfer.files[0];
 
                 if (file) {
@@ -174,6 +136,7 @@
             }
         });
 
+        // Change the states, when there's an uploaded files
         function handleDroppedFile(file) {
             const reader = new FileReader();
             reader.onload = function(e) {
