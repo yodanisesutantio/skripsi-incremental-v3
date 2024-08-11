@@ -18,6 +18,7 @@ class paymentMethod extends Model
         'id',
     ];
 
+    // Many to One Relationship with User Tables
     public function user()
     {
         return $this->belongsTo(User::class);

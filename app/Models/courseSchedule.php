@@ -18,8 +18,9 @@ class courseSchedule extends Model
         'id',
     ];
 
+    // Many to One Relationship with Enrollment Tables
     public function enrollment()
     {
-        return $this->belongsTo(CourseSchedule::class, 'enrollment_id');
+        return $this->belongsTo(Enrollment::class);
     }
 }
