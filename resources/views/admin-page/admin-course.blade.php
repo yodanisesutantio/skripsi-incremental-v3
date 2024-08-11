@@ -318,17 +318,17 @@
 
             on: {
                 slideChange: function() {
-                    const currentIndex = swiper.activeIndex;
-                    const buttons = ['#allCourseButton', '#manualCourseButton', '#maticCourseButton', '#quickCourseButton'];
+                    const currentIndex = swiper.activeIndex; // Initialize swiper index
+                    const buttons = ['#allCourseButton', '#manualCourseButton', '#maticCourseButton', '#quickCourseButton']; // Setup all the tabs
 
-                    // Change stroke color based on the current slide
+                    // Change the color of the icons based on the current slide
                     $('.tab-icon path').each(function() {
                         const index = $(this).closest('button').find('.tab-icon').data('index');
                         const strokeColor = index === currentIndex ? '#24596A' : '#040B0D';
                         $(this).attr('stroke', strokeColor);
                     });
 
-                    // For Mobile Tabs
+                    // Change the active states, depend on which slide we currently are
                     buttons.forEach((button, index) => {
                         if (index === currentIndex) {
                             $(button).addClass('border-b-2 text-custom-green border-custom-green opacity-100');
@@ -345,32 +345,39 @@
             }
         });
 
+        // When "Semua" tabs is clicked, slide to the first slide
         $('#allCourseButton').on('click', function() {
             swiper.slideTo(0);
         });
+        // When "Manual" tabs is clicked, slide to the second slide
         $('#manualCourseButton').on('click', function() {
             swiper.slideTo(1);
         });
+        // When "Matic" tabs is clicked, slide to the third slide
         $('#maticCourseButton').on('click', function() {
             swiper.slideTo(2);
         });
+        // When "Kilat" tabs is clicked, slide to the Last slide
         $('#quickCourseButton').on('click', function() {
             swiper.slideTo(3);
         });
 
+        // Change the course provider info, min max course_price and average course_Length
         let currentIndex = 0;
         const sections = ['#coursePrice', '#courseLength'];
         const toggleDuration = 5500; // Duration to show each section in milliseconds
 
+        // Fade Out animation
         function toggleSections() {
             $(sections[currentIndex]).fadeOut(500, function() {
                 currentIndex = (currentIndex + 1) % sections.length; // Cycle through sections
+                // Fade in animation
                 $(sections[currentIndex]).fadeIn(500);
             });
         }
 
         $(sections[0]).show(); // Show the first section initially
-        $(sections[1]).hide(); // Show the first section initially
-        setInterval(toggleSections, toggleDuration); // Toggle sections every 3 seconds
+        $(sections[1]).hide(); // Hide the second section initially
+        setInterval(toggleSections, toggleDuration); // Toggle sections every 5,5 seconds
     </script>
 @endsection
