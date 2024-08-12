@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 
 class adminController extends Controller
 {
+    // Admin-Index Page Controller
     public function indexPage() {
         $view = 'home.admin';
     
@@ -25,18 +26,28 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Manage-Course Page Controller
     public function coursePage() {
+        // Display all Course that are Active and is owned by the owner/admin
         $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
+        // Display only Manual Course that are Active and is owned by the owner/admin
         $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Manual')->orwhere('car_type', 'Both')->get();
+        // Display only Matic Course that are Active and is owned by the owner/admin
         $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Matic')->orwhere('car_type', 'Both')->get();
+        // Display only Quick Course that are Active and is owned by the owner/admin
         $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
-        $averageCourseLength = (int) $course->avg('course_length'); // Calculate average and cast to integer
 
-        $minCoursePrice = (int) $course->min('course_price'); // Get minimum course price
-        $maxCoursePrice = (int) $course->max('course_price'); // Get maximum course price
+        // Calculate the average of all of the active course_length
+        $averageCourseLength = (int) $course->avg('course_length');
 
-        // Format prices
+        // Get minimum course price
+        $minCoursePrice = (int) $course->min('course_price');
+        // Get maximum course price
+        $maxCoursePrice = (int) $course->max('course_price'); 
+
+        // Format minimum coursePrice, when it passes the million digits, change it to 'jt', below that write 'rb' instead
         $minCoursePrice = $minCoursePrice >= 1000000 ? number_format($minCoursePrice / 1000000, 1) . 'jt' : number_format($minCoursePrice / 1000) . 'rb';
+        // Format minimum coursePrice, when it passes the million digits, change it to 'jt', below that write 'rb' instead
         $maxCoursePrice = $maxCoursePrice >= 1000000 ? number_format($maxCoursePrice / 1000000, 1) . 'jt' : number_format($maxCoursePrice / 1000) . 'rb';
 
         return view('admin-page.admin-course', [
@@ -51,6 +62,7 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Profile Page Controller
     public function profilePage() {
         return view('profile.admin-profile', [
             "pageName" => "Profil Anda | ",
