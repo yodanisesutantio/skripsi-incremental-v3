@@ -28,14 +28,15 @@
                 {{-- Input Course_Thumbnail --}}
                 <div class="flex flex-col gap-2">
                     <label for="course_thumbnail" class="cursor-pointer rounded-lg">
+                        <!-- Display the thumbnail if it exists -->
                         @if($course['course_thumbnail'])
-                            <!-- Display the thumbnail if it exists -->
                             <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-60 bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light overflow-hidden duration-300" id="course_thumbnail_wrapper" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $course['course_thumbnail']) }}')">
                                 <div class="absolute top-0 left-0 w-full h-full hover:bg-custom-dark/30 duration-300" id="course_thumbnail_overlay"></div>
                                 <input id="course_thumbnail" name="course_thumbnail" type="file" class="hidden">
                             </div>
+
+                        <!-- Display the upload area if no thumbnail exists -->
                         @else
-                            <!-- Display the upload area if no thumbnail exists -->
                             <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-60 bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light border-2 border-custom-grey border-dashed overflow-hidden duration-300" id="course_no_thumbnail_wrapper">
                                 <div class="absolute top-0 left-0 w-full h-full hover:bg-custom-dark/30 duration-300 hidden" id="course_no_thumbnail_overlay"></div>
                                 <div class="flex flex-col items-center justify-center px-8 pt-5 pb-6" id="uploadInfo">
@@ -47,6 +48,7 @@
                             </div>
                         @endif
                     </label>
+                    {{-- Error in Validation Message --}}
                     @error('course_thumbnail')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
@@ -60,39 +62,50 @@
                     {{-- Input Course_Name --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_name" class="font-semibold font-league text-xl text-custom-grey">Nama Kelas Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Input Text Column --}}
                         <input type="text" name="course_name" id="course_name" placeholder="Nama Kelas Kursus Baru" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_name') border-2 border-custom-destructive @enderror" value="{{ $course['course_name'] }}">
+                        {{-- Error in Validation Message --}}
                         @error('course_name')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
                     {{-- Input Course_Description --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_description" class="font-semibold font-league text-xl text-custom-grey">Deskripsi Kelas<span class="text-custom-destructive">*</span></label>
+                        {{-- Input Textarea Column --}}
                         <textarea name="course_description" id="course_description" rows="4" placeholder="Tuliskan Deskripsi Kelas Kursus" class="px-4 py-3.5 h-32 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('course_description') border-2 border-custom-destructive @enderror">{{ $course['course_description'] }}</textarea>
+                        {{-- Error in Validation Message --}}
                         @error('course_description')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
                     {{-- Input Course_Quota --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_quota" class="font-semibold font-league text-xl text-custom-grey">Kuota Kelas<span class="text-custom-destructive">*</span></label>
                         <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror" value="{{ $course['course_quota'] }}">
+                        {{-- Error in Validation Message --}}
                         @error('course_quota')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
                     {{-- Input Course_Length --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_length" class="font-semibold font-league text-xl text-custom-grey">Jumlah Pertemuan<span class="text-custom-destructive">*</span></label>
+                        {{-- Input Number Column --}}
                         <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror" value="{{ $course['course_length'] }}">
+                        {{-- Error in Validation Message --}}
                         @error('course_length')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
                     {{-- Input Course Duration --}}
                     <div class="flex flex-col gap-1">
-                        {{-- Dropdown --}}
                         <label for="course_duration" class="font-semibold font-league text-xl text-custom-grey">Durasi Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Dropdown --}}
                         <select name="course_duration" id="course_duration" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_duration') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Durasi Kursus dalam satuan menit --</option>
                             <option value="45" {{ (string)$course['course_duration'] === "45" ? 'selected' : '' }}>45 Menit</option>
@@ -100,6 +113,7 @@
                             <option value="90" {{ (string)$course['course_duration'] === "90" ? 'selected' : '' }}>90 Menit</option>
                             <option value="120" {{ (string)$course['course_duration'] === "120" ? 'selected' : '' }}>120 Menit</option>
                         </select>
+                        {{-- Error in Validation Message --}}
                         @error('course_duration')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -115,7 +129,9 @@
                     {{-- Input Course_Price --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_price" class="font-semibold font-league text-xl text-custom-grey">Harga Kelas<span class="text-custom-destructive">*</span></label>
+                        {{-- Input Text Column, course_price is special, since we need to display the currency so it is readable. Instead of 1000000, users will see Rp. 1.000.000,- --}}
                         <input type="text" name="course_price" id="course_price" placeholder="Harga Kelas" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_price') border-2 border-custom-destructive @enderror" value="{{ formatRupiah($course['course_price']) }}" oninput="formatCurrency(this)">
+                        {{-- Error in Validation Message --}}
                         @error('course_price')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -129,27 +145,30 @@
                 <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                     {{-- Input Car_Type --}}
                     <div class="flex flex-col gap-1">
-                        {{-- Dropdown --}}
                         <label for="car_type" class="font-semibold font-league text-xl text-custom-grey">Jenis Transmisi Mobil<span class="text-custom-destructive">*</span></label>
+                        {{-- Dropdown --}}
                         <select name="car_type" id="car_type" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('car_type') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Jenis Transmisi Mobil --</option>
                             <option value="Manual" {{ $course['car_type'] === "Manual" ? 'selected' : '' }}>Manual</option>
                             <option value="Automatic" {{ $course['car_type'] === "Automatic" ? 'selected' : '' }}>Matic</option>
                             <option value="Both" {{ $course['car_type'] === "Both" ? 'selected' : '' }}>Manual & Matic</option>
                         </select>
+                        {{-- Error in Validation Message --}}
                         @error('car_type')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
+
                     {{-- Input Can_Use_Own_Car --}}
                     <div class="flex flex-col gap-1">
-                        {{-- Dropdown --}}
                         <label for="can_use_own_car" class="font-semibold font-league text-xl text-custom-grey">Siswa Bisa Menggunakan Mobil Sendiri?<span class="text-custom-destructive">*</span></label>
+                        {{-- Dropdown --}}
                         <select name="can_use_own_car" id="can_use_own_car" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('can_use_own_car') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Bisa Pakai Mobil Sendiri --</option>
                             <option value="0" {{ $course['can_use_own_car'] === "0" ? 'selected' : '' }}>Tidak Bisa</option>
                             <option value="1" {{ $course['can_use_own_car'] === "1" ? 'selected' : '' }}>Bisa</option>
                         </select>
+                        {{-- Error in Validation Message --}}
                         @error('can_use_own_car')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
@@ -162,35 +181,49 @@
                 </div>
 
                 <div class="flex flex-col gap-1">
-                    {{-- Dropdown --}}
                     <label for="course_instructors">
                         <ul class="grid w-full gap-2 lg:gap-5 grid-cols-2 lg:grid-cols-3">
-                        @foreach ($instructors as $myInstructor)
+                            @foreach ($instructors as $myInstructor)
+                            {{-- Display all available Instructors, make it clickable --}}
                             @if ($myInstructor['availability'] === 1)
                             <li class="flex flex-col justify-center items-center">
                                 <label for="instructor_{{ $myInstructor['id'] }}" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer lg:hover:bg-custom-dark/10 rounded duration-300" data-id="{{ $myInstructor['id'] }}">
                                     <div class="profile-picture-wrapper relative">
+                                        {{-- If Instructor Profile Picture Exist, show this --}}
                                         @if ($myInstructor['hash_for_profile_picture'])
                                         <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+
+                                        {{-- If Instructor Profile Picture not exist, show this instead --}}
                                         @else
                                         <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
                                         @endif
+
+                                        {{-- Checkmark to differentiate, which instructor is chosen, and which instructor is not --}}
                                         <span class="flex items-center justify-center bg-custom-green/80 checkmark hidden w-full h-full absolute top-0 left-0 rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
                                         </span>
                                     </div>
+
+                                    {{-- Instructor's Full Name --}}
                                     <h4 class="font-encode tracking-tight font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </label>
                                 <input type="checkbox" name="instructor_ids[]" value="{{ $myInstructor['id'] }}" class="instructor-checkbox hidden" id="instructor_{{ $myInstructor['id'] }}" {{ in_array($myInstructor['id'], $courseInstructors) ? 'checked' : '' }}>
                             </li>
+
+                            {{-- Display All Unavailable Instructors, make it unclickable --}}
                             @else
                             <li class="flex flex-col justify-center items-center">
                                 <div class="flex flex-col items-center gap-2 p-2 w-full flex-grow opacity-30">
+                                    {{-- If Instructor Profile Picture Exist, show this --}}
                                     @if ($myInstructor['hash_for_profile_picture'])
                                     <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
+
+                                    {{-- If Instructor Profile Picture not exist, show this instead --}}
                                     @else
                                     <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
                                     @endif
+
+                                    {{-- Instructor's Full Name --}}
                                     <h4 class="font-encode tracking-tight font-semibold text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
                                 </div>
                             </li>
@@ -198,6 +231,7 @@
                         @endforeach
                         </ul>
                     </label>
+                    {{-- Error in Validation Message --}}
                     @error('course_instructors')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
@@ -323,6 +357,7 @@
                 e.preventDefault();
                 $(this).removeClass('bg-custom-dark/50'); // Optional: Add hover styling
 
+                // Read the dropped file
                 const file = e.originalEvent.dataTransfer.files[0];
 
                 if (file) {
@@ -350,6 +385,7 @@
                 $(this).addClass('bg-custom-disabled-light/60'); // Optional: Add hover styling
                 $(this).removeClass('bg-custom-disabled-light'); // Optional: Remove hover styling
 
+                // Read the dropped file
                 const file = e.originalEvent.dataTransfer.files[0];
 
                 if (file) {
@@ -361,6 +397,7 @@
             }
         });
 
+        // Change the states when there's an uploaded file
         function handleDroppedFile(file) {
             const reader = new FileReader();
             reader.onload = function(e) {
