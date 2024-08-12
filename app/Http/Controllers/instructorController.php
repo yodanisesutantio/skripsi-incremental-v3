@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\InstructorCertificate;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User; // Access User Tables
+use App\Models\InstructorCertificate; // Access InstructorCertificate Tables
+use Illuminate\Http\Request; // Use Request Method by Laravel
+use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
+use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 
 class instructorController extends Controller
 {

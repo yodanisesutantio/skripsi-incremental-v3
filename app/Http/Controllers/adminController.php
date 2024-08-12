@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use Carbon\Carbon; // Use Carbon Method by Laravel
 
-use App\Models\User;
-use App\Models\DrivingSchoolLicense;
-use App\Models\Course;
-use App\Models\Enrollment;
-use App\Models\PaymentMethod;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Crypt;
+use App\Models\User; // Access User Tables
+use App\Models\DrivingSchoolLicense; // Access DrivingSchoolLicense Tables
+use App\Models\Course; // Access Course Tables
+use App\Models\Enrollment; // Access Enrollment Tables
+use App\Models\PaymentMethod; // Access PaymentMethod Tables
+use Illuminate\Http\Request; // Use Request Method by Laravel
+use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
+use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
+use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
+use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 
 class adminController extends Controller
 {

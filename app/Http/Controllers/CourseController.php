@@ -2,40 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Course;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User; // Access User Tables
+use App\Models\Course; // Access Course Tables
+use Illuminate\Http\Request; // Use Request Method by Laravel
+use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
+use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
+use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 
 class CourseController extends Controller
 {
+    // Deactivate Course Logic Handler
     public function deactivateCourse(Request $request) {
+        // Find the desired course by matching the incoming requested ID with ID from Course Tables
         $course = Course::find($request->course_id);
 
+        // If course is found, do this data transaction
         if ($course) {
+            // change the course_availability attribute value to 0
             $course->course_availability = 0;
+            // Save the changes
             $course->save();
     
+            // Return successful response to JSON
             return response()->json(['success' => true]);
         }
     
+        // Return failed response to JSON
         return response()->json(['success' => false], 400);
     }
 
+    // Activate Course Logic Handler
     public function activateCourse(Request $request) {
+        // Find the desired course by matching the incoming requested ID with ID from Course Tables
         $course = Course::find($request->course_id);
+
+        // If course is found, do this data transaction
         if ($course) {
+            // change the course_availability attribute value to 0
             $course->course_availability = 1;
+            // Save the changes
             $course->save();
 
+            // Return successful response to JSON
             return response()->json(['success' => true]);
         }
 
+        // Return failed response to JSON
         return response()->json(['success' => false], 400);
     }
 
+    // Create new course logic handler
     public function createCourseLogic(Request $request) {
         $request->validate([
             'course_thumbnail' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',

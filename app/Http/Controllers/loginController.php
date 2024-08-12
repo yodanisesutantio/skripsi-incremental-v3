@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request; // Use Request Method by Laravel
+use Illuminate\Http\RedirectResponse; // Use RedirectResponse Method by Laravel
+use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
+use Illuminate\Support\Facades\Session; // Use Session Method by Laravel
 
 class loginController extends Controller
 {
