@@ -6,13 +6,13 @@
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Daftar Siswa Aktif</h1>
     <p class="text-custom-grey font-league font-medium text-lg/snug lg:text-2xl/snug mt-1">Berikut adalah seluruh siswa yang memiliki kursus aktif dengan anda!</p>
 
-    @if ($activeEnrolledStudent->isEmpty())
-        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai kursus)</p>
+    @if ($activeEnrolledStudent->isEmpty() || $activeEnrolledStudent->every(fn($student) => !$student->next_course_date))
+        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai siswa aktif)</p>
     @else
         {{-- Class List --}}
         <div class="flex lg:grid flex-col lg:grid-cols-2 gap-6 mt-5 lg:mt-10 mb-7 lg:mb-14">
             {{-- Call every active student --}}
-            @foreach ($activeEnrolledStudent as $activeStudent)
+            @foreach ($activeEnrolledStudent->filter(fn($student) => $student->next_course_date) as $activeStudent)
             {{-- To open the course progress for each student --}}
             <a href="{{ url('/admin-course-progress/' . $activeStudent->student->fullname . '/' . $activeStudent['id']) }}" class="w-full bg-custom-white-hover p-3 lg:p-5 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">

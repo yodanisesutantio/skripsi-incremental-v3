@@ -26,7 +26,7 @@ class adminController extends Controller
         ]);
     }
 
-    // Admin-Manage-Course Page Controller
+    // Admin-Course Page Controller
     public function coursePage() {
         // Display all Course that are Active and is owned by the owner/admin
         $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
@@ -69,46 +69,72 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Driving-School-License Page Controller
     public function drivingSchoolLicensePage() {
+        // Assign the current authenticated user ID to $adminId
         $adminId = auth()->id();
+        // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
     
+        // Get today's date and localized it to Indonesian
         $today = Carbon::today();
     
+        // Collect every drivingschoollicense that are owned by this owner/admin and sort it from the latest added license
         $drivingSchoolLicenses = DrivingSchoolLicense::where('admin_id', $adminId)
             ->orderBy('created_at', 'desc')
             ->get();
     
-        $hasActiveLicense = false;
-    
+        // Set a default value to detect if admin/owner has an active license
+        $hasActiveLicense = false;    
+
+        // Run through the drivingschoollicense collection
         foreach ($drivingSchoolLicenses as $license) {
+            // Localize the startLicenseDate to Indonesian
             $startDate = Carbon::parse($license->startLicenseDate);
+            // Localize the endLicenseDate to Indonesian
             $endDate = Carbon::parse($license->endLicenseDate);
     
+            // Avoid license that has licenseStatus of "Belum Divalidasi"
             if ($license->licenseStatus !== 'Belum Divalidasi') {
+                // If today's date is between the startLicenseDate and endLicenseDate 
                 if ($startDate->lte($today) && $endDate->gt($today)) {
+                    // Change the licenseStatus to "Aktif"
                     $license->licenseStatus = 'Aktif';
+                    // change the $hasActiveLicense to true, since we has an active license
                     $hasActiveLicense = true;
-                } elseif ($endDate->lt($today)) {
+                } 
+                
+                // if today's date is way past the endLicenseDate
+                elseif ($endDate->lt($today)) {
+                    // Change the licenseStatus to "Tidak Berlaku"
                     $license->licenseStatus = 'Tidak Berlaku';
                 }
+
+                // Update the license data
                 $license->save();
             }
     
+            // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
             $license->formattedStartDate = Carbon::parse($license->startLicenseDate)->locale('id')->translatedFormat('d M Y');
+            // Localize the endLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
             $license->formattedEndDate = Carbon::parse($license->endLicenseDate)->locale('id')->translatedFormat('d M Y');
         }
     
         // Update user availability based on license status
         $user = User::find($adminId);
+        // If admin/owner has active license and current user availability is 0, activate admin/owner by changing the user availability to 1
         if ($hasActiveLicense && $user->availability === 0) {
             $user->availability = true;
             $user->save();
-        } elseif (!$hasActiveLicense && $user->availability === 1) {
+        } 
+        
+        // If admin/owner has no active license and current user availability is 1, deactivate admin/owner by changing the user availability to 0
+        elseif (!$hasActiveLicense && $user->availability === 1) {
             $user->availability = false;
             $user->save();
         }
     
+        // Find the first drivingschoollicense that has licenseStatus of "Aktif"
         $activeDrivingSchoolLicense = $drivingSchoolLicenses->firstWhere('licenseStatus', 'Aktif');
     
         return view('admin-page.driving-school-license', [
@@ -118,23 +144,27 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Driving-School-License/Create Page Controller
     public function drivingSchoolLicenseForm() {
         return view('admin-page.create-driving-school-license', [
             "pageName" => "Unggah Izin Penyelenggaraan Kursus Baru | ",
         ]);
     }
 
+    // Admin-Profile/Edit Page Controller
     public function editProfilePage() {
+        // Collect every payment method that are owned by this admin/owner
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
 
+        // Run through every payment method in every collection, then decrypt it
         foreach ($paymentMethod as $methodOfPayment) {
             $methodOfPayment->payment_address = Crypt::decryptString($methodOfPayment->payment_address);
         }
 
         // Check for active driving school licenses
         $hasActiveLicense = DrivingSchoolLicense::where('admin_id', auth()->id())
-        ->where('licenseStatus', 'Aktif')
-        ->exists();
+            ->where('licenseStatus', 'Aktif')
+            ->exists();
 
         return view('profile.edit-admin-profile', [
             "pageName" => "Edit Profil | ",
@@ -143,7 +173,9 @@ class adminController extends Controller
         ]);
     }
 
+    // Edit Account Information Logic Handler
     public function editAccountInfo(Request $request) {
+        // Validation Rules
         $this->validate($request, [
             'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
             'fullname' => 'required|max:255',
@@ -151,7 +183,10 @@ class adminController extends Controller
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
             'availability' => 'required|boolean',
-        ],[
+        ],
+        
+        // Validation Error Messages
+        [
             'hash_for_profile_picture.mimes' => 'Format yang didukung adalah .jpg, .png, dan .webp',
             'hash_for_profile_picture.max' => 'Ukuran gambar maksimal adalah 2 MB',
             'fullname.required' => 'Kolom ini harus diisi',
@@ -164,9 +199,12 @@ class adminController extends Controller
             'phone_number.max' => 'Nomor Terlalu Panjang',
         ]);
 
+        // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
+        // Immediately update this attribute as per request
         $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability']));
 
+        // Check if users uploaded new profile picture
         $fileName = null;
         if ($request->hasFile('hash_for_profile_picture')) {
             // Delete old pictures
@@ -174,25 +212,35 @@ class adminController extends Controller
                 Storage::disk('public')->delete("profile_pictures/" . $user->hash_for_profile_picture);
             }
 
+            // rename the file name to store it inside the database
             $fileName = time() . '.' . $request->hash_for_profile_picture->getClientOriginalExtension();
+            // save the uploaded file to Laravel Storage System
             $request->hash_for_profile_picture->storeAs('profile_pictures', $fileName);
 
+            // instead of the file updated in database, we save the filename of the file from Laravel Storage
             $user->fill(['hash_for_profile_picture' => $fileName]);
             $user->save();            
         }     
 
+        // Save new User data
         $user->save();
 
+        // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Profil berhasil diperbarui!');
-
+        // Redirect owner/admin to List of Course Page
         return redirect()->intended('/admin-profile');
     }
 
+    // Edit Password Logic Handler
     public function editPassword(Request $request) {
+        // Validation Rules
         $request->validate([
             'password' => 'nullable|min:5|max:255|confirmed',
             'password_confirmation' => 'nullable|min:5|max:255',
-        ],[
+        ],
+        
+        // Validation Error Messages
+        [
             'password.min' => 'Password minimal berisi 5 karakter',
             'password.max' => 'Password terlalu panjang',
             'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
@@ -200,34 +248,49 @@ class adminController extends Controller
             'password_confirmation.max' => 'Password terlalu panjang',
         ]);
 
+        // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
 
+        // When users creating new password, do this
         if ($request->has('password') && $request->has('password_confirmation') && !empty($request->password)) {
+            // Crypt the new password
             $user->password = bcrypt($request->password);
+            // Save the new password to User Tables
             $user->save();
         }
 
+        // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Password berhasil diubah!');
-
+        // Redirect owner/admin to List of Course Page
         return redirect()->intended('/admin-profile');
     }
     
+    // Change Admin/Owner Availability
     public function changeAvailability(Request $request) {
+        // Validation Rules
         $request->validate([
             'availability' => 'required|boolean',
         ]);
 
+        // Find the User data by matching it with the current authenticated user
         $user = auth()->user();
 
+        // When users availability is already false, do this
         if ($user->availability === 0) {
+            // Generate a flash message via Toastr to let user know that the process is failed
             $request->session()->flash('error', 'Anda sudah nonaktif');
+            // Redirect owner/admin to List of Course Page
             return redirect()->intended('/admin-profile');
         }
 
+        // Change the availability as per request
         $user->availability = $request->availability;
+        // Save new data to User Tables
         $user->save();
 
+        // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Penonaktifan lembaga berhasil!');
+        // Redirect owner/admin to List of Course Page
         return redirect()->intended('/admin-profile');
     }
 
@@ -247,8 +310,12 @@ class adminController extends Controller
         return redirect()->intended('/admin-profile');
     }
 
+    // Admin-Manage-Course Page Controller
     public function manageCoursePage() {
+        // Collect every course that are owned by this owner/admin and sort it from the latest
         $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        
+        // Find the User data by matching it with the current authenticated user
         $user = auth()->user();
         return view('admin-page.manage-course', [
             "pageName" => "Daftar Kelas Anda | ",
@@ -257,15 +324,20 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Manage-Course/Create Page Controller
     public function createCoursePage() {
+        // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
         return view('admin-page.create-course', [
             'pageName' => "Tambah Kelas Baru | ",
             'instructors' => $instructors
         ]);
     }
 
+    // Admin-Manage-Course/Edit Page Controller
     public function editCoursePage($username, $course_name) {
+        // Get the desired Course that are owned by this owner/admin
         $course = Course::whereHas('admin', function ($query) use ($username) {
             $query->where('username', $username);
         })->where('course_name', $course_name)->firstOrFail();
@@ -276,6 +348,7 @@ class adminController extends Controller
                             ->pluck('instructor_id')
                             ->toArray();
 
+        // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         
         return view('admin-page.edit-course', [
@@ -286,21 +359,27 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Manage-Instructor Page Controller
     public function manageInstructorPage() {
+        // Collect every Instructors that are owned by this owner/admin and sort it from the latest
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
         return view('admin-page.manage-instructor', [
             "pageName" => "Daftar Instruktur Anda | ",
             "instructors" => $instructors,
         ]);
     }
 
+    // Admin-Manage-Instructor/Create Page Controller
     public function createInstructorPage() {
         return view('admin-page.create-instructor', [
             'pageName' => "Tambah Instruktur Baru | "
         ]);
     }
 
+    // Admin-Course/Active-Student-List Page Controller
     public function activeStudentPage() {
+        // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner
         $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
             $query->where('admin_id', auth()->id());
         })
@@ -308,34 +387,43 @@ class adminController extends Controller
 
         $now = now(); // Get current date and time
 
+        // Run through every active student schedules
         foreach ($activeEnrolledStudent as $activeStudent) {
             // Ensure schedules are loaded
             if ($activeStudent->schedule->isNotEmpty()) {
-                // Find the first upcoming schedule for each student
+                // Collect the upcoming schedule by run through every schedule this student has
                 $upcomingSchedule = $activeStudent->schedule->filter(function ($schedule) use ($now) {
-                    return $schedule->start_time >= $now; // Find schedules starting today or later
-                })->first();
+                    // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
+                    return $schedule->start_time >= $now; 
+                })->first(); // Find the first / closest upcoming schedule
                 
                 // Get the meeting number if an upcoming schedule exists
                 $activeStudent->meeting_number = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
                 // Get the next course date if an upcoming schedule exists
                 if ($upcomingSchedule) {
-                    // Set the locale to Indonesian
-                    Carbon::setLocale('id'); // Set locale to Indonesian
-                    $activeStudent->next_course_date = $activeStudent->next_course_date = Carbon::parse($upcomingSchedule->start_time)->locale('id')->translatedFormat('d F Y'); // Format the date in Indonesian
+                    // Localize the date and time to Indonesian
+                    Carbon::setLocale('id'); 
+                    // Localize next_course_date in Indonesian and format it to be written as "15 Agustus 2024"
+                    $activeStudent->next_course_date = Carbon::parse($upcomingSchedule->start_time)->locale('id')->translatedFormat('d F Y'); 
 
-                    // Format the time
+                    // Localize course_time in Indonesian and format it to be written as "08:00 - 09:30 WIB"
                     $activeStudent->course_time = Carbon::parse($upcomingSchedule->start_time)->format('H:i') . ' - ' . Carbon::parse($upcomingSchedule->end_time)->format('H:i') . ' WIB'; // Format the time
 
-                } else {
-                    $activeStudent->next_course_date = null; // No schedules available
-                    $activeStudent->course_time = null; // No schedules available
+                } 
+                
+                // Display nothing when there's no upcoming schedules
+                else {
+                    $activeStudent->next_course_date = null; 
+                    $activeStudent->course_time = null; 
                 }
-            } else {
-                $activeStudent->meeting_number = null; // No schedules available
-                $activeStudent->next_course_date = null; // No schedules available
-                $activeStudent->course_time = null; // No schedules available
+            } 
+            
+            // Display nothing when there's schedules exist
+            else {
+                $activeStudent->meeting_number = null; 
+                $activeStudent->next_course_date = null; 
+                $activeStudent->course_time = null; 
             }
         }
 
@@ -345,7 +433,9 @@ class adminController extends Controller
         ]);
     }
 
+    // Admin-Course-Progress Page Controller
     public function courseProgressPage($student_username, $enrollment_id) {
+        // Find the enrollemnt data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
         return view('admin-page.course-progress', [
