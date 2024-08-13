@@ -3,7 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">Izin Kursus Anda</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">Izin Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut Daftar Izin Kursus Anda!</p>
 
     {{-- Add New License Buttons --}}
@@ -21,12 +21,12 @@
             <div class="flex flex-row p-3 lg:p-5 bg-custom-white-hover w-full lg:w-[30rem] font-league text-custom-dark">
                 {{-- Start Active License Date --}}
                 <div class="flex flex-col w-1/2">
-                    <p class="text-custom-grey font-league font-medium text-base lg:text-lg mt-1">Tanggal Awal Berlaku :</p>
+                    <p class="text-custom-grey font-league font-medium text-base/tight lg:text-lg mt-1">Tanggal Awal Berlaku :</p>
                     <h3 class="text-custom-dark font-encode tracking-tight font-semibold text-lg lg:text-xl">{{ $activeLicense->formattedStartDate }}</h3>
                 </div>
                 {{-- End Active License Date --}}
                 <div class="flex flex-col w-1/2">
-                    <p class="text-custom-grey font-league font-medium text-right text-base lg:text-lg mt-1">Tanggal Akhir Berlaku :</p>
+                    <p class="text-custom-grey font-league font-medium text-right text-base/tight lg:text-lg mt-1">Tanggal Akhir Berlaku :</p>
                     <h3 class="text-custom-dark font-encode tracking-tight font-semibold text-right text-lg lg:text-xl">{{ $activeLicense->formattedEndDate }}</h3>
                 </div>
             </div>
@@ -64,12 +64,12 @@
                         <div class="grid grid-cols-3 w-full">
                             {{-- License Status : "Belum Divalidasi", "Sudah Divalidasi", "Aktif", "Tidak Berlaku" --}}
                             <div class="flex flex-col">
-                                <p class="text-custom-grey font-league font-medium text-base lg:text-lg mt-1">Status :</p>
+                                <p class="text-custom-grey font-league font-medium text-base/tight lg:text-lg mt-1">Status :</p>
                                 <h3 class="text-custom-dark font-encode tracking-tight font-semibold text-lg lg:text-xl">{{ $listOfLicense['licenseStatus'] }}</h3>
                             </div>
                             {{-- End Date of the licenses --}}
                             <div class="col-span-2 flex flex-col">
-                                <p class="text-custom-grey font-league text-right font-medium text-base lg:text-lg mt-1">Tanggal Akhir Berlaku :</p>
+                                <p class="text-custom-grey font-league text-right font-medium text-base/tight lg:text-lg mt-1">Tanggal Akhir Berlaku :</p>
                                 <h3 class="text-custom-dark font-encode tracking-tight text-right font-semibold text-lg lg:text-xl">{{ $listOfLicense['formattedEndDate'] }}</h3>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
         <div id="deleteLicenseDialogBox" class="relative w-80 lg:w-[28rem] bottom-0 py-4 z-40 bg-custom-white rounded-xl">
             <div class="flex flex-row sticky px-5 bg-custom-white justify-between items-center pt-1 pb-4">
                 {{-- Modals Header --}}
-                <h2 class="font-league text-[27px]/none pt-1 lg:text-3xl font-semibold text-custom-dark ">Hapus Izin Kursus?</h2>
+                <h2 class="font-encode text-xl/tight pt-1 lg:text-3xl font-semibold text-custom-dark ">Hapus Izin Kursus?</h2>
                 <button type="button" id="XDeleteLicenseDialogBox"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="#040B0D" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
             </div>
 
@@ -100,8 +100,8 @@
 
             {{-- Action Groups --}}
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
-                <button type="button" id="closeDeleteLicenseDialogBox" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
-                <button type="submit" id="yesDeleteLicense" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Izin Kursus</button>
+                <button type="button" id="closeDeleteLicenseDialogBox" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
+                <button type="submit" id="yesDeleteLicense" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight whitespace-nowrap bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Izin Kursus</button>
                 <form id="deleteLicenseForm" method="post" class="mb-1 hidden">
                     @method('delete')
                     @csrf
