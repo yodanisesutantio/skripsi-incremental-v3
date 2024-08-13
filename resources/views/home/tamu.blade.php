@@ -11,15 +11,14 @@
 
     {{-- Ongoing Course, Hidden if there are no active course --}}
     <div class="flex flex-col mb-8 lg:mb-11">
-        <h2 class="text-custom-dark font-league font-semibold text-2xl lg:text-3xl">Kursus Berlangsung</h2>
-
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Berlangsung</h2>
         <p class="font-league text-center lg:text-xl my-3 lg:my-6">(Tidak ada kursus berlangsung)</p>
     </div>
 
     {{-- Class Offered Recommendation --}}
     <div class="flex flex-row justify-between items-center mb-4">
-        <h2 class="text-custom-dark font-league font-semibold text-2xl lg:text-3xl">Rekomendasi Kelas</h2>
-        <a href="" class="text-custom-green font-medium text-base lg:text-lg hover:underline">Lihat Semua</a>
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Rekomendasi Kelas</h2>
+        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight hover:underline">Lihat Semua</a>
     </div>
     {{-- Class Offered Wrapper --}}
     <div class="relative flex items-center mb-5 lg:mb-11 cursor-pointer" id="classOfferedContainer">
@@ -28,8 +27,8 @@
 
     {{-- Course Recommendation --}}
     <div class="flex flex-row justify-between items-center mt-8 mb-4">
-        <h2 class="text-custom-dark font-league font-semibold text-2xl lg:text-3xl">Kursus Terdekat</h2>
-        <a href="" class="text-custom-green font-medium text-base lg:text-lg hover:underline">Lihat Semua</a>
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Terdekat</h2>
+        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight hover:underline">Lihat Semua</a>
     </div>
     {{-- Course Recommendation Wrapper --}}
     <div class="relative flex items-center mb-4 lg:mb-8" id="courseRecommendationContainer">
@@ -40,7 +39,7 @@
     <div class="flex my-8 lg:justify-center">
         <div class="flex flex-col gap-4 bg-custom-grey/10 border border-custom-disabled-light p-4 lg:p-9 lg:w-[33rem] rounded-xl items-center">
             <div class="flex flex-col gap-1">
-                <h2 class="text-custom-dark font-league font-semibold text-center text-2xl lg:text-3xl">Tidak Menemukan yang Anda Cari?</h2>
+                <h2 class="text-custom-dark font-league font-semibold text-center text-xl/tight lg:text-3xl/tight">Tidak Menemukan yang Anda Cari?</h2>
                 <p class="text-custom-grey font-league font-medium text-center text-base/snug lg:text-xl px-3">Coba cari Nama Kursus atau Daerah yang terdekat dari anda</p>
             </div>
             <a href="" class="relative font-league lg:text-lg/none text-custom-secondary lg:-mb-1 px-8 lg:px-14 py-2.5 border border-custom-secondary text-center rounded-full hover:bg-custom-grey/20 duration-300">
