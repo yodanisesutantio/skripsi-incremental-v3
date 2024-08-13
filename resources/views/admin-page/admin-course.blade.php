@@ -18,7 +18,7 @@
             <div class="flex flex-col lg:gap-2">
                 <div class="flex flex-col gap-1">
                     {{-- Admin Fullname --}}
-                    <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-xl/tight lg:text-4xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
+                    <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-2xl/tight lg:text-4xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
 
                     {{-- Show Admin Description if exist --}}
                     @if (auth()->user()->description)
@@ -124,9 +124,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $allCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $allCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -141,9 +141,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $allCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $allCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -172,9 +172,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $manualCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $manualCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -188,9 +188,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $manualCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $manualCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -219,9 +219,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $maticCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $maticCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -235,9 +235,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $maticCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $maticCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -266,9 +266,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white">{{ $quickCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $quickCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
@@ -282,9 +282,9 @@
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
                                         {{-- Course Length --}}
-                                        <p class="text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
+                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
                                         {{-- Course Name --}}
-                                        <h3 class="text-2xl/tight font-semibold text-custom-white line-clamp-2">{{ $quickCourse['course_name'] }}</h3>
+                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $quickCourse['course_name'] }}</h3>
                                     </div>
                                     {{-- Course Price --}}
                                     <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
