@@ -18,15 +18,15 @@
             <div class="flex flex-col lg:gap-2">
                 <div class="flex flex-col gap-1">
                     {{-- Admin Fullname --}}
-                    <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-2xl lg:text-3xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
+                    <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-xl/tight lg:text-4xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
 
                     {{-- Show Admin Description if exist --}}
                     @if (auth()->user()->description)
-                    <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-xl/tight text-custom-grey">{{ auth()->user()->description }}</p>  
+                    <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-2xl/tight text-custom-grey">{{ auth()->user()->description }}</p>  
                     
                     {{-- If non exist, show this instead --}}
                     @else
-                    <i class="font-league font-normal text-center lg:text-left text-custom-grey/40 text-lg/tight lg:text-xl/tight">Belum ada deskripsi</i>    
+                    <i class="font-league font-normal text-center lg:text-left text-custom-grey/40 text-lg/tight lg:text-2xl/tight">Belum ada deskripsi</i>    
                     @endif
                 </div>
                 

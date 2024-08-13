@@ -5,8 +5,8 @@
 @section('content')
     {{-- Greetings Element --}}
     <div class="flex flex-col my-8 lg:my-12">
-        <p class="text-custom-grey font-league font-medium text-xl lg:text-2xl">Halo, Selamat Datang di KEMUDI</p>
-        <h1 class="text-custom-dark font-league font-semibold text-2xl lg:text-4xl">Ingin belajar mengemudi hari ini?</h1>
+        <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Halo, Selamat Datang di KEMUDI</p>
+        <h1 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-4xl">Ingin belajar mengemudi hari ini?</h1>
     </div>
 
     {{-- Ongoing Course, Hidden if there are no active course --}}

@@ -6,7 +6,7 @@
         {{-- Glass Effect --}}
         <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#F7F7F712] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
-            <h1 class="text-3xl lg:text-4xl/snug text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
+            <h1 class="text-2xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
 
             {{-- Forms --}}
             <form action="/login" method="post">
@@ -14,7 +14,7 @@
                 <div class="flex flex-col mt-8 lg:my-8 gap-5 lg:gap-7">
                     {{-- Input Username --}}
                     <div class="flex flex-col gap-1">
-                        <label for="username" class="font-normal font-league text-xl text-custom-white">Username<span class="text-custom-destructive">*</span></label>
+                        <label for="username" class="font-normal font-league text-lg text-custom-white">Username<span class="text-custom-destructive">*</span></label>
                         <input type="text" name="username" id="username" autofocus placeholder="Username" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                         @error('username')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -23,7 +23,7 @@
 
                     {{-- Input Password --}}
                     <div class="flex flex-col gap-1">
-                        <label for="password" class="font-normal font-league text-xl text-custom-white">Password<span class="text-custom-destructive">*</span></label>
+                        <label for="password" class="font-normal font-league text-lg text-custom-white">Password<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
                             <input type="password" name="password" id="password" placeholder="Password" class="relative py-4 pl-4 pr-10 w-full font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHidePass()">

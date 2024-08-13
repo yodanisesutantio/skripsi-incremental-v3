@@ -3,8 +3,8 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl/snug mt-5 lg:mt-10">Izin Kursus Anda</h1>
-    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl mt-1">Berikut Daftar Izin Kursus Anda!</p>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">Izin Kursus Anda</h1>
+    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut Daftar Izin Kursus Anda!</p>
 
     {{-- Add New License Buttons --}}
     <div class="flex">

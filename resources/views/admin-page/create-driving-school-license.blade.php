@@ -4,8 +4,8 @@
     {{-- Desktop View Forms Header --}}
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
-            <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Dokumen Izin Penyelenggaraan Kursus</h1>
-            <p class="text-custom-grey text-lg/tight font-league mt-2 lg:text-xl">Unggah Dokumen Izin Penyelenggaraan Kursus Anda</p>
+            <h1 class="text-xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Dokumen Izin Penyelenggaraan Kursus</h1>
+            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league mt-2">Unggah Dokumen Izin Penyelenggaraan Kursus Anda</p>
         </div>
     </div>
 
@@ -13,8 +13,8 @@
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col px-6">
-                <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Dokumen Izin Penyelenggaraan Kursus</h1>
-                <p class="text-custom-grey text-lg/tight font-league mt-2 lg:text-xl">Unggah Dokumen Izin Penyelenggaraan Kursus Anda</p>
+                <h1 class="text-xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Dokumen Izin Penyelenggaraan Kursus</h1>
+                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league mt-2">Unggah Dokumen Izin Penyelenggaraan Kursus Anda</p>
             </div>
         </div>
 

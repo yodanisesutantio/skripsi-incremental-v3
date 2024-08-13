@@ -3,8 +3,8 @@
 @section('content')
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
-            <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
-            <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi akun anda</p>
+            <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
+            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Perbarui informasi akun anda</p>
         </div>
         {{-- Tabs --}}
         <div class="overflow-x-auto" style="scrollbar-width: none;">
@@ -28,8 +28,8 @@
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
-                <h1 class="text-3xl lg:text-4xl/snug text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
-                <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Perbarui informasi akun anda</p>
+                <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
+                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Perbarui informasi akun anda</p>
             </div>
         </div>
         
@@ -70,7 +70,7 @@
                                 {{-- Active Checkbox --}}
                                 <div class="flex flex-col gap-2">
                                     {{-- Dropdown --}}
-                                    <label for="availability" class="text-custom-grey text-lg/tight font-league lg:text-xl">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
+                                    <label for="availability" class="text-custom-grey text-lg/tight lg:text-xl/tight font-league">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
                                     <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                                         <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
                                         <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
@@ -80,7 +80,7 @@
                                 {{-- Active Checkbox --}}
                                 <div class="flex flex-col gap-2">
                                     {{-- Dropdown --}}
-                                    <p class="text-custom-grey text-lg/tight font-league lg:text-xl">Saat ini anda tidak dapat mengubah kesediaan anda. Pastikan anda memiliki izin penyelenggaraan kursus aktif.</p>
+                                    <p class="text-custom-grey text-lg/tight lg:text-xl/tight font-league">Saat ini anda tidak dapat mengubah kesediaan anda. Pastikan anda memiliki izin penyelenggaraan kursus aktif.</p>
                                     <div class="px-4 py-3 font-league font-medium text-lg bg-[#FFF] text-custom-secondary/30 rounded-lg">Tidak Bersedia</div>
                                 </div>
                             @endif
@@ -92,7 +92,7 @@
                             <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                                 {{-- Input Profile Picture --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="hash_for_profile_picture" class="font-semibold font-league text-xl text-custom-grey">Gambar Profil (Optional)</label>
+                                    <label for="hash_for_profile_picture" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Gambar Profil (Optional)</label>
                                     @if (auth()->user()->hash_for_profile_picture)
                                         <label for="hash_for_profile_picture" class="relative w-fit">
                                             <div class="p-2 w-fit rounded-full bg-custom-disabled-dark/90 absolute bottom-0 right-0">
@@ -122,7 +122,7 @@
                                 </div>
                                 {{-- Input Full Name --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="fullname" class="font-semibold font-league text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
+                                    <label for="fullname" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
                                     <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
                                     @error('fullname')
                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -130,7 +130,7 @@
                                 </div>
                                 {{-- Input Username --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="username" class="font-semibold font-league text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
+                                    <label for="username" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
                                     <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->username }}">
                                     @error('username')
                                         @if ($message === 'The username has already been taken.')
@@ -142,7 +142,7 @@
                                 </div>
                                 {{-- Input Description --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="description" class="font-semibold font-league text-xl text-custom-grey">Deskripsi (opsional)</label>
+                                    <label for="description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi (opsional)</label>
                                     <textarea name="description" id="description" rows="5" placeholder="Anda bisa mengisi kolom ini dengan Alamat atau Visi kursus" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
                                     @error('description')
                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -150,7 +150,7 @@
                                 </div>
                                 {{-- Input Phone Number --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="phone_number" class="font-semibold font-league text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
+                                    <label for="phone_number" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
                                     <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}" oninput="deleteAnyString(this)">
                                     @error('phone_number')
                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -188,7 +188,7 @@
                                                 {{-- is_active --}}
                                                 <div class="flex flex-col gap-2">
                                                     {{-- Dropdown --}}
-                                                    <label for="payment_methods[{{ $index }}][is_payment_active]" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
+                                                    <label for="payment_methods[{{ $index }}][is_payment_active]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
                                                     <select name="payment_methods[{{ $index }}][is_payment_active]" id="payment_methods[{{ $index }}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                                                         <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
                                                         <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
@@ -198,7 +198,7 @@
                                                 {{-- Select Bank Name --}}
                                                 <div class="flex flex-col gap-2">
                                                     {{-- Dropdown --}}
-                                                    <label for="payment_methods[{{ $index }}][payment_vendor]" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
+                                                    <label for="payment_methods[{{ $index }}][payment_vendor]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
                                                     <select name="payment_methods[{{ $index }}][payment_vendor]" id="payment_methods[{{ $index }}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                                                         <option value="" disabled>-- Metode Pembayaran --</option>
                                                         <option value="BCA" {{ $methodOfPayment['payment_vendor'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
@@ -217,7 +217,7 @@
         
                                                 {{-- Input Receiver Name --}}
                                                 <div class="flex flex-col gap-2">
-                                                    <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
+                                                    <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
                                                     <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
                                                     @error('payment_methods.' . $index . '.payment_receiver_name')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -226,7 +226,7 @@
         
                                                 {{-- Input Payment Address --}}
                                                 <div class="flex flex-col gap-2">
-                                                    <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
+                                                    <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
                                                     <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
                                                     @error('payment_methods.' . $index . '.payment_address')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -254,7 +254,7 @@
                             <div class="flex flex-col gap-5 lg:gap-7">
                                 {{-- Input Password --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="password" class="font-semibold font-league text-xl text-custom-grey">Masukkan Password Baru</label>
+                                    <label for="password" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Masukkan Password Baru</label>
                                     <div class="relative flex justify-end items-center">
                                         <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                                         <div class="eyeIcon absolute mr-3" onclick="showHidePass()">
@@ -270,7 +270,7 @@
         
                                 {{-- Confirm Password --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="password_confirmation" class="font-semibold font-league text-xl text-custom-grey">Ketik Ulang Password Baru`</label>
+                                    <label for="password_confirmation" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Ketik Ulang Password Baru`</label>
                                     <div class="relative flex justify-end items-center">
                                         <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                                         <div class="eyeIcon absolute mr-3" onclick="showHideConfirmPass()">
@@ -497,7 +497,7 @@
                     {{-- is_active --}}
                     <div class="flex flex-col gap-2">
                         {{-- Dropdown --}}
-                        <label for="payment_methods[${paymentMethodIndex}][is_payment_active]" class="font-semibold font-league text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
+                        <label for="payment_methods[${paymentMethodIndex}][is_payment_active]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
                         <select name="payment_methods[${paymentMethodIndex}][is_payment_active]" id="payment_methods[${paymentMethodIndex}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                             <option value="1">Aktif</option>
                             <option value="0">Tidak Aktif</option>
@@ -507,7 +507,7 @@
                     {{-- Select Bank Name --}}
                     <div class="flex flex-col gap-2">
                         {{-- Dropdown --}}
-                        <label for="payment_methods[${paymentMethodIndex}][payment_vendor]" class="font-semibold font-league text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <label for="payment_methods[${paymentMethodIndex}][payment_vendor]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
                         <select name="payment_methods[${paymentMethodIndex}][payment_vendor]" id="payment_methods[${paymentMethodIndex}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
                             <option value="" disabled selected>-- Metode Pembayaran --</option>
                             <option value="BCA">Bank BCA</option>
@@ -526,7 +526,7 @@
 
                     {{-- Input Receiver Name --}}
                     <div class="flex flex-col gap-2">
-                        <label for="payment_methods[${paymentMethodIndex}][payment_receiver_name]" class="font-semibold font-league text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <label for="payment_methods[${paymentMethodIndex}][payment_receiver_name]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
                         <input type="text" name="payment_methods[${paymentMethodIndex}][payment_receiver_name]" id="payment_methods[${paymentMethodIndex}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="">
                         @error('payment_receiver_name')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -535,7 +535,7 @@
 
                     {{-- Input Payment Address --}}
                     <div class="flex flex-col gap-2">
-                        <label for="payment_methods[${paymentMethodIndex}][payment_address]" class="font-semibold font-league text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
+                        <label for="payment_methods[${paymentMethodIndex}][payment_address]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
                         <input type="text" name="payment_methods[${paymentMethodIndex}][payment_address]" id="payment_methods[${paymentMethodIndex}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="">
                         @error('payment_address')
                             <span class="text-custom-destructive">{{ $message }}</span>

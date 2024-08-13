@@ -4,8 +4,8 @@
 
 @section('content')
     {{-- Headers --}}
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl/snug mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
-    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student->fullname }}</p>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
+    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student->fullname }}</p>
     
     <div class="lg:grid lg:grid-cols-5">
         <div class="lg:col-span-2 bg-custom-white flex flex-col gap-5">
@@ -14,9 +14,9 @@
                 {{-- Propose New Schedule Button --}}
                 <a href="/choose-new-course-schedule" class="w-full h-24 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}');">
                     {{-- Overlays --}}
-                    <div class="flex flex-col gap-1 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                        <h2 class="text-lg/none lg:text-2xl/snug font-semibold">Jadwal Kursus</h2>
-                        <p class="text-sm/tight lg:text-base/[1.35rem] text-custom-white font-light">Kamu belum memilih jadwal kursus</p>
+                    <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                        <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Jadwal Kursus</h2>
+                        <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Kamu belum memilih jadwal kursus</p>
                     </div>
                 </a>
 
@@ -25,18 +25,18 @@
                         {{-- Read Theory Button --}}
                         <a href="/course-theory" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
                             {{-- Overlays --}}
-                            <div class="flex flex-col gap-1 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                                <h2 class="text-lg/none lg:text-2xl/snug font-semibold">Baca Panduan</h2>
-                                <p class="text-sm/tight lg:text-base/[1.35rem] text-custom-white font-light">Ikuti langkah-langkah nya</p>
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Baca Panduan</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ikuti langkah-langkah nya</p>
                             </div>
                         </a>
 
                         {{-- Contact Other Parties Button --}}
                         <button type="button" id="button-contact-other-party" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Contact-Course-BG.webp') }}')">
                             {{-- Overlays --}}
-                            <div class="flex flex-col gap-1 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                                <h2 class="text-lg/none lg:text-2xl/snug font-semibold">Hubungi Pihak Kursus</h2>
-                                <p class="text-sm/tight lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Hubungi Pihak Kursus</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
                             </div>
                         </button>
                     </div>
@@ -44,13 +44,16 @@
                     {{-- Open Quiz Button --}}
                     <a href="/course-quiz" class="w-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
                         {{-- Overlays --}}
-                        <div class="flex flex-col gap-1 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                            <h2 class="text-lg/none lg:text-2xl/snug font-semibold">Quiz</h2>
-                            <p class="text-sm/tight lg:text-base/[1.35rem] text-custom-white font-light">Uji tingkat pemahaman anda</p>
+                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Quiz</h2>
+                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Uji tingkat pemahaman anda</p>
                         </div>
                     </a>
                 </div>
             </div>
+
+            <h3 class="font-encode font-semibold text-custom-dark text-2xl/tight lg:text-3xl/tight">Capaian Siswa</h3>
+            <div class="flex flex-col gap-5 font-league my-6 lg:my-8"></div>
         </div>
 
         <div class="lg:col-span-3 lg:px-24">

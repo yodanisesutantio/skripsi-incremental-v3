@@ -3,7 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-center text-3xl lg:text-4xl my-5 lg:mt-10 lg:mb-8">Hubungi Kami</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-center text-xl/tight lg:text-4xl my-5 lg:mt-10 lg:mb-8">Hubungi Kami</h1>
     <div class="grid grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 gap-3">
         {{-- Email Contact --}}
         <a href="#" class="w-full border bg-custom-white-hover border-custom-disabled-dark/40 rounded-lg shadow-md">

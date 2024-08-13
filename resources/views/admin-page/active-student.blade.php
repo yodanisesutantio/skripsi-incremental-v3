@@ -3,8 +3,8 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl mt-5 lg:mt-10">Daftar Siswa Aktif</h1>
-    <p class="text-custom-grey font-league font-medium text-lg/snug lg:text-2xl/snug mt-1">Berikut adalah seluruh siswa yang memiliki kursus aktif dengan anda!</p>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">Daftar Siswa Aktif</h1>
+    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut adalah seluruh siswa yang memiliki kursus aktif dengan anda!</p>
 
     @if ($activeEnrolledStudent->isEmpty() || $activeEnrolledStudent->every(fn($student) => !$student->next_course_date))
         <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai siswa aktif)</p>

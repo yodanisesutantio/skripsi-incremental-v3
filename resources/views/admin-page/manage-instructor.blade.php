@@ -3,8 +3,8 @@
 @include('partials.navbar')
 
 @section('content')
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-3xl lg:text-4xl/snug mt-5 lg:mt-10">Instruktur Anda</h1>
-    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl mt-1">Pilih salah satu Instruktur untuk anda kelola!</p>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">Instruktur Anda</h1>
+    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Pilih salah satu Instruktur untuk anda kelola!</p>
 
     {{-- Add New Instructor Button --}}
     <div class="flex">
