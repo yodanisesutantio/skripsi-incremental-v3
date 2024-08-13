@@ -31,50 +31,50 @@
         {{-- Menu --}}
         <div class="grid grid-cols-2 lg:grid-cols-5 grid-rows-5 lg:grid-rows-2 w-full mt-6 lg:mt-14 mb-3 lg:mb-8 text-custom-white gap-3">
             {{-- Edit Profil --}}
-            <a href="admin-profile/edit" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/edit-profile.webp')">
-                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
+            <a href="admin-profile/edit" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/edit-profile.webp') }}')">
+                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[2rem] font-semibold">Ubah Profil</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Perbarui informasi personal anda</p>
                 </div>
             </a>
             {{-- Manage Course Class --}}
-            <a href="admin-manage-course" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/BG-Class-4.webp')">
-                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
+            <a href="admin-manage-course" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Daftar Kelas Kursus</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Kelola kelas kursus anda</p>
                 </div>
             </a>
             {{-- Manage Instructor --}}
-            <a href="admin-manage-instructor" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/past-course.webp')">
-                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
+            <a href="admin-manage-instructor" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/past-course.webp') }}')">
+                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.75rem] font-semibold">Daftar Instruktur</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Kelola instruktur anda</p>
                 </div>
             </a>
             {{-- About App --}}
-            <a href="about-app" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/about-app.webp');">
+            <a href="about-app" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/about-app.webp') }}');">
                 <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Tentang Aplikasi</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Informasi tentang kami</p>
                 </div>
             </a>
             {{-- Driving School License --}}
-            <a href="/admin-driving-school-license" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/add-driving-school.webp')">
-                <div class="flex flex-col gap-1 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
+            <a href="/admin-driving-school-license" class="row-span-2 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/add-driving-school.webp') }}')">
+                <div class="flex flex-col gap-1 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Izin Penyelenggaraan Kursus</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Pastikan izin kursus anda sah dan aktif</p>
                 </div>
             </a>
             {{-- Contact Us --}}
-            <a href="contact-us" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/contact-us.webp');">
+            <a href="contact-us" class="w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/contact-us.webp') }}');">
                 <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Hubungi Kami</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Laporkan masalah</p>
                 </div>
             </a>
             {{-- Close Driving School --}}
-            <div class="col-span-2 w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('img/delete-account.webp')" onclick="deleteConfirmation()">
-                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/10 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
+            <div class="col-span-2 w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/delete-account.webp') }}')" onclick="deleteConfirmation()">
+                <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
                     <h2 class="text-lg/tight lg:text-2xl/[1.5rem] font-semibold">Nonaktifkan / Tutup Kursus</h2>
                     <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Nonaktifkan atau tutup lembaga kursus</p>
                 </div>
