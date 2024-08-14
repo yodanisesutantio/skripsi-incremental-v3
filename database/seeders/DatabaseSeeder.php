@@ -192,11 +192,27 @@ class DatabaseSeeder extends Seeder
             'course_id' => 1,
             'instructor_id' => 4,
             'student_id' => 6,
+            'student_real_name' => 'Nama Saya Budi',
+            'student_gender' => 'Pria',
+            'student_birth_of_place' => 'Madiun',
+            'student_birth_of_date' => '1997-08-30',
+            'student_occupation' => 'Karyawan Swasta',
+            'student_phone_number' => '+6281403203103',
+            'student_address' => 'Citra Land Surabaya',
+            'student_education_level' => 'Magister',
         ]);
         Enrollment::create([
             'course_id' => 2,
             'instructor_id' => 5,
             'student_id' => 7,
+            'student_real_name' => 'Nama Saya Ani',
+            'student_gender' => 'Wanita',
+            'student_birth_of_place' => 'Trenggalek',
+            'student_birth_of_date' => '1989-01-14',
+            'student_occupation' => 'Wiraswasta',
+            'student_phone_number' => '+6281403283713',
+            'student_address' => 'Citra Land Surabaya',
+            'student_education_level' => 'SMA/SMK Sederajat',
         ]);
 
         CourseInstructor::create([

@@ -16,6 +16,14 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade'); // Instructor ID
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade'); // Student ID
+            $table->string('student_real_name');
+            $table->string('student_gender');
+            $table->string('student_birth_of_place');
+            $table->date('student_birth_of_date');
+            $table->string('student_occupation');
+            $table->string('student_phone_number');
+            $table->string('student_address');
+            $table->string('student_education_level');
             $table->timestamps();
         });
     }
