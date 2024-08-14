@@ -438,9 +438,21 @@ class adminController extends Controller
         // Find the enrollemnt data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
+        // Get the current date and time
+        $now = now();
+
+        $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
+            // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
+            return $schedule->start_time >= $now; 
+        })->first(); // Find the first / closest upcoming schedule
+
+        // Get the current meeting number if an upcoming schedule exists
+        $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+
         return view('admin-page.course-progress', [
             'pageName' => "Detail Progress Kursus Siswa | ",
             'enrollment' => $enrollment,
+            'currentMeetingNumber' => $currentMeetingNumber,
         ]);
     }
 

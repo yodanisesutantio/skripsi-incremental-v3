@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- Headers --}}
-    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
+    <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student->fullname }}</p>
     
     <div class="lg:grid lg:grid-cols-5">
@@ -14,7 +14,7 @@
                 {{-- Propose New Schedule Button --}}
                 <a href="/choose-new-course-schedule" class="w-full h-24 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}');">
                     {{-- Overlays --}}
-                    <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                    <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                         <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Jadwal Kursus</h2>
                         <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Kamu belum memilih jadwal kursus</p>
                     </div>
@@ -22,38 +22,186 @@
 
                 <div class="grid grid-cols-2 gap-3">
                     <div class="flex flex-col gap-3">
-                        {{-- Read Theory Button --}}
-                        <a href="/course-theory" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
+                        {{-- Registration Form Button --}}
+                        <a href="#" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
                             {{-- Overlays --}}
-                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Baca Panduan</h2>
-                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ikuti langkah-langkah nya</p>
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Formulir Pendaftaran</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Lihat formulir pendaftaran siswa</p>
                             </div>
                         </a>
 
-                        {{-- Contact Other Parties Button --}}
-                        <button type="button" id="button-contact-other-party" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Contact-Course-BG.webp') }}')">
+                        {{-- Course Payment Button --}}
+                        <a href="#" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
                             {{-- Overlays --}}
-                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Hubungi Pihak Kursus</h2>
-                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Bukti Pembayaran</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Lihat bukti pembayaran siswa</p>
                             </div>
-                        </button>
+                        </a>
                     </div>
     
                     {{-- Open Quiz Button --}}
-                    <a href="/course-quiz" class="w-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
+                    <button type="button" id="button-contact-other-party" class="w-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Contact-Course-BG.webp') }}')">
                         {{-- Overlays --}}
-                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/20 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Quiz</h2>
-                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Uji tingkat pemahaman anda</p>
+                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Hubungi Pihak Lain</h2>
+                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
                         </div>
-                    </a>
+                    </button>
                 </div>
             </div>
 
-            <h3 class="font-encode font-semibold text-custom-dark text-2xl/tight lg:text-3xl/tight">Capaian Siswa</h3>
-            <div class="flex flex-col gap-5 font-league my-6 lg:my-8"></div>
+            {{-- Achievement Accordions --}}
+            <h3 class="font-encode font-semibold text-custom-dark text-xl/tight lg:text-3xl/tight block lg:hidden">Capaian Siswa</h3>
+            <div class="flex flex-col gap-5 font-league mb-6 lg:mb-8 lg:hidden">
+                {{-- Pertemuan Awal --}}
+                @if ($currentMeetingNumber === 1)
+                    <div class="font-league text-custom-green relative">
+                        {{-- Accordion Button --}}
+                        <h2 class="font-medium text-lg/tight lg:text-2xl/tight relative z-10 p-3.5 bg-custom-white-hover border border-custom-green drop-shadow rounded-lg">
+                            <button class="accordion-button flex flex-row justify-between items-center w-full text-left" type="button" aria-expanded="false" aria-controls="collapseOne">
+                                Pertemuan 1
+
+                                {{-- Arrow Down --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="arrow-down flex-shrink-0" width="28" height="28" viewBox="0 0 24 24"><path fill="none" stroke="#24596A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9l-7 6l-7-6"/></svg>
+
+                                {{-- Arrow Up --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="hidden arrow-up flex-shrink-0" width="28" height="28" viewBox="0 0 24 24"><path fill="none" stroke="#24596A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 15l-7-6l-7 6"/></svg>
+                            </button>
+                        </h2>
+
+                        {{-- Accordion Content --}}
+                        <div id="collapseOne" class="bg-custom-white-hover border border-custom-green text-custom-grey rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-4 px-3.5 lg:py-3 hidden">
+                            <div class="flex flex-col gap-5">
+                                {{-- Select Schedule Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Pilih Jadwal
+                                    
+                                    @if ($enrollment->schedule)
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    @else
+                                        {{-- Unchecked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#646464" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                
+                                    @endif
+                                </div>
+
+                                {{-- Course Payment Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Lunasi Pembayaran
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#646464" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+
+                                {{-- Read Theory Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Baca Panduan Kursus
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#646464" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+
+                                {{-- Finish the Quiz Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Selesaikan Quiz
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#646464" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="font-league text-custom-white relative">
+                        {{-- Accordion Button --}}
+                        <h2 class="font-medium text-lg/tight lg:text-2xl/tight relative z-10 p-3.5 bg-custom-green drop-shadow rounded-lg">
+                            <button class="accordion-button flex flex-row justify-between items-center w-full text-left" type="button" aria-expanded="false" aria-controls="collapseOne">
+                                Pertemuan 1
+
+                                {{-- Arrow Down --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="arrow-down flex-shrink-0" width="28" height="28" viewBox="0 0 24 24"><path fill="none" stroke="#F7F7F7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9l-7 6l-7-6"/></svg>
+
+                                {{-- Arrow Up --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="hidden arrow-up flex-shrink-0" width="28" height="28" viewBox="0 0 24 24"><path fill="none" stroke="#F7F7F7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 15l-7-6l-7 6"/></svg>
+                            </button>
+                        </h2>
+
+                        {{-- Accordion Content --}}
+                        <div id="collapseOne" class="bg-custom-green-hover rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-4 px-3.5 lg:py-3 hidden">
+                            <div class="flex flex-col gap-5">
+                                {{-- Select Schedule Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Pilih Jadwal
+                                    
+                                    @if ($enrollment->schedule)
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    @else
+                                        {{-- Unchecked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#F7F7F7" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                
+                                    @endif
+                                </div>
+
+                                {{-- Course Payment Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Lunasi Pembayaran
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#F7F7F7" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+
+                                {{-- Read Theory Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Baca Panduan Kursus
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#F7F7F7" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+
+                                {{-- Finish the Quiz Achievement --}}
+                                <div class="flex flex-row justify-between items-center">
+                                    Selesaikan Quiz
+                                    
+                                    {{-- @if ($enrollment->schedule) --}}
+                                        {{-- Checked Checkbox --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><path fill="#F7F7F7" fill-rule="evenodd" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22m4.03-13.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l4.47-4.47a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>                                    
+                                    {{-- @else --}}
+                                        {{-- Unchecked Checkbox --}}
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#F7F7F7" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/></g></svg>                                 --}}
+                                    {{-- @endif --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="lg:col-span-3 lg:px-24">
@@ -114,6 +262,19 @@
         $('#close-contact-other-party, #contact-instructor, #contact-student').on('click', function() {
             $('#contact-other-party').removeClass('flex lg:grid');
             $('#contact-other-party').addClass('hidden');
+        });
+
+
+        $('.accordion-button').click(function() {
+            const content = $(this).closest('h2').next('div');
+            const arrowDown = $(this).find('.arrow-down');
+            const arrowUp = $(this).find('.arrow-up');
+
+            content.toggleClass('hidden');
+            arrowDown.toggleClass('hidden');
+            arrowUp.toggleClass('hidden'); 
+
+            $(this).attr('aria-expanded', content.is(':visible')); 
         });
     </script>
 @endsection
