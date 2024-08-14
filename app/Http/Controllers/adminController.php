@@ -427,15 +427,15 @@ class adminController extends Controller
             }
         }
 
-        return view('admin-page.active-student', [
+        return view('admin-page.admin-active-student', [
             'pageName' => "Daftar Siswa Aktif | ",
             'activeEnrolledStudent' => $activeEnrolledStudent,
         ]);
     }
 
     // Admin-Course-Progress Page Controller
-    public function courseProgressPage($student_username, $enrollment_id) {
-        // Find the enrollemnt data for this student
+    public function courseProgressPage($student_fullname, $enrollment_id) {
+        // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
         // Get the current date and time
@@ -449,7 +449,7 @@ class adminController extends Controller
         // Get the current meeting number if an upcoming schedule exists
         $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
-        return view('admin-page.course-progress', [
+        return view('admin-page.admin-course-progress', [
             'pageName' => "Detail Progress Kursus Siswa | ",
             'enrollment' => $enrollment,
             'currentMeetingNumber' => $currentMeetingNumber,
@@ -459,6 +459,16 @@ class adminController extends Controller
     public function courseProgressPage2() {
         return view('user-course-details', [
             'pageName' => "Detail Progress Kursus Siswa | "
+        ]);
+    }
+
+    public function registrationForm($student_fullname, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        return view('admin-page.admin-course-registration-form', [
+            'pageName' => "Detail Progress Kursus Siswa | ",
+            'enrollment' => $enrollment
         ]);
     }
 }

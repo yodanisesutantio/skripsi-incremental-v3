@@ -108,6 +108,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Active Student List
     Route::get('/admin-course/active-student-list', [adminController::class, 'activeStudentPage']);
     // Admin's View Course Progress Detail Page
-    Route::get('/admin-course-progress/{student_username}/{enrollment_id}', [adminController::class, 'courseProgressPage']);
+    Route::get('/admin-course-progress/{student_fullname}/{enrollment_id}', [adminController::class, 'courseProgressPage']);
     Route::get('/user-course-details', [adminController::class, 'courseProgressPage2']);
+    // Admin's Access Registration Form
+    Route::get('/admin-course/registration-form/{student_fullname}/{enrollment_id}', [adminController::class, 'registrationForm']);
 });

@@ -253,8 +253,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-01 08:00:00',
-            'end_time' => '2024-08-01 09:30:00',
+            'start_time' => '2024-08-11 08:00:00',
+            'end_time' => '2024-08-11 09:30:00',
             'meeting_number' => 1,
         ]);
         // Pertemuan 2, Enrollment 1
@@ -262,8 +262,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-08 08:00:00',
-            'end_time' => '2024-08-08 09:30:00',
+            'start_time' => '2024-08-18 08:00:00',
+            'end_time' => '2024-08-18 09:30:00',
             'meeting_number' => 2,
         ]);
         // Pertemuan 3, Enrollment 1
@@ -271,8 +271,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-15 08:00:00',
-            'end_time' => '2024-08-15 09:30:00',
+            'start_time' => '2024-08-25 08:00:00',
+            'end_time' => '2024-08-25 09:30:00',
             'meeting_number' => 3,
         ]);
         // Pertemuan 4, Enrollment 1
@@ -280,8 +280,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-22 08:00:00',
-            'end_time' => '2024-08-22 09:30:00',
+            'start_time' => '2024-09-01 08:00:00',
+            'end_time' => '2024-09-01 09:30:00',
             'meeting_number' => 4,
         ]);
         // Pertemuan 5, Enrollment 1
@@ -289,8 +289,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-29 08:00:00',
-            'end_time' => '2024-08-29 09:30:00',
+            'start_time' => '2024-09-08 08:00:00',
+            'end_time' => '2024-09-08 09:30:00',
             'meeting_number' => 5,
         ]);
 
@@ -299,8 +299,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-07-14 13:00:00',
-            'end_time' => '2024-07-14 14:30:00',
+            'start_time' => '2024-07-24 13:00:00',
+            'end_time' => '2024-07-24 14:30:00',
             'meeting_number' => 1,
         ]);
         // Pertemuan 2, Enrollment 2
@@ -308,8 +308,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-07-21 13:00:00',
-            'end_time' => '2024-07-21 14:30:00',
+            'start_time' => '2024-07-31 13:00:00',
+            'end_time' => '2024-07-31 14:30:00',
             'meeting_number' => 2,
         ]);
         // Pertemuan 3, Enrollment 2
@@ -317,8 +317,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-07-28 13:00:00',
-            'end_time' => '2024-07-28 14:30:00',
+            'start_time' => '2024-08-07 13:00:00',
+            'end_time' => '2024-08-07 14:30:00',
             'meeting_number' => 3,
         ]);
         // Pertemuan 4, Enrollment 2
@@ -326,8 +326,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-08-04 13:00:00',
-            'end_time' => '2024-08-04 14:30:00',
+            'start_time' => '2024-08-11 13:00:00',
+            'end_time' => '2024-08-11 14:30:00',
             'meeting_number' => 4,
         ]);
         // Pertemuan 5, Enrollment 2
@@ -335,8 +335,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-08-11 13:00:00',
-            'end_time' => '2024-08-11 14:30:00',
+            'start_time' => '2024-08-18 13:00:00',
+            'end_time' => '2024-08-18 14:30:00',
             'meeting_number' => 5,
         ]);
 
