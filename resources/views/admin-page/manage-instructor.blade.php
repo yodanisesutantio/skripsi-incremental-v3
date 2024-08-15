@@ -41,7 +41,7 @@
                         </div>
 
                         {{-- If instructor has a validated certificate make the switch clickable --}}
-                        @if ($myInstructor->instructorCertificate->isNotEmpty() && $myInstructor->instructorCertificate->first()->certificateStatus === 'Sudah Divalidasi')
+                        @if ($myInstructor->hasActiveCertificate())
                             {{-- Deactivate Switch --}}
                             @if ($myInstructor['availability'] === 1)
                             <div class="flex flex-row gap-2.5 mb-1">

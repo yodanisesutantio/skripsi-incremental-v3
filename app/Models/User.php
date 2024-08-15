@@ -45,6 +45,12 @@ class User extends Authenticatable
         return $this->hasMany(instructorCertificate::class, 'instructor_id');
     }
 
+    // Check if Instructor has any 'Aktif' Certificate
+    public function hasActiveCertificate()
+    {
+        return $this->instructorCertificate()->where('certificateStatus', 'Aktif')->exists();
+    }
+
     // Setting Relationship where Admin and Instructor can have more than 1 Course
     public function courses()
     {

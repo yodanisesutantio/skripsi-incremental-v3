@@ -6,6 +6,7 @@ use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
 use App\Models\DrivingSchoolLicense; // Access DrivingSchoolLicense Tables
+use App\Models\InstructorCertificate; // Access DrivingSchoolLicense Tables
 use App\Models\Course; // Access Course Tables
 use App\Models\Enrollment; // Access Enrollment Tables
 use App\Models\PaymentMethod; // Access PaymentMethod Tables
@@ -360,9 +361,54 @@ class adminController extends Controller
     }
 
     // Admin-Manage-Instructor Page Controller
-    public function manageInstructorPage() {
+    public function manageInstructorPage() {        
         // Collect every Instructors that are owned by this owner/admin and sort it from the latest
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
+        $today = now()->toDateString();
+
+        // Initialize an array to hold certificates for each instructor
+        $instructorCertificates = [];
+
+        // Loop through each instructor
+        foreach ($instructors as $instructor) {
+            // Get the instructor's ID
+            $instructorId = $instructor->id;
+
+            // Fetch the instructor's certificates
+            $certificates = instructorCertificate::where('instructor_id', $instructorId)->get();
+
+            // Store the certificates in the array with the instructor ID as the key
+            $instructorCertificates[$instructorId] = $certificates;
+
+            // Initialize hasActive for this instructor
+            $hasActive = false;
+
+            // Check each certificate for the current instructor
+            foreach ($certificates as $certificate) {
+                if ($today >= $certificate->startCertificateDate && $today <= $certificate->endCertificateDate) {
+                    if ($certificate->certificateStatus !== 'Belum Divalidasi') {
+                        $certificate->certificateStatus = 'Aktif';
+                        $hasActive = true; // Set hasActive to true if there's an active certificate
+                    }
+                } elseif ($today > $certificate->endCertificateDate) {
+                    $certificate->certificateStatus = 'Tidak Berlaku';
+                }
+                $certificate->save(); // Save the updated certificate status
+            }
+
+            // Update instructor availability if no active certificates
+            if (!$hasActive) {
+                $instructor->availability = 0; // Set availability to 0 if no active certificates
+                $instructor->save(); // Save the updated instructor availability
+            } 
+            // Update instructor availability immediately if they have an active certificates
+            elseif ($hasActive) {
+                $instructor->availability = 1; // Set availability to 1 if we detect active certificates
+                $instructor->save(); // Save the updated instructor availability
+            }
+            
+        }
 
         return view('admin-page.manage-instructor', [
             "pageName" => "Daftar Instruktur Anda | ",
