@@ -17,7 +17,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:mt-7 lg:px-24">
-            <div class="flex flex-col gap-5 lg:gap-8 my-3 px-6">
+            <div class="flex flex-col gap-5 lg:gap-8 my-3 mx-6 lg:mx-0 p-6 bg-custom-white-hover rounded-lg lg:rounded-xl">
                 {{-- Personal Information Data --}}
                 <h2 class="font-encode font-semibold text-xl/tight lg:text-[26px]/tight text-custom-dark">A. Informasi Pribadi Siswa</h2>
         
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-5 lg:gap-8 mt-12 lg:mt-[4.5rem] mb-5 px-6">
+            <div class="flex flex-col gap-5 lg:gap-8 mt-8 lg:mt-12 mb-5 mx-6 lg:mx-0 p-6 bg-custom-white-hover rounded-lg lg:rounded-xl">
                 {{-- Instructor Data --}}
                 <h2 class="font-encode font-semibold text-xl/tight lg:text-[26px]/tight text-custom-dark">B. Instruktur Pengajar</h2>
         
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-5 lg:gap-8 mt-12 lg:mt-[4.5rem] mb-5 lg:mb-10 px-6">
+            <div class="flex flex-col gap-5 lg:gap-8 mt-8 lg:mt-12 mb-5 lg:mb-10 mx-6 lg:mx-0 p-6 bg-custom-white-hover rounded-lg lg:rounded-xl">
                 {{-- Course Data --}}
                 <h2 class="font-encode font-semibold text-xl/tight lg:text-[26px]/tight text-custom-dark">C. Kelas Kursus yang dipilih</h2>
         

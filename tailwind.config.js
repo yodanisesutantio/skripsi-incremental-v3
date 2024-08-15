@@ -13,7 +13,7 @@ export default {
       'custom-dark-hover': '#151C1E',
       'custom-dark-overlay': 'rgba(4,11,13,.7)',
       'custom-dark-low': 'rgba(4,11,13,.6)',
-      'custom-white': '#F7F7F7',
+      'custom-white': '#F6F6F6',
       'custom-white-hover': '#FFF',
       'custom-secondary': '#495D64',
       'custom-disabled-light': '#BDCDD2',
