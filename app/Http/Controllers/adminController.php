@@ -470,7 +470,20 @@ class adminController extends Controller
         Carbon::setLocale('id');
 
         return view('admin-page.admin-course-registration-form', [
-            'pageName' => "Detail Progress Kursus Siswa | ",
+            'pageName' => "Formulir Pendaftaran Kursus | ",
+            'enrollment' => $enrollment
+        ]);
+    }
+
+    public function paymentVerification($student_fullname, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        return view('admin-page.admin-course-payment-verification', [
+            'pageName' => "Verifikasi Bukti Pembayaran | ",
             'enrollment' => $enrollment
         ]);
     }

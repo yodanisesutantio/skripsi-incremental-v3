@@ -8,6 +8,7 @@ use App\Models\DrivingSchoolLicense;
 use App\Models\InstructorCertificate;
 use App\Models\Course;
 use App\Models\CourseInstructor;
+use App\Models\CoursePayment;
 use App\Models\CourseSchedule;
 use App\Models\Enrollment;
 use App\Models\PaymentMethod;
@@ -338,6 +339,17 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-18 13:00:00',
             'end_time' => '2024-08-18 14:30:00',
             'meeting_number' => 5,
+        ]);
+
+        // Bukti Pembayaran untuk Siswa 1
+        CoursePayment::create([
+            'enrollment_id' => 1,
+            'paymentFile' => '1723140944.png',
+        ]);
+        // Bukti Pembayaran untuk Siswa 2
+        CoursePayment::create([
+            'enrollment_id' => 2,
+            'paymentFile' => '1722842843.png',
         ]);
 
         PaymentMethod::create([
