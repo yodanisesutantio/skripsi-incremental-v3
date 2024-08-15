@@ -114,4 +114,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-course/registration-form/{student_fullname}/{enrollment_id}', [adminController::class, 'registrationForm']);
     // Admin's Verify Payment 
     Route::get('/admin-course/payment-verification/{student_fullname}/{enrollment_id}', [adminController::class, 'paymentVerification']);
+    // Admin's Verify Payment Logic Handler
+    Route::post('/verify-payment-status', [instructorController::class, 'deleteInstructor']);
 });

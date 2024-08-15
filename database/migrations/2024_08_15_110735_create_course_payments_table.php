@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('enrollment_id')->constrained('enrollments')->onDelete('cascade'); // Enrollment ID
             $table->string('paymentFile');
-            $table->string('paymentStatus')->default('Belum Diverifikasi');
+            $table->boolean('paymentStatus')->default(false);
             $table->timestamps();
         });
     }

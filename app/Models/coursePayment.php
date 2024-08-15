@@ -20,7 +20,7 @@ class coursePayment extends Model
 
     // Default Value for paymentStatus attribute
     protected $attributes = [
-        'paymentStatus' => 'Belum Diverifikasi',
+        'paymentStatus' => 0,
     ];
 
     // One to One Relationship with Enrollment Tables
