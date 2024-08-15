@@ -4,7 +4,7 @@
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Bukti Pembayaran Kursus</h1>
-            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Diunggah pada {{ $enrollment->coursePayment->created_at->translatedFormat('d F Y') }}, Pukul {{ $enrollment->coursePayment->created_at->translatedFormat('H : i') }}</p>
+            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Diunggah pada {{ $enrollment->coursePayment->created_at->translatedFormat('d F Y') }}, Pukul {{ $enrollment->coursePayment->created_at->translatedFormat('H : i') }} WIB</p>
         </div>
     </div>
 
@@ -30,9 +30,15 @@
             </div>
 
             {{-- Open Modals to Verify --}}
-            <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
-                <button type="button" id="openVerifyModals" class="py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</button>
-            </div>
+            @if ($enrollment->coursePayment->paymentStatus === 1)
+                <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
+                    <div id="alreadyVerified" class="select-none opacity-40 py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</div>
+                </div>
+            @else
+                <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
+                    <button type="button" id="openVerifyModals" class="py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</button>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -55,7 +61,7 @@
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="closeVerifyPaymentDialogBox" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
                 <button type="submit" id="yesVerifyPayment" class="w-fit rounded text-left px-5 py-3 text-sm/tight lg:text-base/tight whitespace-nowrap bg-custom-success hover:bg-custom-success/85 text-custom-white font-semibold duration-300">Ya, Verifikasi</button>
-                <form action="/verify-payment-status" id="verifyPaymentForm" method="post" class="mb-1 hidden">
+                <form action="{{ url('/verify-payment/' . $enrollment->coursePayment->id) }}" id="verifyPaymentForm" method="post" class="mb-1 hidden">
                     @csrf
                     <input type="hidden" name="paymentStatus" value="1">
                 </form>
@@ -92,6 +98,14 @@
         $('#XVerifyPaymentDialogBox, #closeVerifyPaymentDialogBox').click(function(event) {
             $('#verifyPaymentOverlay').addClass('hidden');
             $('#verifyPaymentOverlay').removeClass('flex');
+        });
+
+        // Error Toastr Message to Show When Users force to click the verify button when it is already verified
+        $('#alreadyVerified').on('click', function() {
+            toastr.options.timeOut = 4000;
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.info('Anda Sudah Memverifikasi Pembayaran!');
         });
     </script>
 @endsection
