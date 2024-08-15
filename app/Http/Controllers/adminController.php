@@ -466,6 +466,9 @@ class adminController extends Controller
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
         return view('admin-page.admin-course-registration-form', [
             'pageName' => "Detail Progress Kursus Siswa | ",
             'enrollment' => $enrollment
