@@ -83,7 +83,7 @@
     </div>
 
     {{-- Delete Overlay --}}
-    <div id="delete-overlay" class="fixed hidden z-40 flex items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">
+    <div id="delete-overlay" class="fixed hidden z-40 items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">
         {{-- Delete Confirmation --}}
         <div id="deleteConfirm" class="relative w-80 lg:w-[28rem] bottom-0 py-4 z-40 bg-custom-white rounded-xl">
             <div class="flex flex-row sticky px-5 bg-custom-white justify-between items-center pt-1 pb-4">
@@ -105,7 +105,7 @@
     </div>
 
     {{-- Deactivate Overlay --}}
-    <div id="deactivateOverlay" class="fixed hidden z-40 flex items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">
+    <div id="deactivateOverlay" class="fixed hidden z-40 items-center justify-center top-0 left-0 w-full h-full bg-custom-dark/70">
         {{-- Deactivate Confirmation --}}
         <div id="deactivateConfirm" class="relative w-80 lg:w-[28rem] bottom-0 py-4 z-50 bg-custom-white rounded-xl">
             <div class="flex flex-row sticky px-5 bg-custom-white justify-between items-center pt-1 pb-4">
@@ -133,40 +133,37 @@
     {{-- jQuery CDN --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        const closeDeletePopup = $('#XDelete');
-        const deleteOverlay = $('#delete-overlay');
-        const openDeactivatePopup = $('#openDeactivate');
-        const closeDeactivatePopup = $('#XDeactivate, #closeDeactivate');
-        const deactivateOverlay = $('#deactivateOverlay');
-
+        // Open Delete Confirmation Modals
         function deleteConfirmation() {
-            deleteOverlay.toggleClass('hidden');
+            $('#delete-overlay').removeClass('hidden');
+            $('#delete-overlay').addClass('flex');
+
+            // Confirm Delete Function
             $('#yesDelete').click(function(event) {
                 event.preventDefault();
                 $('#yesDelete').next().submit();
             });
         }
 
+        // Confirm Deactivate Function
         $('#yesDeactivate').click(function(event) {
             event.preventDefault();
             // Submit the form to update availability
-            $('#availabilityForm').submit(); // Adjusted to submit the form
+            $('#availabilityForm').submit();
         });
 
-        function toggleDeactivateOverlay() {
-            openDeactivatePopup.toggleClass('hidden');
-        }
-        
-        function toggleDeactivateConfirmation() {
-            deactivateOverlay.toggleClass('hidden');
-        }
+        // Confirm Deactivate Function
+        $('#openDeactivate, #XDelete').click(function(event) {
+            $('#delete-overlay').removeClass('flex');
+            $('#delete-overlay').addClass('hidden');
+            $('#deactivateOverlay').removeClass('hidden');
+            $('#deactivateOverlay').addClass('flex');
+        });
 
-        function toggleDeleteConfirmation() {
-            deleteOverlay.toggleClass('hidden');
-        }
-        closeDeletePopup.click(toggleDeleteConfirmation);
-        openDeactivatePopup.click(toggleDeactivateConfirmation);
-        openDeactivatePopup.click(toggleDeleteConfirmation);
-        closeDeactivatePopup.click(toggleDeactivateConfirmation);
+        // Confirm Deactivate Function
+        $('#closeDeactivate, #XDeactivate').click(function(event) {
+            $('#deactivateOverlay').removeClass('flex');
+            $('#deactivateOverlay').addClass('hidden');
+        });
     </script>
 @endsection
