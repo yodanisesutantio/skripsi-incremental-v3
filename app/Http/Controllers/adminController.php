@@ -305,7 +305,9 @@ class adminController extends Controller
 
         // Check if any student has an incoming schedule
         $hasIncomingSchedules = $enrollments->some(function($enrollment) {
-            return $enrollment->schedule->end_time > now();
+            return $enrollment->schedule->some(function($schedule) {
+                return $schedule->end_time > now(); // Check each schedule's end_time
+            });
         });
 
         if (!$hasIncomingSchedules) {

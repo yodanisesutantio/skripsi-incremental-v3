@@ -424,7 +424,7 @@ class DatabaseSeeder extends Seeder
             'course_id' => 4,
             'instructor_id' => 5,
             'start_time' => '2024-11-18 13:00:00',
-            'end_time' => '2024--18 14:30:00',
+            'end_time' => '2024-11-18 14:30:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
