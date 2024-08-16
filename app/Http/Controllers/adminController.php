@@ -315,7 +315,6 @@ class adminController extends Controller
             // Store old user data
             $fullname = $user->fullname;
             $username = $user->username;
-            $password = $user->password; // Consider hashing this again
             $phone_number = $user->phone_number;
 
             // Delete the old user
@@ -326,9 +325,9 @@ class adminController extends Controller
             $newUser = User::create([
                 'fullname' => $fullname,
                 'username' => $username,
-                'password' => bcrypt($password), // Hash the password
+                'password' => bcrypt('12345678'),
                 'phone_number' => $phone_number,
-                'role' => 'user', // Change role to 'user'
+                'role' => 'user',
             ]);
 
             // Log in the new user
