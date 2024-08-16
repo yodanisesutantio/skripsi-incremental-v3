@@ -298,17 +298,48 @@ class adminController extends Controller
     // I'll do this later, make sure that we are not deleting an entire data, just, instructor data and their course data, keep the account data
     public function destroy(Request $request)
     {
-        $course = Course::where('admin_id', auth()->id())->get();
-        if ($course->enrollments()->count() === 0) {
+        // Check for enrollments related to the authenticated user's courses
+        $enrollments = Enrollment::whereHas('course', function($query) {
+            $query->where('admin_id', auth()->id());
+        })->get();
+
+        // Check if any student has an incoming schedule
+        $hasIncomingSchedules = $enrollments->some(function($enrollment) {
+            return $enrollment->schedule->end_time > now();
+        });
+
+        if (!$hasIncomingSchedules) {
             $user = Auth::user();
+            // Store old user data
+            $fullname = $user->fullname;
+            $username = $user->username;
+            $password = $user->password; // Consider hashing this again
+            $phone_number = $user->phone_number;
+
+            // Delete the old user
             Auth::logout();
             $user->delete();
-    
-            return redirect('/');
+
+            // Create a new user with the same details but different role
+            $newUser = User::create([
+                'fullname' => $fullname,
+                'username' => $username,
+                'password' => bcrypt($password), // Hash the password
+                'phone_number' => $phone_number,
+                'role' => 'user', // Change role to 'user'
+            ]);
+
+            // Log in the new user
+            Auth::login($newUser);
+            $request->session()->flash('success', 'Data Kursus berhasil dihapus. Sekarang anda adalah pengguna umum!');
+            return redirect('/user-profile'); // Redirect to user profile
         }
 
-        $request->session()->flash('error', 'Anda masih memiliki Siswa Aktif! Selesaikan semua kursus dengan Siswa, kemudian Coba Lagi.');
-        return redirect()->intended('/admin-profile');
+        else {
+            $request->session()->flash('error', 'Anda masih memiliki Siswa Aktif! Selesaikan semua kursus dengan Siswa, kemudian Coba Lagi.');
+            return redirect()->intended('/admin-profile');
+        }
+
     }
 
     // Admin-Manage-Course Page Controller
