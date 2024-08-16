@@ -480,7 +480,7 @@ class adminController extends Controller
     }
 
     // Admin-Course-Progress Page Controller
-    public function courseProgressPage($student_fullname, $enrollment_id) {
+    public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 

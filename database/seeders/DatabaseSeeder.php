@@ -257,6 +257,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-11 08:00:00',
             'end_time' => '2024-08-11 09:30:00',
             'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
         ]);
         // Pertemuan 2, Enrollment 1
         CourseSchedule::create([
@@ -266,6 +268,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-18 08:00:00',
             'end_time' => '2024-08-18 09:30:00',
             'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
         ]);
         // Pertemuan 3, Enrollment 1
         CourseSchedule::create([
@@ -275,6 +279,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-25 08:00:00',
             'end_time' => '2024-08-25 09:30:00',
             'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
         ]);
         // Pertemuan 4, Enrollment 1
         CourseSchedule::create([
@@ -284,6 +290,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-09-01 08:00:00',
             'end_time' => '2024-09-01 09:30:00',
             'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
         ]);
         // Pertemuan 5, Enrollment 1
         CourseSchedule::create([
@@ -293,6 +301,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-09-08 08:00:00',
             'end_time' => '2024-09-08 09:30:00',
             'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
         ]);
 
         // Pertemuan 1, Enrollment 2
@@ -303,6 +313,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-07-24 13:00:00',
             'end_time' => '2024-07-24 14:30:00',
             'meeting_number' => 1,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
         ]);
         // Pertemuan 2, Enrollment 2
         CourseSchedule::create([
@@ -312,6 +324,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-07-31 13:00:00',
             'end_time' => '2024-07-31 14:30:00',
             'meeting_number' => 2,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
         ]);
         // Pertemuan 3, Enrollment 2
         CourseSchedule::create([
@@ -321,6 +335,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-07 13:00:00',
             'end_time' => '2024-08-07 14:30:00',
             'meeting_number' => 3,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
         ]);
         // Pertemuan 4, Enrollment 2
         CourseSchedule::create([
@@ -330,6 +346,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-11 13:00:00',
             'end_time' => '2024-08-11 14:30:00',
             'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
         ]);
         // Pertemuan 5, Enrollment 2
         CourseSchedule::create([
@@ -339,6 +357,8 @@ class DatabaseSeeder extends Seeder
             'start_time' => '2024-08-18 13:00:00',
             'end_time' => '2024-08-18 14:30:00',
             'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
         ]);
 
         // Bukti Pembayaran untuk Siswa 1

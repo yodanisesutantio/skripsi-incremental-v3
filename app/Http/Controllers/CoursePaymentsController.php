@@ -21,9 +21,12 @@ class CoursePaymentsController extends Controller
         // Save new data to User Tables
         $coursePayment->save();
 
+        $student_fullname = $coursePayment->enrollment->student->fullname; // Adjust this line based on your relationships
+        $enrollment_id = $coursePayment->enrollment_id; // Adjust this line based on your model
+
         // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Verifikasi Pembayaran Berhasil!');
         // Redirect owner/admin to List of Course Page
-        return redirect()->back();
+        return redirect(url('/admin-course-progress/' . $student_fullname . '/' . $enrollment_id));
     }
 }
