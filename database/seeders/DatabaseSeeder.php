@@ -215,6 +215,19 @@ class DatabaseSeeder extends Seeder
             'student_address' => 'Citra Land Surabaya',
             'student_education_level' => 'SMA/SMK Sederajat',
         ]);
+        Enrollment::create([
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'student_id' => 8,
+            'student_real_name' => 'Nama Saya Arya',
+            'student_gender' => 'Pria',
+            'student_birth_of_place' => 'Gresik',
+            'student_birth_of_date' => '1999-04-14',
+            'student_occupation' => 'Wiraswasta',
+            'student_phone_number' => '+6281403232713',
+            'student_address' => 'Citra Land Surabaya',
+            'student_education_level' => 'S1 Sederajat',
+        ]);
 
         CourseInstructor::create([
             'course_id' => 1,
@@ -356,6 +369,62 @@ class DatabaseSeeder extends Seeder
             'instructor_id' => 5,
             'start_time' => '2024-08-18 13:00:00',
             'end_time' => '2024-08-18 14:30:00',
+            'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, Enrollment 3
+        CourseSchedule::create([
+            'enrollment_id' => 3,
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'start_time' => '2024-10-24 13:00:00',
+            'end_time' => '2024-10-24 14:30:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, Enrollment 3
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'start_time' => '2024-10-31 13:00:00',
+            'end_time' => '2024-10-31 14:30:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 3, Enrollment 3
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'start_time' => '2024-11-07 13:00:00',
+            'end_time' => '2024-11-07 14:30:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 4, Enrollment 3
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'start_time' => '2024-11-11 13:00:00',
+            'end_time' => '2024-11-11 14:30:00',
+            'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 5, Enrollment 3
+        CourseSchedule::create([
+            'enrollment_id' => 2,
+            'course_id' => 4,
+            'instructor_id' => 5,
+            'start_time' => '2024-11-18 13:00:00',
+            'end_time' => '2024-11-18 14:30:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,

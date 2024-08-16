@@ -74,7 +74,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Check Availability Logic Handler
     Route::post('/change-availability', [adminController::class, 'changeAvailability'])->name('changeAvailability');
     // Admin Delete Account Logic Handler
-    // Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
+    Route::delete('/admin-delete-account', [adminController::class, 'destroy'])->name('admin.account.destroy');
 
     // Admin's My Course Page
     Route::get('/admin-manage-course', [adminController::class, 'manageCoursePage']);
@@ -110,7 +110,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-course/active-student-list', [adminController::class, 'activeStudentPage']);
     // Admin's View Course Progress Detail Page
     Route::get('/admin-course-progress/{student_fullname}/{enrollment_id}', [adminController::class, 'courseProgressPage']);
-    Route::get('/user-course-details', [adminController::class, 'courseProgressPage2']);
     // Admin's Access Registration Form
     Route::get('/admin-course/registration-form/{student_fullname}/{enrollment_id}', [adminController::class, 'registrationForm']);
     // Admin's Verify Payment 

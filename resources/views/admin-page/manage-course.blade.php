@@ -29,13 +29,21 @@
             {{-- If course_thumbnail is not exist, show this instead --}}
             @else
             <div class="relative w-full h-36 bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-            @endif                            
+            @endif
+                <?php
+                    // Checking how many student that still has incoming schedules
+                    $activeEnrollmentsCount = $myCourse->enrollments->filter(function ($enrollment) {
+                        return $enrollment->schedule->contains(function ($schedule) {
+                            return $schedule->end_time > now();
+                        });
+                    })->count();
+                ?>
 
                 {{-- Edit and Delete Button --}}
                 <div class="absolute top-3 right-3 flex flex-row gap-2">
                     {{-- Edit --}}
                     <a href="{{ url('/admin-manage-course/edit/' . $myCourse->admin->username . '/' . $myCourse['course_name']) }}" class="bg-custom-dark/60 flex-shrink-0 p-2.5 rounded-xl overflow-hidden"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#F6F6F6" stroke-width="1.5" d="m14.36 4.079l.927-.927a3.932 3.932 0 0 1 5.561 5.561l-.927.927m-5.56-5.561s.115 1.97 1.853 3.707C17.952 9.524 19.92 9.64 19.92 9.64m-5.56-5.561l-8.522 8.52c-.577.578-.866.867-1.114 1.185a6.556 6.556 0 0 0-.749 1.211c-.173.364-.302.752-.56 1.526l-1.094 3.281m17.6-10.162L11.4 18.16c-.577.577-.866.866-1.184 1.114a6.554 6.554 0 0 1-1.211.749c-.364.173-.751.302-1.526.56l-3.281 1.094m0 0l-.802.268a1.06 1.06 0 0 1-1.342-1.342l.268-.802m1.876 1.876l-1.876-1.876"/></svg></a>
-                    @if ($myCourse->enrollments()->count() === 0)
+                    @if ($activeEnrollmentsCount === 0)
                         {{-- Delete --}}
                         <button class="bg-custom-dark/60 flex-shrink-0 p-2.5 rounded-xl overflow-hidden deleteCourseButton"  data-id="{{ $myCourse['id'] }}" data-name="{{ $myCourse['course_name'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#F6F6F6" stroke-linecap="round" stroke-width="1.5" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></button>
                     @else
@@ -50,7 +58,7 @@
                     {{-- Course Length --}}
                     <p class="font-medium text-base/tight text-custom-grey/80">{{ $myCourse['course_length'] }} Pertemuan</p>
                     {{-- Course Quota --}}
-                    <p class="font-medium text-base/tight text-custom-grey/80"><span class="text-custom-dark font-semibold">{{ $myCourse->enrollments()->count() }}</span> / {{ $myCourse['course_quota'] }} Siswa</p>
+                    <p class="font-medium text-base/tight text-custom-grey/80"><span class="text-custom-dark font-semibold">{{ $activeEnrollmentsCount }}</span> / {{ $myCourse['course_quota'] }} Siswa</p>
                 </div>
 
                 {{-- Course Name --}}

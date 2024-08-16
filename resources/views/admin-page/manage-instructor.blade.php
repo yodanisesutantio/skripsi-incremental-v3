@@ -36,8 +36,18 @@
                         <div class="flex flex-col gap-1">
                             {{-- Instructor's Fullname --}}
                             <h2 class="font-encode tracking-tight font-semibold text-xl lg:text-2xl">{{ $myInstructor['fullname'] }}</h2>
+
+                            <?php
+                            // Checking how many student that still has incoming schedules
+                            $activeEnrollmentsCount = $myInstructor->enrollments->filter(function ($enrollment) {
+                                return $enrollment->schedule->contains(function ($schedule) {
+                                    return $schedule->end_time > now();
+                                });
+                            })->count();
+                            ?>
+
                             {{-- Teaching Status --}}
-                            <i class="font-league font-medium text-base/tight lg:text-lg text-custom-grey">Sedang mengajar {{ $myInstructor->enrollments->count() }} Siswa</i>
+                            <i class="font-league font-medium text-base/tight lg:text-lg text-custom-grey">Sedang mengajar {{ $activeEnrollmentsCount }} Siswa</i>
                         </div>
 
                         {{-- If instructor has a validated certificate make the switch clickable --}}
@@ -77,7 +87,7 @@
 
                     <div class="grid grid-rows-1rounded-lg">
                         {{-- If Instructor has no active student, make the delete button clickable --}}
-                        @if ($myInstructor->enrollments()->count() === 0)
+                        @if ($activeEnrollmentsCount === 0)
                             {{-- Delete --}}
                             <button class="bg-custom-destructive hover:bg-[#EC2013] duration-300 flex flex-col justify-center p-3 overflow-hidden deleteInstructorButton" data-id="{{ $myInstructor['id'] }}" data-name="{{ $myInstructor['fullname'] }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" stroke="#F6F6F6" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg></button>
 
