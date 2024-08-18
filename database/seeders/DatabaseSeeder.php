@@ -387,7 +387,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // Pertemuan 2, Enrollment 3
         CourseSchedule::create([
-            'enrollment_id' => 2,
+            'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
             'start_time' => '2024-10-31 13:00:00',
@@ -398,7 +398,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // Pertemuan 3, Enrollment 3
         CourseSchedule::create([
-            'enrollment_id' => 2,
+            'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
             'start_time' => '2024-11-07 13:00:00',
@@ -409,7 +409,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // Pertemuan 4, Enrollment 3
         CourseSchedule::create([
-            'enrollment_id' => 2,
+            'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
             'start_time' => '2024-11-11 13:00:00',
@@ -420,7 +420,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // Pertemuan 5, Enrollment 3
         CourseSchedule::create([
-            'enrollment_id' => 2,
+            'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
             'start_time' => '2024-11-18 13:00:00',
