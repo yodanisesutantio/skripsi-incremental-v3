@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.relative')
 
 @include('partials.navbar')
 
 @section('content')
     {{-- Greetings Element --}}
-    <div class="flex flex-col mt-5 mb-8 lg:mb-11">
+    <div class="flex flex-col mt-5 mb-8 lg:mb-11 px-6 lg:px-[4.25rem]">
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Hi, {{ auth()->user()->fullname }}</p>
         @if ($incomingSchedule)
             <h1 class="mb-3 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl/tight">Kursus Mendatang</h1>
@@ -158,10 +158,56 @@
     </div>    
 
     {{-- Schedule Interface --}}
-    <div class="flex flex-col mb-8 lg:mb-11">
-        <h2 class="mb-8 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight">Jadwal Kursus</h2>
-        <p class="font-league text-center lg:text-xl my-3 lg:my-6">(Tidak ada kursus mendatang)</p>
+    <div class="flex flex-col">
+        <h2 class="mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight px-6 lg:px-[4.25rem]">Jadwal Kursus</h2>
+
+        {{-- Tabs --}}
+        <div class="overflow-x-auto px-6" style="scrollbar-width: none;">
+            <ul class="flex flex-row items-center gap-3 font-league text-custom-dark text-lg/tight font-semibold text-center">
+                {{-- Today's Tab --}}
+                <li class="flex-shrink-0">
+                    <button class="flex flex-col grow w-[5.5rem] justify-center items-center p-2 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300">
+                        {{-- Days --}}
+                        <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
+                        {{-- Date Abbreviation --}}
+                        <h3 class="text-xl/tight">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
+                        {{-- Horizontal Lines --}}
+                        <div class="mt-2.5 mb-0.5 w-full px-3"><div class="border-b-2 border-custom-dark"></div></div>
+                    </button>
+                </li>
+
+                {{-- Loop for Next Day Tabs --}}
+                @for ($i = 1; $i <= 6; $i++)
+                    @if ($i === 6)
+                    <li class="flex-shrink-0 pr-6">
+                    @else
+                    <li class="flex-shrink-0">                    
+                    @endif
+                        <button class="flex flex-col grow w-[5.5rem] justify-center items-center p-2 bg-custom-disabled-light/40 rounded-lg duration-300">
+                            {{-- Days --}}
+                            <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
+                            {{-- Date Abbreviation --}}
+                            <h3 class="text-xl/tight">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
+                            {{-- Horizontal Lines --}}
+                            <div class="opacity-0 mt-2.5 mb-0.5 w-full px-3"><div class="border-b-2 border-custom-dark"></div></div>
+                        </button>
+                    </li>
+                @endfor
+            </ul>
+        </div>
+
+        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus mendatang)</p>
     </div>
 
-    @include('partials.footer')
+    <div class="px-6 lg:px-[4.25rem]">
+        @include('partials.footer')
+    </div>
+
+    {{-- Swiper CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    {{-- jQuery JS --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+
+    </script>
 @endsection

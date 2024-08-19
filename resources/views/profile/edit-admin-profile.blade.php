@@ -315,6 +315,7 @@
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false,
+            spaceBetween: 40,
             autoHeight: true,
 
             navigation: {

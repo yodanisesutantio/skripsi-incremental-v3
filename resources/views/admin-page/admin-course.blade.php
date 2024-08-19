@@ -308,6 +308,7 @@
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false, // Swiper cant be looped
+            spaceBetween: 40,
             autoHeight: true, // Make the swiper-slide auto resize
 
             // No Navigation Button
