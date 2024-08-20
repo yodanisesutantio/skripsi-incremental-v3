@@ -159,27 +159,27 @@
 
     {{-- Schedule Interface --}}
     <div class="flex flex-col">
-        <h2 class="mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight px-6 lg:px-[4.25rem]">Jadwal Kursus</h2>
+        <h2 class="mb-3 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight px-6 lg:px-[4.25rem]">Jadwal Kursus</h2>
 
         {{-- Tabs --}}
-        <div class="overflow-x-auto px-6" style="scrollbar-width: none;">
-            <ul class="flex flex-row items-center gap-3 font-league text-custom-dark text-lg/tight font-semibold text-center">
+        <div class="overflow-x-auto px-6 lg:px-[4.25rem]" style="scrollbar-width: none;">
+            <ul class="flex flex-row items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
                 {{-- Today's Tab --}}
                 <li class="flex-shrink-0">
                     <button class="flex flex-col grow w-[5.5rem] justify-center items-center p-2 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300">
                         {{-- Days --}}
                         <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
                         {{-- Date Abbreviation --}}
-                        <h3 class="text-xl/tight">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
+                        <h3 class="text-lg/tight">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
                         {{-- Horizontal Lines --}}
-                        <div class="mt-2.5 mb-0.5 w-full px-3"><div class="border-b-2 border-custom-dark"></div></div>
+                        <div class="mt-2.5 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
                     </button>
                 </li>
 
                 {{-- Loop for Next Day Tabs --}}
                 @for ($i = 1; $i <= 6; $i++)
                     @if ($i === 6)
-                    <li class="flex-shrink-0 pr-6">
+                    <li class="flex-shrink-0 pr-6 lg:pr-[4.25rem]">
                     @else
                     <li class="flex-shrink-0">                    
                     @endif
@@ -187,16 +187,110 @@
                             {{-- Days --}}
                             <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
                             {{-- Date Abbreviation --}}
-                            <h3 class="text-xl/tight">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
+                            <h3 class="text-lg/tight">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
                             {{-- Horizontal Lines --}}
-                            <div class="opacity-0 mt-2.5 mb-0.5 w-full px-3"><div class="border-b-2 border-custom-dark"></div></div>
+                            <div class="opacity-0 mt-2.5 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
                         </button>
                     </li>
                 @endfor
             </ul>
         </div>
 
-        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus mendatang)</p>
+        <div class="swiper w-full px-6">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    @if ($todaySchedule && !$todaySchedule->isEmpty())
+                        <div class="px-6 lg:px-[4.25rem] my-8 font-league">
+                            @foreach ($todaySchedule as $todayCourse)
+                                {{-- Past Course --}}
+                                @if ($todayCourse->formattedEndTime < now())
+                                    {{-- Past Schedule --}}
+                                    <div class="flex flex-row justify-between items-center text-custom-dark gap-5">
+                                        <div class="flex flex-col gap-2">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light text-base/tight duration-300">
+                                                Lihat Detail Kemajuan
+
+                                                {{-- Right Arrow Icons --}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="none" stroke="#24596A" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg>
+                                            </a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 bg-custom-green text-custom-white flex-shrink-0 rounded-full px-4">Selesai</div>
+                                    </div>
+
+                                {{-- Present Course --}}
+                                @elseif($todayCourse->formattedStartTime <= now() && $todayCourse->formattedEndTime >= now())
+                                    {{-- Present Schedule --}}
+                                    <div class="flex flex-row justify-between items-center text-custom-dark gap-5">
+                                        <div class="flex flex-col gap-2">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light text-base/tight duration-300">
+                                                Lihat Detail Kemajuan
+
+                                                {{-- Right Arrow Icons --}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg>
+                                            </a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 bg-custom-dark text-custom-white flex-shrink-0 rounded-full px-4">Berlangsung</div>
+                                    </div>
+
+                                {{-- Future Course --}}
+                                @else
+                                    {{-- Future Schedule --}}
+                                    <div class="flex flex-row justify-between items-center text-custom-grey gap-5">
+                                        <div class="flex flex-col gap-2">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light text-base/tight duration-300">
+                                                Lihat Detail Kemajuan
+
+                                                {{-- Right Arrow Icons --}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg>
+                                            </a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 bg-custom-grey text-custom-white flex-shrink-0 rounded-full px-4">Mendatang</div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="px-6 lg:px-[4.25rem]">

@@ -323,8 +323,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-07-24 13:00:00',
-            'end_time' => '2024-07-24 14:30:00',
+            'start_time' => '2024-07-31 13:00:00',
+            'end_time' => '2024-07-31 14:30:00',
             'meeting_number' => 1,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -334,8 +334,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-07-31 13:00:00',
-            'end_time' => '2024-07-31 14:30:00',
+            'start_time' => '2024-08-07 13:00:00',
+            'end_time' => '2024-08-07 14:30:00',
             'meeting_number' => 2,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -345,8 +345,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-08-07 13:00:00',
-            'end_time' => '2024-08-07 14:30:00',
+            'start_time' => '2024-08-14 13:00:00',
+            'end_time' => '2024-08-14 14:30:00',
             'meeting_number' => 3,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -356,8 +356,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-08-11 13:00:00',
-            'end_time' => '2024-08-11 14:30:00',
+            'start_time' => '2024-08-20 13:00:00',
+            'end_time' => '2024-08-20 14:30:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -367,8 +367,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 5,
-            'start_time' => '2024-08-18 13:00:00',
-            'end_time' => '2024-08-18 14:30:00',
+            'start_time' => '2024-08-28 13:00:00',
+            'end_time' => '2024-08-28 14:30:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -438,6 +438,11 @@ class DatabaseSeeder extends Seeder
         // Bukti Pembayaran untuk Siswa 2
         CoursePayment::create([
             'enrollment_id' => 2,
+            'paymentFile' => '1722842843.png',
+        ]);
+        // Bukti Pembayaran untuk Siswa 3
+        CoursePayment::create([
+            'enrollment_id' => 3,
             'paymentFile' => '1722842843.png',
         ]);
 
