@@ -588,6 +588,13 @@ class adminController extends Controller
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
+        if (!$enrollment->coursePayment) {
+            // Generate a flash message via Toastr to let user know that the process is successful
+            session()->flash('info', 'Siswa belum mengunggah bukti pembayaran. Silahkan coba lagi nanti!');
+            // Redirect owner/admin to List of Course Page
+            return redirect(url('/admin-course-progress/' . $student_fullname . '/' . $enrollment_id));
+        }
+
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 

@@ -436,10 +436,10 @@ class DatabaseSeeder extends Seeder
             'paymentFile' => '1723140944.png',
         ]);
         // Bukti Pembayaran untuk Siswa 2
-        CoursePayment::create([
-            'enrollment_id' => 2,
-            'paymentFile' => '1722842843.png',
-        ]);
+        // CoursePayment::create([
+        //     'enrollment_id' => 2,
+        //     'paymentFile' => '1722842843.png',
+        // ]);
         // Bukti Pembayaran untuk Siswa 3
         CoursePayment::create([
             'enrollment_id' => 3,
