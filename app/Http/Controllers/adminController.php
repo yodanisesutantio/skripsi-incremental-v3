@@ -21,32 +21,12 @@ class adminController extends Controller
 {
     // Admin-Index Page Controller
     public function indexPage() {
-        // Get the current date and time
-        $now = now();
-        // Manipulate and localize this page to Indonesian 
-        Carbon::setLocale('id');
-
         // Check for incoming course schedules for the authenticated admin
-        $incomingSchedule = Enrollment::whereHas('course', function($query) {
+        $incomingSchedule = CourseSchedule::whereHas('enrollment.course', function($query) {
             $query->where('admin_id', auth()->id());
         })
-        ->with('schedule')
-        ->get()
-        // flatMap is a method in Laravel (and many other programming languages) that combines the functionality of map and flatten. Here's how it works:
-
-        // map: Transforms each item in a collection into a new item. For example, if you have a collection of enrollments and you want to extract the schedules, map would create a new collection of schedules.
-
-        // flatten: Takes a multi-dimensional array or collection and reduces it to a single dimension. For example, if you have an array of arrays, flatten would combine them into a single array.
-
-        // flatMap does both in one step:
-        // 1. It applies a transformation to each item in the collection (like map).
-        // 2. It then flattens the resulting collection into a single-level collection.
-        // In the context of your code, flatMap is used to extract all upcoming schedules from the enrollments and combine them into a single collection, making it easier to find the first upcoming schedule.
-        ->flatMap(function($enrollment) use ($now) {
-            return $enrollment->schedule->filter(function($schedule) use ($now) {
-                return $schedule->start_time >= $now; // Filter for upcoming schedules
-            });
-        })
+        ->where('start_time', '>=', now()) // Filter for upcoming schedules
+        ->orderBy('start_time', 'asc') // Order by start time
         ->first(); // Get the first upcoming schedule
 
         // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
