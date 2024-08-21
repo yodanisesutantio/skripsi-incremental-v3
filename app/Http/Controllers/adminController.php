@@ -21,6 +21,9 @@ class adminController extends Controller
 {
     // Admin-Index Page Controller
     public function indexPage() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+        
         // Check for incoming course schedules for the authenticated admin
         $incomingSchedule = CourseSchedule::whereHas('enrollment.course', function($query) {
             $query->where('admin_id', auth()->id());

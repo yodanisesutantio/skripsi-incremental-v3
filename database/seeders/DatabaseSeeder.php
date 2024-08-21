@@ -289,8 +289,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-25 08:00:00',
-            'end_time' => '2024-08-25 09:30:00',
+            'start_time' => '2024-08-21 08:00:00',
+            'end_time' => '2024-08-21 09:30:00',
             'meeting_number' => 3,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -436,10 +436,10 @@ class DatabaseSeeder extends Seeder
             'paymentFile' => '1723140944.png',
         ]);
         // Bukti Pembayaran untuk Siswa 2
-        // CoursePayment::create([
-        //     'enrollment_id' => 2,
-        //     'paymentFile' => '1722842843.png',
-        // ]);
+        CoursePayment::create([
+            'enrollment_id' => 2,
+            'paymentFile' => '1722842843.png',
+        ]);
         // Bukti Pembayaran untuk Siswa 3
         CoursePayment::create([
             'enrollment_id' => 3,

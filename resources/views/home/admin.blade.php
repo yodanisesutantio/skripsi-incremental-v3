@@ -163,33 +163,53 @@
 
         {{-- Tabs --}}
         <div class="overflow-x-auto px-6 lg:px-[4.25rem]" style="scrollbar-width: none;">
-            <ul class="flex flex-row items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+            <ul class="flex flex-row lg:grid lg:grid-cols-7 items-center gap-3 lg:gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
                 {{-- Today's Tab --}}
                 <li class="flex-shrink-0">
-                    <button class="flex flex-col grow w-[5.5rem] justify-center items-center p-2 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300">
-                        {{-- Days --}}
-                        <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
-                        {{-- Date Abbreviation --}}
-                        <h3 class="text-lg/tight">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
+                    <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300">
+                        <div class="flex flex-col lg:hidden">
+                            {{-- Days for Mobile --}}
+                            <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
+                            {{-- Date Abbreviation Mobile --}}
+                            <h3 class="text-lg/tight line-clamp-1">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
+                        </div>
+
+                        <div class="lg:flex lg:flex-col hidden">
+                            {{-- Days for Desktop --}}
+                            <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('l') }}</p>
+                            {{-- Date Abbreviation Desktop --}}
+                            <h3 class="text-xl/tight line-clamp-1">{{ \Carbon\Carbon::now()->translatedFormat('d M Y') }}</h3>
+                        </div>
+
                         {{-- Horizontal Lines --}}
-                        <div class="mt-2.5 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
+                        <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5 lg:px-8"><div class="border-b-2 border-custom-dark"></div></div>
                     </button>
                 </li>
 
                 {{-- Loop for Next Day Tabs --}}
                 @for ($i = 1; $i <= 6; $i++)
                     @if ($i === 6)
-                    <li class="flex-shrink-0 pr-6 lg:pr-[4.25rem]">
+                    <li class="flex-shrink-0 pr-6 lg:pr-0">
                     @else
                     <li class="flex-shrink-0">                    
                     @endif
-                        <button class="flex flex-col grow w-[5.5rem] justify-center items-center p-2 bg-custom-disabled-light/40 rounded-lg duration-300">
-                            {{-- Days --}}
-                            <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
-                            {{-- Date Abbreviation --}}
-                            <h3 class="text-lg/tight">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300">
+                            <div class="flex flex-col lg:hidden">
+                                {{-- Days for Mobile --}}
+                                <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
+                                {{-- Date Abbreviation Mobile --}}
+                                <h3 class="text-lg/tight line-clamp-1">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
+                            </div>
+    
+                            <div class="lg:flex lg:flex-col hidden">
+                                {{-- Days for Desktop --}}
+                                <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('l') }}</p>
+                                {{-- Date Abbreviation Desktop --}}
+                                <h3 class="text-xl/tight line-clamp-1">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M Y') }}</h3>
+                            </div>
+    
                             {{-- Horizontal Lines --}}
-                            <div class="opacity-0 mt-2.5 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
+                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5 lg:px-8"><div class="border-b-2 border-custom-dark"></div></div>
                         </button>
                     </li>
                 @endfor
