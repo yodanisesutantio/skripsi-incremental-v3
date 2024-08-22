@@ -166,7 +166,7 @@
             <ul class="flex flex-row lg:grid lg:grid-cols-7 items-center gap-3 lg:gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
                 {{-- Today's Tab --}}
                 <li class="flex-shrink-0">
-                    <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300">
+                    <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 days-button" id="todays-tab" data-index="0">
                         <div class="flex flex-col lg:hidden">
                             {{-- Days for Mobile --}}
                             <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
@@ -191,9 +191,9 @@
                     @if ($i === 6)
                     <li class="flex-shrink-0 pr-6 lg:pr-0">
                     @else
-                    <li class="flex-shrink-0">                    
+                    <li class="flex-shrink-0">
                     @endif
-                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300">
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 days-button" id="today+{{ $i }}" data-index="{{ $i }}">
                             <div class="flex flex-col lg:hidden">
                                 {{-- Days for Mobile --}}
                                 <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
@@ -347,6 +347,12 @@
                         <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
                     @endif
                 </div>
+
+                @foreach ($nextWeekSchedules as $nextDays)
+                    <div class="swiper-slide">
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($loop->index + 1)->translatedFormat('d F Y') }})</p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -360,6 +366,36 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: false,
+            spaceBetween: 40,
+            autoHeight: true,
+            on: {
+                slideChange: function() {
+                    const currentIndex = swiper.activeIndex;
+                    const buttons = $('.days-button');
 
+                    buttons.each(function() {
+                        const buttonIndex = $(this).data('index');
+                        if (buttonIndex == currentIndex) {
+                            $(this).removeClass('bg-custom-disabled-light/40');
+                            $(this).addClass('bg-custom-white-hover border-2 border-custom-dark');
+                        } else {
+                            $(this).removeClass('bg-custom-white-hover border-2 border-custom-dark');
+                            $(this).addClass('bg-custom-disabled-light/40');
+                        }
+                    });
+                },
+                init: function () {
+                    this.update();
+                }
+            }
+        });
+
+        $(document).on('click', '.days-button', function() {
+            const index = $(this).data('index');
+            swiper.slideTo(index);
+        });
     </script>
 @endsection

@@ -47,7 +47,7 @@ class adminController extends Controller
 
         // Fetch schedules for the next 7 days
         $nextWeekSchedules = [];
-        for ($i = 1; $i <= 7; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             $nextWeekSchedules[$i] = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today()->addDays($i))->get();
         }
 
