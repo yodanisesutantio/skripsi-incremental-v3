@@ -344,13 +344,56 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
                     @endif
                 </div>
 
-                @foreach ($nextWeekSchedules as $nextDays)
+                @foreach ($nextWeekSchedules as $day => $schedules)
                     <div class="swiper-slide">
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($loop->index + 1)->translatedFormat('d F Y') }})</p>
+                        @if ($schedules->isNotEmpty())
+                        <div class="px-6 lg:px-[4.25rem] mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
+                            @foreach ($schedules as $schedule)
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-auto overflow-hidden"> <!-- Adjusted here -->
+                                    {{-- Decorative Element --}}
+                                    <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
+                                        {{-- Checkmark Icons --}}
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-grey rounded-full"></div></div>
+
+                                        {{-- If this is the last item in the collection, abandon this decorative element --}}
+                                        @if ($schedule !== $schedules->last())
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow"></div>
+                                        @endif
+                                    </div>
+
+                                    {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
+                                    @if ($schedule !== $schedules->last())
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 gap-5">
+                                    @else
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                    @endif
+                                        <div class="flex flex-col gap-2 lg:gap-4">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $schedule->enrollment->student['fullname'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $schedule['meeting_number'] }} | {{ $schedule->formattedStartTime }} - {{ $schedule->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        @else
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
+                        @endif
                     </div>
                 @endforeach
             </div>

@@ -49,6 +49,12 @@ class adminController extends Controller
         $nextWeekSchedules = [];
         for ($i = 1; $i <= 6; $i++) {
             $nextWeekSchedules[$i] = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today()->addDays($i))->get();
+
+            // Format start and end times for each schedule
+            foreach ($nextWeekSchedules[$i] as $schedule) {
+                $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
+                $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+            }
         }
 
         // dd($todaySchedule);
