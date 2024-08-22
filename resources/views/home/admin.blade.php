@@ -344,7 +344,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
                     @endif
                 </div>
 
@@ -392,7 +392,7 @@
                             @endforeach
                         </div>
                         @else
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
                         @endif
                     </div>
                 @endforeach

@@ -6,6 +6,12 @@
     {{-- Headers --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student->fullname }}</p>
+
+    @if (!$enrollment->CoursePayment || $enrollment->CoursePayment->paymentStatus === 0)
+        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-destructive/15 w-full rounded-lg lg:rounded-xl">
+            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Bukti Pembayaran Kursus belum diverifikasi!</h2>
+        </div>
+    @endif
     
     <div class="lg:grid lg:grid-cols-5">
         <div class="lg:col-span-2 bg-custom-white flex flex-col gap-5">
