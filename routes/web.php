@@ -7,6 +7,7 @@ use App\Http\Controllers\generalPage;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\instructorController;
+use App\Http\Controllers\enrollmentController;
 use App\Http\Controllers\courseController;
 use App\Http\Controllers\coursePaymentsController;
 use App\Http\Controllers\drivingSchoolLicenseController;
@@ -116,4 +117,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-course/payment-verification/{student_fullname}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
     Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
+    // Admin's Delete Active Student Logic Handler
+    Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
 });
