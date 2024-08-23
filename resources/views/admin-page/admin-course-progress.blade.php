@@ -5,7 +5,7 @@
 @section('content')
     {{-- Headers --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">{{ $enrollment->course->course_name }}</h1>
-    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student->fullname }}</p>
+    <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student_real_name }}</p>
 
     @if (!$enrollment->CoursePayment || $enrollment->CoursePayment->paymentStatus === 0)
         <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-destructive/15 w-full rounded-lg lg:rounded-xl">
@@ -29,7 +29,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div class="flex flex-col gap-3">
                         {{-- Registration Form Button --}}
-                        <a href="{{ url('/admin-course/registration-form/' . $enrollment->student->fullname . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
+                        <a href="{{ url('/admin-course/registration-form/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
                             {{-- Overlays --}}
                             <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                                 <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Formulir Pendaftaran</h2>
@@ -38,7 +38,7 @@
                         </a>
 
                         {{-- Course Payment Button --}}
-                        <a href="{{ url('/admin-course/payment-verification/' . $enrollment->student->fullname . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
+                        <a href="{{ url('/admin-course/payment-verification/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
                             {{-- Overlays --}}
                             <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                                 <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Bukti Pembayaran</h2>
@@ -477,20 +477,20 @@
             </div>
         </a>
 
-        {{-- Contact Driving School Admin --}}
+        {{-- Contact Student --}}
         {{-- When Student has uploaded profile picture, show it as background --}}
-        @if ($enrollment->student->hash_for_profile_picture)
-        <a href="{{ url('https://wa.me/' . $enrollment->student->phone_number) }}" target="_blank" id="contact-student" class="lg:w-full bg-cover bg-center rounded-xl lg:mt-10" style="background-image: url('{{ asset('storage/profile_pictures/' . $enrollment->student->hash_for_profile_picture) }}')">
+        @if ($enrollment->student_profile_picture)
+        <a href="{{ url('https://wa.me/' . $enrollment->student_phone_number) }}" target="_blank" id="contact-student" class="lg:w-full bg-cover bg-center rounded-xl lg:mt-10" style="background-image: url('{{ asset('storage/enrollment/profile_pictures/' . $enrollment->student_profile_picture) }}')">
 
         {{-- When Student has no profile picture, show the default picture --}}
         @else
-        <a href="{{ url('https://wa.me/' . $enrollment->student->phone_number) }}" target="_blank" id="contact-student" class="lg:w-full bg-cover bg-center rounded-xl lg:mt-10" style="background-image: url('{{ asset('img/blank-profile.webp') }}')">
+        <a href="{{ url('https://wa.me/' . $enrollment->student_phone_number) }}" target="_blank" id="contact-student" class="lg:w-full bg-cover bg-center rounded-xl lg:mt-10" style="background-image: url('{{ asset('img/blank-profile.webp') }}')">
         @endif
 
             {{-- Overlays --}}
             <div class="flex flex-col gap-2 w-full h-72 justify-center items-center rounded-xl px-6 pt-2 lg:pt-0 bg-custom-dark/75 lg:px-20 lg:hover:bg-custom-dark-low duration-300">
                 <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Hubungi Siswa</h2>
-                <p class="font-light text-base/tight lg:text-xl/tight text-center">Mulai percakapan dengan {{ $enrollment->student->fullname }}</p>
+                <p class="font-light text-base/tight lg:text-xl/tight text-center">Mulai percakapan dengan {{ $enrollment->student_real_name }}</p>
             </div>
         </a>
     </div>

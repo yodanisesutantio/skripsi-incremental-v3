@@ -15,13 +15,13 @@
         {{-- Incoming Course Card --}}
         @if ($incomingSchedule)
             {{-- Mobile Incoming Schedule --}}
-            <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student->fullname . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
+            <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center lg:hidden">
                         {{-- Student Profile Picture --}}
-                        @if ($incomingSchedule->enrollment->student->hash_for_profile_picture)
-                        <img src="{{ asset('storage/profile_pictures/' . $incomingSchedule->enrollment->student->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
+                        @if ($incomingSchedule->enrollment->student_profile_picture)
+                        <img src="{{ asset('storage/enrollment/profile_pictures/' . $incomingSchedule->enrollment->student_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
                         {{-- Student Blank Profile Picture --}}
                         @else
                         <img src="{{ asset('img/blank-profile.webp') }}" alt="Blank Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
@@ -29,7 +29,7 @@
 
                         <div class="flex flex-col lg:gap-1">
                             {{-- Student Name --}}
-                            <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $incomingSchedule->enrollment->student->fullname }}</h2>
+                            <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $incomingSchedule->enrollment->student_real_name }}</h2>
                             {{-- Instructor Name --}}
                             <p class="font-league text-[15px]/tight lg:text-lg/tight text-custom-grey">Instruktur : {{ $incomingSchedule->enrollment->instructor->fullname }}</p>
                         </div>
@@ -62,15 +62,15 @@
             {{-- Desktop Incoming Schedule --}}
             <div class="hidden lg:grid lg:grid-cols-5 lg:gap-6">
                 {{-- Student Card --}}
-                <a href="{{ url('https://wa.me/' . $incomingSchedule->enrollment->student->phone_number) }}" target="_blank" class="lg:relative lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-2 bg-custom-white-hover rounded-xl p-6 overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
-                    @if ($incomingSchedule->enrollment->student->hash_for_profile_picture)
-                        <img src="{{ asset('storage/profile_pictures/' . $incomingSchedule->enrollment->student->hash_for_profile_picture) }}" alt="Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
+                <a href="{{ url('https://wa.me/' . $incomingSchedule->enrollment->student_phone_number) }}" target="_blank" class="lg:relative lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-2 bg-custom-white-hover rounded-xl p-6 overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                    @if ($incomingSchedule->enrollment->student_profile_picture)
+                        <img src="{{ asset('storage/enrollment/profile_pictures/' . $incomingSchedule->enrollment->student_profile_picture) }}" alt="Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
                     @else
                         <img src="{{ asset('img/blank-profile.webp') }}" alt="Blank Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
                     @endif
 
                     {{-- Student Name --}}
-                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->student->fullname }}</h2>
+                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->student_real_name }}</h2>
 
                     {{-- Hover Overlays --}}
                     <div class="absolute top-0 flex flex-col gap-2 justify-center items-center w-full h-full hover:bg-custom-green/90 opacity-0 hover:opacity-100 duration-300">
@@ -83,13 +83,13 @@
                 </a>
 
                 {{-- Course Card --}}
-                <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student->fullname . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     <div class="flex flex-col gap-4">
                         {{-- Student Information --}}
                         <div class="flex flex-row gap-3 items-center lg:hidden">
                             {{-- Student Profile Picture --}}
-                            @if ($incomingSchedule->enrollment->student->hash_for_profile_picture)
-                            <img src="{{ asset('storage/profile_pictures/' . $incomingSchedule->enrollment->student->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
+                            @if ($incomingSchedule->enrollment->student_profile_picture)
+                            <img src="{{ asset('storage/enrollment/profile_pictures/' . $incomingSchedule->enrollment->student_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
                             {{-- Student Blank Profile Picture --}}
                             @else
                             <img src="{{ asset('img/blank-profile.webp') }}" alt="Blank Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
@@ -97,7 +97,7 @@
     
                             <div class="flex flex-col lg:gap-1">
                                 {{-- Student Name --}}
-                                <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $incomingSchedule->enrollment->student->fullname }}</h2>
+                                <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $incomingSchedule->enrollment->student_real_name }}</h2>
                                 {{-- Instructor Name --}}
                                 <p class="font-league text-[15px]/tight lg:text-lg/tight text-custom-grey">Instruktur : {{ $incomingSchedule->enrollment->instructor->fullname }}</p>
                             </div>
@@ -248,14 +248,14 @@
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
                                             <div class="flex flex-col">
                                                 {{-- Student Name --}}
-                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
 
                                                 {{-- Course Start and End Time --}}
                                                 <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -287,14 +287,14 @@
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
                                             <div class="flex flex-col">
                                                 {{-- Student Name --}}
-                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
 
                                                 {{-- Course Start and End Time --}}
                                                 <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -326,14 +326,14 @@
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
                                             <div class="flex flex-col">
                                                 {{-- Student Name --}}
-                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment->student['fullname'] }}</h3>
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
 
                                                 {{-- Course Start and End Time --}}
                                                 <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -375,14 +375,14 @@
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
                                             <div class="flex flex-col">
                                                 {{-- Student Name --}}
-                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $schedule->enrollment->student['fullname'] }}</h3>
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $schedule->enrollment['student_real_name'] }}</h3>
 
                                                 {{-- Course Start and End Time --}}
                                                 <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $schedule['meeting_number'] }} | {{ $schedule->formattedStartTime }} - {{ $schedule->formattedEndTime }} WIB</p>
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/admin-course-progress/' . $schedule->enrollment->student_real_name . '/' . $schedule->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}

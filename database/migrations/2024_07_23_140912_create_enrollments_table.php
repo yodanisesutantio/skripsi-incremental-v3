@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('student_phone_number');
             $table->string('student_address');
             $table->string('student_education_level');
+            $table->string('student_profile_picture')->nullable();
             $table->timestamps();
         });
     }

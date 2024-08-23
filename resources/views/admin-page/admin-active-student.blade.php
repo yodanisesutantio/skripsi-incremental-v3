@@ -14,13 +14,13 @@
             {{-- Call every active student --}}
             @foreach ($activeEnrolledStudent->filter(fn($student) => $student->next_course_date) as $activeStudent)
             {{-- To open the course progress for each student --}}
-            <a href="{{ url('/admin-course-progress/' . $activeStudent->student->fullname . '/' . $activeStudent['id']) }}" class="w-full bg-custom-white-hover p-3 lg:p-5 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+            <a href="{{ url('/admin-course-progress/' . $activeStudent->student_real_name . '/' . $activeStudent['id']) }}" class="w-full bg-custom-white-hover p-3 lg:p-5 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center">
                         {{-- Student Profile Picture --}}
-                        @if ($activeStudent->student->hash_for_profile_picture)
-                        <img src="{{ asset('storage/profile_pictures/' . $activeStudent->student->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
+                        @if ($activeStudent->student_profile_picture)
+                        <img src="{{ asset('storage/enrollment/profile_pictures/' . $activeStudent->student_profile_picture) }}" alt="Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
                         {{-- Student Blank Profile Picture --}}
                         @else
                         <img src="{{ asset('img/blank-profile.webp') }}" alt="Blank Instructor Profile Picture" class="w-12 lg:w-16 h-12 lg:h-16 rounded-full object-cover object-center">
@@ -28,7 +28,7 @@
     
                         <div class="flex flex-col lg:gap-1">
                             {{-- Student Name --}}
-                            <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $activeStudent->student->fullname }}</h2>
+                            <h2 class="font-encode tracking-tight font-semibold text-[17px]/tight lg:text-xl/tight text-custom-dark">{{ $activeStudent->student_real_name }}</h2>
                             {{-- Instructor Name --}}
                             <p class="font-league text-[15px]/tight lg:text-lg/tight text-custom-grey">Instruktur : {{ $activeStudent->instructor->fullname }}</p>
                         </div>
