@@ -580,7 +580,7 @@ class adminController extends Controller
         ]);
     }
 
-    public function registrationForm($student_fullname, $enrollment_id) {
+    public function registrationForm($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
@@ -593,7 +593,7 @@ class adminController extends Controller
         ]);
     }
 
-    public function paymentVerification($student_fullname, $enrollment_id) {
+    public function paymentVerification($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
@@ -609,6 +609,19 @@ class adminController extends Controller
 
         return view('admin-page.admin-course-payment-verification', [
             'pageName' => "Verifikasi Bukti Pembayaran | ",
+            'enrollment' => $enrollment
+        ]);
+    }
+
+    public function newScheduleForm($student_real_name, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        return view('admin-page.admin-course-new-schedule', [
+            'pageName' => "Ajukan Jadwal Baru | ",
             'enrollment' => $enrollment
         ]);
     }

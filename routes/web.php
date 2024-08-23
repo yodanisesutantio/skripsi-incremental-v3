@@ -110,11 +110,13 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Active Student List
     Route::get('/admin-course/active-student-list', [adminController::class, 'activeStudentPage']);
     // Admin's View Course Progress Detail Page
-    Route::get('/admin-course-progress/{student_fullname}/{enrollment_id}', [adminController::class, 'courseProgressPage']);
+    Route::get('/admin-course-progress/{student_real_name}/{enrollment_id}', [adminController::class, 'courseProgressPage']);
     // Admin's Access Registration Form
-    Route::get('/admin-course/registration-form/{student_fullname}/{enrollment_id}', [adminController::class, 'registrationForm']);
+    Route::get('/admin-course/registration-form/{student_real_name}/{enrollment_id}', [adminController::class, 'registrationForm']);
+    // Admin's Propose New Schedule Form
+    Route::get('/admin-course/choose-new-course-schedule/{student_real_name}/{enrollment_id}', [adminController::class, 'newScheduleForm']);
     // Admin's Verify Payment 
-    Route::get('/admin-course/payment-verification/{student_fullname}/{enrollment_id}', [adminController::class, 'paymentVerification']);
+    Route::get('/admin-course/payment-verification/{student_real_name}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
     Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
     // Admin's Delete Active Student Logic Handler
