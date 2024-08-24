@@ -1,7 +1,7 @@
 @extends('layouts.relative')
 
 @section('content')
-    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
+    <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-3 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Ajukan Jadwal Kursus Baru</h1>
             <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Ubah jadwal <span class="font-semibold">{{ $enrollment->course->course_name }}</span> untuk siswa <span class="font-semibold">{{ $enrollment->student_real_name }}</span></p>
@@ -57,7 +57,7 @@
             </div>
 
             {{-- Tabs --}}
-            <ul class="lg:grid lg:grid-cols-3 items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+            <ul class="lg:grid lg:grid-cols-3 items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center px-6">
                 @foreach ($upcomingSchedule as $i => $nextCourseSchedule)
                     <li class="flex-shrink-0">
                         {{-- If this is the first item, make it in active state --}}
@@ -70,7 +70,7 @@
                             </div>
 
                             {{-- Horizontal Lines --}}
-                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-6"><div class="border-b-2 border-custom-dark"></div></div>
+                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
                         </button>
 
                         @else
@@ -82,7 +82,7 @@
                             </div>
 
                             {{-- Horizontal Lines --}}
-                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-6"><div class="border-b-2 border-custom-dark"></div></div>
+                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5"><div class="border-b-2 border-custom-dark"></div></div>
                         </button>
                         @endif
                     </li>
@@ -91,13 +91,32 @@
         </div>
 
         {{-- Schedule Forms --}}
-        <div class="swiper lg:col-span-2 lg:mt-7 lg:px-24">
-            <div class="swiper-wrapper">
-                @foreach ($upcomingSchedule as $i => $nextCourseSchedule)
-                    <div class="swiper-slide"></div>
-                @endforeach
+        <div class="lg:col-span-2 lg:mt-10 lg:px-24">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($upcomingSchedule as $i => $nextCourseSchedule)
+                        <div class="swiper-slide flex flex-col gap-5 overflow-y-auto px-6 pb-24 lg:pb-0">
+                            <h4 class="font-semibold font-encode text-xl/tight lg:text-2xl/tight text-custom-dark hidden lg:block">Pertemuan {{ $nextCourseSchedule->meeting_number }}</h4>
+                        </div>
+                    @endforeach
+    
+                </div>
+            </div>
+
+            {{-- Button Groups for Desktop View --}}
+            <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
+                <a href="{{ url('/admin-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
+                <button type="button" class="next-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Lanjut</button>
+                <button type="submit" id="submitNewSchedule" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 hidden">Ajukan</button>
             </div>
         </div>
+    </div>
+
+    {{-- Sticky Button Groups for Mobile --}}
+    <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
+        <a href="{{ url('/admin-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
+        <button type="button" class="next-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Lanjut</button>
+        <button type="submit" id="submitNewSchedule" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 hidden">Ajukan</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -110,10 +129,25 @@
             loop: false,
             spaceBetween: 40,
             autoHeight: true,
+            navigation: {
+                prevEl: '',
+                nextEl: '.next-button',
+            },
+
             on: {
                 slideChange: function() {
                     const currentIndex = swiper.activeIndex;
+                    const totalSlides = swiper.slides.length;
                     const buttons = $('.meeting_numberButton');
+
+                    // Toggle button visibility based on slide index
+                    if (currentIndex === totalSlides - 1) {
+                        $('.submit-button').removeClass('hidden'); // Show submit button
+                        $('.next-button').addClass('hidden'); // Hide next button
+                    } else {
+                        $('.submit-button').addClass('hidden'); // Hide submit button
+                        $('.next-button').removeClass('hidden'); // Show next button
+                    }
 
                     buttons.each(function() {
                         const buttonIndex = $(this).data('index');
