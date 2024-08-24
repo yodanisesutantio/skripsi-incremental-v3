@@ -31,7 +31,7 @@
                         </button>
 
                         @else
-                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 meeting_numberButton" data-index="0">
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 meeting_numberButton" data-index="{{ $i }}">
                             <div class="flex flex-col line-clamp-1">
                                 <p class="font-normal">Pertemuan</p>
                                 {{-- Meetings Number --}}
@@ -62,7 +62,7 @@
                     <li class="flex-shrink-0">
                         {{-- If this is the first item, make it in active state --}}
                         @if ($nextCourseSchedule === $upcomingSchedule->first())
-                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 meeting_numberButton" data-index="0">
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 meeting_numberButton" data-index="{{ $i }}">
                             <div class="flex flex-col line-clamp-1">
                                 <p class="font-normal">Pertemuan</p>
                                 {{-- Meetings Number --}}
@@ -74,7 +74,7 @@
                         </button>
 
                         @else
-                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 meeting_numberButton" data-index="0">
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 meeting_numberButton" data-index="{{ $i }}">
                             <div class="flex flex-col line-clamp-1">
                                 <p class="font-normal">Pertemuan</p>
                                 {{-- Meetings Number --}}
@@ -110,29 +110,29 @@
             loop: false,
             spaceBetween: 40,
             autoHeight: true,
-            // on: {
-            //     slideChange: function() {
-            //         const currentIndex = swiper.activeIndex;
-            //         const buttons = $('.days-button');
+            on: {
+                slideChange: function() {
+                    const currentIndex = swiper.activeIndex;
+                    const buttons = $('.meeting_numberButton');
 
-            //         buttons.each(function() {
-            //             const buttonIndex = $(this).data('index');
-            //             if (buttonIndex == currentIndex) {
-            //                 $(this).removeClass('bg-custom-disabled-light/40');
-            //                 $(this).addClass('bg-custom-white-hover border-2 border-custom-dark');
-            //             } else {
-            //                 $(this).removeClass('bg-custom-white-hover border-2 border-custom-dark');
-            //                 $(this).addClass('bg-custom-disabled-light/40');
-            //             }
-            //         });
-            //     },
-            //     init: function () {
-            //         this.update();
-            //     }
-            // }
+                    buttons.each(function() {
+                        const buttonIndex = $(this).data('index');
+                        if (buttonIndex == currentIndex) {
+                            $(this).removeClass('bg-custom-disabled-light/40');
+                            $(this).addClass('bg-custom-white-hover border-2 border-custom-dark');
+                        } else {
+                            $(this).removeClass('bg-custom-white-hover border-2 border-custom-dark');
+                            $(this).addClass('bg-custom-disabled-light/40');
+                        }
+                    });
+                },
+                init: function () {
+                    this.update();
+                }
+            }
         });
 
-        $(document).on('click', '.days-button', function() {
+        $(document).on('click', '.meeting_numberButton', function() {
             const index = $(this).data('index');
             swiper.slideTo(index);
         });
