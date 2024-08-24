@@ -630,6 +630,8 @@ class adminController extends Controller
 
         // dd($upcomingSchedule);
 
+        $i = 0;
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'enrollment' => $enrollment,
