@@ -620,9 +620,20 @@ class adminController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Get the current date and time
+        $now = now();
+
+        $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
+            // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
+            return $schedule->start_time >= $now; 
+        }); // Get all the future course meeting
+
+        // dd($upcomingSchedule);
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
-            'enrollment' => $enrollment
+            'enrollment' => $enrollment,
+            'upcomingSchedule' => $upcomingSchedule,
         ]);
     }
 }
