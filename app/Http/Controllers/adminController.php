@@ -235,6 +235,8 @@ class adminController extends Controller
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
             'availability' => 'required|boolean',
+            'open_hours_for_admin' => 'required|date_format:H:i',
+            'close_hours_for_admin' => 'required|date_format:H:i',
         ],
         
         // Validation Error Messages
@@ -249,12 +251,16 @@ class adminController extends Controller
             'description.max' => 'Deskripsi terlalu panjang',
             'phone_number.required' => 'Kolom ini harus diisi',
             'phone_number.max' => 'Nomor Terlalu Panjang',
+            'open_hours_for_admin.required' => 'Jam buka harus diisi',
+            'close_hours_for_admin.required' => 'Jam tutup harus diisi',
+            'open_hours_for_admin.date_format' => 'Format jam buka tidak valid',
+            'close_hours_for_admin.date_format' => 'Format jam tutup tidak valid',
         ]);
 
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability']));
+        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin']));
 
         // Check if users uploaded new profile picture
         $fileName = null;

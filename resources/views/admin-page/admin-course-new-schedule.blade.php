@@ -98,6 +98,8 @@
                         <div class="swiper-slide flex flex-col gap-5 overflow-y-auto px-6 pb-24 lg:pb-0">
                             <h4 class="font-semibold font-encode text-xl/tight lg:text-2xl/tight text-custom-dark hidden lg:block">Pertemuan {{ $nextCourseSchedule->meeting_number }}</h4>
 
+                            <h4 class="font-semibold font-encode text-xl/tight lg:text-2xl/tight text-custom-dark">Opsi 1 : input field</h4>
+
                             {{-- Input startCourseDate --}}
                             <div class="flex flex-col gap-1 mt-4">
                                 <label for="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih tanggal kursus<span class="text-custom-destructive">*</span></label>
@@ -111,14 +113,31 @@
                                 @enderror
                             </div>
 
+                            {{-- Open Hours --}}
                             <div class="flex flex-col gap-1 mt-4">
-                                <label for="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih jam kursus<span class="text-custom-destructive">*</span></label>
+                                <label for="open_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Kursus<span class="text-custom-destructive">*</span></label>
+                                <select name="open_hours_for_admin" id="open_hours_for_admin" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                    <option disabled selected>Pilih jam kursus</option>
+                                    <option value="08:00">08:00 - 09:30</option>
+                                    <option value="10:00">10:00 - 11:30</option>
+                                    <option value="10:00">13:30 - 15:00</option>
+                                    <option value="10:00">15:30 - 17:00</option>
+                                </select>
+                                @error('open_hours_for_admin')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <h4 class="font-semibold font-encode text-xl/tight lg:text-2xl/tight text-custom-dark mt-12">Opsi 2 : Custom Radio Button</h4>
+
+                            <div class="flex flex-col gap-1 mt-4">
+                                <label for="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</label>
 
                                 {{-- Tabs --}}
-                                <ul class="grid grid-cols-3 items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+                                <ul class="grid grid-cols-3 items-center gap-3 lg:gap-5 font-league text-custom-dark text-base/tight font-semibold text-center">
                                     <li class="flex-shrink-0">
                                         {{-- If this is the first item, make it in active state --}}
-                                        <button class="flex flex-col w-full h-[6.5rem] justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300 opacity-50 brightness-75">
                                             <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
                                                 {{-- Start Time Option --}}
                                                 <h3 class="text-lg/tight">08:00 - 09:30</h3>
@@ -128,6 +147,161 @@
                                                 <h3 class="text-lg/tight">08:00</h3>
                                                 <p class="font-normal text-base/tight">s/d</p>
                                                 <h3 class="text-lg/tight mt-1">09:30</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <div class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300 opacity-50 brightness-75">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">10:00 - 11:30</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">10:00</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">11:30</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </div>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">13:30 - 15:00</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">13:30</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">15:00</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">15:30 - 17:00</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">15:30</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">17:00</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="flex flex-col gap-1 mt-4">
+                                <label for="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">{{ \Carbon\Carbon::now()->addDays(1)->translatedFormat('l, d F Y') }}</label>
+
+                                {{-- Tabs --}}
+                                <ul class="grid grid-cols-3 items-center gap-3 lg:gap-5 font-league text-custom-dark text-base/tight font-semibold text-center">
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300 opacity-50 brightness-75">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">08:00 - 09:30</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">08:00</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">09:30</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">10:00 - 11:30</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">10:00</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">11:30</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300 opacity-50 brightness-75">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">13:30 - 15:00</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">13:30</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">15:00</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] lg:h-16 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">15:30 - 17:00</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">15:30</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">17:00</h3>
                                             </div>
 
                                             {{-- Horizontal Lines --}}
