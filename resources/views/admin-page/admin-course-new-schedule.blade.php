@@ -100,10 +100,10 @@
 
                             {{-- Input startCourseDate --}}
                             <div class="flex flex-col gap-1 mt-4">
-                                <label for="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih tanggal kursus<span class="text-custom-destructive">*</span></label>
+                                <label for="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Kursus<span class="text-custom-destructive">*</span></label>
 
                                 {{-- Input Date Column --}}
-                                <input type="date" name="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="px-3 py-3 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}') border-2 border-custom-destructive @enderror">
+                                <input type="date" name="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="px-3 py-3 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}') border-2 border-custom-destructive @enderror" value="{{ \Carbon\Carbon::parse($nextCourseSchedule->start_time)->format('Y-m-d') }}">
 
                                 {{-- Error in Validation Message --}}
                                 @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}')
