@@ -69,6 +69,15 @@ class adminController extends Controller
 
     // Admin-Course Page Controller
     public function coursePage() {
+        $user = auth()->user();
+
+        // Localize the date and time to Indonesian
+        Carbon::setLocale('id'); 
+
+        // Format the open and close hours to be written as 08:00
+        $formattedOpenHours = Carbon::parse($user->open_hours_for_admin)->locale('id')->translatedFormat('H:i');
+        $formattedCloseHours = Carbon::parse($user->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
+
         // Display all Course that are Active and is owned by the owner/admin
         $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
         // Display only Manual Course that are Active and is owned by the owner/admin
@@ -93,6 +102,8 @@ class adminController extends Controller
 
         return view('admin-page.admin-course', [
             "pageName" => "Halaman Kursus Anda | ",
+            "formattedOpenHours" => $formattedOpenHours,
+            "formattedCloseHours" => $formattedCloseHours,
             "course" => $course,
             "courseManual" => $courseManual,
             "courseMatic" => $courseMatic,

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('description')->nullable();
             $table->string('hash_for_profile_picture')->nullable();
+            $table->time('open_hours_for_admin')->nullable();
+            $table->time('close_hours_for_admin')->nullable();
             $table->boolean('availability')->default(true);
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();

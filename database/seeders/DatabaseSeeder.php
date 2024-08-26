@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '+6282145749388',
             'password' => bcrypt('sayapemilik'),
             'role' => "admin",
-            'description' => 'House of Surabaya Driving School'
+            'description' => 'House of Surabaya Driving School',
+            'open_hours_for_admin' => '08:00:00',
+            'close_hours_for_admin' => '17:00:00',
         ]);
         User::create([
             'fullname' => 'Kursus Mengemudi Magetan',
@@ -36,7 +38,9 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '+628310231231',
             'password' => bcrypt('magetan'),
             'role' => "admin",
-            'description' => 'House of Magetan Driving School'
+            'description' => 'House of Magetan Driving School',
+            'open_hours_for_admin' => '09:00:00',
+            'close_hours_for_admin' => '20:00:00',
         ]);
         User::create([
             'fullname' => 'Instruktur A',

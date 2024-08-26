@@ -97,6 +97,48 @@
                     @foreach ($upcomingSchedule as $i => $nextCourseSchedule)
                         <div class="swiper-slide flex flex-col gap-5 overflow-y-auto px-6 pb-24 lg:pb-0">
                             <h4 class="font-semibold font-encode text-xl/tight lg:text-2xl/tight text-custom-dark hidden lg:block">Pertemuan {{ $nextCourseSchedule->meeting_number }}</h4>
+
+                            {{-- Input startCourseDate --}}
+                            <div class="flex flex-col gap-1 mt-4">
+                                <label for="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih tanggal kursus<span class="text-custom-destructive">*</span></label>
+
+                                {{-- Input Date Column --}}
+                                <input type="date" name="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}') border-2 border-custom-destructive @enderror">
+
+                                {{-- Error in Validation Message --}}
+                                @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="flex flex-col gap-1 mt-4">
+                                <label for="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih jam kursus<span class="text-custom-destructive">*</span></label>
+
+                                {{-- Tabs --}}
+                                <ul class="grid grid-cols-3 items-center gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+                                    <li class="flex-shrink-0">
+                                        {{-- If this is the first item, make it in active state --}}
+                                        <button class="flex flex-col w-full h-[6.5rem] justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover rounded-lg duration-300">
+                                            <div class="lg:flex lg:flex-col gap-2 line-clamp-1 hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">08:00 - 09:30</h3>
+                                            </div>
+                                            <div class="flex flex-col gap-2 line-clamp-1 lg:hidden">
+                                                {{-- Start Time Option --}}
+                                                <h3 class="text-lg/tight">08:00</h3>
+                                                <p class="font-normal text-base/tight">s/d</p>
+                                                <h3 class="text-lg/tight mt-1">09:30</h3>
+                                            </div>
+
+                                            {{-- Horizontal Lines --}}
+                                            <div class="hidden mt-2.5 lg:mt-3 mb-0.5 w-full px-8"><div class="border-b-2 border-custom-dark"></div></div>
+
+                                            <input type="hidden" name="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="08:00:00">
+                                            <input type="hidden" name="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="endCourseTime-number-{{ $nextCourseSchedule->meeting_number }}" value="09:30:00">
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     @endforeach
     

@@ -20,14 +20,8 @@
                     {{-- Admin Fullname --}}
                     <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-2xl/tight lg:text-4xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
 
-                    {{-- Show Admin Description if exist --}}
-                    @if (auth()->user()->description)
-                    <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-2xl/tight text-custom-grey">{{ auth()->user()->description }}</p>  
-                    
-                    {{-- If non exist, show this instead --}}
-                    @else
-                    <i class="font-league font-normal text-center lg:text-left text-custom-grey/40 text-lg/tight lg:text-2xl/tight">Belum ada deskripsi</i>    
-                    @endif
+                    {{-- Show Admin Open and Close Hours --}}
+                    <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-2xl/tight text-custom-grey">Jam Buka : {{ $formattedOpenHours }} - {{ $formattedCloseHours }} WIB</p>
                 </div>
                 
                 {{-- For Mobile Screen --}}
