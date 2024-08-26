@@ -103,7 +103,7 @@
                                 <label for="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih tanggal kursus<span class="text-custom-destructive">*</span></label>
 
                                 {{-- Input Date Column --}}
-                                <input type="date" name="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}') border-2 border-custom-destructive @enderror">
+                                <input type="date" name="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" id="startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}" class="px-3 py-3 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}') border-2 border-custom-destructive @enderror">
 
                                 {{-- Error in Validation Message --}}
                                 @error('startCourseDate-number-{{ $nextCourseSchedule->meeting_number }}')
@@ -114,7 +114,7 @@
                             {{-- Open Hours --}}
                             <div class="flex flex-col gap-1 mt-4">
                                 <label for="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Kursus<span class="text-custom-destructive">*</span></label>
-                                <select name="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                <select name="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" id="courseTime-number-{{ $nextCourseSchedule->meeting_number }}" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
                                     <option disabled selected>Pilih jam kursus</option>
                                     <option value="08:00">08:00 - 09:30</option>
                                     <option value="10:00">10:00 - 11:30</option>
@@ -130,9 +130,62 @@
                             <div class="flex flex-col gap-1 mt-8 lg:mt-10 mb-4">
                                 <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Ubah Instruktur?</h2>
                             </div>
+
+                            <ul class="grid w-full gap-2 lg:gap-5 grid-cols-2 lg:grid-cols-3">
+                                @foreach ($instructors as $myInstructor)
+                                {{-- Display all available Instructors, make it clickable --}}
+                                @if ($myInstructor['availability'] === 1)
+                                <li class="flex flex-col justify-center items-center">
+                                    <label for="instructor_{{ $myInstructor['id'] }}" class="flex flex-col items-center gap-2 p-2 w-full flex-grow cursor-pointer lg:hover:bg-custom-dark/10 rounded duration-300" data-id="{{ $myInstructor['id'] }}">
+                                        <div class="profile-picture-wrapper relative">
+                                            {{-- If Instructor Profile Picture Exist, show this --}}
+                                            @if ($myInstructor['hash_for_profile_picture'])
+                                            <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+        
+                                            {{-- If Instructor Profile Picture not exist, show this instead --}}
+                                            @else
+                                            <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center" data-id="{{ $myInstructor['id'] }}">
+                                            @endif
+        
+                                            {{-- Checkmark to differentiate, which instructor is chosen, and which instructor is not --}}
+                                            <span class="flex items-center justify-center bg-custom-green/80 checkmark hidden w-full h-full absolute top-0 left-0 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#F6F6F6" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
+                                            </span>
+                                        </div>
+        
+                                        {{-- Instructor's Full Name --}}
+                                        <h4 class="font-encode tracking-tight font-semibold text-base/tight lg:text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                    </label>
+                                    <input type="radio" name="instructor_id" value="{{ $myInstructor['id'] }}" class="select-instructor hidden" id="instructor_{{ $myInstructor['id'] }}" {{ $myInstructor['id'] === $enrollment->instructor_id ? 'checked' : '' }}>
+                                </li>
+        
+                                {{-- Display All Unavailable Instructors, make it unclickable --}}
+                                @else
+                                <li class="flex flex-col justify-center items-center">
+                                    <div class="flex flex-col items-center gap-2 p-2 w-full flex-grow opacity-30">
+                                        {{-- If Instructor Profile Picture Exist, show this --}}
+                                        @if ($myInstructor['hash_for_profile_picture'])
+                                        <img src="{{ asset('storage/profile_pictures/' . $myInstructor->hash_for_profile_picture) }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
+        
+                                        {{-- If Instructor Profile Picture not exist, show this instead --}}
+                                        @else
+                                        <img src="{{ asset('img/blank-profile.webp') }}" alt="" class="w-24 h-24 rounded-full object-cover object-center cantChooseInstructor" data-name="{{ $myInstructor['fullname'] }}">
+                                        @endif
+        
+                                        {{-- Instructor's Full Name --}}
+                                        <h4 class="font-encode tracking-tight font-semibold text-base/tight lg:text-lg/tight text-center line-clamp-2">{{ $myInstructor['fullname'] }}</h4>
+                                    </div>
+                                </li>
+                                @endif
+                            @endforeach
+                            </ul>
+                            
+                            {{-- Error in Validation Message --}}
+                            @error('instructor_ids')
+                                <span class="text-custom-destructive">{{ $message }}</span>
+                            @enderror
                         </div>
-                    @endforeach
-    
+                    @endforeach    
                 </div>
             </div>
 
@@ -199,6 +252,12 @@
             }
         });
 
+        const totalSlides = swiper.slides.length;
+        if (totalSlides === 1) {
+            $('.submit-button').removeClass('hidden'); // Show submit button
+            $('.next-button').addClass('hidden'); // Hide next button
+        }
+
         $(document).on('click', '.meeting_numberButton', function() {
             const index = $(this).data('index');
             swiper.slideTo(index);
@@ -215,17 +274,17 @@
         });
 
         // Checkboxes and checkmarks
-        const checkboxes = document.querySelectorAll('.instructor-checkbox');
+        const instructorRadio = document.querySelectorAll('.select-instructor');
 
-        checkboxes.forEach(checkbox => {
-            // Show checkmark if checkbox is checked on page load
-            if (checkbox.checked) {
-                const checkmark = checkbox.closest('li').querySelector('.checkmark');
+        instructorRadio.forEach(radio => {
+            // Show checkmark if radio is checked on page load
+            if (radio.checked) {
+                const checkmark = radio.closest('li').querySelector('.checkmark');
                 checkmark.classList.remove('hidden');
             }
 
             // Add event listener for change event
-            checkbox.addEventListener('change', function() {
+            radio.addEventListener('change', function() {
                 const checkmark = this.closest('li').querySelector('.checkmark');
                 if (this.checked) {
                     checkmark.classList.remove('hidden'); // Show checkmark
@@ -235,20 +294,20 @@
             });
         });
 
-        // Check the checkbox when the label is clicked
+        // Check the radio when the label is clicked
         const labels = document.querySelectorAll('label[data-id]');
         labels.forEach(label => {
             label.addEventListener('click', function() {
                 event.preventDefault();
                 const id = this.dataset.id;
-                const checkbox = document.getElementById('instructor_' + id);
+                const radio = document.getElementById('instructor_' + id);
                 const checkmark = this.querySelector('.checkmark');
 
-                // Toggle checkbox state
-                checkbox.checked = !checkbox.checked;
+                // Toggle radio state
+                radio.checked = !radio.checked;
 
                 // Change image to green checkmark with a timeout
-                if (checkbox.checked) {
+                if (radio.checked) {
                     checkmark.classList.remove('hidden'); // Show the checkmark after a delay
                 } else {
                     checkmark.classList.add('hidden'); // Hide the checkmark immediately

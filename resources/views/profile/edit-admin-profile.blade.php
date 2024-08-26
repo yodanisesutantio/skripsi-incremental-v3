@@ -71,7 +71,7 @@
                                 <div class="flex flex-col gap-2">
                                     {{-- Dropdown --}}
                                     <label for="availability" class="text-custom-grey text-lg/tight lg:text-xl/tight font-league">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
-                                    <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                    <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
                                         <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
                                         <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
                                     </select>
@@ -123,7 +123,7 @@
                                 {{-- Input Full Name --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="fullname" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
-                                    <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
+                                    <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
                                     @error('fullname')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
@@ -131,7 +131,7 @@
                                 {{-- Input Username --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="username" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
-                                    <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->username }}">
+                                    <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->username }}">
                                     @error('username')
                                         @if ($message === 'The username has already been taken.')
                                             <span class="text-custom-destructive">{{ $message }}</span>    
@@ -143,7 +143,7 @@
                                 {{-- Input Description --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi (opsional)</label>
-                                    <textarea name="description" id="description" rows="5" placeholder="Anda bisa mengisi kolom ini dengan Alamat atau Visi kursus" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
+                                    <textarea name="description" id="description" rows="5" placeholder="Anda bisa mengisi kolom ini dengan Alamat atau Visi kursus" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
                                     @error('description')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
@@ -151,7 +151,7 @@
                                 {{-- Input Phone Number --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="phone_number" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
-                                    <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}" oninput="deleteAnyString(this)">
+                                    <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}" oninput="deleteAnyString(this)">
                                     @error('phone_number')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
@@ -161,7 +161,7 @@
                                     {{-- Open Hours --}}
                                     <div class="flex flex-col gap-2">
                                         <label for="open_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Buka<span class="text-custom-destructive">*</span></label>
-                                        <input type="time" name="open_hours_for_admin" id="open_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('open_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->open_hours_for_admin }}">
+                                        <input type="time" name="open_hours_for_admin" id="open_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('open_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->open_hours_for_admin }}">
                                         @error('open_hours_for_admin')
                                             <span class="text-custom-destructive">{{ $message }}</span>
                                         @enderror
@@ -170,7 +170,7 @@
                                     {{-- Close Hours --}}
                                     <div class="flex flex-col gap-2">
                                         <label for="close_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Tutup<span class="text-custom-destructive">*</span></label>
-                                        <input type="time" name="close_hours_for_admin" id="close_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('close_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->close_hours_for_admin }}">
+                                        <input type="time" name="close_hours_for_admin" id="close_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('close_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->close_hours_for_admin }}">
                                         @error('close_hours_for_admin')
                                             <span class="text-custom-destructive">{{ $message }}</span>
                                         @enderror
@@ -209,7 +209,7 @@
                                                 <div class="flex flex-col gap-2">
                                                     {{-- Dropdown --}}
                                                     <label for="payment_methods[{{ $index }}][is_payment_active]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
-                                                    <select name="payment_methods[{{ $index }}][is_payment_active]" id="payment_methods[{{ $index }}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                                    <select name="payment_methods[{{ $index }}][is_payment_active]" id="payment_methods[{{ $index }}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
                                                         <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
                                                         <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
                                                     </select>
@@ -219,7 +219,7 @@
                                                 <div class="flex flex-col gap-2">
                                                     {{-- Dropdown --}}
                                                     <label for="payment_methods[{{ $index }}][payment_vendor]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <select name="payment_methods[{{ $index }}][payment_vendor]" id="payment_methods[{{ $index }}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
+                                                    <select name="payment_methods[{{ $index }}][payment_vendor]" id="payment_methods[{{ $index }}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
                                                         <option value="" disabled>-- Metode Pembayaran --</option>
                                                         <option value="BCA" {{ $methodOfPayment['payment_vendor'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
                                                         <option value="BNI" {{ $methodOfPayment['payment_vendor'] === "BNI" ? 'selected' : '' }}>Bank BNI</option>
@@ -238,7 +238,7 @@
                                                 {{-- Input Receiver Name --}}
                                                 <div class="flex flex-col gap-2">
                                                     <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
+                                                    <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
                                                     @error('payment_methods.' . $index . '.payment_receiver_name')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
                                                     @enderror
@@ -247,7 +247,7 @@
                                                 {{-- Input Payment Address --}}
                                                 <div class="flex flex-col gap-2">
                                                     <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
+                                                    <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
                                                     @error('payment_methods.' . $index . '.payment_address')
                                                         <span class="text-custom-destructive">{{ $message }}</span>
                                                     @enderror
@@ -276,7 +276,7 @@
                                 <div class="flex flex-col gap-2">
                                     <label for="password" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Masukkan Password Baru</label>
                                     <div class="relative flex justify-end items-center">
-                                        <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
+                                        <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                                         <div class="eyeIcon absolute mr-3" onclick="showHidePass()">
                                             <svg id="showPass" class="cursor-pointer" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#495D6477" d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"/><path fill="#495D6477" fill-rule="evenodd" d="M2 12c0 1.64.425 2.191 1.275 3.296C4.972 17.5 7.818 20 12 20c4.182 0 7.028-2.5 8.725-4.704C21.575 14.192 22 13.639 22 12c0-1.64-.425-2.191-1.275-3.296C19.028 6.5 16.182 4 12 4C7.818 4 4.972 6.5 3.275 8.704C2.425 9.81 2 10.361 2 12m10-3.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5" clip-rule="evenodd"/></svg>
         
@@ -292,7 +292,7 @@
                                 <div class="flex flex-col gap-2">
                                     <label for="password_confirmation" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Ketik Ulang Password Baru`</label>
                                     <div class="relative flex justify-end items-center">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                                         <div class="eyeIcon absolute mr-3" onclick="showHideConfirmPass()">
                                             <svg id="showConfirmPass" class="cursor-pointer" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#495D6477" d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"/><path fill="#495D6477" fill-rule="evenodd" d="M2 12c0 1.64.425 2.191 1.275 3.296C4.972 17.5 7.818 20 12 20c4.182 0 7.028-2.5 8.725-4.704C21.575 14.192 22 13.639 22 12c0-1.64-.425-2.191-1.275-3.296C19.028 6.5 16.182 4 12 4C7.818 4 4.972 6.5 3.275 8.704C2.425 9.81 2 10.361 2 12m10-3.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5" clip-rule="evenodd"/></svg>
         

@@ -53,7 +53,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="startCertificateDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Awal Berlaku<span class="text-custom-destructive">*</span></label>
                         {{-- Input Date Column --}}
-                        <input type="date" name="startCertificateDate" id="startCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('startCertificateDate') }}">
+                        <input type="date" name="startCertificateDate" id="startCertificateDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('startCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('startCertificateDate') }}">
                         {{-- Error in Validation Message --}}
                         @error('startCertificateDate')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -64,7 +64,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="endCertificateDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Akhir Berlaku<span class="text-custom-destructive">*</span></label>
                         {{-- Input Date Column --}}
-                        <input type="date" name="endCertificateDate" id="endCertificateDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('endCertificateDate') }}">
+                        <input type="date" name="endCertificateDate" id="endCertificateDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('endCertificateDate') border-2 border-custom-destructive @enderror" value="{{ old('endCertificateDate') }}">
                         {{-- Error in Validation Message --}}
                         @error('endCertificateDate')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -103,7 +103,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="fullname" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Instruktur Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Input Text Column --}}
-                        <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ old('fullname') }}">
+                        <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ old('fullname') }}">
                         {{-- Error in Validation Message --}}
                         @error('fullname')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -114,7 +114,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="username" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Username<span class="text-custom-destructive">*</span></label>
                         {{-- Input Text Column --}}
-                        <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
+                        <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                         {{-- Error in Validation Message --}}
                         @error('username')
                             @if ($message === 'The username has already been taken.')
@@ -129,7 +129,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="age" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Usia Instruktur (opsional)</label>
                         {{-- Input Number Column --}}
-                        <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
+                        <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
                         {{-- Error in Validation Message --}}
                         @error('age')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -140,7 +140,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi (opsional)</label>
                         {{-- Input Textarea Column --}}
-                        <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" rows="5" placeholder="Buat personal anda menarik" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ old('description') }}</textarea>
                         {{-- Error in Validation Message --}}
                         @error('description')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -151,7 +151,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="phone_number" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
                         {{-- Input Number Column and added a function to make users cant input any alphabetical characters. Just Numbers --}}
-                        <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ old('phone_number') }}" oninput="deleteAnyString(this)">
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ old('phone_number') }}" oninput="deleteAnyString(this)">
                         {{-- Error in Validation Message --}}
                         @error('phone_number')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -163,7 +163,7 @@
                         <label for="password" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Masukkan Password Baru<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
                             {{-- Input Password Column --}}
-                            <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
+                            <input type="password" name="password" id="password" placeholder="Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHidePass()">
 
                                 {{-- Closed Eyes Icon --}}
@@ -184,7 +184,7 @@
                         <label for="password_confirmation" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Ketik Ulang Password Baru<span class="text-custom-destructive">*</span></label>
                         <div class="relative flex justify-end items-center">
                             {{-- Input Password Column --}}
-                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
+                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Ketik Ulang Password Baru" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror">
                             <div class="eyeIcon absolute mr-3" onclick="showHideConfirmPass()">
                                 {{-- Closed Eyes Icon --}}
                                 <svg id="showConfirmPass" class="cursor-pointer" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#495D6477" d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"/><path fill="#495D6477" fill-rule="evenodd" d="M2 12c0 1.64.425 2.191 1.275 3.296C4.972 17.5 7.818 20 12 20c4.182 0 7.028-2.5 8.725-4.704C21.575 14.192 22 13.639 22 12c0-1.64-.425-2.191-1.275-3.296C19.028 6.5 16.182 4 12 4C7.818 4 4.972 6.5 3.275 8.704C2.425 9.81 2 10.361 2 12m10-3.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5" clip-rule="evenodd"/></svg>

@@ -63,7 +63,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_name" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Kelas Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Input Text Column --}}
-                        <input type="text" name="course_name" id="course_name" placeholder="Nama Kelas Kursus Baru" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_name') border-2 border-custom-destructive @enderror" value="{{ $course['course_name'] }}">
+                        <input type="text" name="course_name" id="course_name" placeholder="Nama Kelas Kursus Baru" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_name') border-2 border-custom-destructive @enderror" value="{{ $course['course_name'] }}">
                         {{-- Error in Validation Message --}}
                         @error('course_name')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -74,7 +74,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi Kelas<span class="text-custom-destructive">*</span></label>
                         {{-- Input Textarea Column --}}
-                        <textarea name="course_description" id="course_description" rows="4" placeholder="Tuliskan Deskripsi Kelas Kursus" class="px-4 py-3.5 h-32 font-league font-medium text-lg/snug text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('course_description') border-2 border-custom-destructive @enderror">{{ $course['course_description'] }}</textarea>
+                        <textarea name="course_description" id="course_description" rows="4" placeholder="Tuliskan Deskripsi Kelas Kursus" class="px-4 py-3.5 h-32 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('course_description') border-2 border-custom-destructive @enderror">{{ $course['course_description'] }}</textarea>
                         {{-- Error in Validation Message --}}
                         @error('course_description')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -84,7 +84,7 @@
                     {{-- Input Course_Quota --}}
                     <div class="flex flex-col gap-1">
                         <label for="course_quota" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Kuota Kelas<span class="text-custom-destructive">*</span></label>
-                        <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror" value="{{ $course['course_quota'] }}">
+                        <input type="number" min="1" max="999" name="course_quota" id="course_quota" placeholder="Kuota Minimum adalah 1 Siswa" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_quota') border-2 border-custom-destructive @enderror" value="{{ $course['course_quota'] }}">
                         {{-- Error in Validation Message --}}
                         @error('course_quota')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -95,7 +95,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_length" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jumlah Pertemuan<span class="text-custom-destructive">*</span></label>
                         {{-- Input Number Column --}}
-                        <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror" value="{{ $course['course_length'] }}">
+                        <input type="number" min="1" max="20" name="course_length" id="course_length" placeholder="Total Jumlah Pertemuan" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_length') border-2 border-custom-destructive @enderror" value="{{ $course['course_length'] }}">
                         {{-- Error in Validation Message --}}
                         @error('course_length')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -106,7 +106,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_duration" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Durasi Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Dropdown --}}
-                        <select name="course_duration" id="course_duration" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_duration') border-2 border-custom-destructive @enderror">
+                        <select name="course_duration" id="course_duration" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_duration') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Durasi Kursus dalam satuan menit --</option>
                             <option value="45" {{ (string)$course['course_duration'] === "45" ? 'selected' : '' }}>45 Menit</option>
                             <option value="60" {{ (string)$course['course_duration'] === "60" ? 'selected' : '' }}>60 Menit</option>
@@ -130,7 +130,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_price" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Harga Kelas<span class="text-custom-destructive">*</span></label>
                         {{-- Input Text Column, course_price is special, since we need to display the currency so it is readable. Instead of 1000000, users will see Rp. 1.000.000,- --}}
-                        <input type="text" name="course_price" id="course_price" placeholder="Harga Kelas" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('course_price') border-2 border-custom-destructive @enderror" value="{{ formatRupiah($course['course_price']) }}" oninput="formatCurrency(this)">
+                        <input type="text" name="course_price" id="course_price" placeholder="Harga Kelas" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_price') border-2 border-custom-destructive @enderror" value="{{ formatRupiah($course['course_price']) }}" oninput="formatCurrency(this)">
                         {{-- Error in Validation Message --}}
                         @error('course_price')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -147,7 +147,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="car_type" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jenis Transmisi Mobil<span class="text-custom-destructive">*</span></label>
                         {{-- Dropdown --}}
-                        <select name="car_type" id="car_type" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('car_type') border-2 border-custom-destructive @enderror">
+                        <select name="car_type" id="car_type" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('car_type') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Jenis Transmisi Mobil --</option>
                             <option value="Manual" {{ $course['car_type'] === "Manual" ? 'selected' : '' }}>Manual</option>
                             <option value="Automatic" {{ $course['car_type'] === "Automatic" ? 'selected' : '' }}>Matic</option>
@@ -163,7 +163,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="can_use_own_car" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Siswa Bisa Menggunakan Mobil Sendiri?<span class="text-custom-destructive">*</span></label>
                         {{-- Dropdown --}}
-                        <select name="can_use_own_car" id="can_use_own_car" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('can_use_own_car') border-2 border-custom-destructive @enderror">
+                        <select name="can_use_own_car" id="can_use_own_car" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('can_use_own_car') border-2 border-custom-destructive @enderror">
                             <option disabled>-- Bisa Pakai Mobil Sendiri --</option>
                             <option value="0" {{ $course['can_use_own_car'] === "0" ? 'selected' : '' }}>Tidak Bisa</option>
                             <option value="1" {{ $course['can_use_own_car'] === "1" ? 'selected' : '' }}>Bisa</option>

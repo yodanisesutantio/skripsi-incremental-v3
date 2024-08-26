@@ -51,7 +51,7 @@
                 <div class="flex flex-col gap-1 mt-8">
                     <label for="startLicenseDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Awal Berlaku<span class="text-custom-destructive">*</span></label>
                     {{-- Input Date Column --}}
-                    <input type="date" name="startLicenseDate" id="startLicenseDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('startLicenseDate') border-2 border-custom-destructive @enderror">
+                    <input type="date" name="startLicenseDate" id="startLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('startLicenseDate') border-2 border-custom-destructive @enderror">
                     {{-- Error in Validation Message --}}
                     @error('startLicenseDate')
                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -62,7 +62,7 @@
                 <div class="flex flex-col gap-1 mt-8">
                     <label for="endLicenseDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Akhir Berlaku<span class="text-custom-destructive">*</span></label>
                     {{-- Input Date Column --}}
-                    <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror">
+                    <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror">
                     {{-- Error in Validation Message --}}
                     @error('endLicenseDate')
                         <span class="text-custom-destructive">{{ $message }}</span>
