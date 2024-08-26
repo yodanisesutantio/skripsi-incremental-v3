@@ -633,6 +633,9 @@ class adminController extends Controller
     public function newScheduleForm($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
+        // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
+
+        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -652,6 +655,7 @@ class adminController extends Controller
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'enrollment' => $enrollment,
+            'instructors' => $instructors,
             'upcomingSchedule' => $upcomingSchedule,
         ]);
     }

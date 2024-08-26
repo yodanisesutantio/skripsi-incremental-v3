@@ -64,6 +64,8 @@ class CourseController extends Controller
             'course_price' => ['required', 'min:11', 'max:255'],
             'car_type' => ['required', 'min:1'],
             'can_use_own_car' => ['required', 'boolean'],
+            'instructor_ids' => 'required|array|min:1',
+            'instructor_ids.*' => 'exists:users,id',
         ],
         
         // Validation Error Messages
@@ -89,6 +91,7 @@ class CourseController extends Controller
             'car_type.required' => 'Anda harus memilih salah satu opsi',
             'car_type.min' => 'Anda harus memilih salah satu opsi',
             'can_use_own_car.required' => 'Anda harus memilih salah satu opsi',
+            'instructor_ids.required' => 'Anda harus memilih salah satu instruktur',
         ]);
 
         // Remove any non-numerical characters
@@ -158,6 +161,8 @@ class CourseController extends Controller
             'course_price' => ['required', 'min:11', 'max:255'],
             'car_type' => ['required', 'min:1'],
             'can_use_own_car' => ['required', 'boolean'],
+            'instructor_ids' => 'required|array|min:1',
+            'instructor_ids.*' => 'exists:users,id',
         ],
         
         // Validation Error Messages
@@ -183,6 +188,7 @@ class CourseController extends Controller
             'car_type.required' => 'Anda harus memilih salah satu opsi',
             'car_type.min' => 'Anda harus memilih salah satu opsi',
             'can_use_own_car.required' => 'Anda harus memilih salah satu opsi',
+            'instructor_ids.required' => 'Anda harus memilih salah satu instruktur',
         ]);
 
         // Remove any non-numerical characters

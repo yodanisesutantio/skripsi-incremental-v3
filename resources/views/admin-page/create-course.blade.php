@@ -167,7 +167,7 @@
                 </div>
 
                 <div class="flex flex-col gap-1">
-                    <label for="course_instructors">
+                    <label for="instructor_ids">
                         <ul class="grid w-full gap-2 lg:gap-5 grid-cols-2 lg:grid-cols-3">
                         @foreach ($instructors as $myInstructor)
                             {{-- Display all available Instructors, make it clickable --}}
@@ -219,7 +219,7 @@
                     </label>
 
                     {{-- Error in Validation Message --}}
-                    @error('course_instructors')
+                    @error('instructor_ids')
                         <span class="text-custom-destructive">{{ $message }}</span>
                     @enderror
                 </div>
@@ -341,7 +341,7 @@
             toastr.options.timeOut = 4000;
             toastr.options.closeButton = true;
             toastr.options.progressBar = true;
-            toastr.warning('Pastikan Sertifikat Instruktur ' + instructorName + ' sudah divalidasi!');
+            toastr.warning(instructorName + ' tidak bisa dipilih. Pastikan Instruktur sudah aktif!');
         });
 
         // Add Shadow to Form Header
