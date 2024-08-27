@@ -637,9 +637,14 @@ class adminController extends Controller
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
 
+        $courseSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)
+            ->orderBy('start_time', 'asc')
+            ->get();
+
         return view('admin-page.admin-course-schedule', [
             'pageName' => "Jadwal Kursus | ",
             'enrollment' => $enrollment,
+            'courseSchedule' => $courseSchedule,
         ]);
     }
 

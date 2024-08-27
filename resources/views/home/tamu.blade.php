@@ -18,7 +18,7 @@
     {{-- Class Offered Recommendation --}}
     <div class="flex flex-row justify-between items-center mb-4">
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Rekomendasi Kelas</h2>
-        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight hover:underline">Lihat Semua</a>
+        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Class Offered Wrapper --}}
     <div class="relative flex items-center mb-5 lg:mb-11 cursor-pointer" id="classOfferedContainer">
@@ -28,7 +28,7 @@
     {{-- Course Recommendation --}}
     <div class="flex flex-row justify-between items-center mt-8 mb-4">
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Terdekat</h2>
-        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight hover:underline">Lihat Semua</a>
+        <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Course Recommendation Wrapper --}}
     <div class="relative flex items-center mb-4 lg:mb-8" id="courseRecommendationContainer">
