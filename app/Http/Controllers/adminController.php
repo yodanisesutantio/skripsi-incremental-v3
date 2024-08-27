@@ -631,26 +631,7 @@ class adminController extends Controller
     }
 
     public function newScheduleForm($student_real_name, $enrollment_id) {
-        // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
-        // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
-
-        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
-
-        // Manipulate and localize this page to Indonesian 
-        Carbon::setLocale('id');
-
-        // Get the current date and time
-        $now = now();
-
-        $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
-            // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
-            return $schedule->start_time >= $now; 
-        }); // Get all the future course meeting
-
-        // dd($upcomingSchedule);
-
-        $i = 0;
+        
 
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
