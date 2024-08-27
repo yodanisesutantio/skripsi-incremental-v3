@@ -618,7 +618,7 @@ class adminController extends Controller
             // Generate a flash message via Toastr to let user know that the process is successful
             session()->flash('info', 'Siswa belum mengunggah bukti pembayaran. Silahkan coba lagi nanti!');
             // Redirect owner/admin to List of Course Page
-            return redirect(url('/admin-course-progress/' . $student_fullname . '/' . $enrollment_id));
+            return redirect(url('/admin-course-progress/' . $student_real_name . '/' . $enrollment_id));
         }
 
         // Manipulate and localize this page to Indonesian 
@@ -631,10 +631,15 @@ class adminController extends Controller
     }
 
     public function viewCurrentSchedule($student_real_name, $enrollment_id) {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
 
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
 
         return view('admin-page.admin-course-schedule', [
             'pageName' => "Jadwal Kursus | ",
+            'enrollment' => $enrollment,
         ]);
     }
 
@@ -643,9 +648,6 @@ class adminController extends Controller
 
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
-            'enrollment' => $enrollment,
-            'instructors' => $instructors,
-            'upcomingSchedule' => $upcomingSchedule,
         ]);
     }
 }
