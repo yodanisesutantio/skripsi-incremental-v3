@@ -630,7 +630,15 @@ class adminController extends Controller
         ]);
     }
 
-    public function newScheduleForm($student_real_name, $enrollment_id) {
+    public function viewCurrentSchedule($student_real_name, $enrollment_id) {
+
+
+        return view('admin-page.admin-course-schedule', [
+            'pageName' => "Jadwal Kursus | ",
+        ]);
+    }
+
+    public function newScheduleForm() {
         
 
         return view('admin-page.admin-course-new-schedule', [

@@ -18,7 +18,7 @@
             {{-- Menu Button Groups --}}
             <div class="flex flex-col font-league text-custom-white gap-3 my-5 lg:my-8">
                 {{-- Propose New Schedule Button --}}
-                <a href="{{ url('/admin-course/choose-new-course-schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-24 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}');">
+                <a href="{{ url('/admin-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-24 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}');">
                     {{-- Overlays --}}
                     <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                         <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Jadwal Kursus</h2>
