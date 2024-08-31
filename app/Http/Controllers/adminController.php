@@ -571,7 +571,10 @@ class adminController extends Controller
     // Admin-Course-Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
 
         // Get the current date and time
         $now = now();
@@ -584,16 +587,16 @@ class adminController extends Controller
         // Get the current meeting number if an upcoming schedule exists
         $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
+        // Format the schedule dates
+        foreach ($enrollment->schedule as $schedule) {
+            $schedule->formatted_date = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('l, d F Y');
+            $schedule->formatted_time = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('H:i');
+        }
+
         return view('admin-page.admin-course-progress', [
             'pageName' => "Detail Progress Kursus Siswa | ",
             'enrollment' => $enrollment,
             'currentMeetingNumber' => $currentMeetingNumber,
-        ]);
-    }
-
-    public function courseProgressPage2() {
-        return view('user-course-details', [
-            'pageName' => "Detail Progress Kursus Siswa | "
         ]);
     }
 
@@ -627,24 +630,6 @@ class adminController extends Controller
         return view('admin-page.admin-course-payment-verification', [
             'pageName' => "Verifikasi Bukti Pembayaran | ",
             'enrollment' => $enrollment
-        ]);
-    }
-
-    public function viewCurrentSchedule($student_real_name, $enrollment_id) {
-        // Manipulate and localize this page to Indonesian 
-        Carbon::setLocale('id');
-
-        // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
-
-        $courseSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)
-            ->orderBy('start_time', 'asc')
-            ->get();
-
-        return view('admin-page.admin-course-schedule', [
-            'pageName' => "Jadwal Kursus | ",
-            'enrollment' => $enrollment,
-            'courseSchedule' => $courseSchedule,
         ]);
     }
 
