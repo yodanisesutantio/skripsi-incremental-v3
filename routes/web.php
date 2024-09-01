@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\generalPage;
-use App\Http\Controllers\loginController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminController;
-use App\Http\Controllers\instructorController;
-use App\Http\Controllers\enrollmentController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\courseController;
-use App\Http\Controllers\coursePaymentsController;
-use App\Http\Controllers\drivingSchoolLicenseController;
+use App\Http\Controllers\enrollmentController;
+use App\Http\Controllers\instructorController;
 use App\Http\Controllers\paymentMethodController;
+use App\Http\Controllers\coursePaymentsController;
+use App\Http\Controllers\CourseScheduleController;
+use App\Http\Controllers\drivingSchoolLicenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,4 +122,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
     // Admin's Delete Active Student Logic Handler
     Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
+
+    Route::get('/ganti-jadwal', [CourseScheduleController::class, 'testSchedule1']);
 });
