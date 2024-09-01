@@ -115,7 +115,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Access Registration Form
     Route::get('/admin-course/registration-form/{student_real_name}/{enrollment_id}', [adminController::class, 'registrationForm']);
     // Admin's Propose New Schedule Form
-    Route::get('/admin-course/new-schedule/{student_real_name}/meeting{course_schedule_id}', [adminController::class, 'newScheduleForm']);
+    Route::get('/admin-course/new-schedule/schedule/{course_schedule_id}', [adminController::class, 'newScheduleForm']);
     // Admin's Verify Payment 
     Route::get('/admin-course/payment-verification/{student_real_name}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
