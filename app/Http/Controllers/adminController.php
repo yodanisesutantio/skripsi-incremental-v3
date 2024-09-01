@@ -633,11 +633,12 @@ class adminController extends Controller
         ]);
     }
 
-    public function newScheduleForm() {
-        
+    public function newScheduleForm($course_schedule_id) {
+        $schedule = CourseSchedule::findOrFail($course_schedule_id);
 
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
+            'schedule' => $schedule,
         ]);
     }
 }

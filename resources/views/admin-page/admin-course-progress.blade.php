@@ -92,14 +92,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
@@ -200,14 +204,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
@@ -307,14 +315,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
@@ -376,14 +388,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
@@ -483,14 +499,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
@@ -590,14 +610,18 @@
                                     <div class="flex flex-col gap-4">
                                         {{-- Course Schedule Content --}}
                                         <div class="flex flex-row gap-10 justify-between">
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
+                                            @if ($schedule)
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                            <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                            @else
+                                                <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
+                                            @endif
                                         </div>
 
                                         {{-- Course Schedule Header --}}
                                         @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
-                                            <a href="" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
 
