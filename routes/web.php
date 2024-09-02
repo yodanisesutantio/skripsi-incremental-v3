@@ -116,12 +116,12 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-course/registration-form/{student_real_name}/{enrollment_id}', [adminController::class, 'registrationForm']);
     // Admin's Propose New Schedule Form
     Route::get('/admin-course/new-schedule/schedule/{course_schedule_id}', [adminController::class, 'newScheduleForm']);
+    // Admin's Propose New Schedule Form
+    Route::post('/admin-course/new-schedule/{course_schedule_id}', [CourseScheduleController::class, 'proposeNewSchedule']);
     // Admin's Verify Payment 
     Route::get('/admin-course/payment-verification/{student_real_name}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
     Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
     // Admin's Delete Active Student Logic Handler
     Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
-
-    Route::get('/ganti-jadwal', [CourseScheduleController::class, 'testSchedule1']);
 });

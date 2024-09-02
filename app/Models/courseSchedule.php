@@ -35,4 +35,10 @@ class courseSchedule extends Model
     {
         return $this->belongsTo(User::class, 'instructor_id');
     }
+
+    // Many to One Relationship with Enrollment Tables
+    public function proposedSchedule()
+    {
+        return $this->hasOne(ProposedSchedule::class);
+    }
 }

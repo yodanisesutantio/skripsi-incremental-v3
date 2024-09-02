@@ -657,7 +657,7 @@ class adminController extends Controller
             }
     
             // Skip lunch break
-            if ($openTime->between('11:30', '13:30', true) || $endOptionTime->between('11:30', '13:30', true)) {
+            if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
                 $openTime->addMinutes($courseDuration);
                 continue;
             }

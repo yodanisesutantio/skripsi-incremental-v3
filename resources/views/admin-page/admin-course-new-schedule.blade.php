@@ -19,7 +19,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="{{ url('/admin-course/new-schedule/' . $schedule->id) }}" method="post" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/admin-course/new-schedule/' . $schedule->id) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
@@ -131,6 +131,12 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Mobile Submit Button Function
+        $('#mobileSubmitButton').click(function(event) {
+            event.preventDefault();
+            $('#proposeScheduleForm').submit();
+        });
+
         // Checkboxes and checkmarks
         const radios = document.querySelectorAll('.instructor-radio');
 

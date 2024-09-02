@@ -4,11 +4,65 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CourseSchedule; // Access User Tables
+use App\Models\ProposedSchedule; // Access User Tables
 
 class CourseScheduleController extends Controller
 {
-    public function testSchedule1(Request $request) {
+    public function proposeNewSchedule(Request $request, $course_schedule_id) {
+        $request->validate([
+            'course_date' => 'required|date',
+            'course_time' => 'required',
+            'instructor_ids' => 'required|array',
+            'instructor_ids.*' => 'exists:users,id',
+        ],[
+            'course_date.required' => 'Silahkan Pilih Tanggal Kursus',
+            'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
+            'instructor_ids.required' => 'Silahkan Pilih Salah Satu Instruktur',
+        ]);
 
+        $realSchedule = CourseSchedule::findOrFail($course_schedule_id);
+
+        // Split course_time into start and end
+        list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
+
+        // Combine with course_date
+        $start_time = \Carbon\Carbon::parse($request->course_date . ' ' . $start_time_str);
+        $end_time = \Carbon\Carbon::parse($request->course_date . ' ' . $end_time_str);
+
+        foreach ($request->instructor_ids as $instructor_id) {
+            $existingSchedule = CourseSchedule::where(function ($query) use ($instructor_id, $start_time, $end_time) {
+                $query->where('instructor_id', $instructor_id)
+                    ->where(function ($q) use ($start_time, $end_time) {
+                        $q->whereBetween('start_time', [$start_time, $end_time])
+                            ->orWhereBetween('end_time', [$start_time, $end_time])
+                            ->orWhere(function ($q) use ($start_time, $end_time) {
+                                $q->where('start_time', '<=', $start_time)
+                                    ->where('end_time', '>=', $end_time);
+                            });
+                    });
+            })->first();
+    
+            if ($existingSchedule) {
+                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . '. Silahkan Ubah Opsi Tanggal atau Jam Kursus');
+                return redirect()->back();
+            }
+    
+            $proposedSchedule = new ProposedSchedule();
+            $proposedSchedule->course_schedule_id = $course_schedule_id;
+            $proposedSchedule->instructor_id = $instructor_id;
+            $proposedSchedule->start_time = $start_time;
+            $proposedSchedule->end_time = $end_time;
+            $proposedSchedule->meeting_number = $realSchedule->meeting_number;
+            $proposedSchedule->student_decision = 0;
+            $proposedSchedule->instructor_decision = 0;
+            $proposedSchedule->save();
+        }
+
+        $request->session()->flash('success', 'Jadwal baru sedang diajukan. Informasikan pengajuan ini ke Instruktur dan Siswa Bersangkutan untuk disetujui');
+        return redirect(url('/admin-course-progress/' . $realSchedule->enrollment->student_real_name . '/' . $realSchedule->enrollment->id));
+    }
+
+    public function testSchedule1(Request $request) {
         $request->ins_id = 6;
         $request->stime = '2024-08-11 08:00:00';
         $request->etime = '2024-08-11 09:30:00';
