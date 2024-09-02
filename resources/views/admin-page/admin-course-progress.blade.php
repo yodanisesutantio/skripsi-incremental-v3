@@ -12,6 +12,22 @@
             <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Bukti Pembayaran Kursus belum diverifikasi!</h2>
         </div>
     @endif
+
+    @php
+        $proposedSchedule = $enrollment->schedule->firstWhere('proposedSchedule', '!=', null);
+    @endphp
+
+    @if ($proposedSchedule->proposedSchedule->instructor_decision === 0)
+        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Instruktur</h2>
+        </div>
+    @endif
+
+    @if ($proposedSchedule->proposedSchedule->student_decision === 0)
+        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Siswa</h2>
+        </div>
+    @endif
     
     <div class="lg:grid lg:grid-cols-5">
         <div class="lg:col-span-2 bg-custom-white flex flex-col gap-5">
@@ -102,7 +118,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
@@ -214,7 +230,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
@@ -325,7 +341,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
@@ -398,7 +414,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
@@ -509,7 +525,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>
@@ -620,7 +636,7 @@
                                         </div>
 
                                         {{-- Course Schedule Header --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)))
+                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
                                             <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
                                         @endif
                                     </div>

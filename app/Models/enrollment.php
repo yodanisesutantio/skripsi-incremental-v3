@@ -39,7 +39,7 @@ class enrollment extends Model
     // One to Many Relationship with Course Schedule Tables
     public function schedule()  
     {
-        return $this->hasMany(CourseSchedule::class, 'enrollment_id');
+        return $this->hasMany(CourseSchedule::class);
     }
 
     // One to One Relationship with Course Payment Tables
