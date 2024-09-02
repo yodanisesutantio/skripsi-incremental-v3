@@ -636,9 +636,13 @@ class adminController extends Controller
     public function newScheduleForm($course_schedule_id) {
         $schedule = CourseSchedule::findOrFail($course_schedule_id);
 
+        // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
+        $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'schedule' => $schedule,
+            'instructors' => $instructors,
         ]);
     }
 }
