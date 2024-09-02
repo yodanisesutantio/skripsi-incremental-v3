@@ -361,7 +361,7 @@
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($schedule !== $schedules->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow"></div>
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow lg:hidden"></div>
                                         @endif
                                     </div>
 
