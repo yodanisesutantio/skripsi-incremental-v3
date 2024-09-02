@@ -30,7 +30,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_date" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Input Number Column --}}
-                        <input type="date" name="course_date" id="course_date" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date') border-2 border-custom-destructive @enderror" value="{{ \Carbon\Carbon::parse($schedule['start_date'])->format('Y-m-d') }}">
+                        <input type="date" name="course_date" id="course_date" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date') border-2 border-custom-destructive @enderror" value="{{ \Carbon\Carbon::parse($schedule['start_time'])->format('Y-m-d') }}">
                         {{-- Error in Validation Message --}}
                         @error('course_date')
                             <span class="text-custom-destructive">{{ $message }}</span>
@@ -42,7 +42,44 @@
                         <label for="course_time" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Jam Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Dropdown --}}
                         <select name="course_time" id="course_time" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time') border-2 border-custom-destructive @enderror">
-                            <option disabled selected>-- Pilih Jam Kursus --</option>
+                            <option disabled>-- Pilih Jam Kursus --</option>
+                            @php
+                                $openTime = \Carbon\Carbon::parse(auth()->user()->open_hours_for_admin);
+                                $closeTime = \Carbon\Carbon::parse(auth()->user()->close_hours_for_admin);
+                                $courseDuration = $schedule->course['course_duration']; // Assuming this is in minutes
+
+                                // Get start and end time from schedule
+                                $startTime = \Carbon\Carbon::parse($schedule['start_time']);
+                                $endTime = \Carbon\Carbon::parse($schedule['end_time']);
+
+                                while ($openTime->lessThan($closeTime)) {
+                                    // Calculate the end time for the current open time
+                                    $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+
+                                    // Check if the end time exceeds the close time
+                                    if ($endOptionTime->greaterThan($closeTime)) {
+                                        break; // Exit the loop if it exceeds
+                                    }
+
+                                    // Check if the time falls within the lunch break
+                                    if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
+                                        // Skip this time slot
+                                        $openTime->addMinutes($courseDuration); // Move to the next time slot
+                                        continue;
+                                    }
+
+                                    // Format time for display
+                                    $formattedTime = $openTime->format('H:i') . ' - ' . $openTime->copy()->addMinutes($courseDuration)->format('H:i');
+                                    
+                                    // Check if the generated time matches the schedule's start and end time
+                                    $isSelected = $openTime->equalTo($startTime) && $endOptionTime->equalTo($endTime) ? 'selected' : '';
+
+                                    echo "<option value=\"{$formattedTime}\" {$isSelected}>{$formattedTime}</option>";
+
+                                    // Add course duration to the current time
+                                    $openTime->addMinutes($courseDuration);
+                                }
+                            @endphp
                         </select>
                         {{-- Error in Validation Message --}}
                         @error('course_time')
