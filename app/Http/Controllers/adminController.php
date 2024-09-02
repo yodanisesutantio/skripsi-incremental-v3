@@ -639,10 +639,43 @@ class adminController extends Controller
         // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
 
+        $openTime = \Carbon\Carbon::parse(auth()->user()->open_hours_for_admin);
+        $closeTime = \Carbon\Carbon::parse(auth()->user()->close_hours_for_admin);
+        $courseDuration = $schedule->course->course_duration;
+
+        // Get start and end time from schedule
+        $startTime = \Carbon\Carbon::parse($schedule->start_time);
+        $endTime = \Carbon\Carbon::parse($schedule->end_time);
+
+        $availableSlots = [];
+
+        while ($openTime->lessThan($closeTime)) {
+            $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+    
+            if ($endOptionTime->greaterThan($closeTime)) {
+                break; // Exit the loop if it exceeds
+            }
+    
+            // Skip lunch break
+            if ($openTime->between('11:30', '13:30', true) || $endOptionTime->between('11:30', '13:30', true)) {
+                $openTime->addMinutes($courseDuration);
+                continue;
+            }
+    
+            // Add the slot to available slots
+            $availableSlots[] = [
+                'start' => $openTime->format('H:i'),
+                'end' => $endOptionTime->format('H:i'),
+            ];
+    
+            $openTime->addMinutes($courseDuration);
+        }
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'schedule' => $schedule,
             'instructors' => $instructors,
+            'availableSlots' => $availableSlots,
         ]);
     }
 }
