@@ -8,7 +8,7 @@
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Instruktur : {{ $enrollment->instructor->fullname }} &nbsp; | &nbsp; Siswa : {{ $enrollment->student_real_name }}</p>
 
     @if (!$enrollment->CoursePayment || $enrollment->CoursePayment->paymentStatus === 0)
-        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-destructive/15 w-full rounded-lg lg:rounded-xl">
+        <div class="mt-4 p-3 lg:p-5 bg-custom-destructive/15 w-full rounded-lg lg:rounded-xl">
             <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Bukti Pembayaran Kursus belum diverifikasi!</h2>
         </div>
     @endif
@@ -17,16 +17,18 @@
         $proposedSchedule = $enrollment->schedule->firstWhere('proposedSchedule', '!=', null);
     @endphp
 
-    @if ($proposedSchedule->proposedSchedule->instructor_decision === 0)
-        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Instruktur</h2>
-        </div>
-    @endif
+    @if ($proposedSchedule && $proposedSchedule->proposedSchedule)
+        @if ($proposedSchedule->proposedSchedule->instructor_decision === 0)
+            <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+                <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Instruktur!</h2>
+            </div>
+        @endif
 
-    @if ($proposedSchedule->proposedSchedule->student_decision === 0)
-        <div class="mt-4 lg:mt-6 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Siswa</h2>
-        </div>
+        @if ($proposedSchedule->proposedSchedule->student_decision === 0)
+            <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+                <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Siswa!</h2>
+            </div>
+        @endif
     @endif
     
     <div class="lg:grid lg:grid-cols-5">
