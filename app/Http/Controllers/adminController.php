@@ -85,9 +85,13 @@ class adminController extends Controller
         // Display all Course that are Active and is owned by the owner/admin
         $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
         // Display only Manual Course that are Active and is owned by the owner/admin
-        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Manual')->orwhere('car_type', 'Both')->get();
+        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
+            $query->where('car_type', 'Manual')->orWhere('car_type', 'Both');
+        })->get();
         // Display only Matic Course that are Active and is owned by the owner/admin
-        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('car_type', 'Matic')->orwhere('car_type', 'Both')->get();
+        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
+            $query->where('car_type', 'Matic')->orWhere('car_type', 'Both');
+        })->get();
         // Display only Quick Course that are Active and is owned by the owner/admin
         $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
 
