@@ -125,3 +125,9 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Delete Active Student Logic Handler
     Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
 });
+
+// Instructor Specific Route
+Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(function () {
+    // Instructor Dashboard Page
+    Route::get('/instructor-index', [instructorController::class, 'instructorIndex']);
+});

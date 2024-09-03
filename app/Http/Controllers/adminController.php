@@ -32,10 +32,14 @@ class adminController extends Controller
         ->orderBy('start_time', 'asc') // Order by start time
         ->first(); // Get the first upcoming schedule
 
+        // dd($incomingSchedule);
+
         // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
-        $incomingSchedule->formattedStartDate = Carbon::parse($incomingSchedule->start_time)->translatedFormat('d F Y');
-        $incomingSchedule->formattedStartTime = Carbon::parse($incomingSchedule->start_time)->translatedFormat('H:i');
-        $incomingSchedule->formattedEndTime = Carbon::parse($incomingSchedule->end_time)->translatedFormat('H:i');
+        if ($incomingSchedule) {
+            $incomingSchedule->formattedStartDate = Carbon::parse($incomingSchedule->start_time)->translatedFormat('d F Y');
+            $incomingSchedule->formattedStartTime = Carbon::parse($incomingSchedule->start_time)->translatedFormat('H:i');
+            $incomingSchedule->formattedEndTime = Carbon::parse($incomingSchedule->end_time)->translatedFormat('H:i');
+        }
 
         // Fetch today's schedule from the course_schedule table
         $todaySchedule = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today())->orderBy('start_time', 'asc')->get();
@@ -208,9 +212,11 @@ class adminController extends Controller
         // Collect every payment method that are owned by this admin/owner
         $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
 
-        // Run through every payment method in every collection, then decrypt it
-        foreach ($paymentMethod as $methodOfPayment) {
-            $methodOfPayment->payment_address = Crypt::decryptString($methodOfPayment->payment_address);
+        if ($paymentMethod) {
+            // Run through every payment method in every collection, then decrypt it
+            foreach ($paymentMethod as $methodOfPayment) {
+                $methodOfPayment->payment_address = Crypt::decryptString($methodOfPayment->payment_address);
+            }
         }
 
         // Check for active driving school licenses
@@ -352,7 +358,7 @@ class adminController extends Controller
         return redirect()->intended('/admin-profile');
     }
 
-    // I'll do this later, make sure that we are not deleting an entire data, just, instructor data and their course data, keep the account data
+    // Delete Logic Handler
     public function destroy(Request $request)
     {
         // Check for enrollments related to the authenticated user's courses
@@ -397,7 +403,6 @@ class adminController extends Controller
             $request->session()->flash('error', 'Anda masih memiliki Siswa Aktif! Selesaikan semua kursus dengan Siswa, kemudian Coba Lagi.');
             return redirect()->intended('/admin-profile');
         }
-
     }
 
     // Admin-Manage-Course Page Controller
@@ -587,9 +592,13 @@ class adminController extends Controller
         // Get the current meeting number if an upcoming schedule exists
         $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
+        // Get new collection of the real schedules
         $courseSchedules = $enrollment->schedule;
+        // Run through every real schedules
         foreach ($courseSchedules as $courseSchedule) {
+            // Then check if there's proposed schedule
             $proposedSchedule = $courseSchedule->proposedSchedule;
+            // Check if the proposed schedule is all agreed. If do, update the real schedule based on the proposed schedule. After update, delete the agreed proposed schedule
             if ($proposedSchedule && $proposedSchedule->instructor_decision == 1 && $proposedSchedule->student_decision == 1) {
                 $courseSchedule->start_time = $proposedSchedule->start_time;
                 $courseSchedule->end_time = $proposedSchedule->end_time;
@@ -612,6 +621,7 @@ class adminController extends Controller
         ]);
     }
 
+    // View Registration Form Page Controller
     public function registrationForm($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
@@ -625,6 +635,7 @@ class adminController extends Controller
         ]);
     }
 
+    // Payment Verification Page Controller
     public function paymentVerification($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::findOrFail($enrollment_id);
@@ -645,14 +656,19 @@ class adminController extends Controller
         ]);
     }
 
+    // Propose new schedule form page controller
     public function newScheduleForm($course_schedule_id) {
+        // Find the selected schedule
         $schedule = CourseSchedule::findOrFail($course_schedule_id);
 
         // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
 
+        // Get the Open Time of the Admin's
         $openTime = \Carbon\Carbon::parse(auth()->user()->open_hours_for_admin);
+        // Get the Close Time of the Admin's
         $closeTime = \Carbon\Carbon::parse(auth()->user()->close_hours_for_admin);
+        // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
         // Get start and end time from schedule
@@ -661,9 +677,12 @@ class adminController extends Controller
 
         $availableSlots = [];
 
+        // Generate the course time option until the start time is not more than close time
         while ($openTime->lessThan($closeTime)) {
+            // Generate the end time from adding the open time with course duration
             $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
     
+            // When the end time is passed the close time, end the generation
             if ($endOptionTime->greaterThan($closeTime)) {
                 break; // Exit the loop if it exceeds
             }
@@ -680,6 +699,7 @@ class adminController extends Controller
                 'end' => $endOptionTime->format('H:i'),
             ];
     
+            // Create new start time by adding the previous start time with course duration
             $openTime->addMinutes($courseDuration);
         }
 
