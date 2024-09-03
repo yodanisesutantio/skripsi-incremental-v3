@@ -587,6 +587,18 @@ class adminController extends Controller
         // Get the current meeting number if an upcoming schedule exists
         $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
+        $courseSchedules = $enrollment->schedule;
+        foreach ($courseSchedules as $courseSchedule) {
+            $proposedSchedule = $courseSchedule->proposedSchedule;
+            if ($proposedSchedule && $proposedSchedule->instructor_decision == 1 && $proposedSchedule->student_decision == 1) {
+                $courseSchedule->start_time = $proposedSchedule->start_time;
+                $courseSchedule->end_time = $proposedSchedule->end_time;
+                $courseSchedule->instructor_id = $proposedSchedule->instructor_id;
+                $courseSchedule->save();
+                $proposedSchedule->delete();
+            }
+        }
+
         // Format the schedule dates
         foreach ($enrollment->schedule as $schedule) {
             $schedule->formatted_date = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('l, d F Y');

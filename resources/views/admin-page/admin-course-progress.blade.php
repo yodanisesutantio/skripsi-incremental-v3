@@ -14,21 +14,32 @@
     @endif
 
     @php
-        $proposedSchedule = $enrollment->schedule->firstWhere('proposedSchedule', '!=', null);
+        $pendingInstructorApprovals = [];
+        $pendingStudentApprovals = [];
+        foreach ($enrollment->schedule as $schedule) {
+            if ($schedule->proposedSchedule && $schedule->proposedSchedule->instructor_decision === 0) {
+                $pendingInstructorApprovals[] = $schedule->meeting_number;
+            }
+            if ($schedule->proposedSchedule && $schedule->proposedSchedule->student_decision === 0) {
+                $pendingStudentApprovals[] = $schedule->meeting_number;
+            }
+        }
     @endphp
 
-    @if ($proposedSchedule->proposedSchedule)
-        @if ($proposedSchedule->proposedSchedule->instructor_decision === 0)
-            <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-                <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Instruktur!</h2>
-            </div>
-        @endif
+    @if (!empty($pendingInstructorApprovals))
+        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingInstructorApprovals) }} belum disetujui oleh Instruktur!
+            </h2>
+        </div>
+    @endif
 
-        @if ($proposedSchedule->proposedSchedule->student_decision === 0)
-            <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-                <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Siswa!</h2>
-            </div>
-        @endif
+    @if (!empty($pendingStudentApprovals))
+        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
+            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingStudentApprovals) }} belum disetujui oleh Siswa!
+            </h2>
+        </div>
     @endif
     
     <div class="lg:grid lg:grid-cols-5">
