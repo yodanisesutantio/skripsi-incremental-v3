@@ -17,7 +17,7 @@
         $proposedSchedule = $enrollment->schedule->firstWhere('proposedSchedule', '!=', null);
     @endphp
 
-    @if ($proposedSchedule && $proposedSchedule->proposedSchedule)
+    @if ($proposedSchedule->proposedSchedule)
         @if ($proposedSchedule->proposedSchedule->instructor_decision === 0)
             <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
                 <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Jadwal Baru untuk Pertemuan {{ $proposedSchedule->meeting_number }} belum disetujui oleh Instruktur!</h2>
