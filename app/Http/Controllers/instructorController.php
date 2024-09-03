@@ -73,6 +73,13 @@ class instructorController extends Controller
             "nextWeekSchedules" => $nextWeekSchedules,
         ]);
     }
+    
+    // Admin-Profile Page Controller
+    public function instructorProfile() {
+        return view('profile.instructor-profile', [
+            "pageName" => "Profil Anda | ",
+        ]);
+    }
 
     // Deactivate Instructor Logic Handler
     public function deactivateInstructor(Request $request) {

@@ -130,4 +130,6 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(function () {
     // Instructor Dashboard Page
     Route::get('/instructor-index', [instructorController::class, 'instructorIndex']);
+    // Instructor Profile Page
+    Route::get('/instructor-profile', [instructorController::class, 'instructorProfile']);
 });
