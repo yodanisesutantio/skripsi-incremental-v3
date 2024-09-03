@@ -25,9 +25,9 @@ class instructorController extends Controller
         
         // Check for incoming course schedules for the authenticated admin
         $incomingSchedule = CourseSchedule::where('instructor_id', auth()->id())
-        ->where('start_time', '>', now()) // Filter for upcoming schedules
-        ->orderBy('start_time', 'asc') // Order by start time
-        ->first(); // Get the first upcoming schedule
+            ->where('start_time', '>', now()) // Filter for upcoming schedules
+            ->orderBy('start_time', 'asc') // Order by start time
+            ->first(); // Get the first upcoming schedule
 
         // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
         if ($incomingSchedule) {
@@ -37,22 +37,30 @@ class instructorController extends Controller
         }
 
         // Fetch today's schedule from the course_schedule table
-        $todaySchedule = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today())->orderBy('start_time', 'asc')->get();
+        $todaySchedule = CourseSchedule::where('instructor_id', auth()->id())
+            ->whereDate('start_time', \Carbon\Carbon::today())
+            ->orderBy('start_time', 'asc')
+            ->get();
 
-        foreach ($todaySchedule as $schedule) {
-            $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
-            $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+        if ($todaySchedule->isNotEmpty()) {
+            $todaySchedule->each(function ($schedule) {
+                $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
+                $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+            });
         }
 
         // Fetch schedules for the next 7 days
         $nextWeekSchedules = [];
         for ($i = 1; $i <= 6; $i++) {
-            $nextWeekSchedules[$i] = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today()->addDays($i))->get();
+        $nextWeekSchedules[$i] = CourseSchedule::where('instructor_id', auth()->id())
+            ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
+            ->get();
 
-            // Format start and end times for each schedule
-            foreach ($nextWeekSchedules[$i] as $schedule) {
-                $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
-                $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+            if ($nextWeekSchedules[$i]->isNotEmpty()) {
+                $nextWeekSchedules[$i]->each(function ($schedule) {
+                    $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
+                    $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+                });
             }
         }
 

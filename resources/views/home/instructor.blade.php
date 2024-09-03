@@ -157,7 +157,248 @@
         @endif
     </div>
 
+    {{-- Schedule Interface --}}
+    <div class="flex flex-col">
+        <h2 class="mb-4 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight px-6 lg:px-[4.25rem]">Jadwal Kursus</h2>
+
+        {{-- Tabs --}}
+        <div class="overflow-x-auto px-6 lg:px-[4.25rem]" style="scrollbar-width: none;">
+            <ul class="flex flex-row lg:grid lg:grid-cols-7 items-center gap-3 lg:gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+                {{-- Today's Tab --}}
+                <li class="flex-shrink-0">
+                    <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 days-button" id="todays-tab" data-index="0">
+                        <div class="flex flex-col lg:hidden">
+                            {{-- Days for Mobile --}}
+                            <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
+                            {{-- Date Abbreviation Mobile --}}
+                            <h3 class="text-lg/tight line-clamp-1">{{ \Carbon\Carbon::now()->translatedFormat('d M') }}</h3>
+                        </div>
+
+                        <div class="lg:flex lg:flex-col hidden">
+                            {{-- Days for Desktop --}}
+                            <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('l') }}</p>
+                            {{-- Date Abbreviation Desktop --}}
+                            <h3 class="text-xl/tight line-clamp-1">{{ \Carbon\Carbon::now()->translatedFormat('d M Y') }}</h3>
+                        </div>
+
+                        {{-- Horizontal Lines --}}
+                        <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5 lg:px-8"><div class="border-b-2 border-custom-dark"></div></div>
+                    </button>
+                </li>
+
+                {{-- Loop for Next Day Tabs --}}
+                @for ($i = 1; $i <= 6; $i++)
+                    @if ($i === 6)
+                    <li class="flex-shrink-0 pr-6 lg:pr-0">
+                    @else
+                    <li class="flex-shrink-0">
+                    @endif
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 days-button" id="today+{{ $i }}" data-index="{{ $i }}">
+                            <div class="flex flex-col lg:hidden">
+                                {{-- Days for Mobile --}}
+                                <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
+                                {{-- Date Abbreviation Mobile --}}
+                                <h3 class="text-lg/tight line-clamp-1">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M') }}</h3>
+                            </div>
     
+                            <div class="lg:flex lg:flex-col hidden">
+                                {{-- Days for Desktop --}}
+                                <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('l') }}</p>
+                                {{-- Date Abbreviation Desktop --}}
+                                <h3 class="text-xl/tight line-clamp-1">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('d M Y') }}</h3>
+                            </div>
+    
+                            {{-- Horizontal Lines --}}
+                            <div class="mt-2.5 lg:mt-3 mb-0.5 w-full px-3.5 lg:px-8"><div class="border-b-2 border-custom-dark"></div></div>
+                        </button>
+                    </li>
+                @endfor
+            </ul>
+        </div>
+
+        <div class="swiper w-full px-6">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    @if ($todaySchedule && !$todaySchedule->isEmpty())
+                        <div class="px-6 lg:px-[4.25rem] mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
+                            @foreach ($todaySchedule as $todayCourse)
+                                {{-- Past Course --}}
+                                @if (Carbon\Carbon::parse($todayCourse->formattedEndTime)->isPast())
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                    {{-- Decorative Element --}}
+                                    <div class="flex flex-col py-0.5 h-full">
+                                        {{-- Checkmark Icons --}}
+                                        <div class="flex justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="32" height="32" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
+                                        </div>
+
+                                        {{-- If this is the last item in the collection, abandon this decorative element --}}
+                                        @if ($todayCourse !== $todaySchedule->last())
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green lg:hidden"></div>                                            
+                                        @endif
+                                    </div>
+
+                                    {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
+                                    @if ($todayCourse !== $todaySchedule->last())
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 lg:pb-0 gap-5">
+                                    @else
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
+                                    @endif
+                                        <div class="flex flex-col gap-2 lg:gap-4">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-green text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Selesai</div>
+                                    </div>
+                                </div>                                    
+
+                                {{-- Present Course --}}
+                                @elseif(Carbon\Carbon::parse($todayCourse->formattedStartTime)->isPast() && Carbon\Carbon::parse($todayCourse->formattedEndTime)->isFuture())
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                    {{-- Decorative Element --}}
+                                    <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
+                                        {{-- Checkmark Icons --}}
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-dark rounded-full"></div></div>
+
+                                        {{-- If this is the last item in the collection, abandon this decorative element --}}
+                                        @if ($todayCourse !== $todaySchedule->last())
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-dark flex-grow"></div>
+                                        @endif
+                                    </div>
+                                    
+                                    {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
+                                    @if ($todayCourse !== $todaySchedule->last())
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
+                                    @else
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
+                                    @endif
+                                        <div class="flex flex-col gap-2 lg:gap-4">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-dark text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Berlangsung</div>
+                                    </div>
+                                </div>
+
+                                {{-- Future Course --}}
+                                @else
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                    {{-- Decorative Element --}}
+                                    <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
+                                        {{-- Checkmark Icons --}}
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-grey rounded-full"></div></div>
+
+                                        {{-- If this is the last item in the collection, abandon this decorative element --}}
+                                        @if ($todayCourse !== $todaySchedule->last())
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow"></div>
+                                        @endif
+                                    </div>
+
+                                    {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
+                                    @if ($todayCourse !== $todaySchedule->last())
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 gap-5">
+                                    @else
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                    @endif
+                                        <div class="flex flex-col gap-2 lg:gap-4">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $todayCourse->enrollment['student_real_name'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $todayCourse['meeting_number'] }} | {{ $todayCourse->formattedStartTime }} - {{ $todayCourse->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
+                                    </div>
+                                </div>                                    
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
+                    @endif
+                </div>
+
+                @foreach ($nextWeekSchedules as $day => $schedules)
+                    <div class="swiper-slide">
+                        @if ($schedules->isNotEmpty())
+                        <div class="px-6 lg:px-[4.25rem] mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
+                            @foreach ($schedules as $schedule)
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-auto overflow-hidden"> <!-- Adjusted here -->
+                                    {{-- Decorative Element --}}
+                                    <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
+                                        {{-- Checkmark Icons --}}
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-grey rounded-full"></div></div>
+
+                                        {{-- If this is the last item in the collection, abandon this decorative element --}}
+                                        @if ($schedule !== $schedules->last())
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow lg:hidden"></div>
+                                        @endif
+                                    </div>
+
+                                    {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
+                                    @if ($schedule !== $schedules->last())
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 gap-5">
+                                    @else
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                    @endif
+                                        <div class="flex flex-col gap-2 lg:gap-4">
+                                            {{-- Name, Meeting Number and Course Start and End Time --}}
+                                            <div class="flex flex-col">
+                                                {{-- Student Name --}}
+                                                <h3 class="font-semibold text-lg/tight lg:text-2xl/tight">{{ $schedule->enrollment['student_real_name'] }}</h3>
+
+                                                {{-- Course Start and End Time --}}
+                                                <p class="font-normal text-base/tight lg:text-lg/tight line-clamp-1">Pertemuan {{ $schedule['meeting_number'] }} | {{ $schedule->formattedStartTime }} - {{ $schedule->formattedEndTime }} WIB</p>
+                                            </div>
+
+                                            {{-- CTA --}}
+                                            <a href="{{ url('/admin-course-progress/' . $schedule->enrollment->student_real_name . '/' . $schedule->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                        </div>
+
+                                        {{-- Course Status --}}
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        @else
+                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 
     <div class="px-6 lg:px-[4.25rem]">
         @include('partials.footer')
@@ -168,36 +409,36 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        // const swiper = new Swiper('.swiper', {
-        //     direction: 'horizontal',
-        //     loop: false,
-        //     spaceBetween: 40,
-        //     autoHeight: true,
-        //     on: {
-        //         slideChange: function() {
-        //             const currentIndex = swiper.activeIndex;
-        //             const buttons = $('.days-button');
+        const swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            loop: false,
+            spaceBetween: 40,
+            autoHeight: true,
+            on: {
+                slideChange: function() {
+                    const currentIndex = swiper.activeIndex;
+                    const buttons = $('.days-button');
 
-        //             buttons.each(function() {
-        //                 const buttonIndex = $(this).data('index');
-        //                 if (buttonIndex == currentIndex) {
-        //                     $(this).removeClass('bg-custom-disabled-light/40');
-        //                     $(this).addClass('bg-custom-white-hover border-2 border-custom-dark');
-        //                 } else {
-        //                     $(this).removeClass('bg-custom-white-hover border-2 border-custom-dark');
-        //                     $(this).addClass('bg-custom-disabled-light/40');
-        //                 }
-        //             });
-        //         },
-        //         init: function () {
-        //             this.update();
-        //         }
-        //     }
-        // });
+                    buttons.each(function() {
+                        const buttonIndex = $(this).data('index');
+                        if (buttonIndex == currentIndex) {
+                            $(this).removeClass('bg-custom-disabled-light/40');
+                            $(this).addClass('bg-custom-white-hover border-2 border-custom-dark');
+                        } else {
+                            $(this).removeClass('bg-custom-white-hover border-2 border-custom-dark');
+                            $(this).addClass('bg-custom-disabled-light/40');
+                        }
+                    });
+                },
+                init: function () {
+                    this.update();
+                }
+            }
+        });
 
-        // $(document).on('click', '.days-button', function() {
-        //     const index = $(this).data('index');
-        //     swiper.slideTo(index);
-        // });
+        $(document).on('click', '.days-button', function() {
+            const index = $(this).data('index');
+            swiper.slideTo(index);
+        });
     </script>
 @endsection

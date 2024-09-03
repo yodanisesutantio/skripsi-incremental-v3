@@ -28,9 +28,9 @@ class adminController extends Controller
         $incomingSchedule = CourseSchedule::whereHas('enrollment.course', function($query) {
             $query->where('admin_id', auth()->id());
         })
-        ->where('start_time', '>=', now()) // Filter for upcoming schedules
-        ->orderBy('start_time', 'asc') // Order by start time
-        ->first(); // Get the first upcoming schedule
+            ->where('start_time', '>=', now()) // Filter for upcoming schedules
+            ->orderBy('start_time', 'asc') // Order by start time
+            ->first(); // Get the first upcoming schedule
 
         // dd($incomingSchedule);
 
