@@ -27,7 +27,7 @@ class courseSchedule extends Model
     // Many to One Relationship with Course Tables
     public function course()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class, 'course_id')->with('admin');
     }
 
     // Many to One Relationship with Instructors

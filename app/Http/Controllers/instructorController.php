@@ -2,14 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon; // Use Carbon Method by Laravel
+
 use App\Models\User; // Access User Tables
-use App\Models\InstructorCertificate; // Access InstructorCertificate Tables
+use App\Models\InstructorCertificate; // Access Instructor Certificate Tables
+use App\Models\Course; // Access Course Tables
+use App\Models\CourseSchedule; // Access Course Schedule Tables
+use App\Models\Enrollment; // Access Enrollment Tables
+use App\Models\PaymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
+use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
 use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
+use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 
 class instructorController extends Controller
 {
+    // Instructor-Index Page Controller
+    public function instructorIndex() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+        
+        // Check for incoming course schedules for the authenticated admin
+        $incomingSchedule = CourseSchedule::where('instructor_id', auth()->id())
+        ->where('start_time', '>', now()) // Filter for upcoming schedules
+        ->orderBy('start_time', 'asc') // Order by start time
+        ->first(); // Get the first upcoming schedule
+
+        // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
+        if ($incomingSchedule) {
+            $incomingSchedule->formattedStartDate = Carbon::parse($incomingSchedule->start_time)->translatedFormat('d F Y');
+            $incomingSchedule->formattedStartTime = Carbon::parse($incomingSchedule->start_time)->translatedFormat('H:i');
+            $incomingSchedule->formattedEndTime = Carbon::parse($incomingSchedule->end_time)->translatedFormat('H:i');
+        }
+
+        // Fetch today's schedule from the course_schedule table
+        $todaySchedule = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today())->orderBy('start_time', 'asc')->get();
+
+        foreach ($todaySchedule as $schedule) {
+            $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
+            $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+        }
+
+        // Fetch schedules for the next 7 days
+        $nextWeekSchedules = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $nextWeekSchedules[$i] = CourseSchedule::whereDate('start_time', \Carbon\Carbon::today()->addDays($i))->get();
+
+            // Format start and end times for each schedule
+            foreach ($nextWeekSchedules[$i] as $schedule) {
+                $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
+                $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
+            }
+        }
+
+        // dd($todaySchedule);
+    
+        return view('home.instructor', [
+            "pageName" => "Beranda | ",
+            "incomingSchedule" => $incomingSchedule,
+            "todaySchedule" => $todaySchedule,
+            "nextWeekSchedules" => $nextWeekSchedules,
+        ]);
+    }
+
     // Deactivate Instructor Logic Handler
     public function deactivateInstructor(Request $request) {
         // find the Instructor by matching the user_id with the incoming request from User Tables

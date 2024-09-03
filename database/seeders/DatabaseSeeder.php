@@ -457,5 +457,12 @@ class DatabaseSeeder extends Seeder
             'is_payment_active' => 1,
             'admin_id' => 1,
         ]);
+        PaymentMethod::create([
+            'payment_vendor' => "Mandiri",
+            'payment_receiver_name' => "Kursus Magetan",
+            'payment_address' => Crypt::encryptString("283101263159"),
+            'is_payment_active' => 1,
+            'admin_id' => 2,
+        ]);
     }
 }
