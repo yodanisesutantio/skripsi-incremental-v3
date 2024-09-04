@@ -42,6 +42,7 @@ class instructorController extends Controller
             ->orderBy('start_time', 'asc')
             ->get();
 
+        // Run through each today schedule and format the start time and end time to be written as 20:15
         if ($todaySchedule->isNotEmpty()) {
             $todaySchedule->each(function ($schedule) {
                 $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
@@ -56,6 +57,7 @@ class instructorController extends Controller
             ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
             ->get();
 
+            // The Same as the today schedule, run through each schedule and format the start time and end time 08:00
             if ($nextWeekSchedules[$i]->isNotEmpty()) {
                 $nextWeekSchedules[$i]->each(function ($schedule) {
                     $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
