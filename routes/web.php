@@ -139,4 +139,7 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     Route::post('/edit-instructor-account-info', [instructorController::class, 'editAccountInfo']);
     // Instructor Edit Password Logic Handler
     Route::post('/edit-instructor-password', [instructorController::class, 'editPassword']);
+
+    // Instructor License Page
+    Route::get('/instructor-certificate', [instructorController::class, 'instructorCertificatePage']);
 });

@@ -371,4 +371,78 @@ class instructorController extends Controller
         // Redirect the admin to List of Instructor Page
         return redirect()->intended('/admin-manage-instructor');
     }
+
+    public function instructorCertificatePage() {
+        // Assign the current authenticated user ID to $instructorId
+        $instructorId = auth()->id();
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+    
+        // Get today's date and localized it to Indonesian
+        $today = Carbon::today();
+    
+        // Collect every Instructor Certificate that are owned by this instructor and sort it from the latest added instructor
+        $instructorCertificate = InstructorCertificate::where('instructor_id', $instructorId)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        // Set a default value to detect if instructor has an active certificate
+        $hasActiveCertificate = false;    
+
+        // Run through the Instructor Certificate collection
+        foreach ($instructorCertificate as $certificate) {
+            // Localize the startCertificateDate to Indonesian
+            $startDate = Carbon::parse($certificate->startCertificateDate);
+            // Localize the endCertificateDate to Indonesian
+            $endDate = Carbon::parse($certificate->endCertificateDate);
+    
+            // Avoid certificate that has certificateStatus of "Belum Divalidasi"
+            if ($certificate->certificateStatus !== 'Belum Divalidasi') {
+                // If today's date is between the startCertificateDate and endCertificateDate 
+                if ($startDate->lte($today) && $endDate->gt($today)) {
+                    // Change the certificateStatus to "Aktif"
+                    $certificate->certificateStatus = 'Aktif';
+                    // change the $hasActiveCertificate to true, since we has an active certificate
+                    $hasActiveCertificate = true;
+                } 
+                
+                // if today's date is way past the endCertificateDate
+                elseif ($endDate->lt($today)) {
+                    // Change the certificateStatus to "Tidak Berlaku"
+                    $certificate->certificateStatus = 'Tidak Berlaku';
+                }
+
+                // Update the certificate data
+                $certificate->save();
+            }
+    
+            // Localize the startCertificateDate to Indonesian and formatted to be written as this "20 Agt 2024"
+            $certificate->formattedStartDate = Carbon::parse($certificate->startCertificateDate)->locale('id')->translatedFormat('d M Y');
+            // Localize the endCertificateDate to Indonesian and formatted to be written as this "20 Agt 2024"
+            $certificate->formattedEndDate = Carbon::parse($certificate->endCertificateDate)->locale('id')->translatedFormat('d M Y');
+        }
+    
+        // Update user availability based on certificate status
+        $user = User::find($instructorId);
+        // If instructor has active certificate and current user availability is 0, activate instructor by changing the user availability to 1
+        if ($hasActiveCertificate && $user->availability === 0) {
+            $user->availability = true;
+            $user->save();
+        } 
+        
+        // If instructor has no active certificate and current user availability is 1, deactivate instructor by changing the user availability to 0
+        elseif (!$hasActiveCertificate && $user->availability === 1) {
+            $user->availability = false;
+            $user->save();
+        }
+    
+        // Find the first Instructor Certificate that has certificateStatus of "Aktif"
+        $activeDrivingSchoolCertificate = $instructorCertificate->firstWhere('certificateStatus', 'Aktif');
+    
+        return view('instructor-page.instructor-certificate', [
+            "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
+            "activeCertificate" => $activeDrivingSchoolCertificate,
+            "certificates" => $instructorCertificate,
+        ]);
+    }
 }
