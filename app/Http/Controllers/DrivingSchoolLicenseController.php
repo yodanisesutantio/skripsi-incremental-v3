@@ -59,7 +59,7 @@ class DrivingSchoolLicenseController extends Controller
     }
 
     // Driving School License Delete Logic Handler
-    public function drivingSchoolLicenseDelete($id)
+    public function drivingSchoolLicenseDelete($id, Request $request)
     {
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
         $license = DrivingSchoolLicense::findOrFail($id);
@@ -71,6 +71,8 @@ class DrivingSchoolLicenseController extends Controller
 
         // Delete the desired DrivingSchoolLicense
         $license->delete();
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Izin Kursus berhasil dihapus!');
         // Redirect Admin to List of Driving School License
         return redirect()->intended('/admin-driving-school-license');
     }

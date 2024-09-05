@@ -78,7 +78,7 @@
             @endforeach        
         </div>
     @else
-        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Daftar Izin Kursus kosong)</p>        
+        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Daftar Sertifikat Kursus kosong)</p>        
     @endif
 
     @include('partials.footer')
@@ -89,19 +89,19 @@
         <div id="deleteCertificateDialogBox" class="relative w-80 lg:w-[28rem] bottom-0 py-4 z-40 bg-custom-white rounded-xl">
             <div class="flex flex-row sticky px-5 bg-custom-white justify-between items-center pt-1 pb-4">
                 {{-- Modals Header --}}
-                <h2 class="font-encode text-xl/tight pt-1 lg:text-3xl font-semibold text-custom-dark ">Hapus Izin Kursus?</h2>
+                <h2 class="font-encode text-xl/tight pt-1 lg:text-3xl font-semibold text-custom-dark ">Hapus Sertifikat Kursus?</h2>
                 <button type="button" id="XDeleteCertificateDialogBox"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="#040B0D" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
             </div>
 
             {{-- Delete Confirmation Message --}}
             <div class="px-5 mt-2">
-                <p class="font-league text-lg/snug lg:text-xl/tight text-custom-dark mb-1 lg:mb-12">Anda yakin ingin menghapus izin kursus ini? Penghapusan bersifat permanen, pastikan anda sudah memiliki salinan dokumen terlebih dahulu.</p>
+                <p class="font-league text-lg/snug lg:text-xl/tight text-custom-dark mb-1 lg:mb-12">Anda yakin ingin menghapus sertifikat kursus ini? Penghapusan bersifat permanen, pastikan anda sudah memiliki salinan dokumen terlebih dahulu.</p>
             </div>
 
             {{-- Action Groups --}}
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="closeDeleteCertificateDialogBox" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
-                <button type="submit" id="yesDeleteCertificate" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight whitespace-nowrap bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Izin Kursus</button>
+                <button type="submit" id="yesDeleteCertificate" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight whitespace-nowrap bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Sertifikat</button>
                 <form id="deleteCertificateForm" method="post" class="mb-1 hidden">
                     @method('delete')
                     @csrf
@@ -114,12 +114,12 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
         // Delete Certificate Handler
-        let licenseId;
+        let certificateId;
 
         // Get which license is user choose to delete
         $('.deleteCertificateButton').on('click', function() {
-            licenseId = $(this).data('id');
-            $('#deleteCertificateForm').attr('action', `/admin-delete-driving-school-license/${licenseId}`); // Setup the form links
+            certificateId = $(this).data('id');
+            $('#deleteCertificateForm').attr('action', `/instructor-delete-certificate/${certificateId}`); // Setup the form links
             $('#deleteCertificateOverlay').removeClass('hidden');
             $('#deleteCertificateOverlay').addClass('flex');
         });

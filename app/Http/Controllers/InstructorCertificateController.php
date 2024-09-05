@@ -57,4 +57,23 @@ class InstructorCertificateController extends Controller
         // Redirect user to List of Instructor Certificate        
         return redirect()->intended('/instructor-certificate');
     }
+
+    // Instructor Certificate Delete Logic Handler
+    public function instructorCertificateDelete($id, Request $request)
+    {
+        // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
+        $certificate = InstructorCertificate::findOrFail($id);
+    
+        // Delete the thumbnail from storage
+        if ($certificate->certificatePath) {
+            Storage::delete('instructor_certificate/' . $certificate->certificatePath);
+        }
+
+        // Delete the desired InstructorCertificate
+        $certificate->delete();
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Sertifikat Kursus berhasil dihapus!');
+        // Redirect Admin to List of Instructor Certificate
+        return redirect()->intended('/instructor-certificate');
+    }
 }

@@ -148,5 +148,5 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     // Create Instructor License Logic Handler
     Route::post('/instructor-certificate/create', [InstructorCertificateController::class, 'instructorCertificateCreate']);
     // Delete Instructor License Logic Handler
-    Route::delete('/instructor-delete-certificate/{id}', [InstructorCertificateController::class, 'instructorCertificateCreate']);
+    Route::delete('/instructor-delete-certificate/{id}', [InstructorCertificateController::class, 'instructorCertificateDelete']);
 });
