@@ -440,9 +440,15 @@ class instructorController extends Controller
         $activeDrivingSchoolCertificate = $instructorCertificate->firstWhere('certificateStatus', 'Aktif');
     
         return view('instructor-page.instructor-certificate', [
-            "pageName" => "Izin Penyelenggaraan Kursus Anda | ",
+            "pageName" => "Sertifikat Instruktur Anda | ",
             "activeCertificate" => $activeDrivingSchoolCertificate,
             "certificates" => $instructorCertificate,
+        ]);
+    }
+
+    public function instructorCertificateForm() {
+        return view('instructor-page.create-instructor-certificate', [
+            "pageName" => "Unggah Sertifikat Instruktur Baru | ",
         ]);
     }
 }

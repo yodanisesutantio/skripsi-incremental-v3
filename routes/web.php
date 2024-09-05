@@ -13,6 +13,7 @@ use App\Http\Controllers\paymentMethodController;
 use App\Http\Controllers\coursePaymentsController;
 use App\Http\Controllers\CourseScheduleController;
 use App\Http\Controllers\drivingSchoolLicenseController;
+use App\Http\Controllers\InstructorCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,4 +143,10 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
 
     // Instructor License Page
     Route::get('/instructor-certificate', [instructorController::class, 'instructorCertificatePage']);
+    // Create Instructor License Page
+    Route::get('/instructor-certificate/create', [instructorController::class, 'instructorCertificateForm']);
+    // Create Instructor License Logic Handler
+    Route::post('/instructor-certificate/create', [InstructorCertificateController::class, 'instructorCertificateCreate']);
+    // Delete Instructor License Logic Handler
+    Route::delete('/instructor-delete-certificate/{id}', [InstructorCertificateController::class, 'instructorCertificateCreate']);
 });
