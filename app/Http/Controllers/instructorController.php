@@ -154,6 +154,40 @@ class instructorController extends Controller
         return redirect()->intended('/instructor-profile');
     }
 
+    // Edit Password Logic Handler
+    public function editPassword(Request $request) {
+        // Validation Rules
+        $request->validate([
+            'password' => 'nullable|min:5|max:255|confirmed',
+            'password_confirmation' => 'nullable|min:5|max:255',
+        ],
+        
+        // Validation Error Messages
+        [
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password terlalu panjang',
+            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
+            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
+            'password_confirmation.max' => 'Password terlalu panjang',
+        ]);
+
+        // Find the User data by matching it with the current authenticated user ID
+        $user = User::find(Auth::id());
+
+        // When users creating new password, do this
+        if ($request->has('password') && $request->has('password_confirmation') && !empty($request->password)) {
+            // Crypt the new password
+            $user->password = bcrypt($request->password);
+            // Save the new password to User Tables
+            $user->save();
+        }
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Password berhasil diubah!');
+        // Redirect instructor to profile page
+        return redirect()->intended('/instructor-profile');
+    }
+
     // Deactivate Instructor Logic Handler
     public function deactivateInstructor(Request $request) {
         // find the Instructor by matching the user_id with the incoming request from User Tables

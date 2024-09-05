@@ -137,4 +137,6 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     Route::get('/instructor-profile/edit', [instructorController::class, 'editProfilePage']);
     // Instructor Edit Account Info Logic Handler
     Route::post('/edit-instructor-account-info', [instructorController::class, 'editAccountInfo']);
+    // Instructor Edit Password Logic Handler
+    Route::post('/edit-instructor-password', [instructorController::class, 'editPassword']);
 });
