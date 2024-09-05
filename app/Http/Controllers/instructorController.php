@@ -95,6 +95,65 @@ class instructorController extends Controller
         ]);
     }
 
+    // Edit Account Information Logic Handler
+    public function editAccountInfo(Request $request) {
+        // Validation Rules
+        $this->validate($request, [
+            'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
+            'fullname' => 'required|max:255',
+            'username' => 'required|max:255|unique:users,username,' . Auth::id(),
+            'description' => 'nullable|max:255',
+            'phone_number' => 'required|max:20',
+            'age' => 'integer|min:18|max:70',
+        ],
+        
+        // Validation Error Messages
+        [
+            'hash_for_profile_picture.mimes' => 'Format yang didukung adalah .jpg, .png, dan .webp',
+            'hash_for_profile_picture.max' => 'Ukuran gambar maksimal adalah 2 MB',
+            'fullname.required' => 'Kolom ini harus diisi',
+            'fullname.max' => 'Nama Terlalu Panjang',
+            'username.required' => 'Kolom ini harus diisi',
+            'username.max' => 'Username Terlalu Panjang',
+            'username.unique' => 'Username sudah digunakan',
+            'description.max' => 'Deskripsi terlalu panjang',
+            'age.min' => 'Usia minimal yang diizinkan adalah 18 tahun',
+            'age.max' => 'Usia maksimal yang diizinkan adalah 70 tahun',
+            'phone_number.required' => 'Kolom ini harus diisi',
+            'phone_number.max' => 'Nomor Terlalu Panjang',
+        ]);
+
+        // Find the User data by matching it with the current authenticated user ID
+        $user = User::find(Auth::id());
+        // Immediately update this attribute as per request
+        $user->update($request->only(['fullname', 'username', 'description', 'age', 'phone_number']));
+
+        // Check if users uploaded new profile picture
+        $fileName = null;
+        if ($request->hasFile('hash_for_profile_picture')) {
+            // Delete old pictures
+            if ($user->hash_for_profile_picture && Storage::disk('public')->exists("profile_pictures/" . $user->hash_for_profile_picture)) {
+                Storage::disk('public')->delete("profile_pictures/" . $user->hash_for_profile_picture);
+            }
+
+            // rename the file name to store it inside the database
+            $fileName = time() . '.' . $request->hash_for_profile_picture->getClientOriginalExtension();
+            // save the uploaded file to Laravel Storage System
+            $request->hash_for_profile_picture->storeAs('profile_pictures', $fileName);
+
+            // instead of the file updated in database, we save the filename of the file from Laravel Storage
+            $user->fill(['hash_for_profile_picture' => $fileName]);
+        }     
+
+        // Save new User data
+        $user->save();
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Profil berhasil diperbarui!');
+        // Redirect owner/admin to List of Course Page
+        return redirect()->intended('/instructor-profile');
+    }
+
     // Deactivate Instructor Logic Handler
     public function deactivateInstructor(Request $request) {
         // find the Instructor by matching the user_id with the incoming request from User Tables

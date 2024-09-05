@@ -52,7 +52,7 @@
                 <div class="swiper-wrapper">
                     {{-- Account Info Form --}}
                     <div class="swiper-slide overflow-y-auto">
-                        <form action="/edit-admin-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
+                        <form action="/edit-instructor-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
                             @csrf                    
                             {{-- Form Sub Headers --}}
                             <div class="flex flex-col gap-1 mb-4">
@@ -117,9 +117,9 @@
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- Input Phone Number --}}
+                                {{-- Input Age --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="age" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Usia Instruktur<span class="text-custom-destructive">*</span></label>
+                                    <label for="age" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Usia Instruktur</label>
                                     <input type="number" name="age" id="age" min="18" max="70" placeholder="Usia minimal 18 tahun dan maksimal 70 tahun" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->age }}">
                                     @error('age')
                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -270,12 +270,12 @@
 
         // Function to submit editProfile forms
         $('#submitEditProfileForms, #mobileEditProfileForms').on('click', function() {
-            $('form[action="/edit-admin-account-info"]').submit();
+            $('form[action="/edit-instructor-account-info"]').submit();
         });
 
         // Function to submit editPassword forms
         $('#submitEditPasswordForms, #mobileEditPasswordForms').on('click', function() {
-            $('form[action="/edit-admin-password"]').submit();
+            $('form[action="/edit-instructor-password"]').submit();
         });
 
         // Tel Input Script

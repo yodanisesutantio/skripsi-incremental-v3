@@ -299,7 +299,6 @@ class adminController extends Controller
 
             // instead of the file updated in database, we save the filename of the file from Laravel Storage
             $user->fill(['hash_for_profile_picture' => $fileName]);
-            $user->save();            
         }     
 
         // Save new User data
