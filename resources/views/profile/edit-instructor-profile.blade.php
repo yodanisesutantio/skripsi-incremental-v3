@@ -13,10 +13,6 @@
                 <li class="whitespace-nowrap rounded-lg duration-300">
                     <button class="lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100 ml-6" id="accountInfoButton">Informasi Akun</button>
                 </li>
-                {{-- Payment Method --}}
-                <li class="whitespace-nowrap rounded-lg duration-300">
-                    <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="paymentMethodButton">Pembayaran Kursus</button>
-                </li>
                 {{-- Keamanan Akun --}}
                 <li class="whitespace-nowrap rounded-lg duration-300">
                     <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40 mr-6" id="securityButton">Keamanan Akun</button>
@@ -41,10 +37,6 @@
                     <li class="whitespace-nowrap rounded-lg duration-300">
                         <button class="lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100" id="accountInfoLargeButton">Informasi Akun</button>
                     </li>
-                    {{-- Payment Method --}}
-                    <li class="whitespace-nowrap rounded-lg duration-300">
-                        <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="paymentMethodLargeButton">Pembayaran Kursus</button>
-                    </li>
                     {{-- Keamanan Akun --}}
                     <li class="whitespace-nowrap rounded-lg duration-300">
                         <button class="lg:hover:bg-custom-grey/25 py-1 opacity-40" id="securityLargeButton">Keamanan Akun</button>
@@ -61,33 +53,10 @@
                     {{-- Account Info Form --}}
                     <div class="swiper-slide overflow-y-auto">
                         <form action="/edit-admin-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
-                            @csrf
+                            @csrf                    
                             {{-- Form Sub Headers --}}
-                            <div class="mb-4">
-                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Kesediaan Lembaga Kursus</h2>
-                            </div>
-                            @if ($hasActiveLicense)
-                                {{-- Active Checkbox --}}
-                                <div class="flex flex-col gap-2">
-                                    {{-- Dropdown --}}
-                                    <label for="availability" class="text-custom-grey text-lg/tight lg:text-xl/tight font-league">Untuk anda dapat menerima siswa pastikan anda memilih opsi "Bersedia"</label>
-                                    <select name="availability" id="availability" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
-                                        <option value="1" {{ auth()->user()->availability ? 'selected' : '' }}>Bersedia</option>
-                                        <option value="0" {{ !auth()->user()->availability ? 'selected' : '' }}>Tidak Bersedia</option>
-                                    </select>
-                                </div>
-                            @else
-                                {{-- Active Checkbox --}}
-                                <div class="flex flex-col gap-2">
-                                    {{-- Dropdown --}}
-                                    <p class="text-custom-grey text-lg/tight lg:text-xl/tight font-league">Saat ini anda tidak dapat mengubah kesediaan anda. Pastikan anda memiliki izin penyelenggaraan kursus aktif.</p>
-                                    <div class="px-4 py-3 font-league font-medium text-lg bg-[#FFF] text-custom-secondary/30 rounded-lg">Tidak Bersedia</div>
-                                </div>
-                            @endif
-                    
-                            {{-- Form Sub Headers --}}
-                            <div class="flex flex-col gap-1 mt-8 mb-4">
-                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Data Lembaga Kursus</h2>
+                            <div class="flex flex-col gap-1 mb-4">
+                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Data Instruktur Kursus</h2>
                             </div>
                             <div class="flex flex-col mt-4 gap-5 lg:gap-7">
                                 {{-- Input Profile Picture --}}
@@ -122,7 +91,7 @@
                                 </div>
                                 {{-- Input Full Name --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="fullname" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Lembaga Kursus<span class="text-custom-destructive">*</span></label>
+                                    <label for="fullname" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Instruktur Kursus<span class="text-custom-destructive">*</span></label>
                                     <input type="text" name="fullname" id="fullname" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->fullname }}">
                                     @error('fullname')
                                         <span class="text-custom-destructive">{{ $message }}</span>
@@ -150,118 +119,24 @@
                                 </div>
                                 {{-- Input Phone Number --}}
                                 <div class="flex flex-col gap-2">
+                                    <label for="age" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Usia Instruktur<span class="text-custom-destructive">*</span></label>
+                                    <input type="number" name="age" id="age" min="18" max="70" placeholder="Usia minimal 18 tahun dan maksimal 70 tahun" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->age }}">
+                                    @error('age')
+                                        <span class="text-custom-destructive">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                {{-- Input Phone Number --}}
+                                <div class="flex flex-col gap-2">
                                     <label for="phone_number" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
                                     <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->phone_number }}" oninput="deleteAnyString(this)">
                                     @error('phone_number')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- Input Open and Close Hours --}}
-                                <div class="grid grid-cols-2 gap-4">
-                                    {{-- Open Hours --}}
-                                    <div class="flex flex-col gap-2">
-                                        <label for="open_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Buka<span class="text-custom-destructive">*</span></label>
-                                        <input type="time" name="open_hours_for_admin" id="open_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('open_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->open_hours_for_admin }}">
-                                        @error('open_hours_for_admin')
-                                            <span class="text-custom-destructive">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    {{-- Close Hours --}}
-                                    <div class="flex flex-col gap-2">
-                                        <label for="close_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Tutup<span class="text-custom-destructive">*</span></label>
-                                        <input type="time" name="close_hours_for_admin" id="close_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('close_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ auth()->user()->close_hours_for_admin }}">
-                                        @error('close_hours_for_admin')
-                                            <span class="text-custom-destructive">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>
 
-        
-                    {{-- Payment Methods --}}
-                    <div class="swiper-slide overflow-y-auto">
-                        <form action="/edit-admin-payment-method" method="post" class="px-6 pb-24 lg:pb-0">
-                            @csrf
-        
-                            @if ($paymentMethod && $paymentMethod->count() > 0)
-                                <div id="existingPaymentMethods">
-                                    @foreach ($paymentMethod as $index => $methodOfPayment)
-                                        <div class="form-wrapper mb-8">
-                                            {{-- Hidden Attribute --}}
-                                            <input type="hidden" name="payment_methods[{{ $index }}][id]" value="{{ $methodOfPayment['id'] }}">
-                                            <input type="hidden" name="payment_methods[{{ $index }}][admin_id]" value="{{ auth()->user()->id }}">
-        
-                                            {{-- Form Sub Headers --}}
-                                            <div class="flex flex-row w-full justify-between mb-4">
-                                                <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Bank {{ $methodOfPayment['payment_vendor'] }}</h2>
-                                                @if ($paymentMethod->count() > 1)
-                                                    <button type="button" class="removePaymentMethods" data-index="{{ $index }}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
-                                                    </button>
-                                                @endif
-                                            </div>
-        
-                                            <div class="flex flex-col gap-5 lg:gap-7">
-                                                {{-- is_active --}}
-                                                <div class="flex flex-col gap-2">
-                                                    {{-- Dropdown --}}
-                                                    <label for="payment_methods[{{ $index }}][is_payment_active]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
-                                                    <select name="payment_methods[{{ $index }}][is_payment_active]" id="payment_methods[{{ $index }}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
-                                                        <option value="1" {{ $methodOfPayment['is_payment_active'] === 1 ? 'selected' : '' }}>Aktif</option>
-                                                        <option value="0" {{ $methodOfPayment['is_payment_active'] === 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                                                    </select>
-                                                </div>
-        
-                                                {{-- Select Bank Name --}}
-                                                <div class="flex flex-col gap-2">
-                                                    {{-- Dropdown --}}
-                                                    <label for="payment_methods[{{ $index }}][payment_vendor]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <select name="payment_methods[{{ $index }}][payment_vendor]" id="payment_methods[{{ $index }}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg">
-                                                        <option value="" disabled>-- Metode Pembayaran --</option>
-                                                        <option value="BCA" {{ $methodOfPayment['payment_vendor'] === "BCA" ? 'selected' : '' }}>Bank BCA</option>
-                                                        <option value="BNI" {{ $methodOfPayment['payment_vendor'] === "BNI" ? 'selected' : '' }}>Bank BNI</option>
-                                                        <option value="BRI" {{ $methodOfPayment['payment_vendor'] === "BRI" ? 'selected' : '' }}>Bank BRI</option>
-                                                        <option value="Mandiri" {{ $methodOfPayment['payment_vendor'] === "Mandiri" ? 'selected' : '' }}>Bank Mandiri</option>
-                                                        <option value="Mega" {{ $methodOfPayment['payment_vendor'] === "Mega" ? 'selected' : '' }}>Bank Mega</option>
-                                                        <option value="BTN" {{ $methodOfPayment['payment_vendor'] === "BTN" ? 'selected' : '' }}>Bank BTN</option>
-                                                        <option value="Jatim" {{ $methodOfPayment['payment_vendor'] === "Jatim" ? 'selected' : '' }}>Bank Jatim</option>
-                                                        <option value="BCA Syariah" {{ $methodOfPayment['payment_vendor'] === "BCA Syariah" ? 'selected' : '' }}>Bank BCA Syariah</option>
-                                                        <option value="BNI Syariah" {{ $methodOfPayment['payment_vendor'] === "BNI Syariah" ? 'selected' : '' }}>Bank BNI Syariah</option>
-                                                        <option value="BRI Syariah" {{ $methodOfPayment['payment_vendor'] === "BRI Syariah" ? 'selected' : '' }}>Bank BRI Syariah</option>
-                                                        <option value="Jenius" {{ $methodOfPayment['payment_vendor'] === "Jenius" ? 'selected' : '' }}>Jenius</option>
-                                                    </select>
-                                                </div>
-        
-                                                {{-- Input Receiver Name --}}
-                                                <div class="flex flex-col gap-2">
-                                                    <label for="payment_methods[{{ $index }}][payment_receiver_name]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <input type="text" name="payment_methods[{{ $index }}][payment_receiver_name]" id="payment_methods[{{ $index }}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_receiver_name'] }}">
-                                                    @error('payment_methods.' . $index . '.payment_receiver_name')
-                                                        <span class="text-custom-destructive">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-        
-                                                {{-- Input Payment Address --}}
-                                                <div class="flex flex-col gap-2">
-                                                    <label for="payment_methods[{{ $index }}][payment_address]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
-                                                    <input type="text" name="payment_methods[{{ $index }}][payment_address]" id="payment_methods[{{ $index }}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="{{ $methodOfPayment['payment_address'] }}">
-                                                    @error('payment_methods.' . $index . '.payment_address')
-                                                        <span class="text-custom-destructive">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>        
-                            @endif
-                            
-                            <button type="button" id="addPaymentMethods" class="px-6 py-3 w-full rounded-lg lg:rounded-lg border-2 border-custom-grey border-dashed bg-custom-disabled-light/60 hover:bg-custom-disabled-light text-center lg:text-lg text-custom-grey font-semibold lg:order-2 duration-500">+ Tambah Metode Pembayaran</button>
-                        </form>
-                    </div>
-        
                     {{-- Security --}}
                     <div class="swiper-slide">
                         <form action="/edit-admin-password" method="post" class="px-6">
@@ -311,7 +186,7 @@
 
             {{-- Button Groups for Desktop View --}}
             <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+                <a href="/instructor-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
                 <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
                 <button type="submit" id="submitEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
                 <button type="submit" id="submitEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
@@ -321,7 +196,7 @@
 
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
-        <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+        <a href="/instructor-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
         <button type="submit" id="mobileEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
         <button type="submit" id="mobileEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
         <button type="submit" id="mobileEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
@@ -346,8 +221,8 @@
             on: {
                 slideChange: function() {
                     const currentIndex = swiper.activeIndex;
-                    const buttons = ['#accountInfoButton', '#paymentMethodButton', '#securityButton'];
-                    const largeButtons = ['#accountInfoLargeButton', '#paymentMethodLargeButton', '#securityLargeButton'];
+                    const buttons = ['#accountInfoButton','#securityButton'];
+                    const largeButtons = ['#accountInfoLargeButton', '#securityLargeButton'];
 
                     // For Mobile Tabs
                     buttons.forEach((button, index) => {
@@ -386,14 +261,8 @@
             $('#submitEditProfileForms').removeClass('hidden');
             $('#mobileEditProfileForms').removeClass('hidden');
         });
-        $('#paymentMethodButton, #paymentMethodLargeButton').on('click', function() {
-            swiper.slideTo(1);
-            $('.submit-button').addClass('hidden');
-            $('#submitEditPaymentForms').removeClass('hidden');
-            $('#mobileEditPaymentForms').removeClass('hidden');
-        });
         $('#securityButton, #securityLargeButton').on('click', function() {
-            swiper.slideTo(2);
+            swiper.slideTo(1);
             $('.submit-button').addClass('hidden');
             $('#submitEditPasswordForms').removeClass('hidden');
             $('#mobileEditPasswordForms').removeClass('hidden');
@@ -404,12 +273,7 @@
             $('form[action="/edit-admin-account-info"]').submit();
         });
 
-        // Function to submit editProfile forms
-        $('#submitEditPaymentForms, #mobileEditPaymentForms').on('click', function() {
-            $('form[action="/edit-admin-payment-method"]').submit();
-        });
-
-        // Function to submit editProfile forms
+        // Function to submit editPassword forms
         $('#submitEditPasswordForms, #mobileEditPasswordForms').on('click', function() {
             $('form[action="/edit-admin-password"]').submit();
         });
@@ -494,116 +358,6 @@
                 }
                 reader.readAsDataURL(file); // Read the file as a data URL
             }
-        });
-
-        // Dynamic Forms
-        let paymentMethodIndex = $('#existingPaymentMethods .form-wrapper').length; // Initialize with existing count
-        $('#addPaymentMethods').on('click', function() {
-            const $container = $('#existingPaymentMethods');
-            const newMethod = `
-            <div class="form-wrapper new-payment-method">
-                {{-- Hidden Attribute --}}
-                <input type="hidden" name="payment_methods[${paymentMethodIndex}][id]" value="">
-                <input type="hidden" name="payment_methods[${paymentMethodIndex}][admin_id]" value="{{ auth()->user()->id }}">
-
-                {{-- Form Sub Headers --}}
-                <div class="flex flex-row w-full justify-between mb-4">
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Bank Baru</h2>
-                    <button type="button" class="removePaymentMethods" data-index="${paymentMethodIndex}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><path fill="none" stroke="#FD3124" stroke-linecap="round" stroke-width="2" d="M9.17 4a3.001 3.001 0 0 1 5.66 0m5.67 2h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.196.81-4.856.81h-.774c-2.66 0-3.991 0-4.856-.81c-.865-.809-.954-2.136-1.13-4.79l-.46-6.9M9.5 11l.5 5m4.5-5l-.5 5"/></svg>
-                    </button>
-                </div>
-
-                <div class="flex flex-col gap-5 lg:gap-7">
-                    {{-- is_active --}}
-                    <div class="flex flex-col gap-2">
-                        {{-- Dropdown --}}
-                        <label for="payment_methods[${paymentMethodIndex}][is_payment_active]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pembayaran Aktif<span class="text-custom-destructive">*</span></label>
-                        <select name="payment_methods[${paymentMethodIndex}][is_payment_active]" id="payment_methods[${paymentMethodIndex}][is_payment_active]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
-                        </select>
-                    </div>
-
-                    {{-- Select Bank Name --}}
-                    <div class="flex flex-col gap-2">
-                        {{-- Dropdown --}}
-                        <label for="payment_methods[${paymentMethodIndex}][payment_vendor]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
-                        <select name="payment_methods[${paymentMethodIndex}][payment_vendor]" id="payment_methods[${paymentMethodIndex}][payment_vendor]" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                            <option value="" disabled selected>-- Metode Pembayaran --</option>
-                            <option value="BCA">Bank BCA</option>
-                            <option value="BNI">Bank BNI</option>
-                            <option value="BRI">Bank BRI</option>
-                            <option value="Mandiri">Bank Mandiri</option>
-                            <option value="Mega">Bank Mega</option>
-                            <option value="BTN">Bank BTN</option>
-                            <option value="Jatim">Bank Jatim</option>
-                            <option value="BCA Syariah">Bank BCA Syariah</option>
-                            <option value="BNI Syariah">Bank BNI Syariah</option>
-                            <option value="BRI Syariah">Bank BRI Syariah</option>
-                            <option value="Jenius">Jenius</option>
-                        </select>
-                    </div>
-
-                    {{-- Input Receiver Name --}}
-                    <div class="flex flex-col gap-2">
-                        <label for="payment_methods[${paymentMethodIndex}][payment_receiver_name]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nama Pemilik Akun Pembayaran<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="payment_methods[${paymentMethodIndex}][payment_receiver_name]" id="payment_methods[${paymentMethodIndex}][payment_receiver_name]" placeholder="Nama Lengkap Pemilik Akun Pembayaran" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_receiver_name') border-2 border-custom-destructive @enderror" value="">
-                        @error('payment_receiver_name')
-                            <span class="text-custom-destructive">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    {{-- Input Payment Address --}}
-                    <div class="flex flex-col gap-2">
-                        <label for="payment_methods[${paymentMethodIndex}][payment_address]" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Nomor Rekening Pembayaran<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="payment_methods[${paymentMethodIndex}][payment_address]" id="payment_methods[${paymentMethodIndex}][payment_address]" placeholder="No. Rekening" class="p-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_methods.'.$index.'.payment_address') border-2 border-custom-destructive @enderror" value="">
-                        @error('payment_address')
-                            <span class="text-custom-destructive">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            `;
-            $container.append(newMethod);
-            paymentMethodIndex++;
-            swiper.update();
-
-            // Hide the add button after adding a new payment method
-            $(this).hide();
-        });
-
-        // jQuery function to remove payment methods
-        $(document).on('click', '.removePaymentMethods', function() {
-            const $formWrapper = $(this).closest('.form-wrapper'); // Get the form wrapper
-            const paymentMethodId = $formWrapper.find('input[name*="[id]"]').val();
-
-            // Add a hidden input to mark this payment method for deletion
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'payment_methods_to_delete[]',
-                value: paymentMethodId
-            }).appendTo('form');
-
-            $formWrapper.remove(); // Remove the corresponding form-wrapper visually
-
-            // Check the number of remaining payment methods
-            const remainingMethods = $('#existingPaymentMethods .form-wrapper').length;
-
-            // Show the add button again if no new payment method is present
-            if ($('#existingPaymentMethods .new-payment-method').length === 0) {
-                $('#addPaymentMethods').show(); // Show the add button if no new payment method exists
-            }
-
-            // If only one method remains, hide the remove button for that method
-            if (remainingMethods <= 1) {
-                $('#existingPaymentMethods .removePaymentMethods').hide(); // Hide all remove buttons if only one method remains
-            } else {
-                // Show the remove buttons for remaining methods
-                $('#existingPaymentMethods .removePaymentMethods').show();
-            }
-
-            swiper.update(); // Update the Swiper instance
         });
     </script>
 @endsection

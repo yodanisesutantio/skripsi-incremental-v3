@@ -83,6 +83,18 @@ class instructorController extends Controller
         ]);
     }
 
+    // Instructor-Profile/Edit Page Controller
+    public function editProfilePage() {// Check for active instructor certificates
+        $hasActiveLicense = InstructorCertificate::where('instructor_id', auth()->id())
+            ->where('certificateStatus', 'Sudah Divalidasi')
+            ->exists();
+
+        return view('profile.edit-instructor-profile', [
+            "pageName" => "Edit Profil | ",
+            "hasActiveLicense" => $hasActiveLicense,
+        ]);
+    }
+
     // Deactivate Instructor Logic Handler
     public function deactivateInstructor(Request $request) {
         // find the Instructor by matching the user_id with the incoming request from User Tables

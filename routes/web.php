@@ -132,4 +132,7 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     Route::get('/instructor-index', [instructorController::class, 'instructorIndex']);
     // Instructor Profile Page
     Route::get('/instructor-profile', [instructorController::class, 'instructorProfile']);
+
+    // Admin Edit Profile Page
+    Route::get('/instructor-profile/edit', [instructorController::class, 'editProfilePage']);
 });
