@@ -221,7 +221,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'student_id' => 8,
             'student_real_name' => 'Nama Saya Arya',
             'student_gender' => 'Pria',
@@ -382,7 +382,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'start_time' => '2024-10-24 13:00:00',
             'end_time' => '2024-10-24 14:30:00',
             'meeting_number' => 1,
@@ -393,7 +393,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'start_time' => '2024-10-31 13:00:00',
             'end_time' => '2024-10-31 14:30:00',
             'meeting_number' => 2,
@@ -404,7 +404,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'start_time' => '2024-11-07 13:00:00',
             'end_time' => '2024-11-07 14:30:00',
             'meeting_number' => 3,
@@ -415,7 +415,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'start_time' => '2024-11-11 13:00:00',
             'end_time' => '2024-11-11 14:30:00',
             'meeting_number' => 4,
@@ -426,7 +426,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 5,
+            'instructor_id' => 4,
             'start_time' => '2024-11-18 13:00:00',
             'end_time' => '2024-11-18 14:30:00',
             'meeting_number' => 5,
