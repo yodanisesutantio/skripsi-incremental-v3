@@ -15,7 +15,7 @@
         {{-- Incoming Course Card --}}
         @if ($incomingSchedule)
             {{-- Mobile Incoming Schedule --}}
-            <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
+            <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -83,7 +83,7 @@
                 </a>
 
                 {{-- Course Card --}}
-                <a href="{{ url('/admin-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     <div class="flex flex-col gap-4">
                         {{-- Student Information --}}
                         <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -255,7 +255,7 @@
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/instructor-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -294,7 +294,7 @@
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/instructor-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -333,7 +333,7 @@
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="{{ url('/admin-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/instructor-course-progress/' . $todayCourse->enrollment->student_real_name . '/' . $todayCourse->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}
@@ -382,7 +382,7 @@
                                             </div>
 
                                             {{-- CTA --}}
-                                            <a href="{{ url('/admin-course-progress/' . $schedule->enrollment->student_real_name . '/' . $schedule->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
+                                            <a href="{{ url('/instructor-course-progress/' . $schedule->enrollment->student_real_name . '/' . $schedule->enrollment['id']) }}" class="flex flex-row gap-1 items-center w-fit underline lg:hover:no-underline font-light lg:font-normal text-base/tight lg:text-lg/tight duration-300">Lihat Detail</a>
                                         </div>
 
                                         {{-- Course Status --}}

@@ -151,4 +151,7 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     Route::post('/instructor-certificate/create', [InstructorCertificateController::class, 'instructorCertificateCreate']);
     // Delete Instructor License Logic Handler
     Route::delete('/instructor-delete-certificate/{id}', [InstructorCertificateController::class, 'instructorCertificateDelete']);
+
+    // Instructor's View Course Progress Detail Page
+    Route::get('/instructor-course-progress/{student_real_name}/{enrollment_id}', [instructorController::class, 'courseProgressPage']);
 });

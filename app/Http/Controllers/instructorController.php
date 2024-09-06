@@ -75,6 +75,62 @@ class instructorController extends Controller
             "nextWeekSchedules" => $nextWeekSchedules,
         ]);
     }
+
+    // Admin-Course/Active-Student-List Page Controller
+    public function instructorCoursePage() {
+        // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner
+        $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
+            $query->where('instructor_id', auth()->id());
+        })
+        ->with('schedule')->get(); // Load schedules with the enrollment
+
+        $now = now(); // Get current date and time
+
+        // Run through every active student schedules
+        foreach ($activeEnrolledStudent as $activeStudent) {
+            // Ensure schedules are loaded
+            if ($activeStudent->schedule->isNotEmpty()) {
+                // Collect the upcoming schedule by run through every schedule this student has
+                $upcomingSchedule = $activeStudent->schedule->filter(function ($schedule) use ($now) {
+                    // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
+                    return $schedule->start_time >= $now; 
+                })->first(); // Find the first / closest upcoming schedule
+                
+                // Get the meeting number if an upcoming schedule exists
+                $activeStudent->meeting_number = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+
+                // Get the next course date if an upcoming schedule exists
+                if ($upcomingSchedule) {
+                    // Localize the date and time to Indonesian
+                    Carbon::setLocale('id'); 
+                    // Localize next_course_date in Indonesian and format it to be written as "15 Agustus 2024"
+                    $activeStudent->next_course_date = Carbon::parse($upcomingSchedule->start_time)->locale('id')->translatedFormat('d F Y'); 
+
+                    // Localize course_time in Indonesian and format it to be written as "08:00 - 09:30 WIB"
+                    $activeStudent->course_time = Carbon::parse($upcomingSchedule->start_time)->format('H:i') . ' - ' . Carbon::parse($upcomingSchedule->end_time)->format('H:i') . ' WIB'; // Format the time
+
+                } 
+                
+                // Display nothing when there's no upcoming schedules
+                else {
+                    $activeStudent->next_course_date = null; 
+                    $activeStudent->course_time = null; 
+                }
+            } 
+            
+            // Display nothing when there's schedules exist
+            else {
+                $activeStudent->meeting_number = null; 
+                $activeStudent->next_course_date = null; 
+                $activeStudent->course_time = null; 
+            }
+        }
+
+        return view('instructor-page.instructor-active-student', [
+            'pageName' => "Daftar Siswa Aktif | ",
+            'activeEnrolledStudent' => $activeEnrolledStudent,
+        ]);
+    }
     
     // Admin-Profile Page Controller
     public function instructorProfile() {
@@ -104,7 +160,7 @@ class instructorController extends Controller
             'username' => 'required|max:255|unique:users,username,' . Auth::id(),
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
-            'age' => 'integer|min:18|max:70',
+            'age' => 'nullable|integer|min:18|max:70',
         ],
         
         // Validation Error Messages
@@ -117,6 +173,7 @@ class instructorController extends Controller
             'username.max' => 'Username Terlalu Panjang',
             'username.unique' => 'Username sudah digunakan',
             'description.max' => 'Deskripsi terlalu panjang',
+            'age.integer' => 'Masukkan angka yang valid',
             'age.min' => 'Usia minimal yang diizinkan adalah 18 tahun',
             'age.max' => 'Usia maksimal yang diizinkan adalah 70 tahun',
             'phone_number.required' => 'Kolom ini harus diisi',
@@ -452,59 +509,51 @@ class instructorController extends Controller
         ]);
     }
 
-    // Admin-Course/Active-Student-List Page Controller
-    public function instructorCoursePage() {
-        // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner
-        $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
-            $query->where('instructor_id', auth()->id());
-        })
-        ->with('schedule')->get(); // Load schedules with the enrollment
+    // Admin-Course-Progress Page Controller
+    public function courseProgressPage($student_fullname, $enrollment_id) {        
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
-        $now = now(); // Get current date and time
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
 
-        // Run through every active student schedules
-        foreach ($activeEnrolledStudent as $activeStudent) {
-            // Ensure schedules are loaded
-            if ($activeStudent->schedule->isNotEmpty()) {
-                // Collect the upcoming schedule by run through every schedule this student has
-                $upcomingSchedule = $activeStudent->schedule->filter(function ($schedule) use ($now) {
-                    // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
-                    return $schedule->start_time >= $now; 
-                })->first(); // Find the first / closest upcoming schedule
-                
-                // Get the meeting number if an upcoming schedule exists
-                $activeStudent->meeting_number = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+        // Get the current date and time
+        $now = now();
 
-                // Get the next course date if an upcoming schedule exists
-                if ($upcomingSchedule) {
-                    // Localize the date and time to Indonesian
-                    Carbon::setLocale('id'); 
-                    // Localize next_course_date in Indonesian and format it to be written as "15 Agustus 2024"
-                    $activeStudent->next_course_date = Carbon::parse($upcomingSchedule->start_time)->locale('id')->translatedFormat('d F Y'); 
+        $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
+            // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
+            return $schedule->start_time >= $now; 
+        })->first(); // Find the first / closest upcoming schedule
 
-                    // Localize course_time in Indonesian and format it to be written as "08:00 - 09:30 WIB"
-                    $activeStudent->course_time = Carbon::parse($upcomingSchedule->start_time)->format('H:i') . ' - ' . Carbon::parse($upcomingSchedule->end_time)->format('H:i') . ' WIB'; // Format the time
+        // Get the current meeting number if an upcoming schedule exists
+        $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
 
-                } 
-                
-                // Display nothing when there's no upcoming schedules
-                else {
-                    $activeStudent->next_course_date = null; 
-                    $activeStudent->course_time = null; 
-                }
-            } 
-            
-            // Display nothing when there's schedules exist
-            else {
-                $activeStudent->meeting_number = null; 
-                $activeStudent->next_course_date = null; 
-                $activeStudent->course_time = null; 
+        // Get new collection of the real schedules
+        $courseSchedules = $enrollment->schedule;
+        // Run through every real schedules
+        foreach ($courseSchedules as $courseSchedule) {
+            // Then check if there's proposed schedule
+            $proposedSchedule = $courseSchedule->proposedSchedule;
+            // Check if the proposed schedule is all agreed. If do, update the real schedule based on the proposed schedule. After update, delete the agreed proposed schedule
+            if ($proposedSchedule && $proposedSchedule->instructor_decision == 1 && $proposedSchedule->student_decision == 1) {
+                $courseSchedule->start_time = $proposedSchedule->start_time;
+                $courseSchedule->end_time = $proposedSchedule->end_time;
+                $courseSchedule->instructor_id = $proposedSchedule->instructor_id;
+                $courseSchedule->save();
+                $proposedSchedule->delete();
             }
         }
 
-        return view('instructor-page.instructor-active-student', [
-            'pageName' => "Daftar Siswa Aktif | ",
-            'activeEnrolledStudent' => $activeEnrolledStudent,
+        // Format the schedule dates
+        foreach ($enrollment->schedule as $schedule) {
+            $schedule->formatted_date = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('l, d F Y');
+            $schedule->formatted_time = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('H:i');
+        }
+
+        return view('instructor-page.instructor-course-progress', [
+            'pageName' => "Detail Progress Kursus Siswa | ",
+            'enrollment' => $enrollment,
+            'currentMeetingNumber' => $currentMeetingNumber,
         ]);
     }
 }
