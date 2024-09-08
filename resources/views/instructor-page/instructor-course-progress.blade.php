@@ -676,6 +676,45 @@
         </div>
     </div>
 
+    {{-- Confirm Schedule Changes --}}
+    <div class="hidden flex-col lg:grid-cols-2 lg:items-center justify-center gap-6 fixed top-0 left-0 font-league w-full h-full bg-custom-dark/70 z-40 pt-12 lg:pt-0 px-6 lg:px-[4.25rem]" id="confirm-schedule-overlay">
+        {{-- Close Button --}}
+        <button type="button" id="close-confirm-schedule-overlay" class="fixed top-7 right-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="#EBF0F2" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
+
+        {{-- Old Schedule --}}
+        <button type="button" class="lg:w-full lg:mt-10" id="reject-schedule">
+            {{-- Overlays --}}
+            <div class="flex flex-col gap-5 w-full h-72 rounded-xl px-6 pt-2 lg:pt-0 justify-center items-center border-2 border-custom-green text-custom-dark bg-custom-white lg:px-20 lg:hover:bg-custom-white-hover duration-300">
+                <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Lama</h2>
+                <div class="flex flex-col gap-1">
+                    <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">08:00 - 09:30 WIB</h4>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p class="font-normal text-base/tight lg:text-lg/tight">Instruktur :</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Nama Instruktur</h4>
+                </div>
+            </div>
+        </button>
+
+        {{-- New Schedule --}}
+        <button type="button" class="lg:w-full lg:mt-10" id="confirm-schedule">
+            {{-- Overlays --}}
+            <div class="flex flex-col gap-5 w-full h-72 rounded-xl px-6 pt-2 lg:pt-0 justify-center items-center text-custom-white bg-custom-green lg:px-20 lg:hover:bg-custom-green-hover duration-300">
+                <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Baru</h2>
+                <div class="flex flex-col gap-1">
+                    <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">10:00 - 11:30 WIB</h4>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p class="font-normal text-base/tight lg:text-lg/tight">Instruktur :</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Nama Instruktur</h4>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    {{-- Contact Other Parties Overlay --}}
     <div class="hidden flex-col lg:grid-cols-2 lg:items-center justify-center gap-6 fixed top-0 left-0 font-league w-full h-full bg-custom-dark/70 text-custom-white z-40 pt-12 lg:pt-0 px-6 lg:px-[4.25rem]" id="contact-other-party">
         {{-- Close Button --}}
         <button type="button" id="close-contact-other-party" class="fixed top-7 right-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="#EBF0F2" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
@@ -720,6 +759,17 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Open Confirm Schedule Modals
+        $('#button-contact-other-party').on('click', function() {
+            $('#confirm-schedule-overlay').removeClass('hidden');
+            $('#confirm-schedule-overlay').addClass('flex lg:grid');
+        });
+        // Close them when user either click the X icons or chooses to contact one of the options
+        $('#close-confirm-schedule-overlay, #reject-schedule, #confirm-schedule').on('click', function() {
+            $('#confirm-schedule-overlay').removeClass('flex lg:grid');
+            $('#confirm-schedule-overlay').addClass('hidden');
+        });
+
         // Open Contact Other Party Modals
         $('#button-contact-other-party').on('click', function() {
             $('#contact-other-party').removeClass('hidden');
@@ -730,7 +780,6 @@
             $('#contact-other-party').removeClass('flex lg:grid');
             $('#contact-other-party').addClass('hidden');
         });
-
 
         $('.accordion-button').click(function() {
             const content = $(this).closest('h2').next('div');
