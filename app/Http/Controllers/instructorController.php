@@ -549,13 +549,16 @@ class instructorController extends Controller
                 $courseSchedule->instructor_id = $proposedSchedule->instructor_id;
                 $courseSchedule->save();
                 $proposedSchedule->delete();
+            } elseif ($proposedSchedule && $courseSchedule->start_time < $now->addHours(24)) {
+                $proposedSchedule->delete();
             }
         }
 
         // Format the schedule dates
         foreach ($enrollment->schedule as $schedule) {
             $schedule->formatted_date = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('l, d F Y');
-            $schedule->formatted_time = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('H:i');
+            $schedule->formatted_startTime = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('H:i');
+            $schedule->formatted_endTime = \Carbon\Carbon::parse($schedule->end_time)->locale('id')->translatedFormat('H:i');
         }
 
         return view('instructor-page.instructor-course-progress', [

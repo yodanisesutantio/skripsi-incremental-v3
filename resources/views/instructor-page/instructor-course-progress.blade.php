@@ -112,16 +112,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -225,16 +224,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -337,16 +335,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -411,16 +408,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -523,16 +519,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -635,16 +630,15 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
 
-                                        {{-- Course Schedule Header --}}
-                                        {{-- I kinda need to change this to open a popup that let instructor decide whether they confirm or deny the schedule proposal instead of having the ability to propose a new schedule by themselves --}}
-                                        @if ($schedule && \Carbon\Carbon::parse($schedule->start_time)->isFuture() && \Carbon\Carbon::now()->addHours(24)->lessThan(\Carbon\Carbon::parse($schedule->start_time)) && !$schedule->proposedSchedule)
-                                            <a href="{{ url('/admin-course/new-schedule/schedule/' . $schedule->id) }}" class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg">Ubah Jadwal</a>
+                                        {{-- Confirm Proposed Schedule Button --}}
+                                        @if ($schedule && $schedule->proposedSchedule)
+                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
                                         @endif
                                     </div>
 
@@ -688,6 +682,7 @@
                 <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Lama</h2>
                 <div class="flex flex-col gap-1">
                     <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Jumat, 03 Oktober 2024</h4>
                     <h4 class="font-medium text-xl/tight lg:text-2xl/tight">08:00 - 09:30 WIB</h4>
                 </div>
                 <div class="flex flex-col gap-1">
@@ -704,6 +699,7 @@
                 <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Baru</h2>
                 <div class="flex flex-col gap-1">
                     <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
+                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Jumat, 03 Oktober 2024</h4>
                     <h4 class="font-medium text-xl/tight lg:text-2xl/tight">10:00 - 11:30 WIB</h4>
                 </div>
                 <div class="flex flex-col gap-1">
