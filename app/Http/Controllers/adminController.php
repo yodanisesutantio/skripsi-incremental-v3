@@ -599,13 +599,21 @@ class adminController extends Controller
         // Get the current date and time
         $now = now();
 
-        $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
-            // Let's say student has 5 meetings in total. If current date and time is passed the first and second meetings. Skip it, only return upcoming schedule.
-            return $schedule->start_time >= $now; 
-        })->first(); // Find the first / closest upcoming schedule
+        // Check if the course is completed
+        $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
+            return $schedule->end_time < $now; // All meetings have ended
+        });
 
-        // Get the current meeting number if an upcoming schedule exists
-        $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+        if (!$isCourseCompleted) {
+            $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
+                return $schedule->start_time >= $now; 
+            })->first(); // Find the first / closest upcoming schedule
+
+            // Get the current meeting number if an upcoming schedule exists
+            $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+        } else {
+            $currentMeetingNumber = $enrollment->course->course_length + 1; // Or set to a specific value if needed
+        }
 
         // Get new collection of the real schedules
         $courseSchedules = $enrollment->schedule;
