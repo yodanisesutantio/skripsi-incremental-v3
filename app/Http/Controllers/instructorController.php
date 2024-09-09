@@ -549,7 +549,9 @@ class instructorController extends Controller
                 $courseSchedule->instructor_id = $proposedSchedule->instructor_id;
                 $courseSchedule->save();
                 $proposedSchedule->delete();
-            } elseif ($proposedSchedule && $courseSchedule->start_time < $now->addHours(24)) {
+            } 
+            // When the proposed schedule is not getting agreed, but the next current schedule is under the 24 hours, cancel that proposed schedule
+            elseif ($proposedSchedule && $courseSchedule->start_time < $now->addHours(24)) {
                 $proposedSchedule->delete();
             }
         }
