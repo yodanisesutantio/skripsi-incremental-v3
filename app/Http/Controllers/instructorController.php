@@ -568,4 +568,39 @@ class instructorController extends Controller
             'currentMeetingNumber' => $currentMeetingNumber,
         ]);
     }
+
+    // View Registration Form Page Controller
+    public function registrationForm($student_real_name, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        return view('instructor-page.instructor-course-registration-form', [
+            'pageName' => "Formulir Pendaftaran Kursus | ",
+            'enrollment' => $enrollment
+        ]);
+    }
+
+    // Payment Verification Page Controller
+    public function paymentPage($student_real_name, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        if (!$enrollment->coursePayment) {
+            // Generate a flash message via Toastr to let user know that the process is successful
+            session()->flash('info', 'Siswa belum mengunggah bukti pembayaran. Silahkan coba lagi nanti!');
+            // Redirect instructor to Course Progress Page
+            return redirect(url('/instructor-course-progress/' . $student_real_name . '/' . $enrollment_id));
+        }
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        return view('instructor-page.instructor-course-payment', [
+            'pageName' => "Verifikasi Bukti Pembayaran | ",
+            'enrollment' => $enrollment
+        ]);
+    }
 }
