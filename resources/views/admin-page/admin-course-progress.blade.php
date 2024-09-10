@@ -112,7 +112,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-custom-green-hover rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4 hidden">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -139,7 +139,7 @@
                                     <div class="border-b border-custom-white w-full"></div>
 
                                     {{-- Student Achievement --}}
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         @if ($i === 1)
                                             {{-- Select Schedule Achievement --}}
                                             <div class="flex flex-row justify-between items-center">
@@ -224,7 +224,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-custom-white-hover border border-custom-green text-custom-grey rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -250,7 +250,7 @@
 
                                     <div class="border-b border-custom-grey w-full"></div>
 
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         @if ($i === 1)
                                             {{-- Select Schedule Achievement --}}
                                             <div class="flex flex-row justify-between items-center">
@@ -335,7 +335,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-[#8A8A8A] rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4 hidden">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -361,7 +361,7 @@
 
                                     <div class="border-b border-custom-dark/75 w-full"></div>
 
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         {{-- Read Theory Achievement --}}
                                         <div class="flex flex-row justify-between items-center">
                                             Baca Panduan Kursus
@@ -408,7 +408,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-custom-green-hover rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4 hidden">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -434,7 +434,7 @@
 
                                     <div class="border-b border-custom-white w-full"></div>
 
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         @if ($i === 1)
                                             {{-- Select Schedule Achievement --}}
                                             <div class="flex flex-row justify-between items-center">
@@ -519,7 +519,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-custom-white-hover border border-custom-green text-custom-grey rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -545,7 +545,7 @@
 
                                     <div class="border-b border-custom-grey w-full"></div>
 
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         @if ($i === 1)
                                             {{-- Select Schedule Achievement --}}
                                             <div class="flex flex-row justify-between items-center">
@@ -630,7 +630,7 @@
 
                             {{-- Accordion Content --}}
                             <div id="collapseOne" class="bg-[#8A8A8A] rounded-b-lg relative z-0 -mt-1.5 text-base/tight lg:text-lg/tight pt-6 pb-5 px-4 hidden">
-                                <div class="flex flex-col gap-6">
+                                <div class="flex flex-col gap-4 lg:gap-6">
                                     {{-- Display Day, Date Month Year --}}
                                     @php
                                         $schedule = $enrollment->schedule->where('meeting_number', $i)->first();
@@ -656,7 +656,7 @@
 
                                     <div class="border-b border-custom-dark/75 w-full"></div>
 
-                                    <div class="flex flex-col gap-5">
+                                    <div class="flex flex-col gap-5 pt-2 lg:pt-1">
                                         {{-- Read Theory Achievement --}}
                                         <div class="flex flex-row justify-between items-center">
                                             Baca Panduan Kursus
