@@ -760,7 +760,7 @@
             $('#contact-other-party').addClass('hidden');
         });
 
-
+        // Function to open the Accordion
         $('.accordion-button').click(function() {
             const content = $(this).closest('h2').next('div');
             const arrowDown = $(this).find('.arrow-down');

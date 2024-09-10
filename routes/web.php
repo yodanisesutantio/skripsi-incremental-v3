@@ -154,4 +154,8 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
 
     // Instructor's View Course Progress Detail Page
     Route::get('/instructor-course-progress/{student_real_name}/{enrollment_id}', [instructorController::class, 'courseProgressPage']);
+    // Instructor's View Course Progress Detail Page
+    Route::get('/instructor-course/registration-form/{student_real_name}/{enrollment_id}', [instructorController::class, 'courseProgressPage']);
+    // Instructor's View Course Progress Detail Page
+    Route::get('/instructor-course-progress/payment/{student_real_name}/{enrollment_id}', [instructorController::class, 'courseProgressPage']);
 });

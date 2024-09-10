@@ -13,35 +13,6 @@
         </div>
     @endif
 
-    @php
-        $pendingInstructorApprovals = [];
-        $pendingStudentApprovals = [];
-        foreach ($enrollment->schedule as $schedule) {
-            if ($schedule->proposedSchedule && $schedule->proposedSchedule->instructor_decision === 0) {
-                $pendingInstructorApprovals[] = $schedule->meeting_number;
-            }
-            if ($schedule->proposedSchedule && $schedule->proposedSchedule->student_decision === 0) {
-                $pendingStudentApprovals[] = $schedule->meeting_number;
-            }
-        }
-    @endphp
-
-    @if (!empty($pendingInstructorApprovals))
-        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingInstructorApprovals) }} belum disetujui oleh Instruktur!
-            </h2>
-        </div>
-    @endif
-
-    @if (!empty($pendingStudentApprovals))
-        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingStudentApprovals) }} belum disetujui oleh Siswa!
-            </h2>
-        </div>
-    @endif
-    
     <div class="lg:grid lg:grid-cols-5">
         <div class="lg:col-span-2 bg-custom-white flex flex-col gap-5">
             {{-- Menu Button Groups --}}
@@ -49,7 +20,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div class="flex flex-col gap-3">
                         {{-- Registration Form Button --}}
-                        <a href="{{ url('/admin-course/registration-form/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
+                        <a href="{{ url('/instructor-course/registration-form/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
                             {{-- Overlays --}}
                             <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                                 <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Formulir Pendaftaran</h2>
@@ -58,7 +29,7 @@
                         </a>
 
                         {{-- Course Payment Button --}}
-                        <a href="{{ url('/admin-course/payment-verification/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
+                        <a href="{{ url('/instructor-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
                             {{-- Overlays --}}
                             <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                                 <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Bukti Pembayaran</h2>
@@ -112,16 +83,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-white flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-white w-full"></div>
@@ -224,16 +190,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-grey w-full"></div>
@@ -335,16 +296,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-dark/75 w-full"></div>
@@ -408,16 +364,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-white w-full"></div>
@@ -519,16 +470,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-white-hover border border-custom-green flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-custom-green rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-grey w-full"></div>
@@ -630,16 +576,11 @@
                                             @if ($schedule)
                                                 <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight">{{ $schedule->formatted_date ?? '' }}</h3>
 
-                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_startTime ?? '' }} WIB</h3>
+                                                <h3 class="font-league font-semibold text-lg/tight lg:text-xl/tight text-right whitespace-nowrap">{{ $schedule->formatted_time ?? '' }} WIB</h3>
                                             @else
                                                 <h3 class="w-full font-league font-semibold text-center text-lg/tight lg:text-xl/tight">Belum ada Jadwal yang dipilih</h3>
                                             @endif
                                         </div>
-
-                                        {{-- Confirm Proposed Schedule Button --}}
-                                        @if ($schedule && $schedule->proposedSchedule)
-                                            <button class="bg-custom-dark/75 flex items-center justify-center p-3 font-encode font-semibold text-base/tight text-[#8A8A8A] rounded-lg open-proposed-schedule">Lihat Perubahan</button>
-                                        @endif
                                     </div>
 
                                     <div class="border-b border-custom-dark/75 w-full"></div>
@@ -668,46 +609,6 @@
                 @endfor
             </div>
         </div>
-    </div>
-
-    {{-- Confirm Schedule Changes --}}
-    <div class="hidden flex-col lg:grid-cols-2 lg:items-center justify-center gap-6 fixed top-0 left-0 font-league w-full h-full bg-custom-dark/70 z-40 pt-12 lg:pt-0 px-6 lg:px-[4.25rem]" id="confirm-schedule-overlay">
-        {{-- Close Button --}}
-        <button type="button" id="close-confirm-schedule-overlay" class="fixed top-7 right-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="#EBF0F2" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
-
-        {{-- Old Schedule --}}
-        <button type="button" class="lg:w-full lg:mt-10" id="reject-schedule">
-            {{-- Overlays --}}
-            <div class="flex flex-col gap-5 w-full h-72 rounded-xl px-6 pt-2 lg:pt-0 justify-center items-center border-2 border-custom-green text-custom-dark bg-custom-white lg:px-20 lg:hover:bg-custom-white-hover duration-300">
-                <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Lama</h2>
-                <div class="flex flex-col gap-1">
-                    <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Jumat, 03 Oktober 2024</h4>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">08:00 - 09:30 WIB</h4>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p class="font-normal text-base/tight lg:text-lg/tight">Instruktur :</p>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Nama Instruktur</h4>
-                </div>
-            </div>
-        </button>
-
-        {{-- New Schedule --}}
-        <button type="button" class="lg:w-full lg:mt-10" id="confirm-schedule">
-            {{-- Overlays --}}
-            <div class="flex flex-col gap-5 w-full h-72 rounded-xl px-6 pt-2 lg:pt-0 justify-center items-center text-custom-white bg-custom-green lg:px-20 lg:hover:bg-custom-green-hover duration-300">
-                <h2 class="font-semibold text-2xl/snug lg:text-4xl/snug">Pilih Jadwal Baru</h2>
-                <div class="flex flex-col gap-1">
-                    <p class="font-normal text-base/tight lg:text-lg/tight">Pertemuan ke-4</p>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Jumat, 03 Oktober 2024</h4>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">10:00 - 11:30 WIB</h4>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <p class="font-normal text-base/tight lg:text-lg/tight">Instruktur :</p>
-                    <h4 class="font-medium text-xl/tight lg:text-2xl/tight">Nama Instruktur</h4>
-                </div>
-            </div>
-        </button>
     </div>
 
     {{-- Contact Other Parties Overlay --}}
@@ -755,17 +656,6 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        // Open Confirm Schedule Modals
-        $('#button-contact-other-party').on('click', function() {
-            $('#confirm-schedule-overlay').removeClass('hidden');
-            $('#confirm-schedule-overlay').addClass('flex lg:grid');
-        });
-        // Close them when user either click the X icons or chooses to contact one of the options
-        $('#close-confirm-schedule-overlay, #reject-schedule, #confirm-schedule').on('click', function() {
-            $('#confirm-schedule-overlay').removeClass('flex lg:grid');
-            $('#confirm-schedule-overlay').addClass('hidden');
-        });
-
         // Open Contact Other Party Modals
         $('#button-contact-other-party').on('click', function() {
             $('#contact-other-party').removeClass('hidden');
@@ -777,6 +667,7 @@
             $('#contact-other-party').addClass('hidden');
         });
 
+        // Function to open Accordion
         $('.accordion-button').click(function() {
             const content = $(this).closest('h2').next('div');
             const arrowDown = $(this).find('.arrow-down');
@@ -787,24 +678,6 @@
             arrowUp.toggleClass('hidden'); 
 
             $(this).attr('aria-expanded', content.is(':visible')); 
-        });
-
-        // Open Delete Student Popups
-        $('#openDeleteStudentConfirmation').click(function(event) {
-            $('#delete-overlay').removeClass('hidden');
-            $('#delete-overlay').addClass('flex');
-        });
-
-        // Close Delete Student Popups
-        $('#closeDelete, #XDelete').click(function(event) {
-            $('#delete-overlay').removeClass('flex');
-            $('#delete-overlay').addClass('hidden');
-        });
-
-        // Confirm Delete Function
-        $('#yesDelete').click(function(event) {
-            event.preventDefault();
-            $('#yesDelete').next().submit();
         });
     </script>
 @endsection
