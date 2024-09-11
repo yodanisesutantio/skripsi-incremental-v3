@@ -9,6 +9,7 @@ use App\Models\ProposedSchedule; // Access User Tables
 class CourseScheduleController extends Controller
 {
     public function proposeNewSchedule(Request $request, $course_schedule_id) {
+        // Validation Rules and Error Message
         $request->validate([
             'course_date' => 'required|date',
             'course_time' => 'required',
@@ -20,8 +21,6 @@ class CourseScheduleController extends Controller
             'instructor_ids.required' => 'Silahkan Pilih Salah Satu Instruktur',
         ]);
 
-        $realSchedule = CourseSchedule::findOrFail($course_schedule_id);
-
         // Split course_time into start and end
         list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
 
@@ -29,6 +28,13 @@ class CourseScheduleController extends Controller
         $start_time = \Carbon\Carbon::parse($request->course_date . ' ' . $start_time_str);
         $end_time = \Carbon\Carbon::parse($request->course_date . ' ' . $end_time_str);
 
+        // When Users accidentally entered a schedule less than the current time, return error
+        if ($start_time < now()->addHours(24) || $end_time < now()->addHours(24)) {
+            $request->session()->flash('error', 'Pastikan jadwal baru berlangsung tidak kurang dari 24 jam');
+            return redirect()->back();
+        }
+
+        // Find any conflicting schedule if any
         foreach ($request->instructor_ids as $instructor_id) {
             $existingSchedule = CourseSchedule::where(function ($query) use ($instructor_id, $start_time, $end_time) {
                 $query->where('instructor_id', $instructor_id)
@@ -42,26 +48,25 @@ class CourseScheduleController extends Controller
                     });
             })->first();
     
+            // When there's a conflicting schedule, return error
             if ($existingSchedule) {
                 $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . '. Silahkan Ubah Opsi Tanggal atau Jam Kursus');
                 return redirect()->back();
             }
     
-            $proposedSchedule = new ProposedSchedule();
-            $proposedSchedule->course_schedule_id = $course_schedule_id;
-            $proposedSchedule->instructor_id = $instructor_id;
-            $proposedSchedule->start_time = $start_time;
-            $proposedSchedule->end_time = $end_time;
-            $proposedSchedule->meeting_number = $realSchedule->meeting_number;
-            $proposedSchedule->student_decision = 0;
-            $proposedSchedule->instructor_decision = 0;
-            $proposedSchedule->save();
+            // But when the requested schedule didn't have any conflict, update the courseSchedule
+            $newSchedule = CourseSchedule::find($course_schedule_id);
+            $newSchedule->instructor_id = $instructor_id;
+            $newSchedule->start_time = $start_time;
+            $newSchedule->end_time = $end_time;
+            $newSchedule->save();
         }
 
-        $request->session()->flash('success', 'Jadwal baru sedang diajukan. Informasikan pengajuan ini ke Instruktur dan Siswa Bersangkutan untuk disetujui');
-        return redirect(url('/admin-course-progress/' . $realSchedule->enrollment->student_real_name . '/' . $realSchedule->enrollment->id));
+        $request->session()->flash('success', 'Jadwal berhasil diubah. Informasikan perubahan ini ke Instruktur dan Siswa Bersangkutan');
+        return redirect(url('/admin-course-progress/' . $newSchedule->enrollment->student_real_name . '/' . $newSchedule->enrollment->id));
     }
 
+    // Test Schedule Controller
     public function testSchedule1(Request $request) {
         $request->ins_id = 6;
         $request->stime = '2024-08-11 08:00:00';

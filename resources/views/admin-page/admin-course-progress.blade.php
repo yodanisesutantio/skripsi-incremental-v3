@@ -12,35 +12,6 @@
             <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">Bukti Pembayaran Kursus belum diverifikasi!</h2>
         </div>
     @endif
-
-    @php
-        $pendingInstructorApprovals = [];
-        $pendingStudentApprovals = [];
-        foreach ($enrollment->schedule as $schedule) {
-            if ($schedule->proposedSchedule && $schedule->proposedSchedule->instructor_decision === 0) {
-                $pendingInstructorApprovals[] = $schedule->meeting_number;
-            }
-            if ($schedule->proposedSchedule && $schedule->proposedSchedule->student_decision === 0) {
-                $pendingStudentApprovals[] = $schedule->meeting_number;
-            }
-        }
-    @endphp
-
-    @if (!empty($pendingInstructorApprovals))
-        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingInstructorApprovals) }} belum disetujui oleh Instruktur!
-            </h2>
-        </div>
-    @endif
-
-    @if (!empty($pendingStudentApprovals))
-        <div class="mt-4 p-3 lg:p-5 bg-custom-warning/40 w-full rounded-lg lg:rounded-xl">
-            <h2 class="font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                Jadwal Baru untuk Pertemuan {{ implode(' & ', $pendingStudentApprovals) }} belum disetujui oleh Siswa!
-            </h2>
-        </div>
-    @endif
     
     <div class="lg:grid lg:grid-cols-5">
         <div class="lg:col-span-2 bg-custom-white flex flex-col gap-5">
@@ -682,6 +653,7 @@
         </div>
     </div>
 
+    {{-- Contact Other Parties Overlay --}}
     <div class="hidden flex-col lg:grid-cols-2 lg:items-center justify-center gap-6 fixed top-0 left-0 font-league w-full h-full bg-custom-dark/70 text-custom-white z-40 pt-12 lg:pt-0 px-6 lg:px-[4.25rem]" id="contact-other-party">
         {{-- Close Button --}}
         <button type="button" id="close-contact-other-party" class="fixed top-7 right-6"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="#EBF0F2" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
