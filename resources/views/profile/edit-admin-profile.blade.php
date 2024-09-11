@@ -1,6 +1,7 @@
 @extends('layouts.relative')
 
 @section('content')
+    {{-- Mobile View Forms Header --}}
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
@@ -26,6 +27,7 @@
     </div>
 
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
+        {{-- Desktop View Forms Header --}}
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
                 <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Edit Profil</h1>
@@ -312,8 +314,14 @@
             {{-- Button Groups for Desktop View --}}
             <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
                 <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+
+                {{-- Submit Edit Profile Button --}}
                 <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+
+                {{-- Submit Edit Payment Button --}}
                 <button type="submit" id="submitEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+
+                {{-- Submit Edit Password Button --}}
                 <button type="submit" id="submitEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
             </div>
         </div>
@@ -322,8 +330,14 @@
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
         <a href="/admin-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+
+        {{-- Submit Edit Profile Button --}}
         <button type="submit" id="mobileEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+
+        {{-- Submit Edit Payment Button --}}
         <button type="submit" id="mobileEditPaymentForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
+
+        {{-- Submit Edit Password Button --}}
         <button type="submit" id="mobileEditPasswordForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
     </div>
 
@@ -377,21 +391,30 @@
             }
         });
 
+        // Initially, Hide all of the submit button
         $('.submit-button').addClass('hidden');
+
+        // Show the Edit Profile Button
         $('#submitEditProfileForms').removeClass('hidden');
         $('#mobileEditProfileForms').removeClass('hidden');
+
+        // When we are in the first slide, show the Edit Profile Button, and hide other submit button
         $('#accountInfoButton, #accountInfoLargeButton').on('click', function() {
             swiper.slideTo(0);
             $('.submit-button').addClass('hidden');
             $('#submitEditProfileForms').removeClass('hidden');
             $('#mobileEditProfileForms').removeClass('hidden');
         });
+
+        // When we are in the second slide, show the Edit Payment Method Button, and hide other submit button
         $('#paymentMethodButton, #paymentMethodLargeButton').on('click', function() {
             swiper.slideTo(1);
             $('.submit-button').addClass('hidden');
             $('#submitEditPaymentForms').removeClass('hidden');
             $('#mobileEditPaymentForms').removeClass('hidden');
         });
+
+        // When we are in the third slide, show the Edit Password Button, and hide other submit button
         $('#securityButton, #securityLargeButton').on('click', function() {
             swiper.slideTo(2);
             $('.submit-button').addClass('hidden');
@@ -420,12 +443,14 @@
             initialCountry: "ID", 
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
         });
+        // Remove any non-numerical characters when pressed
         phoneInputField.addEventListener('keypress', function(event) {
             let value = input.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
                 event.preventDefault(); // Prevent non-numerical input
             }
         });
+        // Even when users tried to copy and paste a non-numerical characters, delete it immediately
         function deleteAnyString(input) {
             let value = input.value.replace(/\D/g, '');
             input.value = value;
