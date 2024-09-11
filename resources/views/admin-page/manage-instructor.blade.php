@@ -3,6 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
+    {{-- Headers --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">Instruktur Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Pilih salah satu Instruktur untuk anda kelola!</p>
 

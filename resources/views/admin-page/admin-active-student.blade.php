@@ -3,11 +3,15 @@
 @include('partials.navbar')
 
 @section('content')
+    {{-- Greetings --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">Daftar Siswa Aktif</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut adalah seluruh siswa yang memiliki kursus aktif dengan anda!</p>
 
+    {{-- If there's no active student, do this --}}
     @if ($activeEnrolledStudent->isEmpty() || $activeEnrolledStudent->every(fn($student) => !$student->next_course_date))
         <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai siswa aktif)</p>
+    
+    {{-- If there's active student, do this instead --}}
     @else
         {{-- Class List --}}
         <div class="flex lg:grid flex-col lg:grid-cols-2 gap-6 mt-5 lg:mt-10 mb-7 lg:mb-14">
@@ -37,7 +41,9 @@
                     {{-- Course Name and Next Course Date and Time --}}
                     <div class="flex flex-col gap-3">
                         <div class="flex flex-col gap-1">
+                            {{-- Course Name --}}
                             <h3 class="font-encode tracking-tight font-semibold text-[21px]/tight lg:text-[25px]/tight text-custom-dark">{{ $activeStudent->course->course_name }}</h3>
+                            {{-- Course Meeting Number --}}
                             <p class="font-league text-[17px]/tight lg:text-xl/tight text-custom-grey">Pertemuan ke-{{ $activeStudent->meeting_number }}</p>
                         </div>
                         <div class="flex flex-col lg:flex-row gap-2">
@@ -62,10 +68,4 @@
     @endif
 
     @include('partials.footer')
-
-    {{-- jQuery JS --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script>
-
-    </script>
 @endsection

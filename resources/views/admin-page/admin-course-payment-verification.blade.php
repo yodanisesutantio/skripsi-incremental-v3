@@ -1,6 +1,7 @@
 @extends('layouts.relative')
 
 @section('content')
+    {{-- Mobile View Forms Header --}}
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Bukti Pembayaran Kursus</h1>
@@ -9,6 +10,7 @@
     </div>
 
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
+        {{-- Desktop View Forms Header --}}
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
                 <h1 class="text-2xl/tight lg:text-4xl/tight text-custom-dark font-encode tracking-tight font-semibold">Bukti Pembayaran Kursus</h1>
@@ -18,6 +20,7 @@
 
         <div class="lg:col-span-2 lg:mt-7 lg:px-24">
             <div class="flex flex-col gap-4 lg:gap-6 my-3 mx-6 lg:mx-0 p-6 bg-custom-white-hover rounded-lg lg:rounded-xl">
+                {{-- Sub Headers --}}
                 <div class="flex flex-col gap-1">
                     <h2 class="font-encode font-semibold text-xl/tight lg:text-[26px]/tight text-custom-dark">Bukti Pembayaran</h2>
                     <p class="font-league font-medium text-base/tight lg:text-xl/tight text-custom-grey">Tekan Gambar untuk melihat lebih detail</p>
@@ -29,11 +32,12 @@
                 </a>
             </div>
 
-            {{-- Open Modals to Verify --}}
+            {{-- When the payment already verified, make the button disabled --}}
             @if ($enrollment->coursePayment->paymentStatus === 1)
-                <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
+            <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
                     <div id="alreadyVerified" class="select-none opacity-40 py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</div>
                 </div>
+            {{-- Open Modals to Verify --}}
             @else
                 <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
                     <button type="button" id="openVerifyModals" class="py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</button>

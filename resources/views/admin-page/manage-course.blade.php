@@ -3,6 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
+    {{-- Headers --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">Kelas Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Pilih salah satu kelas untuk anda kelola!</p>
 
@@ -13,7 +14,7 @@
 
     {{-- If Admin's haven't added any Course, display this --}}
     @if ($course->isEmpty())
-        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai kursus)</p>
+        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mempunyai kelas kursus)</p>
     @else
     
     {{-- Class List --}}

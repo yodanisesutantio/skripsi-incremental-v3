@@ -3,6 +3,7 @@
 @include('partials.navbar')
 
 @section('content')
+    {{-- Headers --}}
     <h1 class="text-custom-dark font-encode tracking-tight font-semibold text-2xl/tight lg:text-4xl mt-5 lg:mt-10">Izin Kursus Anda</h1>
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut Daftar Izin Kursus Anda!</p>
 
@@ -36,6 +37,7 @@
         <p class="font-league text-center px-5 lg:text-xl my-20 lg:my-14">(Anda tidak mempunyai Izin Aktif, <a href="admin-driving-school-license/create" class="font-semibold text-custom-green underline">Unggah Izin Baru Sekarang</a>)</p>
     @endif
 
+    {{-- Sub Headers --}}
     <h2 class="text-xl lg:text-2xl/snug mt-10 mb-3 lg:mt-10 lg:mb-3 text-custom-dark font-encode tracking-tight font-semibold">Daftar Izin Kursus Anda</h2>
     {{-- Show every saved license that this user has --}}
     @if ($licenses)
