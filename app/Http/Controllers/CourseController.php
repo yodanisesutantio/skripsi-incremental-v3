@@ -236,7 +236,7 @@ class CourseController extends Controller
 
         // Fetch the current instructor IDs for the course
         $currentInstructorIds = DB::table('course_instructors')
-            ->where('course_id', $course->id) // Match the course_id from course_instructors tables with the edited course_id
+            ->where('course_id', $course->id) // Match the course_id from course_instructors tables with the selected course_id
             ->pluck('instructor_id') // Only fetch the instructor_id attribute
             ->toArray(); // Collect it in an array
 

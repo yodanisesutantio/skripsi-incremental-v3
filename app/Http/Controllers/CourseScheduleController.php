@@ -21,10 +21,10 @@ class CourseScheduleController extends Controller
             'instructor_ids.required' => 'Silahkan Pilih Salah Satu Instruktur',
         ]);
 
-        // Split course_time into start and end
+        // Split course_time from for example : 09:30 - 11:00 into start_time : 09:30 and end_time 11:00
         list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
 
-        // Combine with course_date
+        // Since we assign $start_time and $end_time as datetime in the database, we should combine both the start_time and end_time with course_date so it will saved as 2024-11-09 09:30 for start_time and 2024-11-09 11:00 for end_time
         $start_time = \Carbon\Carbon::parse($request->course_date . ' ' . $start_time_str);
         $end_time = \Carbon\Carbon::parse($request->course_date . ' ' . $end_time_str);
 

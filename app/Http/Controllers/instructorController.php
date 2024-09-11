@@ -76,9 +76,9 @@ class instructorController extends Controller
         ]);
     }
 
-    // Admin-Course/Active-Student-List Page Controller
+    // Instructor-Course Page Controller
     public function instructorCoursePage() {
-        // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner
+        // Find the active student by searching Enrollment Tables that the Course is teached by this instructor
         $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
             $query->where('instructor_id', auth()->id());
         })
@@ -127,7 +127,7 @@ class instructorController extends Controller
         }
 
         return view('instructor-page.instructor-active-student', [
-            'pageName' => "Daftar Siswa Aktif | ",
+            'pageName' => "Halaman Kursus Anda | ",
             'activeEnrolledStudent' => $activeEnrolledStudent,
         ]);
     }
@@ -140,14 +140,9 @@ class instructorController extends Controller
     }
 
     // Instructor-Profile/Edit Page Controller
-    public function editProfilePage() {// Check for active instructor certificates
-        $hasActiveLicense = InstructorCertificate::where('instructor_id', auth()->id())
-            ->where('certificateStatus', 'Sudah Divalidasi')
-            ->exists();
-
+    public function editProfilePage() {
         return view('profile.edit-instructor-profile', [
             "pageName" => "Edit Profil | ",
-            "hasActiveLicense" => $hasActiveLicense,
         ]);
     }
 
