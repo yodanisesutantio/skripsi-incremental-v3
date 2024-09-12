@@ -39,11 +39,13 @@ Route::get('/about-app', [generalPage::class, 'about']);
 Route::get('/contact-us', [generalPage::class, 'contact']);
 
 // Login Page
-Route::get('/login', [loginController::class, 'index'])->middleware('guest')->name('login');
+Route::get('/login', [loginController::class, 'loginPage'])->middleware('guest')->name('login');
 // Login Logic Handler
 Route::post('/login', [loginController::class, 'authenticate']);
 // Logout Logic Handler
 Route::post('/logout', [loginController::class, 'logout']);
+// Register Page
+Route::get('/register', [loginController::class, 'registerPage'])->middleware('guest')->name('register');
 
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session; // Use Session Method by Laravel
 class loginController extends Controller
 {
     // Login Page Controller
-    public function index() {
+    public function loginPage() {
         return view('/login', [
             'pageName' => "Login | "
         ]);
@@ -66,5 +66,12 @@ class loginController extends Controller
 
         // Redirect to landing page
         return redirect('/');
+    }
+
+    // Register Page Controller
+    public function registerPage() {
+        return view('/register', [
+            'pageName' => "Daftar Akun | "
+        ]);
     }
 }

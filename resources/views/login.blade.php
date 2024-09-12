@@ -46,11 +46,8 @@
                 {{-- Redirect to Register Link --}}
                 <p class="mt-8 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="/register" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
             </form>
-        </div>
-        
+        </div>        
     </div>
-
-    
 
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
