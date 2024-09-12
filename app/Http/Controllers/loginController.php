@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User; // Access User Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Http\RedirectResponse; // Use RedirectResponse Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
@@ -73,5 +74,57 @@ class loginController extends Controller
         return view('/register', [
             'pageName' => "Daftar Akun | "
         ]);
+    }
+
+    // Register Logic
+    public function registerAccount(Request $request): RedirectResponse {
+        // Validation Rules
+        $validatedData = $request->validate([
+            'fullname' => 'required|max:255',
+            'age' => 'required|integer|between:18,70',
+            'phone_number' => 'required|max:20',
+            'username' => 'required|max:255|unique:users,username,',
+            'password' => 'required|min:5|max:255|confirmed',
+            'password_confirmation' => 'required|min:5|max:255',
+        ],
+
+        // Validation Error messages
+        [
+            'fullname.required' => 'Kolom ini harus diisi',
+            'fullname.max' => 'Nama Terlalu Panjang',
+            'age.required' => 'Kolom ini harus diisi',
+            'age.integer' => 'Masukkan angka yang valid',
+            'age.between' => 'Usia Minimal 18 Tahun dan Maksimal 70 Tahun',
+            'phone_number.required' => 'Kolom ini harus diisi',
+            'phone_number.max' => 'Nomor Terlalu Panjang',
+            'username.required' => 'Kolom ini harus diisi',
+            'username.max' => 'Username Terlalu Panjang',
+            'username.unique' => 'Username sudah digunakan',
+            'password.required' => 'Kolom ini harus diisi',
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password terlalu panjang',
+            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
+            'password_confirmation.required' => 'Kolom ini harus diisi',
+            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
+            'password_confirmation.max' => 'Password terlalu panjang',
+        ]);
+
+        // Format phone number to +62
+        $validatedData['phone_number'] = preg_replace('/^(0|62)/', '+62', $validatedData['phone_number']);
+
+        // Create User
+        $user = User::create([
+            'fullname' => $validatedData['fullname'],
+            'age' => $validatedData['age'],
+            'phone_number' => $validatedData['phone_number'],
+            'username' => $validatedData['username'],
+            'password' => bcrypt($validatedData['password']),
+            'role' => 'user', // Set default role
+        ]);
+
+        // Authenticate User
+        Auth::login($user);
+        // Redirect to user index
+        return redirect('/user-index')->with('success', 'Registrasi Berhasil, Selamat Datang di Kemudi!');
     }
 }

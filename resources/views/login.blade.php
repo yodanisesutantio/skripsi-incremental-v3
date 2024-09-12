@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Body Background Image --}}
-    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/BG-Login.webp')">
+    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/for-login-page.webp')">
         {{-- Glass Effect --}}
         <div class="flex flex-col p-6 lg:px-8 lg:py-6 w-full lg:w-[27rem] bg-center bg-[#F6F6F612] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
@@ -44,7 +44,7 @@
                 </div>
 
                 {{-- Redirect to Register Link --}}
-                <p class="mt-8 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="/register" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
+                <p class="mt-8 lg:mt-6 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="/register" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
             </form>
         </div>        
     </div>

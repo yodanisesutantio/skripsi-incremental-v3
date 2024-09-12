@@ -9,7 +9,7 @@
                 {{-- Form Header --}}
                 <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white whitespace-nowrap font-encode tracking-tight font-semibold">Halo Pengguna Baru!</h1>
                 {{-- Forms --}}
-                <form action="/register" method="post" class="swiper-wrapper pt-1 pb-6">
+                <form action="/register" method="post" class="swiper-wrapper pt-1 pb-6" id="createAccountForm">
                     @csrf
                     {{-- Slide 1 : Account Info --}}
                     <div class="swiper-slide">
@@ -19,7 +19,7 @@
                             {{-- Input Fullname --}}
                             <div class="flex flex-col gap-1">
                                 <label for="fullname" class="font-normal font-league text-lg text-custom-white">Nama Lengkap<span class="text-custom-destructive">*</span></label>
-                                <input type="text" name="fullname" id="fullname" autofocus placeholder="Nama Lengkap mu" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('fullname') border-2 border-custom-destructive @enderror">
+                                <input type="text" name="fullname" id="fullname" autofocus placeholder="Nama Lengkap mu" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('fullname') border-2 border-custom-destructive @enderror" value="{{ old('fullname') }}">
                                 @error('fullname')
                                     <span class="text-custom-destructive">{{ $message }}</span>
                                 @enderror
@@ -27,7 +27,7 @@
                             {{-- Input Age --}}
                             <div class="flex flex-col gap-1">
                                 <label for="age" class="font-normal font-league text-lg text-custom-white">Usia<span class="text-custom-destructive">*</span></label>
-                                <input type="number" name="age" id="age" min="18" max="70" placeholder="Usia minimal 18 tahun" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('age') border-2 border-custom-destructive @enderror">
+                                <input type="number" name="age" id="age" min="18" max="70" placeholder="Usia minimal 18 tahun" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
                                 @error('age')
                                     <span class="text-custom-destructive">{{ $message }}</span>
                                 @enderror
@@ -35,7 +35,7 @@
                             {{-- Input Phone Number --}}
                             <div class="flex flex-col gap-1">
                                 <label for="phone_number" class="font-normal font-league text-lg text-custom-white">Nomor Whatsapp Aktif<span class="text-custom-destructive">*</span></label>
-                                <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" oninput="deleteAnyString(this)">
+                                <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" oninput="deleteAnyString(this)" value="{{ old('phone_number') }}">
                                 @error('phone_number')
                                     <span class="text-custom-destructive">{{ $message }}</span>
                                 @enderror
@@ -51,7 +51,7 @@
                             {{-- Input Username --}}
                             <div class="flex flex-col gap-1">
                                 <label for="username" class="font-normal font-league text-lg text-custom-white">Username<span class="text-custom-destructive">*</span></label>
-                                <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror">
+                                <input type="text" name="username" id="username" placeholder="user_name_123" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                                 @error('username')
                                     @if ($message === 'The username has already been taken.')
                                         <span class="text-custom-destructive">{{ $message }}</span>    
@@ -96,8 +96,8 @@
                 {{-- Submit Button --}}
                 <div class="flex flex-row justify-between">
                     <button type="button" class="hidden prev-slide px-1 py-3 rounded-lg lg:rounded-lg text-center lg:text-lg text-custom-white-hover underline lg:hover:no-underline font-semibold duration-500">Kembali</button>
-                    <button type="button" class="next-slide px-10 py-3 ml-auto rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</button>
-                    <button name="submit" type="submit" class="hidden submit-button px-10 py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Daftar</button>
+                    <button type="button" class="next-slide px-12 py-3 ml-auto rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</button>
+                    <button name="submit" type="submit" class="hidden submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Daftar</button>
                 </div>
             </div>
             {{-- Redirect to Register Link --}}
@@ -178,6 +178,11 @@
             
             $confirmPasswordInput.attr('type', $confirmPasswordInput.attr('type') === "password" ? "text" : "password");
         }
+
+        // Function to submit forms
+        $('.submit-button').on('click', function() {
+            $('#createAccountForm').submit();
+        });
 
         // Tel Input Script
         const phoneInputField = document.getElementById('phone_number');        

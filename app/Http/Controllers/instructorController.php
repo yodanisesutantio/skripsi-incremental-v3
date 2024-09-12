@@ -197,6 +197,9 @@ class instructorController extends Controller
             $user->fill(['hash_for_profile_picture' => $fileName]);
         }     
 
+        // Format phone number to +62
+        $user->phone_number = preg_replace('/^(0|62)/', '+62', $request['phone_number']);
+
         // Save new User data
         $user->save();
 

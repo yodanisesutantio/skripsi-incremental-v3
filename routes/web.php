@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\generalPage;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\courseController;
@@ -46,6 +47,8 @@ Route::post('/login', [loginController::class, 'authenticate']);
 Route::post('/logout', [loginController::class, 'logout']);
 // Register Page
 Route::get('/register', [loginController::class, 'registerPage'])->middleware('guest')->name('register');
+// Register Logic Handler
+Route::post('/register', [loginController::class, 'registerAccount']);
 
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
@@ -160,4 +163,14 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
     Route::get('/instructor-course/registration-form/{student_real_name}/{enrollment_id}', [instructorController::class, 'registrationForm']);
     // Instructor's View Course Progress Detail Page
     Route::get('/instructor-course/payment/{student_real_name}/{enrollment_id}', [instructorController::class, 'paymentPage']);
+});
+
+// User Specific Route
+Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(function () {
+    // Instructor Dashboard Page
+    Route::get('/user-index', [userController::class, 'userIndex']);
+    // Instructor Course Page
+    Route::get('/user-course', [userController::class, 'userCoursePage']);
+    // Instructor Profile Page
+    Route::get('/user-profile', [userController::class, 'userProfile']);
 });
