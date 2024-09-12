@@ -114,7 +114,7 @@
                                 {{-- Input Description --}}
                                 <div class="flex flex-col gap-2">
                                     <label for="description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi (opsional)</label>
-                                    <textarea name="description" id="description" rows="5" placeholder="Anda bisa mengisi kolom ini dengan Alamat atau Visi kursus" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
+                                    <textarea name="description" id="description" rows="5" placeholder="Deskripsikan diri anda" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('description') border-2 border-custom-destructive @enderror">{{ auth()->user()->description }}</textarea>
                                     @error('description')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror

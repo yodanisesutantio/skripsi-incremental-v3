@@ -4,14 +4,14 @@
     {{-- Body Background Image --}}
     <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/BG-Login.webp')">
         {{-- Glass Effect --}}
-        <div class="flex flex-col p-5 lg:px-8 lg:py-6 w-full lg:w-[27rem] h-50 bg-center bg-[#F6F6F612] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
+        <div class="flex flex-col p-6 lg:px-8 lg:py-6 w-full lg:w-[27rem] bg-center bg-[#F6F6F612] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
-            <h1 class="text-2xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
+            <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
 
             {{-- Forms --}}
             <form action="/login" method="post">
                 @csrf
-                <div class="flex flex-col mt-8 lg:my-8 gap-5 lg:gap-7">
+                <div class="flex flex-col mt-8 lg:mt-6 gap-5 lg:gap-7">
                     {{-- Input Username --}}
                     <div class="flex flex-col gap-1">
                         <label for="username" class="font-normal font-league text-lg text-custom-white">Username<span class="text-custom-destructive">*</span></label>
