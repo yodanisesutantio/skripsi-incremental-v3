@@ -151,12 +151,12 @@
     @endif
 
     {{-- Class Offered Recommendation --}}
-    <div class="flex flex-row justify-between items-center mb-4 px-6 lg:px-[4.25rem]">
+    <div class="flex flex-row justify-between items-center mb-2 lg:mb-3 px-6 lg:px-[4.25rem]">
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Rekomendasi Kelas</h2>
         <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Class Offered Wrapper --}}
-    <div class="swiper h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem]">
+    <div class="relative swiper h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem] select-none">
         <div class="swiper-wrapper px-6 lg:px-[4.25rem]">
             @foreach ($availableCourses as $courseRecommendation)
                 <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-[8.5rem]' : '' }}" style="width: auto !important;">
@@ -165,25 +165,34 @@
                 @else
                     <div class="bg-center bg-cover w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
                 @endif
-                        <div class="relative flex flex-col flex-shrink-0 justify-end w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                        <a href="#" class="relative flex flex-col flex-shrink-0 justify-end w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
                             <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
                                 <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $courseRecommendation->course_length }} Pertemuan</p>
                                 <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $courseRecommendation->course_name }}</h3>
-                                <p class="text-sm lg:text-lg/tight font-light">{{ $courseRecommendation->admin->fullname }}</p>
+                                <p class="text-sm lg:text-lg/tight font-light mt-0.5 lg:mt-2">{{ $courseRecommendation->admin->fullname }}</p>
                             </div>
-                            <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-3 rounded-bl-xl rounded-tr-xl">
+                            <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
                                 <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($courseRecommendation['course_price'], 0, ',', '.') }},-</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             @endforeach
+        </div>
+
+        {{-- Prev Slide --}}
+        <div class="prevRecommendation absolute top-1/2 left-0 -mt-6 ml-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer -translate-x-1/2 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+        </div>
+        {{-- Next Slide --}}
+        <div class="nextRecommendation absolute top-1/2 right-0 -mt-6 mr-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer translate-x-1/2 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
         </div>
     </div>
 
     {{-- Course Recommendation --}}
     <div class="flex flex-row justify-between items-center mt-8 mb-4 px-6 lg:px-[4.25rem]">
-        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Terdekat</h2>
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Populer</h2>
         <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Course Recommendation Wrapper --}}
@@ -207,7 +216,9 @@
         </div>
     </div>
 
-    @include('partials.footer')
+    <div class="px-6 lg:px-[4.25rem]">
+        @include('partials.footer')
+    </div>
 
     {{-- Swiper CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -218,12 +229,22 @@
         const swiper = new Swiper('.swiper', {
             slidesPerView: "auto",
             spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
+            grabCursor: true,
 
             // No Navigation Button
             navigation: {
-                prevEl: '',
-                nextEl: '',
+                prevEl: '.prevRecommendation',
+                nextEl: '.nextRecommendation',
             },
+        });
+
+        // Show navigation buttons on hover
+        $('.swiper').hover(function() {
+            $('.nextRecommendation, .prevRecommendation').removeClass('hidden');
+            $('.nextRecommendation, .prevRecommendation').addClass('flex');
+        }, function() {
+            $('.nextRecommendation, .prevRecommendation').removeClass('flex');
+            $('.nextRecommendation, .prevRecommendation').addClass('hidden');
         });
     </script>
 @endsection
