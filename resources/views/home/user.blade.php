@@ -191,13 +191,44 @@
     </div>
 
     {{-- Course Recommendation --}}
-    <div class="flex flex-row justify-between items-center mt-8 mb-4 px-6 lg:px-[4.25rem]">
+    <div class="flex flex-row justify-between items-center mt-8 mb-2 px-6 lg:px-[4.25rem]">
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Populer</h2>
         <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Course Recommendation Wrapper --}}
-    <div class="relative flex items-center mb-4 lg:mb-8 px-6 lg:px-[4.25rem]" id="courseRecommendationContainer">
-        <p class="font-league w-full text-center lg:text-xl my-3 lg:my-6">(Belum ada penyedia kursus)</p>
+    <div class="relative swiperSchool h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem] select-none">
+        <div class="swiper-wrapper">
+            @foreach ($randomDrivingSchool as $drivingSchoolRecommendation)
+                {{-- Course Recommendation Card --}}
+                <div class="swiper-slide" style="width: auto !important;">
+                    <div class="flex flex-col gap-3 bg-custom-white-hover border border-custom-disabled-light p-4 rounded-xl items-center">
+                    @if ($drivingSchoolRecommendation['hash_for_profile_picture'])
+                        <div class="border border-custom-disabled-dark bg-cover bg-center w-14 lg:w-20 h-14 lg:h-20 rounded-full" style="background-image: url('{{ asset('storage/profile_pictures/' . $drivingSchoolRecommendation['hash_for_profile_picture']) }}')"></div>                        
+                    @else
+                        <div class="border border-custom-disabled-dark bg-cover bg-center w-14 lg:w-20 h-14 lg:h-20 rounded-full" style="background-image: url('{{ asset('img/blank-profile.webp') }}')"></div>
+                    @endif
+                        <div class="flex flex-col items-center w-60 lg:w-[20.5rem] h-16 lg:h-fit overflow-hidden mb-1 px-3">
+                            <p class="font-encode font-semibold text-xl/snug text-center line-clamp-2 lg:line-clamp-1">{{ $drivingSchoolRecommendation['fullname'] }}</p>
+                        </div>
+                        <a href="#" class="w-full font-league lg:text-lg/none text-custom-secondary px-3 py-2 border border-custom-secondary text-center rounded-lg hover:bg-custom-grey/20 duration-300">
+                            <div class="flex flex-row justify-center items-center gap-2">
+                                <p class="mt-[2px] lg:mt-[1.5px] lg:text-lg">Lihat Kursus</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="none" stroke="#495D64" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9 5l6 7l-6 7"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Prev Slide --}}
+        <div class="absolute top-1/2 left-0 -mt-8 ml-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer -translate-x-1/2 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="prevSchool">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+        </div>
+        {{-- Next Slide --}}
+        <div class="absolute top-1/2 right-0 -mt-8 mr-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer translate-x-1/2 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="nextSchool">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
+        </div>
     </div>
 
     {{-- Recommend to do a Search --}}
@@ -229,12 +260,22 @@
         const swiper = new Swiper('.swiper', {
             slidesPerView: "auto",
             spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
-            grabCursor: true,
 
             // No Navigation Button
             navigation: {
                 prevEl: '.prevRecommendation',
                 nextEl: '.nextRecommendation',
+            },
+        });
+        // Initialize Swipers
+        const swiper2 = new Swiper('.swiperSchool', {
+            slidesPerView: "auto",
+            spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
+
+            // No Navigation Button
+            navigation: {
+                prevEl: '.prevSchool',
+                nextEl: '.nextSchool',
             },
         });
 
@@ -245,6 +286,15 @@
         }, function() {
             $('.nextRecommendation, .prevRecommendation').removeClass('flex');
             $('.nextRecommendation, .prevRecommendation').addClass('hidden');
+        });
+
+        // Show navigation buttons on hover
+        $('.swiperSchool').hover(function() {
+            $('#nextSchool, #prevSchool').removeClass('hidden');
+            $('#nextSchool, #prevSchool').addClass('flex');
+        }, function() {
+            $('#nextSchool, #prevSchool').removeClass('flex');
+            $('#nextSchool, #prevSchool').addClass('hidden');
         });
     </script>
 @endsection

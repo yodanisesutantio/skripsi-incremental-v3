@@ -70,10 +70,13 @@ class userController extends Controller
             }
         }
 
+        $randomDrivingSchool = User::where('role', 'admin')->inRandomOrder()->take(4)->get(); // Fetch 4 random drivingSchool
+
         return view('home.user', [
             "pageName" => "Beranda | ",
             "incomingSchedule" => $incomingSchedule,
             "availableCourses" => $availableCourses,
+            "randomDrivingSchool" => $randomDrivingSchool,
         ]);
     }
 }
