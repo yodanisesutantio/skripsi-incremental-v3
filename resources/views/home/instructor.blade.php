@@ -15,7 +15,7 @@
         {{-- Incoming Course Card --}}
         @if ($incomingSchedule)
             {{-- Mobile Incoming Schedule --}}
-            <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
+            <a href="{{ url('/user-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -63,8 +63,8 @@
             <div class="hidden lg:grid lg:grid-cols-5 lg:gap-6">
                 {{-- Student Card --}}
                 <a href="{{ url('https://wa.me/' . $incomingSchedule->enrollment->student_phone_number) }}" target="_blank" class="lg:relative lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-2 bg-custom-white-hover rounded-xl p-6 overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
-                    @if ($incomingSchedule->enrollment->student_profile_picture)
-                        <img src="{{ asset('storage/enrollment/profile_pictures/' . $incomingSchedule->enrollment->student_profile_picture) }}" alt="Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
+                    @if ($incomingSchedule->enrollment->student->hash_for_profile_picture)
+                        <img src="{{ asset('storage/profile_pictures/' . $incomingSchedule->enrollment->student->hash_for_profile_picture) }}" alt="Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
                     @else
                         <img src="{{ asset('img/blank-profile.webp') }}" alt="Blank Student Profile Picture" class="rounded-full object-cover object-center w-[4.5rem] h-[4.5rem]">
                     @endif
@@ -83,7 +83,7 @@
                 </a>
 
                 {{-- Course Card --}}
-                <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                <a href="{{ url('/user-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     <div class="flex flex-col gap-4">
                         {{-- Student Information --}}
                         <div class="flex flex-row gap-3 items-center lg:hidden">

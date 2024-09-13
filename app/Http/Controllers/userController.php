@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon; // Use Carbon Method by Laravel
+
 use App\Models\User; // Access User Tables
 use App\Models\Course; // Access Course Tables
 use App\Models\CourseSchedule; // Access Course Schedule Tables
@@ -16,8 +18,32 @@ class userController extends Controller
 {
     // User-Index Page Controller
     public function userIndex() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Find the enrollment ID by comparing student_id with the authenticated user's ID
+        $enrollment = Enrollment::where('student_id', auth()->id())->first();
+        $enrollment_id = $enrollment ? $enrollment->id : null; // Return null if not found
+
+        $incomingSchedule = null; // Initialize to null
+        // Only run the query if enrollment_id is not null
+        if ($enrollment_id) {
+            $incomingSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)
+                ->where('start_time', '>', now()) // Filter for upcoming schedules
+                ->orderBy('start_time', 'asc') // Order by start time
+                ->first(); // Get the first upcoming schedule
+        }
+
+        // Localize the startLicenseDate to Indonesian and formatted to be written as this "20 Agt 2024"
+        if ($incomingSchedule) {
+            $incomingSchedule->formattedStartDate = Carbon::parse($incomingSchedule->start_time)->translatedFormat('d F Y');
+            $incomingSchedule->formattedStartTime = Carbon::parse($incomingSchedule->start_time)->translatedFormat('H:i');
+            $incomingSchedule->formattedEndTime = Carbon::parse($incomingSchedule->end_time)->translatedFormat('H:i');
+        }
+
         return view('home.user', [
             "pageName" => "Beranda | ",
+            "incomingSchedule" => $incomingSchedule,
         ]);
     }
 }
