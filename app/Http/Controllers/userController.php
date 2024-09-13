@@ -41,9 +41,39 @@ class userController extends Controller
             $incomingSchedule->formattedEndTime = Carbon::parse($incomingSchedule->end_time)->translatedFormat('H:i');
         }
 
+        // Initialize an empty collection for available courses
+        $availableCourses = collect();
+
+        // Keep fetching random courses until we have 6 available ones
+        while ($availableCourses->count() < 6) {
+            // Fetch random courses
+            $randomCourses = Course::inRandomOrder()->take(10)->get(); // Fetch more than 6 to increase chances
+
+            // Filter courses based on availability and enrollment
+            $filteredCourses = $randomCourses->filter(function ($course) {
+                $activeEnrollmentsCount = $course->enrollments->filter(function ($enrollment) {
+                    return $enrollment->schedule->contains(function ($schedule) {
+                        return $schedule->end_time > now();
+                    });
+                })->count();
+
+                // Check if the course is available and not filled
+                return $course->course_availability === 1 && $activeEnrollmentsCount < $course->course_quota;
+            });
+
+            // Merge the filtered courses into the availableCourses collection
+            $availableCourses = $availableCourses->merge($filteredCourses);
+
+            // If we have more than 6, slice it to keep only the first 6
+            if ($availableCourses->count() > 6) {
+                $availableCourses = $availableCourses->take(6);
+            }
+        }
+
         return view('home.user', [
             "pageName" => "Beranda | ",
             "incomingSchedule" => $incomingSchedule,
+            "availableCourses" => $availableCourses,
         ]);
     }
 }

@@ -193,6 +193,62 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 1,
         ]);
 
+        Course::create([
+            'course_name' => 'Belajar Mengemudi Mobil Manual',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 10,
+            'course_price' => 1200000,
+            'course_length' => 6,
+            'course_duration' => 90,
+            'car_type' => "Manual",
+            'can_use_own_car' => false,
+            'admin_id' => 2,
+        ]);
+        Course::create([
+            'course_name' => 'Belajar Mengemudi Mobil Matic',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 8,
+            'course_price' => 1400000,
+            'course_length' => 6,
+            'course_duration' => 90,
+            'car_type' => "Matic",
+            'can_use_own_car' => false,
+            'admin_id' => 2,
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Mengemudi Murah di Magetan',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 8,
+            'course_price' => 900000,
+            'course_length' => 5,
+            'course_duration' => 90,
+            'car_type' => "Both",
+            'can_use_own_car' => false,
+            'admin_id' => 2,
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Mengemudi Mobil Magetan',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 11,
+            'course_price' => 1000000,
+            'course_length' => 7,
+            'course_duration' => 60,
+            'car_type' => "Both",
+            'can_use_own_car' => false,
+            'admin_id' => 2,
+        ]);
+        Course::create([
+            'course_name' => 'Kursus Mengemudi Mobil Mandiri',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
+            'course_quota' => 5,
+            'course_price' => 1700000,
+            'course_length' => 6,
+            'course_duration' => 90,
+            'car_type' => "Both",
+            'can_use_own_car' => false,
+            'admin_id' => 2,
+        ]);
+
         Enrollment::create([
             'course_id' => 1,
             'instructor_id' => 4,

@@ -104,7 +104,7 @@
             <div class="swiper-slide font-league">
                 {{-- Empty Course Message --}}
                 @if ($course->isEmpty())
-                <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Belum Ada Kursus yang Ditambahkan)</p>
+                    <p class="font-league font-medium text-center text-base lg:text-xl px-6 my-20 lg:my-14">(Belum Ada Kursus yang Ditambahkan)</p>
                 @endif
 
                 {{-- All Course Displayed --}}

@@ -1,20 +1,20 @@
-@extends('layouts.main')
+@extends('layouts.relative')
 
 @include('partials.navbar')
 
 @section('content')
     {{-- Greetings Element --}}
-    <div class="flex flex-col my-8 lg:my-12">
+    <div class="flex flex-col my-8 lg:my-12 px-6 lg:px-[4.25rem]">
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Selamat Datang di KEMUDI, {{ auth()->user()->fullname }}</p>
         <h1 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-4xl">Ingin belajar mengemudi hari ini?</h1>
     </div>
 
     @if ($incomingSchedule)
         {{-- Ongoing Course, Hidden if there are no active course --}}
-        <div class="flex flex-col mb-8 lg:mb-11">
+        <div class="flex flex-col mb-8 lg:mb-11 px-6 lg:px-[4.25rem]">
             <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Berlangsung</h2>
             {{-- Mobile Incoming Schedule --}}
-            <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
+            <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 mt-1 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -59,7 +59,7 @@
             </a>
 
             {{-- Desktop Incoming Schedule --}}
-            <div class="hidden lg:grid lg:grid-cols-5 lg:gap-6">
+            <div class="hidden lg:grid lg:grid-cols-5 lg:gap-6 lg:mt-1">
                 {{-- Instructor Card --}}
                 <a href="{{ url('https://wa.me/' . $incomingSchedule->instructor->phone_number) }}" target="_blank" class="lg:relative lg:flex lg:flex-col lg:justify-center lg:items-center lg:gap-2 bg-custom-white-hover rounded-xl p-6 overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     @if ($incomingSchedule->instructor->hash_for_profile_picture)
@@ -151,27 +151,48 @@
     @endif
 
     {{-- Class Offered Recommendation --}}
-    <div class="flex flex-row justify-between items-center mb-4">
-        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Rekomendasi Kelas</h2>
+    <div class="flex flex-row justify-between items-center mb-4 px-6 lg:px-[4.25rem]">
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Rekomendasi Kelas</h2>
         <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Class Offered Wrapper --}}
-    <div class="relative flex items-center mb-5 lg:mb-11 cursor-pointer" id="classOfferedContainer">
-        <p class="font-league w-full text-center lg:text-xl my-3 lg:my-6">(Belum ada kelas kursus)</p>
+    <div class="swiper h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem]">
+        <div class="swiper-wrapper px-6 lg:px-[4.25rem]">
+            @foreach ($availableCourses as $courseRecommendation)
+                <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-[8.5rem]' : '' }}" style="width: auto !important;">
+                @if ($courseRecommendation->course_thumbnail)
+                    <div class="bg-center bg-cover w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $courseRecommendation['course_thumbnail']) }}');">
+                @else
+                    <div class="bg-center bg-cover w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                @endif
+                        <div class="relative flex flex-col flex-shrink-0 justify-end w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                            <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $courseRecommendation->course_length }} Pertemuan</p>
+                                <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $courseRecommendation->course_name }}</h3>
+                                <p class="text-sm lg:text-lg/tight font-light">{{ $courseRecommendation->admin->fullname }}</p>
+                            </div>
+                            <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-3 rounded-bl-xl rounded-tr-xl">
+                                <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($courseRecommendation['course_price'], 0, ',', '.') }},-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 
     {{-- Course Recommendation --}}
-    <div class="flex flex-row justify-between items-center mt-8 mb-4">
-        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Terdekat</h2>
+    <div class="flex flex-row justify-between items-center mt-8 mb-4 px-6 lg:px-[4.25rem]">
+        <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Terdekat</h2>
         <a href="" class="text-custom-green font-medium text-base/tight lg:text-lg/tight underline hover:no-underline">Lihat Semua</a>
     </div>
     {{-- Course Recommendation Wrapper --}}
-    <div class="relative flex items-center mb-4 lg:mb-8" id="courseRecommendationContainer">
+    <div class="relative flex items-center mb-4 lg:mb-8 px-6 lg:px-[4.25rem]" id="courseRecommendationContainer">
         <p class="font-league w-full text-center lg:text-xl my-3 lg:my-6">(Belum ada penyedia kursus)</p>
     </div>
 
     {{-- Recommend to do a Search --}}
-    <div class="flex my-8 lg:justify-center">
+    <div class="flex my-8 lg:justify-center px-6 lg:px-[4.25rem]">
         <div class="flex flex-col gap-4 bg-custom-grey/10 border border-custom-disabled-light p-4 lg:p-9 lg:w-[33rem] rounded-xl items-center">
             <div class="flex flex-col gap-1">
                 <h2 class="text-custom-dark font-league font-semibold text-center text-xl/tight lg:text-3xl/tight">Tidak Menemukan yang Anda Cari?</h2>
@@ -188,9 +209,21 @@
 
     @include('partials.footer')
 
+    {{-- Swiper CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Initialize Swipers
+        const swiper = new Swiper('.swiper', {
+            slidesPerView: "auto",
+            spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
 
+            // No Navigation Button
+            navigation: {
+                prevEl: '',
+                nextEl: '',
+            },
+        });
     </script>
 @endsection
