@@ -80,4 +80,10 @@ class userController extends Controller
             "randomDrivingSchool" => $randomDrivingSchool,
         ]);
     }
+
+    public function userProfile() {
+        return view('profile.user-profile', [
+            "pageName" => "Beranda | ",
+        ]);
+    }
 }
