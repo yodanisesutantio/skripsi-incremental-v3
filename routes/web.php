@@ -181,3 +181,6 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // User Edit Password Logic Handler
     Route::post('/edit-user-password', [userController::class, 'editPassword']);
 });
+
+// Admin Edit Profile Page
+Route::get('/course/{course_name}/{course_id}', [generalPage::class, 'courseDetailsPage']);

@@ -36,4 +36,10 @@ class course extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+
+    // Many to Many Relationship with Course Instructors
+    public function courseInstructors()
+    {
+        return $this->hasMany(CourseInstructor::class, 'course_id');
+    }
 }

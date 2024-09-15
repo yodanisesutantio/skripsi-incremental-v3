@@ -167,7 +167,7 @@
                     <div class="bg-center bg-cover w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
                 @endif
                         {{-- Redirect to Course Details Page --}}
-                        <a href="#" class="relative flex flex-col flex-shrink-0 justify-end w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                        <a href="{{ url('/course/' . $courseRecommendation->course_name . '/' . $courseRecommendation->id) }}" class="relative flex flex-col flex-shrink-0 justify-end w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
                             {{-- Course Information --}}
                             <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
                                 <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $courseRecommendation->course_length }} Pertemuan</p>

@@ -17,4 +17,10 @@ class courseInstructor extends Model
     protected $guarded = [
         'id',
     ];
+
+    // Many to Many Relationship with Course Instructors
+    public function course()
+    {
+        return $this->belongsTo(CourseInstructor::class, 'course_id');
+    }
 }
