@@ -86,4 +86,11 @@ class userController extends Controller
             "pageName" => "Beranda | ",
         ]);
     }
+
+    // User-Profile/Edit Page Controller
+    public function editProfilePage() {
+        return view('profile.edit-user-profile', [
+            "pageName" => "Edit Profil | ",
+        ]);
+    }
 }

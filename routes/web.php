@@ -173,4 +173,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::get('/user-course', [userController::class, 'userCoursePage']);
     // Instructor Profile Page
     Route::get('/user-profile', [userController::class, 'userProfile']);
+
+    // Admin Edit Profile Page
+    Route::get('/user-profile/edit', [userController::class, 'editProfilePage']);
 });
