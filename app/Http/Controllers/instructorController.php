@@ -205,7 +205,7 @@ class instructorController extends Controller
 
         // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Profil berhasil diperbarui!');
-        // Redirect owner/admin to List of Course Page
+        // Redirect instructor to List of Course Page
         return redirect()->intended('/instructor-profile');
     }
 

@@ -167,13 +167,17 @@ Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(f
 
 // User Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(function () {
-    // Instructor Dashboard Page
+    // User Dashboard Page
     Route::get('/user-index', [userController::class, 'userIndex']);
-    // Instructor Course Page
+    // User Course Page
     Route::get('/user-course', [userController::class, 'userCoursePage']);
-    // Instructor Profile Page
+    // User Profile Page
     Route::get('/user-profile', [userController::class, 'userProfile']);
 
     // Admin Edit Profile Page
     Route::get('/user-profile/edit', [userController::class, 'editProfilePage']);
+    // User Edit Account Info Logic Handler
+    Route::post('/edit-user-account-info', [userController::class, 'editAccountInfo']);
+    // User Edit Password Logic Handler
+    Route::post('/edit-user-password', [userController::class, 'editPassword']);
 });

@@ -58,7 +58,7 @@
                 <div class="swiper-wrapper">
                     {{-- Account Info Form --}}
                     <div class="swiper-slide overflow-y-auto">
-                        <form action="/edit-instructor-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
+                        <form action="/edit-user-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
                             @csrf                    
                             {{-- Form Sub Headers --}}
                             <div class="flex flex-col gap-1 mb-4">
@@ -145,7 +145,7 @@
 
                     {{-- Security --}}
                     <div class="swiper-slide">
-                        <form action="/edit-instructor-password" method="post" class="px-6">
+                        <form action="/edit-user-password" method="post" class="px-6">
                             @csrf
                             {{-- Form Sub Headers --}}
                             <div class="mb-4">
@@ -289,12 +289,12 @@
 
         // Function to submit editProfile forms
         $('#submitEditProfileForms, #mobileEditProfileForms').on('click', function() {
-            $('form[action="/edit-instructor-account-info"]').submit();
+            $('form[action="/edit-user-account-info"]').submit();
         });
 
         // Function to submit editPassword forms
         $('#submitEditPasswordForms, #mobileEditPasswordForms').on('click', function() {
-            $('form[action="/edit-instructor-password"]').submit();
+            $('form[action="/edit-user-password"]').submit();
         });
 
         // Tel Input Script
