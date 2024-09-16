@@ -58,7 +58,7 @@
             </div>  
 
             {{-- Darken Overlay --}}
-            <div id="modal-overlay" class="hidden fixed top-0 left-0 lg:left-1/2 w-full lg:w-1/2 h-full bg-custom-dark opacity-75"></div>
+            <div id="modal-overlay" class="hidden fixed top-0 left-0 lg:right-0 w-full h-full bg-custom-dark opacity-75"></div>
 
             {{-- Read More Popup --}}
             <div id="modal" class="hidden fixed bottom-0 h-4/5 py-4 z-40 bg-custom-white rounded-tl-xl rounded-tr-xl">
@@ -195,11 +195,12 @@
         const $closeButton = $('#closeButton');
         const $modalOverlay = $('#modal-overlay');
 
-        const fullContentHeight = $contentEl[0].scrollHeight;
-
         function checkContentHeight() {
             const contentHeight = $contentEl.outerHeight();
-            if (fullContentHeight > contentHeight) {
+            const lineHeight = parseFloat($contentEl.css('line-height')); // Get line height
+            const maxHeight = lineHeight * 3; // Calculate max height for 3 lines
+
+            if ($contentEl[0].scrollHeight > maxHeight) {
                 $readMoreButton.removeClass('hidden');
             } else {
                 $readMoreButton.addClass('hidden');
