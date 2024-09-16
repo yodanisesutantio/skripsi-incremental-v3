@@ -3,9 +3,9 @@
 @section('content')
     <div class="flex flex-col lg:flex-row">
         {{-- Back Button --}}
-        <div class="flex absolute top-8 left-5 bg-custom-dark-low rounded-full z-20 p-2 lg:hidden">
+        <a href="/user-index" class="flex absolute top-8 left-5 bg-custom-dark-low rounded-full z-20 p-3 lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4m0 0l6-6m-6 6l6 6"/></svg>
-        </div>
+        </a>
 
         {{-- Class Image --}}
         @if ($classProperties->course_thumbnail)
@@ -54,7 +54,7 @@
             <div class="flex flex-col px-5 mt-6 lg:px-8 lg:mt-8 gap-1">
                 <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Deskripsi Kelas</h2>
                 <p id="content" class="font-league text-lg/snug lg:text-xl/tight line-clamp-3 text-custom-dark mb-1">{{ $classProperties->course_description }}</p>
-                <button type="button" id="readMoreButton" class="text-custom-green w-fit text-lg font-bold hidden hover:underline">Baca Selengkapnya</button>
+                <button type="button" id="readMoreButton" class="font-league text-custom-green w-fit text-lg font-bold hidden hover:underline">Baca Selengkapnya</button>
             </div>  
 
             {{-- Darken Overlay --}}
@@ -67,7 +67,7 @@
                     <button type="button" id="closeButton" class="text-custom-green text-lg font-bold hover:underline">Tutup</button>
                 </div>
                 <div class="overflow-y-auto h-[32rem] px-5 pb-4">
-                    <p id="contentOnModals" class="font-league text-lg/snug lg:text-xl/tight text-custom-dark mb-1 lg:mb-12">{{ $classProperties['description'] }}</p>
+                    <p id="contentOnModals" class="font-league text-lg/snug lg:text-xl/tight text-custom-dark mb-1 lg:mb-12">{{ $classProperties->course_description }}</p>
                 </div>
             </div>
 
@@ -189,6 +189,33 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        
+        const $contentEl = $('#content');
+        const $modal = $('#modal');
+        const $readMoreButton = $('#readMoreButton');
+        const $closeButton = $('#closeButton');
+        const $modalOverlay = $('#modal-overlay');
+
+        const fullContentHeight = $contentEl[0].scrollHeight;
+
+        function checkContentHeight() {
+            const contentHeight = $contentEl.outerHeight();
+            if (fullContentHeight > contentHeight) {
+                $readMoreButton.removeClass('hidden');
+            } else {
+                $readMoreButton.addClass('hidden');
+            }
+        }
+        checkContentHeight();
+        $(window).on('resize', checkContentHeight);
+
+        $readMoreButton.on('click', function() {
+            $modal.removeClass('hidden');
+            $modalOverlay.removeClass('hidden');
+        });
+
+        $closeButton.on('click', function() {
+            $modal.addClass('hidden');
+            $modalOverlay.addClass('hidden');
+        });
     </script>
 @endsection
