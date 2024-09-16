@@ -8,34 +8,44 @@
         </div>
 
         {{-- Class Image --}}
-        <img src="img/{{ $classProperties['thumbnailSlug'] }}.jpg" alt="" class="h-[360px] object-cover w-screen lg:w-1/2 lg:h-screen">
+        @if ($classProperties->course_thumbnail)
+            <img src="{{ asset('storage/classOrCourse_thumbnail/' . $classProperties->course_thumbnail) }}" alt="Class Thumbnail" class="h-[360px] object-cover w-screen lg:w-2/5 lg:h-screen">
+        @else
+            <img src="{{ asset('img/BG-Class-4.webp') }}" alt="Class Thumbnail" class="h-[360px] object-cover w-screen lg:w-2/5 lg:h-screen">
+        @endif
         
         {{-- Content --}}
-        <div class="lg:flex lg:flex-col lg:w-1/2 lg:h-screen lg:overflow-y-auto">
+        <div class="lg:flex lg:flex-col lg:w-3/5 lg:h-screen lg:overflow-y-auto">
             {{-- Class Main Info --}}
             <div class="flex flex-col px-5 mt-4 lg:px-8 lg:mt-8 gap-1">
-                <h1 class="font-encode text-3xl lg:text-4xl font-semibold tracking-tight">{{ $classProperties['className'] }}</h1>
-                <p class="text-custom-grey text-lg lg:text-xl font-league">oleh <span class="font-semibold text-custom-dark"><a href="/driving-school-profile">{{ $classProperties['drivingSchool'] }}</a></span></p>
-                <p class="font-league text-custom-dark font-bold text-2xl lg:text-3xl lg:mt-2">Rp. {{ number_format($classProperties['classPrice'], 0, '', '.') }},-</p>
+                <h1 class="font-encode text-3xl lg:text-4xl font-semibold tracking-tight">{{ $classProperties->course_name }}</h1>
+                <p class="text-custom-grey text-lg lg:text-xl font-league">oleh <span class="font-semibold text-custom-dark"><a href="/driving-school-profile">{{ $classProperties->admin->fullname }}</a></span></p>
+                <p class="font-league text-custom-dark font-bold text-2xl lg:text-3xl lg:mt-2">Rp. {{ number_format($classProperties->course_price, 0, '', '.') }},-</p>
             </div>
 
             {{-- Class Features --}}
             <div class="flex flex-col px-5 mt-6 lg:px-8 lg:mt-8 gap-1">
-                <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Fasilitas & Keuntungan</h2>
-                <div class="flex flex-row gap-2">
-                    <div class="flex flex-col w-1/3 h-36 justify-between p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="#040B0D" d="M240 114h-12.1l-28.31-63.69A14 14 0 0 0 186.8 42H69.2a14 14 0 0 0-12.79 8.31L28.1 114H16a6 6 0 0 0 0 12h10v82a14 14 0 0 0 14 14h24a14 14 0 0 0 14-14v-18h100v18a14 14 0 0 0 14 14h24a14 14 0 0 0 14-14v-82h10a6 6 0 0 0 0-12M67.37 55.19A2 2 0 0 1 69.2 54h117.6a2 2 0 0 1 1.83 1.19L214.77 114H41.23ZM66 208a2 2 0 0 1-2 2H40a2 2 0 0 1-2-2v-18h28Zm150 2h-24a2 2 0 0 1-2-2v-18h28v18a2 2 0 0 1-2 2m2-32H38v-52h180ZM58 152a6 6 0 0 1 6-6h16a6 6 0 0 1 0 12H64a6 6 0 0 1-6-6m112 0a6 6 0 0 1 6-6h16a6 6 0 0 1 0 12h-16a6 6 0 0 1-6-6"/></svg>
-                        <p class="font-league font-medium text-[16px]/snug lg:text-xl/tight">Mobil Anda Sendiri</p>
+                <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Fitur Kelas</h2>
+
+                {{-- Feature Wrapper --}}
+                <div class="grid grid-cols-2 grid-rows-2 lg:flex lg:flex-row gap-3">
+                    {{-- Transmission Type --}}
+                    <div class="relative flex flex-col w-full h-36 justify-end p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2 overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-0 right-0 transform translate-x-3 -translate-y-3 opacity-25" width="72" height="72" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="2"><path stroke-linecap="round" d="M8 9v6m4-6v6m-4-3h5c.932 0 1.398 0 1.765-.152a2 2 0 0 0 1.083-1.083C16 10.398 16 9.932 16 9"/><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10Z"/></g></svg>
+                        <p class="font-league font-normal text-base/tight lg:text-xl/tight">Transmisi : <span class="font-semibold font-encode text-lg/tight lg:text-xl/tight">{{ $classProperties->car_type === 'Both' ? 'Manual & Matic' : $classProperties->car_type }}</span></p>
                     </div>
 
-                    <div class="flex flex-col w-1/3 h-36 justify-between p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5"/></g></svg>
-                        <p class="font-league font-medium text-[16px]/snug lg:text-xl/tight">5x2 Jam Pertemuan</p>
+                    {{-- Course Length & Duration --}}
+                    <div class="relative flex flex-col w-full h-36 justify-end p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2 overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-0 right-0 transform translate-x-3 -translate-y-3 opacity-25" width="72" height="72" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5"/></g></svg>
+                        <p class="font-league font-normal text-base/tight lg:text-xl/tight">Lama Kursus : <span class="font-semibold font-encode text-lg/tight lg:text-xl/tight">{{ $classProperties->course_length }}x{{ $classProperties->course_duration }} Menit</span></p>
                     </div>
 
-                    <div class="flex flex-col w-1/3 h-36 justify-between p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><path stroke-linecap="round" d="M8 13h8m-8 0v5c0 1.886 0 2.828.586 3.414C9.172 22 10.114 22 12 22c1.886 0 2.828 0 3.414-.586C16 20.828 16 19.886 16 18v-5m-8 0a7.459 7.459 0 0 1-5.618-5.472L2 6m14 7c1.71 0 3.15 1.28 3.35 2.98L20 21.5"/><circle cx="12" cy="6" r="4"/></g></svg>
-                        <p class="font-league font-medium text-[16px]/snug lg:text-xl/tight">Instruktur Datang Kerumah</p>
+                    {{-- Can Use Own Car --}}
+                    <div class="col-span-2 relative flex flex-col w-full h-36 justify-end p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl flex-grow gap-2 overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-0 right-0 transform translate-x-3 -translate-y-3 opacity-25" width="72" height="72" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="2"><path stroke-linecap="round" d="M8 13h8m-8 0v5c0 1.886 0 2.828.586 3.414C9.172 22 10.114 22 12 22c1.886 0 2.828 0 3.414-.586C16 20.828 16 19.886 16 18v-5m-8 0a7.459 7.459 0 0 1-5.618-5.472L2 6m14 7c1.71 0 3.15 1.28 3.35 2.98L20 21.5"/><circle cx="12" cy="6" r="4"/></g></svg>
+                        <p class="font-league font-normal text-base/tight lg:text-xl/tight">Bisa pakai mobil sendiri?</p>
+                        <p class="font-semibold font-encode text-lg/tight lg:text-xl/tight">{{ $classProperties->can_use_own_car === 1 ? 'Ya' : 'Tidak' }}</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +53,7 @@
             {{-- Class Description --}}
             <div class="flex flex-col px-5 mt-6 lg:px-8 lg:mt-8 gap-1">
                 <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Deskripsi Kelas</h2>
-                <p id="content" class="font-league text-lg/snug lg:text-xl/tight line-clamp-3 text-custom-dark mb-1">{{ $classProperties['description'] }}</p>
+                <p id="content" class="font-league text-lg/snug lg:text-xl/tight line-clamp-3 text-custom-dark mb-1">{{ $classProperties->course_description }}</p>
                 <button type="button" id="readMoreButton" class="text-custom-green w-fit text-lg font-bold hidden hover:underline">Baca Selengkapnya</button>
             </div>  
 
@@ -164,14 +174,14 @@
 
             {{-- Button for Large Screen --}}
             <div class="lg:flex sticky bottom-0 z-20 px-5 py-4 items-center bg-custom-white hidden">
-                <a href="/course-register-1" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white w-full h-11 font-league text-lg/none font-medium rounded-md duration-300">Daftar Kelas</a>
+                <a href="/course-register-1" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md duration-300">Daftar Kelas</a>
             </div>
         </div>
     </div>
 
     {{-- Button for Mobile --}}
     <div class="flex sticky bottom-0 z-20 px-5 py-4 items-center bg-custom-white lg:hidden">
-        <a href="/course-register-1" class="flex justify-center items-center bg-custom-green text-custom-white w-full h-11 font-league text-lg/none font-medium rounded-md">Daftar Kelas</a>
+        <a href="/course-register-1" class="flex justify-center items-center bg-custom-green text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md">Daftar Kelas</a>
     </div>
 
     {{-- Swiper CDN --}}
@@ -179,6 +189,6 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-
+        
     </script>
 @endsection

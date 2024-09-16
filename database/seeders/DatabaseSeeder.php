@@ -183,7 +183,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Course::create([
             'course_name' => 'Kursus Privat',
-            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobila anda sendiri, kursus ini tepat untuk anda.',
+            'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda. Anda bebas memilih transmisi yang ingin anda pelajari.',
             'course_quota' => 6,
             'course_price' => 1200000,
             'course_length' => 5,
