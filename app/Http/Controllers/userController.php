@@ -47,7 +47,7 @@ class userController extends Controller
         // Keep fetching random courses until we have 6 available ones
         while ($availableCourses->count() < 6) {
             // Fetch random courses as Recommendation
-            $randomCourses = Course::inRandomOrder()->take(10)->get(); // Fetch more than 6 to increase chances
+            $randomCourses = Course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
 
             // Filter courses based on availability and enrollment
             $filteredCourses = $randomCourses->filter(function ($course) {
@@ -71,7 +71,11 @@ class userController extends Controller
         }
 
         // Fetch Random Driving School to use as Recommendation
-        $randomDrivingSchool = User::where('role', 'admin')->inRandomOrder()->take(4)->get();
+        $randomDrivingSchool = User::where('role', 'admin')
+            ->where('availability', 1) // Check if availability is 1
+            ->inRandomOrder()
+            ->take(4) // Limit to 4 driving schools
+            ->get();
 
         return view('home.user', [
             "pageName" => "Beranda | ",
