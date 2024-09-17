@@ -106,6 +106,7 @@ class generalPage extends Controller
 
         return view('driving-school-course-list', [
             "pageName" => $drivingSchool->fullname,
+            "drivingSchool" => $drivingSchool,
             "formattedOpenHours" => $formattedOpenHours,
             "formattedCloseHours" => $formattedCloseHours,
             "course" => $course,

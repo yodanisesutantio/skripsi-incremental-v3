@@ -7,18 +7,18 @@
     <div class="flex flex-col lg:flex-row lg:justify-between lg:px-60">
         <div class="profile-header flex flex-col lg:flex-row lg:gap-8 w-full items-center lg:items-start lg:justify-center">
             {{-- Admin Profile Picture --}}
-            @if (auth()->user()->hash_for_profile_picture)
-                <img src="{{ asset('storage/profile_pictures/' . auth()->user()->hash_for_profile_picture) }}" alt="profile-picture" class="w-24 lg:w-32 h-24 lg:h-32 object-cover rounded-full">
+            @if ($drivingSchool->hash_for_profile_picture)
+                <img src="{{ asset('storage/profile_pictures/' . $drivingSchool->hash_for_profile_picture) }}" alt="profile-picture" class="w-24 lg:w-32 h-24 lg:h-32 object-cover rounded-full">
 
             {{-- Admin Blank Profile Picture --}}
             @else
                 <img src="{{ asset('img/blank-profile.webp') }}" alt="profile-picture" class="w-20 lg:w-32 h-20 lg:h-32 rounded-full">
             @endif
 
-            <div class="flex flex-col lg:gap-2">
+            <div class="flex flex-col lg:gap-2 mt-2 lg:mt-0">
                 <div class="flex flex-col gap-1">
                     {{-- Admin Fullname --}}
-                    <h1 class="font-encode tracking-tight font-semibold text-center lg:-mt-1 lg:text-left text-2xl/tight lg:text-4xl text-custom-dark">{{ auth()->user()->fullname }}</h1>
+                    <h1 class="font-encode tracking-tight font-semibold text-center line-clamp-2 lg:-mt-1 lg:text-left text-2xl/tight lg:text-4xl/snug text-custom-dark">{{ $drivingSchool->fullname }}</h1>
 
                     {{-- Show Admin Open and Close Hours --}}
                     <p class="font-league font-normal text-center lg:text-left text-lg/tight lg:text-2xl/tight text-custom-grey">Jam Buka : {{ $formattedOpenHours }} - {{ $formattedCloseHours }} WIB</p>
@@ -52,14 +52,14 @@
                     </div>
                 </div>
                 
-                {{-- CTA Button to redirect Admin to show all active student --}}
-                <a href="admin-course/active-student-list" class="lg:mt-2 lg:w-fit"><div class="hidden lg:block lg:px-5 py-3 lg:py-2 gap-2 rounded-lg cursor-pointer border border-custom-green lg:hover:bg-custom-grey/15 text-center text-custom-green font-semibold duration-500">Lihat Daftar Siswa Aktif</div></a>
+                {{-- Desktop CTA Button to send Whatsapp to Owner/Admin --}}
+                <a href="{{ url('https://wa.me/' . $drivingSchool->phone_number) }}" class="lg:mt-2 hidden lg:flex lg:flex-row"><div class="w-fit lg:px-5 py-3 gap-2 rounded-lg cursor-pointer bg-custom-green lg:hover:bg-custom-green-hover text-center text-custom-white truncate font-semibold duration-500" style="max-width: 19rem !important;">Hubungi {{ $drivingSchool->fullname }}</div></a>
             </div>
         </div>
     </div>
 
-    {{-- Kinda CTA --}}
-    <a href="admin-course/active-student-list" class="lg:hidden"><div class="w-full py-3 gap-2 rounded-lg cursor-pointer border border-custom-green text-center lg:text-lg text-custom-green font-semibold duration-500">Lihat Daftar Siswa Aktif</div></a>
+    {{-- Mobile CTA Button to send Whatsapp to Owner/Admin --}}
+    <a href="{{ url('https://wa.me/' . $drivingSchool->phone_number) }}" class="lg:hidden"><div class="w-full p-3 gap-2 rounded-lg cursor-pointer bg-custom-green text-center lg:text-lg text-custom-white truncate font-semibold duration-500">Hubungi {{ $drivingSchool->fullname }}</div></a>
 
     {{-- Tabs --}}
     <div class="overflow-x-auto mt-8" style="scrollbar-width: none;">
@@ -113,7 +113,7 @@
                         {{-- Show this if course_thumbnail exist --}}
                         @if ($allCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="{{ url('/admin-course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -130,7 +130,7 @@
                         {{-- If no course_thumbnail exist, show this instead --}}
                         @else
                             {{-- Blank Course Thumbnail --}}
-                            <a href="{{ url('/admin-course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -161,7 +161,7 @@
                         {{-- Show course_thumbnail if exist --}}
                         @if ($manualCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="{{ url('/admin-course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -177,7 +177,7 @@
 
                         {{-- If course_thumbnail is not exist, show this instead --}}
                         @else
-                            <a href="{{ url('/admin-course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -208,7 +208,7 @@
                         {{-- If course_thumbnail exist, show this --}}
                         @if ($maticCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="{{ url('/admin-course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -224,7 +224,7 @@
 
                         {{-- If course_thumbnail is not exist, show this instead --}}
                         @else
-                            <a href="{{ url('/admin-course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -255,7 +255,7 @@
                         {{-- If course_thumbnail exist, show this --}}
                         @if ($quickCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="{{ url('/admin-course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -271,7 +271,7 @@
 
                         {{-- If course_thumbnail not exist, show this instead --}}
                         @else
-                            <a href="{{ url('/admin-course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
