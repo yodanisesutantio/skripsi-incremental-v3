@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon; // Use Carbon Method by Laravel
+
 use App\Models\User; // Access User Tables
 use App\Models\Course; // Access Course Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
@@ -63,14 +65,15 @@ class generalPage extends Controller
     }
 
     public function drivingSchoolCoursePage($admin_username) {
-        $drivingSchool = User::find($admin_username);
+        // Fetch the driving school by username instead of ID
+        $drivingSchool = User::where('username', $admin_username)->first();
 
         // Localize the date and time to Indonesian
-        Carbon::setLocale('id'); 
+        Carbon::setLocale('id');
 
         // Format the open and close hours to be written as 08:00
-        $formattedOpenHours = Carbon::parse($user->open_hours_for_admin)->locale('id')->translatedFormat('H:i');
-        $formattedCloseHours = Carbon::parse($user->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
+        $formattedOpenHours = Carbon::parse($drivingSchool->open_hours_for_admin)->locale('id')->translatedFormat('H:i');
+        $formattedCloseHours = Carbon::parse($drivingSchool->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
 
         // Display all Course that are Active and is owned by the owner/admin
         $course = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->get();
@@ -102,7 +105,7 @@ class generalPage extends Controller
         $maxCoursePrice = $maxCoursePrice >= 1000000 ? number_format($maxCoursePrice / 1000000, 1) . 'jt' : number_format($maxCoursePrice / 1000) . 'rb';
 
         return view('driving-school-course-list', [
-            "pageName" => "Halaman Kursus Anda | ",
+            "pageName" => $drivingSchool->fullname,
             "formattedOpenHours" => $formattedOpenHours,
             "formattedCloseHours" => $formattedCloseHours,
             "course" => $course,
