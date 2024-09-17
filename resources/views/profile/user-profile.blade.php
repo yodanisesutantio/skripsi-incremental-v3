@@ -40,8 +40,8 @@
             {{-- Course Progress Detail Page --}}
             <a href="#" class="lg:col-span-2 w-full h-32 lg:h-40 bg-cover bg-center rounded-xl lg:cursor-pointer" style="background-image: url('{{ asset('img/course-progress.webp') }}')">
                 <div class="flex flex-col gap-0.5 justify-end p-[10px] bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% font-league w-full h-full rounded-xl lg:hover:bg-custom-dark-low lg:hover:transition-colors lg:duration-500">
-                    <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Detail Progress Kursus</h2>
-                    <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Lacak kemajuan progress kursus anda!</p>
+                    <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Kursus Anda</h2>
+                    <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Lacak riwayat progress kursus anda!</p>
                 </div>
             </a>
             {{-- About App --}}
