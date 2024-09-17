@@ -155,7 +155,7 @@
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Rekomendasi Kelas</h2>
     </div>
     {{-- Class Offered Content --}}
-    <div class="relative swiper h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem] select-none">
+    <div class="relative swiper swiperRecommendation h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem] select-none">
         <div class="swiper-wrapper px-6 lg:px-[4.25rem]">
             @foreach ($availableCourses as $courseRecommendation)
                 {{-- I've added conditional padding-right since our layout is fucked, this is the only way to make it right --}}
@@ -176,7 +176,7 @@
                             </div>
                             {{-- Course price Label --}}
                             <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
-                                <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($courseRecommendation['course_price'], 0, ',', '.') }},-</p>
+                                <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($courseRecommendation->course_price, 0, ',', '.') }},-</p>
                             </div>
                         </a>
                     </div>
@@ -199,8 +199,8 @@
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Populer</h2>
     </div>
     {{-- Course Recommendation Wrapper --}}
-    <div class="relative swiperSchool h-fit mb-5 lg:mb-11 px-6 lg:px-[4.25rem] select-none">
-        <div class="swiper-wrapper">
+    <div class="relative swiper swiperSchool h-fit mb-5 lg:mb-11 select-none">
+        <div class="swiper-wrapper px-6 lg:px-[4.25rem]">
             {{-- Course Recommendation Card --}}
             @foreach ($randomDrivingSchool as $drivingSchoolRecommendation)
                 {{-- I've added conditional padding-right since our layout is fucked, this is the only way to make it right --}}
@@ -266,7 +266,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
         // Initialize Course Class Recommendation Swiper
-        const swiper = new Swiper('.swiper', {
+        const swiperRecommendation = new Swiper('.swiperRecommendation', {
             slidesPerView: "auto",
             spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
 
@@ -278,7 +278,7 @@
         });
 
         // Initialize Driving School Recommendation Swiper
-        const swiper2 = new Swiper('.swiperSchool', {
+        const swiperSchool = new Swiper('.swiperSchool', {
             slidesPerView: "auto",
             spaceBetween: window.innerWidth >= 1024 ? 20 : 15,
 
@@ -290,7 +290,7 @@
         });
 
         // Show navigation buttons on hover for Course Class Recommendation
-        $('.swiper').hover(function() {
+        $('.swiperRecommendation').hover(function() {
             $('.nextRecommendation, .prevRecommendation').removeClass('hidden');
             $('.nextRecommendation, .prevRecommendation').addClass('flex');
         }, function() {

@@ -51,7 +51,7 @@
             </div>
 
             {{-- Class Description --}}
-            <div class="flex flex-col px-6 mt-6 lg:px-8 lg:mt-8 gap-1">
+            <div class="flex flex-col px-6 mt-6 lg:px-8 lg:mt-12 gap-1">
                 <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Deskripsi Kelas</h2>
                 <p id="content" class="font-league text-lg/snug lg:text-xl/tight line-clamp-3 text-custom-dark mb-1">{{ $classProperties->course_description }}</p>
                 <button type="button" id="readMoreButton" class="font-league text-custom-green w-fit text-lg font-bold hidden hover:underline">Baca Selengkapnya</button>
@@ -72,11 +72,11 @@
             </div>
 
             {{-- Instructor Section --}}
-            <div class="flex flex-col mt-6 lg:px-3 lg:mt-8 gap-1">
+            <div class="flex flex-col mt-6 lg:px-3 lg:mt-12 gap-1">
                 <h2 class="font-league text-2xl lg:text-3xl px-6 font-semibold text-custom-dark">Instruktur Kami</h2>
                 
                 {{-- Available Instructor Content --}}
-                <div class="relative swiper w-full h-fit mb-5 lg:mb-11 px-6 lg:px-7 select-none">
+                <div class="relative swiper swiperInstructor w-full h-fit mb-5 lg:mb-11 px-6 lg:px-7 select-none">
                     <div class="swiper-wrapper px-6 lg:px-7">
                         @foreach ($instructorArray as $availableInstructor)
                             {{-- Instructor Card --}}
@@ -89,7 +89,7 @@
                                     @endif
     
                                     {{-- Instructor Information --}}
-                                    <div class="flex flex-col w-full mb-1">
+                                    <div class="flex flex-col w-full">
                                         <p class="font-league font-semibold text-xl/snug lg:text-2xl/snug text-center truncate">{{ $availableInstructor->instructor->fullname }}</p>
                                         <i class="font-league text-custom-grey text-base/none lg:text-lg/none text-center truncate">{{ $availableInstructor->instructor->age }} tahun</i>
                                     </div>
@@ -110,20 +110,57 @@
             </div>
 
             {{-- Similar Class Recommendation --}}
-            <div class="flex flex-row px-6 lg:px-8 justify-between items-center mb-2 mt-3">
-                <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Kelas Serupa</h2>
+            <div class="flex flex-col mt-3 lg:px-3 lg:mt-4 gap-1">
+                <h2 class="font-league text-2xl lg:text-3xl px-6 font-semibold text-custom-dark">Kelas Serupa</h2>
+
+                {{-- Available Class Recommendation Content --}}
+                <div class="relative swiper swiperRecommendation w-full h-fit mb-5 lg:mb-5 px-6 lg:px-7 select-none">
+                    <div class="swiper-wrapper px-6 lg:px-7">
+                        @foreach ($offered as $recommendedClass)
+                            {{-- Class Card --}}
+                            <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-16' : '' }}" style="width: auto !important;">
+                            {{-- Similar Class Card --}}
+                            @if ($recommendedClass->course_thumbnail)
+                                <div class="bg-center bg-cover rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $recommendedClass->course_thumbnail) }}');">
+                            @else
+                                <div class="bg-center bg-cover rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                            @endif
+                                    <div class="relative flex flex-col flex-shrink-0 w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] justify-end gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                        <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                            <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $recommendedClass->course_length }} Pertemuan</p>
+                                            <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $recommendedClass->course_name }}</h3>
+                                            <p class="text-sm/tight lg:text-lg/tight font-light">{{ $recommendedClass->admin->fullname }}</p>
+                                        </div>
+                                        <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 pt-2 pb-1 lg:px-4 lg:pt-3 lg:pb-2 rounded-bl-xl rounded-tr-xl">
+                                            <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($recommendedClass->course_price, 0, ',', '.') }},-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- Prev Slide --}}
+                    <div class="absolute top-1/2 left-0 -mt-8 ml-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer transform -translate-x-16 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="prevClass">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+                    </div>
+                    {{-- Next Slide --}}
+                    <div class="absolute top-1/2 right-0 -mt-8 mr-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer transform translate-x-16 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="nextClass">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
+                    </div>
+                </div>
             </div>
 
             {{-- Button for Large Screen --}}
             <div class="lg:flex sticky bottom-0 z-20 px-6 py-4 items-center bg-custom-white hidden">
-                <a href="/course-register-1" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md duration-300">Daftar Kelas</a>
+                <a href="#" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md duration-300">Daftar Kelas</a>
             </div>
         </div>
     </div>
 
     {{-- Button for Mobile --}}
     <div class="flex sticky bottom-0 z-20 px-6 py-4 items-center bg-custom-white lg:hidden">
-        <a href="/course-register-1" class="flex justify-center items-center bg-custom-green text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md">Daftar Kelas</a>
+        <a href="#" class="flex justify-center items-center bg-custom-green text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md">Daftar Kelas</a>
     </div>
 
     {{-- Swiper CDN --}}
@@ -162,7 +199,7 @@
         });
 
         // Initialize Course Class Recommendation Swiper
-        const swiper = new Swiper('.swiper', {
+        const swiper = new Swiper('.swiperInstructor', {
             slidesPerView: "auto",
             spaceBetween: 15,
 
@@ -180,6 +217,27 @@
         }, function() {
             $('#nextInstructor, #prevInstructor').removeClass('flex');
             $('#nextInstructor, #prevInstructor').addClass('hidden');
+        });
+
+        // Initialize Course Class Recommendation Swiper
+        const swiperRecommendation = new Swiper('.swiperRecommendation', {
+            slidesPerView: "auto",
+            spaceBetween: 15,
+
+            // No Navigation Button
+            navigation: {
+                prevEl: '#prevClass',
+                nextEl: '#nextClass',
+            },
+        });
+
+        // Show navigation buttons on hover for Course Instructor
+        $('.swiperRecommendation').hover(function() {
+            $('#nextClass, #prevClass').removeClass('hidden');
+            $('#nextClass, #prevClass').addClass('flex');
+        }, function() {
+            $('#nextClass, #prevClass').removeClass('flex');
+            $('#nextClass, #prevClass').addClass('hidden');
         });
     </script>
 @endsection
