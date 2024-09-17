@@ -76,12 +76,12 @@
                 <h2 class="font-league text-2xl lg:text-3xl px-6 font-semibold text-custom-dark">Instruktur Kami</h2>
                 
                 {{-- Available Instructor Content --}}
-                <div class="relative swiper w-full h-fit mb-5 lg:mb-11 px-6 lg:px-8 select-none">
-                    <div class="swiper-wrapper px-6 lg:px-8">
+                <div class="relative swiper w-full h-fit mb-5 lg:mb-11 px-6 lg:px-7 select-none">
+                    <div class="swiper-wrapper px-6 lg:px-7">
                         @foreach ($instructorArray as $availableInstructor)
                             {{-- Instructor Card --}}
                             <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-16' : '' }}" style="width: auto !important;">
-                                <div class="flex flex-col w-40 max-w-72 flex-shrink-0 lg:flex-grow items-center p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl gap-3">
+                                <div class="flex flex-col w-40 lg:w-72 flex-shrink-0 lg:flex-grow items-center p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl gap-3">
                                     @if ($availableInstructor->hash_for_profile_picture)
                                         <img src="{{ asset('storage/profile_pictures/' . $availableInstructor->instructor->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-16 h-16 flex-shrink-0 mt-2 rounded-full bg-cover bg-center bg-no-repeat">
                                     @else
@@ -97,11 +97,20 @@
                             </div>
                         @endforeach
                     </div>
+
+                    {{-- Prev Slide --}}
+                    <div class="absolute top-1/2 left-0 -mt-8 ml-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer transform -translate-x-16 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="prevInstructor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+                    </div>
+                    {{-- Next Slide --}}
+                    <div class="absolute top-1/2 right-0 -mt-8 mr-[4.25rem] hidden justify-center items-center w-16 h-16 flex-shrink-0 bg-custom-white-hover rounded-full cursor-pointer transform translate-x-16 lg:shadow lg:hover:shadow-lg lg:hover:bg-custom-white z-40 duration-300" id="nextInstructor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-1" width="30" height="30" viewBox="0 0 23 23"><path fill="none" stroke="#151C1E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
+                    </div>
                 </div>
             </div>
 
             {{-- Similar Class Recommendation --}}
-            <div class="flex flex-row px-6 lg:px-8 justify-between items-center mb-2 mt-8">
+            <div class="flex flex-row px-6 lg:px-8 justify-between items-center mb-2 mt-3">
                 <h2 class="font-league text-2xl lg:text-3xl font-semibold text-custom-dark">Kelas Serupa</h2>
             </div>
 
@@ -159,9 +168,18 @@
 
             // No Navigation Button
             navigation: {
-                prevEl: '.prevRecommendation',
-                nextEl: '.nextRecommendation',
+                prevEl: '#prevInstructor',
+                nextEl: '#nextInstructor',
             },
+        });
+
+        // Show navigation buttons on hover for Course Instructor
+        $('.swiper').hover(function() {
+            $('#nextInstructor, #prevInstructor').removeClass('hidden');
+            $('#nextInstructor, #prevInstructor').addClass('flex');
+        }, function() {
+            $('#nextInstructor, #prevInstructor').removeClass('flex');
+            $('#nextInstructor, #prevInstructor').addClass('hidden');
         });
     </script>
 @endsection
