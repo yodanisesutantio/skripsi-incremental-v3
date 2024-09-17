@@ -61,4 +61,57 @@ class generalPage extends Controller
             "offered" => $offered,
         ]);
     }
+
+    public function drivingSchoolCoursePage($admin_username) {
+        $drivingSchool = User::find($admin_username);
+
+        // Localize the date and time to Indonesian
+        Carbon::setLocale('id'); 
+
+        // Format the open and close hours to be written as 08:00
+        $formattedOpenHours = Carbon::parse($user->open_hours_for_admin)->locale('id')->translatedFormat('H:i');
+        $formattedCloseHours = Carbon::parse($user->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
+
+        // Display all Course that are Active and is owned by the owner/admin
+        $course = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->get();
+
+        // Display only Manual Course that are Active and is owned by the owner/admin
+        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
+            $query->where('car_type', 'Manual')->orWhere('car_type', 'Both');
+        })->get();
+
+        // Display only Matic Course that are Active and is owned by the owner/admin
+        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
+            $query->where('car_type', 'Matic')->orWhere('car_type', 'Both');
+        })->get();
+
+        // Display only Quick Course that are Active and is owned by the owner/admin
+        $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where('course_length', '<', 4)->get();
+
+        // Calculate the average of all of the active course_length
+        $averageCourseLength = (int) $course->avg('course_length');
+
+        // Get minimum course price
+        $minCoursePrice = (int) $course->min('course_price');
+        // Get maximum course price
+        $maxCoursePrice = (int) $course->max('course_price'); 
+
+        // Format minimum coursePrice, when it passes the million digits, change it to 'jt', below that write 'rb' instead
+        $minCoursePrice = $minCoursePrice >= 1000000 ? number_format($minCoursePrice / 1000000, 1) . 'jt' : number_format($minCoursePrice / 1000) . 'rb';
+        // Format minimum coursePrice, when it passes the million digits, change it to 'jt', below that write 'rb' instead
+        $maxCoursePrice = $maxCoursePrice >= 1000000 ? number_format($maxCoursePrice / 1000000, 1) . 'jt' : number_format($maxCoursePrice / 1000) . 'rb';
+
+        return view('driving-school-course-list', [
+            "pageName" => "Halaman Kursus Anda | ",
+            "formattedOpenHours" => $formattedOpenHours,
+            "formattedCloseHours" => $formattedCloseHours,
+            "course" => $course,
+            "courseManual" => $courseManual,
+            "courseMatic" => $courseMatic,
+            "courseQuick" => $courseQuick,
+            "averageCourseLength" => $averageCourseLength,
+            "minCoursePrice" => $minCoursePrice,
+            "maxCoursePrice" => $maxCoursePrice,
+        ]);
+    }
 }

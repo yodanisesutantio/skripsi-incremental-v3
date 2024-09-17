@@ -538,6 +538,30 @@ class adminController extends Controller
         ]);
     }
 
+    public function courseDetailsPreview($course_name, $course_id) {
+        $classProperties = Course::find($course_id);
+
+        // Fetch instructors related to the course
+        $instructorArray = $classProperties->courseInstructors;
+
+        // Fetch similar courses based on course_length or similar course_price, limited to 5
+        $offered = Course::where('id', '!=', $classProperties->id) // Exclude the current course
+        ->where(function($query) use ($classProperties) {
+            $query->where('course_length', $classProperties->course_length)
+                    ->orWhere('course_price', '<=', $classProperties->course_price * 1.5)
+                    ->orWhere('course_price', '>=', $classProperties->course_price * 0.6);
+        })
+        ->take(5) // Limit to 5 results
+        ->get();
+
+        return view('admin-page.admin-course-details', [
+            "pageName" => "Detail Kelas | ",
+            "classProperties" => $classProperties,
+            "instructorArray" => $instructorArray,
+            "offered" => $offered,
+        ]);
+    }
+
     // Admin-Course/Active-Student-List Page Controller
     public function activeStudentPage() {
         // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner

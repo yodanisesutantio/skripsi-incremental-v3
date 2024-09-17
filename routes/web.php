@@ -114,6 +114,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Activate Instructor Switch Logic Handler
     Route::post('/admin-activate-instructor', [instructorController::class, 'activateInstructor']);
 
+    // Admin's Course Details Preview
+    Route::get('/admin-course/{course_name}/{course_id}', [adminController::class, 'courseDetailsPreview']);
     // Admin's Active Student List
     Route::get('/admin-course/active-student-list', [adminController::class, 'activeStudentPage']);
     // Admin's View Course Progress Detail Page
@@ -182,5 +184,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::post('/edit-user-password', [userController::class, 'editPassword']);
 });
 
-// Admin Edit Profile Page
+// Course Details Page
 Route::get('/course/{course_name}/{course_id}', [generalPage::class, 'courseDetailsPage']);
+// Admin Course List Page
+Route::get('/course/{admin_username}', [generalPage::class, 'drivingSchoolCoursePage']);

@@ -217,7 +217,7 @@
                             <p class="font-encode font-semibold text-xl/snug text-center line-clamp-2 lg:line-clamp-1">{{ $drivingSchoolRecommendation['fullname'] }}</p>
                         </div>
                         {{-- Redirect to Driving School Course Page --}}
-                        <a href="#" class="w-full font-league lg:text-lg/none text-custom-secondary px-3 py-2 border border-custom-secondary text-center rounded-lg hover:bg-custom-grey/20 duration-300">
+                        <a href="{{ url('/course/' . $drivingSchoolRecommendation['username']) }}" class="w-full font-league lg:text-lg/none text-custom-secondary px-3 py-2 border border-custom-secondary text-center rounded-lg hover:bg-custom-grey/20 duration-300">
                             <div class="flex flex-row justify-center items-center gap-2">
                                 <p class="mt-[2px] lg:mt-[1.5px] lg:text-lg">Lihat Kursus</p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="none" stroke="#495D64" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9 5l6 7l-6 7"/></svg>

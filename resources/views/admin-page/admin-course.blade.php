@@ -113,7 +113,7 @@
                         {{-- Show this if course_thumbnail exist --}}
                         @if ($allCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/admin-course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -130,7 +130,7 @@
                         {{-- If no course_thumbnail exist, show this instead --}}
                         @else
                             {{-- Blank Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/admin-course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -161,7 +161,7 @@
                         {{-- Show course_thumbnail if exist --}}
                         @if ($manualCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/admin-course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -177,7 +177,7 @@
 
                         {{-- If course_thumbnail is not exist, show this instead --}}
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/admin-course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -208,7 +208,7 @@
                         {{-- If course_thumbnail exist, show this --}}
                         @if ($maticCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/admin-course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -224,7 +224,7 @@
 
                         {{-- If course_thumbnail is not exist, show this instead --}}
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/admin-course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -255,7 +255,7 @@
                         {{-- If course_thumbnail exist, show this --}}
                         @if ($quickCourse['course_thumbnail'])
                             {{-- Course Thumbnail --}}
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
+                            <a href="{{ url('/admin-course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
@@ -271,7 +271,7 @@
 
                         {{-- If course_thumbnail not exist, show this instead --}}
                         @else
-                            <a href="#" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
+                            <a href="{{ url('/admin-course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
                                 {{-- Overlays --}}
                                 <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
                                     <div class="flex flex-col">
