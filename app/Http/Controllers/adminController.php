@@ -104,7 +104,7 @@ class adminController extends Controller
 
         // Display only Matic Course that are Active and is owned by the owner/admin
         $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
-            $query->where('car_type', 'Matic')->orWhere('car_type', 'Both');
+            $query->where('car_type', 'Automatic')->orWhere('car_type', 'Both');
         })->get();
 
         // Display only Quick Course that are Active and is owned by the owner/admin

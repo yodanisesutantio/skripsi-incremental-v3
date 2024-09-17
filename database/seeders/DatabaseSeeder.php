@@ -211,7 +211,7 @@ class DatabaseSeeder extends Seeder
         //     'course_price' => 1400000,
         //     'course_length' => 6,
         //     'course_duration' => 90,
-        //     'car_type' => "Matic",
+        //     'car_type' => "Automatic",
         //     'can_use_own_car' => false,
         //     'admin_id' => 2,
         // ]);

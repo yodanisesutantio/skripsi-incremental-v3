@@ -110,40 +110,25 @@
                 {{-- All Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($course as $allCourse)
-                        {{-- Show this if course_thumbnail exist --}}
-                        @if ($allCourse['course_thumbnail'])
-                            {{-- Course Thumbnail --}}
-                            <a href="{{ url('/course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $allCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
+                    @if ($allCourse->course_thumbnail)
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $allCourse['course_thumbnail']) }}');">
+                    @else
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                    @endif
+                            {{-- Redirect to Course Details Page --}}
+                            <a href="{{ url('/course/' . $allCourse->course_name . '/' . $allCourse->id) }}" class="relative flex flex-col flex-shrink-0 justify-end w-full h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                {{-- Course Information --}}
+                                <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                    <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $allCourse->course_length }} Pertemuan</p>
+                                    <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $allCourse->course_name }}</h3>
+                                    <p class="text-sm lg:text-lg/tight font-light mt-0.5 lg:mt-2">{{ $allCourse->admin->fullname }}</p>
+                                </div>
+                                {{-- Course price Label --}}
+                                <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
+                                    <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($allCourse->course_price, 0, ',', '.') }},-</p>
                                 </div>
                             </a>
-
-                        {{-- If no course_thumbnail exist, show this instead --}}
-                        @else
-                            {{-- Blank Course Thumbnail --}}
-                            <a href="{{ url('/course/' . $allCourse['course_name'] . '/' . $allCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/80 to-custom-dark/25 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $allCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $allCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($allCourse['course_price'], 0, ',', '.') }},-</h4>
-                                </div>
-                            </a>
-                        @endif     
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -158,39 +143,25 @@
                 {{-- Manual Transmission Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($courseManual as $manualCourse)
-                        {{-- Show course_thumbnail if exist --}}
-                        @if ($manualCourse['course_thumbnail'])
-                            {{-- Course Thumbnail --}}
-                            <a href="{{ url('/course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $manualCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
+                    @if ($manualCourse->course_thumbnail)
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $manualCourse['course_thumbnail']) }}');">
+                    @else
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                    @endif
+                            {{-- Redirect to Course Details Page --}}
+                            <a href="{{ url('/course/' . $manualCourse->course_name . '/' . $manualCourse->id) }}" class="relative flex flex-col flex-shrink-0 justify-end w-full h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                {{-- Course Information --}}
+                                <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                    <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $manualCourse->course_length }} Pertemuan</p>
+                                    <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $manualCourse->course_name }}</h3>
+                                    <p class="text-sm lg:text-lg/tight font-light mt-0.5 lg:mt-2">{{ $manualCourse->admin->fullname }}</p>
+                                </div>
+                                {{-- Course price Label --}}
+                                <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
+                                    <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($manualCourse->course_price, 0, ',', '.') }},-</p>
                                 </div>
                             </a>
-
-                        {{-- If course_thumbnail is not exist, show this instead --}}
-                        @else
-                            <a href="{{ url('/course/' . $manualCourse['course_name'] . '/' . $manualCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $manualCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $manualCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($manualCourse['course_price'], 0, ',', '.') }},-</h4>
-                                </div>
-                            </a>
-                        @endif     
+                        </div>  
                     @endforeach
                 </div>
             </div>
@@ -205,39 +176,25 @@
                 {{-- Matic Transmission Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-4">
                     @foreach ($courseMatic as $maticCourse)
-                        {{-- If course_thumbnail exist, show this --}}
-                        @if ($maticCourse['course_thumbnail'])
-                            {{-- Course Thumbnail --}}
-                            <a href="{{ url('/course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $maticCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
+                    @if ($maticCourse->course_thumbnail)
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $maticCourse['course_thumbnail']) }}');">
+                    @else
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                    @endif
+                            {{-- Redirect to Course Details Page --}}
+                            <a href="{{ url('/course/' . $maticCourse->course_name . '/' . $maticCourse->id) }}" class="relative flex flex-col flex-shrink-0 justify-end w-full h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                {{-- Course Information --}}
+                                <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                    <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $maticCourse->course_length }} Pertemuan</p>
+                                    <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $maticCourse->course_name }}</h3>
+                                    <p class="text-sm lg:text-lg/tight font-light mt-0.5 lg:mt-2">{{ $maticCourse->admin->fullname }}</p>
+                                </div>
+                                {{-- Course price Label --}}
+                                <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
+                                    <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($maticCourse->course_price, 0, ',', '.') }},-</p>
                                 </div>
                             </a>
-
-                        {{-- If course_thumbnail is not exist, show this instead --}}
-                        @else
-                            <a href="{{ url('/course/' . $maticCourse['course_name'] . '/' . $maticCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $maticCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $maticCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($maticCourse['course_price'], 0, ',', '.') }},-</h4>
-                                </div>
-                            </a>
-                        @endif     
+                        </div>  
                     @endforeach
                 </div>
             </div>
@@ -252,39 +209,25 @@
                 {{-- Quick Course Displayed --}}
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6">
                     @foreach ($courseQuick as $quickCourse)
-                        {{-- If course_thumbnail exist, show this --}}
-                        @if ($quickCourse['course_thumbnail'])
-                            {{-- Course Thumbnail --}}
-                            <a href="{{ url('/course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white">{{ $quickCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
+                    @if ($quickCourse->course_thumbnail)
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}');">
+                    @else
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
+                    @endif
+                            {{-- Redirect to Course Details Page --}}
+                            <a href="{{ url('/course/' . $quickCourse->course_name . '/' . $quickCourse->id) }}" class="relative flex flex-col flex-shrink-0 justify-end w-full h-60 lg:h-[14rem] gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                {{-- Course Information --}}
+                                <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
+                                    <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $quickCourse->course_length }} Pertemuan</p>
+                                    <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $quickCourse->course_name }}</h3>
+                                    <p class="text-sm lg:text-lg/tight font-light mt-0.5 lg:mt-2">{{ $quickCourse->admin->fullname }}</p>
+                                </div>
+                                {{-- Course price Label --}}
+                                <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 py-2 lg:px-4 lg:py-2.5 rounded-bl-xl rounded-tr-xl">
+                                    <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($quickCourse->course_price, 0, ',', '.') }},-</p>
                                 </div>
                             </a>
-
-                        {{-- If course_thumbnail not exist, show this instead --}}
-                        @else
-                            <a href="{{ url('/course/' . $quickCourse['course_name'] . '/' . $quickCourse['id']) }}" class="w-full h-44 rounded-xl overflow-hidden drop-shadow-lg bg-cover bg-center" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}')">
-                                {{-- Overlays --}}
-                                <div class="flex flex-col justify-between lg:hover:bg-custom-dark/35 bg-gradient-to-r from-custom-dark/90 to-custom-dark/35 w-full h-full py-5 pl-5 pr-16 duration-300">
-                                    <div class="flex flex-col">
-                                        {{-- Course Length --}}
-                                        <p class="text-sm/tight lg:text-base/tight font-normal text-custom-white">{{ $quickCourse['course_length'] }} Pertemuan</p>
-                                        {{-- Course Name --}}
-                                        <h3 class="text-[22px]/tight font-semibold text-custom-white line-clamp-2">{{ $quickCourse['course_name'] }}</h3>
-                                    </div>
-                                    {{-- Course Price --}}
-                                    <h4 class="text-lg/tight font-medium text-custom-white">Rp. {{ number_format($quickCourse['course_price'], 0, ',', '.') }},-</h4>
-                                </div>
-                            </a>
-                        @endif     
+                        </div>
                     @endforeach
                 </div>
             </div>
