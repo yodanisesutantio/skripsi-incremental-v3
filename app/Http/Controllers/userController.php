@@ -198,8 +198,15 @@ class userController extends Controller
 
     // Course Registration Form Page Controller
     public function courseRegistrationForm($course_name, $course_id) {
+        // Find the enrollment data for this student
+        $course = Course::findOrFail($course_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
         return view('student-page.course-registration-form', [
             "pageName" => "Form Pendaftaran Kursus | ",
+            "course" => $course,
         ]);
     }
 }
