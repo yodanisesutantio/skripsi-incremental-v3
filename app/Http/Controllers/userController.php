@@ -85,6 +85,7 @@ class userController extends Controller
         ]);
     }
 
+    // User-Profile Page Controller
     public function userProfile() {
         return view('profile.user-profile', [
             "pageName" => "Beranda | ",
@@ -193,5 +194,12 @@ class userController extends Controller
         $request->session()->flash('success', 'Password berhasil diubah!');
         // Redirect user to profile page
         return redirect()->intended('/user-profile');
+    }
+
+    // Course Registration Form Page Controller
+    public function courseRegistrationForm($course_name, $course_id) {
+        return view('student-page.course-registration-form', [
+            "pageName" => "Form Pendaftaran Kursus | ",
+        ]);
     }
 }
