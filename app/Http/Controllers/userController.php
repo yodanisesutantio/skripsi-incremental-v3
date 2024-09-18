@@ -209,4 +209,63 @@ class userController extends Controller
             "course" => $course,
         ]);
     }
+
+    public function courseProgressPage($student_fullname, $enrollment_id) {        
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Get the current date and time
+        $now = now();
+
+        // Check if the course is completed
+        $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
+            return $schedule->end_time < $now; // All meetings have ended
+        });
+
+        if (!$isCourseCompleted) {
+            $upcomingSchedule = $enrollment->schedule->filter(function ($schedule) use ($now) {
+                return $schedule->start_time >= $now; 
+            })->first(); // Find the first / closest upcoming schedule
+
+            // Get the current meeting number if an upcoming schedule exists
+            $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
+        } else {
+            $currentMeetingNumber = $enrollment->course->course_length + 1; // Or set to a specific value if needed
+        }
+
+        // Get new collection of the real schedules
+        $courseSchedules = $enrollment->schedule;
+        // Run through every real schedules
+        foreach ($courseSchedules as $courseSchedule) {
+            // Then check if there's proposed schedule
+            $proposedSchedule = $courseSchedule->proposedSchedule;
+            // Check if the proposed schedule is all agreed. If do, update the real schedule based on the proposed schedule. After update, delete the agreed proposed schedule
+            if ($proposedSchedule && $proposedSchedule->instructor_decision == 1 && $proposedSchedule->student_decision == 1) {
+                $courseSchedule->start_time = $proposedSchedule->start_time;
+                $courseSchedule->end_time = $proposedSchedule->end_time;
+                $courseSchedule->instructor_id = $proposedSchedule->instructor_id;
+                $courseSchedule->save();
+                $proposedSchedule->delete();
+            } 
+            // When the proposed schedule is not getting agreed, but the next current schedule is under the 24 hours, cancel that proposed schedule
+            elseif ($proposedSchedule && $courseSchedule->start_time < $now->addHours(24)) {
+                $proposedSchedule->delete();
+            }
+        }
+
+        // Format the schedule dates
+        foreach ($enrollment->schedule as $schedule) {
+            $schedule->formatted_date = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('l, d F Y');
+            $schedule->formatted_time = \Carbon\Carbon::parse($schedule->start_time)->locale('id')->translatedFormat('H:i');
+        }
+
+        return view('student-page.user-course-progress', [
+            'pageName' => "Detail Progress Kursus Siswa | ",
+            'enrollment' => $enrollment,
+            'currentMeetingNumber' => $currentMeetingNumber,
+        ]);
+    }
 }

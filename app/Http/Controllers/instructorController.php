@@ -507,7 +507,7 @@ class instructorController extends Controller
         ]);
     }
 
-    // Admin-Course-Progress Page Controller
+    // Instructor-Course-Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
         $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);

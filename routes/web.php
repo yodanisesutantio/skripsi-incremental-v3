@@ -176,15 +176,20 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // User Profile Page
     Route::get('/user-profile', [userController::class, 'userProfile']);
 
-    // Admin Edit Profile Page
+    // User Edit Profile Page
     Route::get('/user-profile/edit', [userController::class, 'editProfilePage']);
     // User Edit Account Info Logic Handler
     Route::post('/edit-user-account-info', [userController::class, 'editAccountInfo']);
     // User Edit Password Logic Handler
     Route::post('/edit-user-password', [userController::class, 'editPassword']);
 
-    // Course Details Page
+    // Course Registration Form Page
     Route::get('/course/registration-form/{course_name}/{course_id}', [userController::class, 'courseRegistrationForm']);
+    // Course Registration Form Logic Handler
+    Route::post('/course/registration-form/{course_name}/{course_id}', [enrollmentController::class, 'newStudent']);
+
+    // Student's View Course Progress Detail Page
+    Route::get('/user-course-progress/{student_real_name}/{enrollment_id}', [userController::class, 'courseProgressPage']);
 });
 
 // Course Details Page
