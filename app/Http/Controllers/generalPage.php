@@ -35,8 +35,48 @@ class generalPage extends Controller
     }
 
     public function tamu() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+        // Initialize an empty collection for available courses
+        $availableCourses = collect();
+
+        // Keep fetching random courses until we have 6 available ones
+        while ($availableCourses->count() < 6) {
+            // Fetch random courses as Recommendation
+            $randomCourses = Course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
+
+            // Filter courses based on availability and enrollment
+            $filteredCourses = $randomCourses->filter(function ($course) {
+                $activeEnrollmentsCount = $course->enrollments->filter(function ($enrollment) {
+                    return $enrollment->schedule->contains(function ($schedule) {
+                        return $schedule->end_time > now();
+                    });
+                })->count();
+
+                // Check if the course is available and not filled
+                return $course->course_availability === 1 && $activeEnrollmentsCount < $course->course_quota;
+            });
+
+            // Merge the filtered courses into the availableCourses collection
+            $availableCourses = $availableCourses->merge($filteredCourses);
+
+            // If we have more than 6, slice it to keep only the first 6
+            if ($availableCourses->count() > 6) {
+                $availableCourses = $availableCourses->take(6);
+            }
+        }
+
+        // Fetch Random Driving School to use as Recommendation
+        $randomDrivingSchool = User::where('role', 'admin')
+            ->where('availability', 1) // Check if availability is 1
+            ->inRandomOrder()
+            ->take(4) // Limit to 4 driving schools
+            ->get();
+
         return view('home.tamu', [
-            "pageName" => "Tamu | "
+            "pageName" => "Beranda Tamu | ",
+            "availableCourses" => $availableCourses,
+            "randomDrivingSchool" => $randomDrivingSchool,
         ]);
     }
 
