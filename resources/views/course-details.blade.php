@@ -153,14 +153,14 @@
 
             {{-- Button for Large Screen --}}
             <div class="lg:flex sticky bottom-0 z-20 px-6 py-4 items-center bg-custom-white hidden">
-                <a href="#" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md duration-300">Daftar Kelas</a>
+                <a href="{{ Auth::check() ? url('/course/registration-form/' . $classProperties->course_name . '/' . $classProperties->id) : url('/login') }}" class="flex justify-center items-center bg-custom-green hover:bg-custom-green-hover text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md duration-300">Daftar Kelas</a>
             </div>
         </div>
     </div>
 
     {{-- Button for Mobile --}}
     <div class="flex sticky bottom-0 z-20 px-6 py-4 items-center bg-custom-white lg:hidden">
-        <a href="#" class="flex justify-center items-center bg-custom-green text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md">Daftar Kelas</a>
+        <a href="{{ Auth::check() ? url('/course/registration-form/' . $classProperties->course_name . '/' . $classProperties->id) : url('/login') }}" class="flex justify-center items-center bg-custom-green text-custom-white py-3 w-full font-league lg:text-lg font-medium rounded-md">Daftar Kelas</a>
     </div>
 
     {{-- Swiper CDN --}}
