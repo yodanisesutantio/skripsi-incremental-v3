@@ -8,10 +8,10 @@
     <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight mt-1">Berikut adalah daftar kelas kursus yang pernah anda ikuti</p>
 
     @if ($upcomingCourses->isEmpty())
-        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda sedang tidak mengikuti kursus apapun)</p>
+        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum memilih jadwal kursus atau tidak ada kursus yang sedang berlangsung)</p>
     @else
         {{-- {{ dd($upcomingCourses) }} --}}
-        {{-- Class List --}}
+        {{-- Ongoing Course List --}}
         <div class="flex lg:grid flex-col lg:grid-cols-2 gap-6 mt-5 lg:mt-10 mb-7 lg:mb-14">
             {{-- Call every active student --}}
             @foreach ($upcomingCourses as $incomingCourse)
@@ -65,10 +65,10 @@
         </div>
     @endif
 
-    {{-- Active License Section --}}
+    {{-- All Course List Section --}}
     <h2 class="text-xl lg:text-2xl/snug mt-6 mb-3 lg:mt-6 lg:mb-3 text-custom-dark font-encode tracking-tight font-semibold">Kursus Anda</h2>
     @if ($enrolledCourse->isEmpty())
-        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda sedang tidak mengikuti kursus apapun)</p>
+        <p class="font-league text-center lg:text-xl my-20 lg:my-14">(Anda belum mengikuti kursus apapun)</p>
     @else
         <div class="flex flex-col lg:grid lg:grid-cols-2 gap-3 lg:gap-5">
             {{-- Call every active student --}}
