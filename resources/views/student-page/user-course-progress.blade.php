@@ -20,51 +20,53 @@
             <div class="flex flex-col font-league text-custom-white gap-3 my-5 lg:my-8">
                 <div class="grid grid-cols-2 gap-3">
                     {{-- Course Schedule Button --}}
-                    <a href="{{ url('/instructor-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-24 lg:h-36 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}')">
-                        {{-- Overlays --}}
-                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Jadwal Kursus</h2>
-                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Tentukan jadwal kursus mu</p>
-                        </div>
-                    </a>
-
-                    {{-- Course Payment Button --}}
-                    <a href="{{ url('/instructor-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-24 lg:h-36 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
-                        {{-- Overlays --}}
-                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Pembayaran</h2>
-                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Progress Pembayaran Kursus mu</p>
-                        </div>
-                    </a>
+                    @if ($enrollment->schedule->isEmpty())
+                        <a href="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="lg:col-span-2 w-full h-24 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Course-Schedule-BG.webp') }}')">
+                            {{-- Overlays --}}
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Jadwal Kursus</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Tentukan jadwal kursus mu</p>
+                            </div>
+                        </a>
+                    @endif
 
                     <div class="flex flex-col gap-3">
+                        {{-- Course Payment Button --}}
+                        <a href="{{ url('/user-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="lg:col-span-2 w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/course-payment.webp') }}')">
+                            {{-- Overlays --}}
+                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Pembayaran</h2>
+                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Progress Pembayaran Kursus mu</p>
+                            </div>
+                        </a>
+
                         {{-- Theory Guide Button --}}
-                        <a href="{{ url('/instructor-course/registration-form/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
+                        <a href="{{ url('/user-course/theory/' . $currentMeetingNumber) }}" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Guide-BG.webp') }}')">
                             {{-- Overlays --}}
                             <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                                 <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Baca Panduan</h2>
                                 <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Tingkatkan pemahaman teori mengemudi anda</p>
                             </div>
                         </a>
-
-                        {{-- Contact Other Parties Button --}}
-                        <button type="button" id="button-contact-other-party" class="w-full h-32 lg:h-44 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Contact-Course-BG.webp') }}')">
-                            {{-- Overlays --}}
-                            <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
-                                <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Hubungi Pihak Lain</h2>
-                                <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
-                            </div>
-                        </button>
                     </div>
     
                     {{-- Open Quiz Button --}}
-                    <a href="{{ url('/instructor-course/registration-form/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="w-full h-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
+                    <a href="{{ url('/user-course/quiz/' . $currentMeetingNumber) }}" class="w-full h-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
                         {{-- Overlays --}}
                         <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                             <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Quiz</h2>
                             <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Asah pemahaman teori mengemudi anda</p>
                         </div>
                     </a>
+
+                    {{-- Contact Other Parties Button --}}
+                    <button type="button" id="button-contact-other-party" class="lg:col-span-2 w-full h-32 lg:h-28 bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Contact-Course-BG.webp') }}')">
+                        {{-- Overlays --}}
+                        <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% text-left w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
+                            <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Hubungi Pihak Lain</h2>
+                            <p class="text-sm/none lg:text-base/[1.35rem] text-custom-white font-light">Ajukan Pertanyaan</p>
+                        </div>
+                    </button>
                 </div>
             </div>
 
