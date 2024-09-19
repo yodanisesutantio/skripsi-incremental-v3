@@ -260,8 +260,8 @@ class adminController extends Controller
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
             'availability' => 'required|boolean',
-            'open_hours_for_admin' => 'required|date_format:H:i',
-            'close_hours_for_admin' => 'required|date_format:H:i',
+            'open_hours_for_admin' => 'required',
+            'close_hours_for_admin' => 'required',
         ],
         
         // Validation Error Messages

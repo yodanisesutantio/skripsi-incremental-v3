@@ -14,7 +14,7 @@
         <div class="flex flex-col mb-8 lg:mb-11 px-6 lg:px-[4.25rem]">
             <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight">Kursus Berlangsung</h2>
             {{-- Mobile Incoming Schedule --}}
-            <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 mt-1 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
+            <a href="{{ url('/user-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="w-full bg-custom-white-hover p-3.5 mt-1 lg:hidden rounded-xl overflow-hidden drop-shadow-lg duration-300">
                 <div class="flex flex-col gap-4">
                     {{-- Student Information --}}
                     <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -69,7 +69,7 @@
                     @endif
 
                     {{-- Student Name --}}
-                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->instructor->fullname }}</h2>
+                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark text-center line-clamp-1">{{ $incomingSchedule->instructor->fullname }}</h2>
 
                     {{-- Hover Overlays --}}
                     <div class="absolute top-0 flex flex-col gap-2 justify-center items-center w-full h-full lg:hover:bg-custom-white opacity-0 hover:opacity-100 duration-300">
@@ -82,7 +82,7 @@
                 </a>
 
                 {{-- Course Card --}}
-                <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                <a href="{{ url('/user-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     <div class="flex flex-col gap-4">
                         {{-- Student Information --}}
                         <div class="flex flex-row gap-3 items-center lg:hidden">
@@ -135,7 +135,7 @@
                     @endif
 
                     {{-- Student Name --}}
-                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->course->admin->fullname }}</h2>
+                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark text-center line-clamp-1">{{ $incomingSchedule->enrollment->course->admin->fullname }}</h2>
 
                     {{-- Hover Overlays --}}
                     <div class="absolute top-0 flex flex-col gap-2 justify-center items-center w-full h-full lg:hover:bg-custom-white opacity-0 hover:opacity-100 duration-300">

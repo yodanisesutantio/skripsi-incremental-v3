@@ -70,7 +70,7 @@
                     @endif
 
                     {{-- Student Name --}}
-                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->student_real_name }}</h2>
+                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-center text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->student_real_name }}</h2>
 
                     {{-- Hover Overlays --}}
                     <div class="absolute top-0 flex flex-col gap-2 justify-center items-center w-full h-full lg:hover:bg-custom-white opacity-0 hover:opacity-100 duration-300">
@@ -136,7 +136,7 @@
                     @endif
 
                     {{-- Student Name --}}
-                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->course->admin->fullname }}</h2>
+                    <h2 class="font-encode tracking-tight font-semibold lg:text-xl/tight text-center text-custom-dark line-clamp-1">{{ $incomingSchedule->enrollment->course->admin->fullname }}</h2>
 
                     {{-- Hover Overlays --}}
                     <div class="absolute top-0 flex flex-col gap-2 justify-center items-center w-full h-full lg:hover:bg-custom-white opacity-0 hover:opacity-100 duration-300">
