@@ -176,6 +176,9 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // User Profile Page
     Route::get('/user-profile', [userController::class, 'userProfile']);
 
+    // User Delete Account Logic Handler
+    Route::delete('/delete-account-KEMUDI', [userController::class, 'deleteAccountPermanently']);
+
     // User Edit Profile Page
     Route::get('/user-profile/edit', [userController::class, 'editProfilePage']);
     // User Edit Account Info Logic Handler

@@ -88,7 +88,7 @@ class userController extends Controller
     // User-Profile Page Controller
     public function userProfile() {
         return view('profile.user-profile', [
-            "pageName" => "Beranda | ",
+            "pageName" => "Profil Anda | ",
         ]);
     }
 
@@ -150,8 +150,9 @@ class userController extends Controller
             $user->fill(['hash_for_profile_picture' => $fileName]);
         }     
 
-        // Format phone number to +62
-        $user->phone_number = preg_replace('/^(0|62)/', '+62', $request['phone_number']);
+        // Format phone number to +62 and remove non-numeric characters
+        $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
+        $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
 
         // Save new User data
         $user->save();
@@ -194,6 +195,32 @@ class userController extends Controller
         $request->session()->flash('success', 'Password berhasil diubah!');
         // Redirect user to profile page
         return redirect()->intended('/user-profile');
+    }
+
+    public function deleteAccountPermanently() {
+        // Find the desired course
+        $user = User::findOrFail(auth()->id());
+
+        // Check if the user has any upcoming schedules
+        $hasUpcomingSchedule = Enrollment::where('student_id', auth()->id())
+            ->whereHas('schedule', function ($query) {
+                $query->where('start_time', '>', now());
+            })->exists();
+
+        if ($hasUpcomingSchedule) {
+            session()->flash('error', 'Anda masih memiliki kursus berlangsung, Silahkan coba lagi jika kursus anda sudah selesai!');
+            return redirect('/user-profile');
+        }
+    
+        // Delete the thumbnail from storage
+        if ($user->hash_for_profile_picture) {
+            Storage::delete('profile_picture/' . $user->hash_for_profile_picture);
+        }
+
+        // Delete the chosen user
+        $user->delete();
+        // Redirect the admin to List of Instructor Page
+        return redirect('/');
     }
 
     // Course Registration Form Page Controller
