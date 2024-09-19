@@ -226,10 +226,26 @@ class userController extends Controller
 
     // User Course history Page Controller
     public function courseHistoryPage() {
-        
+        $upcomingCourses = Enrollment::where('student_id', auth()->id())
+        ->whereHas('schedule', function ($query) {
+            $query->where('start_time', '>', now());
+        })
+        ->with(['schedule' => function ($query) {
+            $query->where('start_time', '>', now())->orderBy('start_time')->limit(1);
+        }, 'course'])
+        ->get();
+
+        $enrolledCourse = Enrollment::where('student_id', auth()->id())
+        ->whereDoesntHave('schedule', function ($query) {
+            $query->where('start_time', '>', now()); // Exclude upcoming courses
+        })
+        ->with('course') // Eager load the related course data
+        ->get(); // Fetch all enrolled courses
 
         return view('student-page.user-course-list', [
             "pageName" => "Riwayat Kursus Anda | ",
+            "upcomingCourses" => $upcomingCourses,
+            "enrolledCourse" => $enrolledCourse,
         ]);
     }
 
