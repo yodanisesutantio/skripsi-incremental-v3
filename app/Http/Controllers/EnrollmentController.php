@@ -81,7 +81,7 @@ class EnrollmentController extends Controller
         $enrollment->student_phone_number = $request['student_phone_number'];
         $enrollment->student_address = $request['student_address'];
         $enrollment->student_education_level = $request['student_education_level'];
-        $enrollment->student_profile_picture = $request['student_profile_picture'];
+        $enrollment->student_profile_picture = $fileName;
         $enrollment->save();
 
         // Generate a flash message via Toastr to let user know that the process is successful

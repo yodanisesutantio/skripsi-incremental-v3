@@ -233,7 +233,11 @@ class userController extends Controller
             // Get the current meeting number if an upcoming schedule exists
             $currentMeetingNumber = $upcomingSchedule ? $upcomingSchedule->meeting_number : null;
         } else {
-            $currentMeetingNumber = $enrollment->course->course_length + 1; // Or set to a specific value if needed
+            if ($enrollment->schedule->isEmpty()) {
+                $currentMeetingNumber = 1; // Or set to a specific value if needed
+            } else {
+                $currentMeetingNumber = $enrollment->course->course_length + 1; // Or set to a specific value if needed
+            }
         }
 
         // Get new collection of the real schedules
