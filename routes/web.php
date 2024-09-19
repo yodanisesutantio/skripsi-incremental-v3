@@ -186,6 +186,9 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // User Edit Password Logic Handler
     Route::post('/edit-user-password', [userController::class, 'editPassword']);
 
+    // User Course History / Course List Page
+    Route::get('/user-course-list', [userController::class, 'courseHistoryPage']);
+
     // Course Registration Form Page
     Route::get('/course/registration-form/{course_name}/{course_id}', [userController::class, 'courseRegistrationForm']);
     // Course Registration Form Logic Handler

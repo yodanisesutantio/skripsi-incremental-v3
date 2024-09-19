@@ -218,9 +218,19 @@ class userController extends Controller
         }
 
         // Delete the chosen user
+        Auth::logout();
         $user->delete();
         // Redirect the admin to List of Instructor Page
         return redirect('/');
+    }
+
+    // User Course history Page Controller
+    public function courseHistoryPage() {
+        
+
+        return view('student-page.user-course-list', [
+            "pageName" => "Riwayat Kursus Anda | ",
+        ]);
     }
 
     // Course Registration Form Page Controller

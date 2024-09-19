@@ -403,6 +403,16 @@ class instructorController extends Controller
     public function deleteInstructor($id) {
         // Find the instructor data by matching the incoming ID with the ID from User Tables
         $instructor = User::findOrFail($id);
+
+        // Check if the instructor has any upcoming schedules
+        $hasUpcomingSchedule = CourseSchedule::where('instructor_id', $id)
+            ->where('start_time', '>', now())
+            ->exists();
+
+        if ($hasUpcomingSchedule) {
+            session()->flash('error', $instructor->fullname . ' masih memiliki kursus berlangsung, Silahkan coba lagi jika kursus sudah selesai!');
+            return redirect('/admin-manage-instructor');
+        }
     
         // Delete the thumbnail from storage
         if ($instructor->hash_for_profile_picture) {
