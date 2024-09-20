@@ -196,6 +196,8 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
 
     // Student's View Course Progress Detail Page
     Route::get('/user-course-progress/{student_real_name}/{enrollment_id}', [userController::class, 'courseProgressPage']);
+    // Student's Choose Course Schedule Page
+    Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'chooseFirstSchedulePage']);
 });
 
 // Course Details Page

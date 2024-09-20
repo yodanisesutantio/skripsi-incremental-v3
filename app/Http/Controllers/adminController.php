@@ -725,9 +725,6 @@ class adminController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
-        // Get start and end time from schedule
-        $startTime = \Carbon\Carbon::parse($schedule->start_time);
-        $endTime = \Carbon\Carbon::parse($schedule->end_time);
 
         $availableSlots = [];
 
