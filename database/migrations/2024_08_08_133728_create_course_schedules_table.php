@@ -22,8 +22,6 @@ return new class extends Migration
             $table->boolean('theoryStatus');
             $table->boolean('quizStatus');
             $table->timestamps();
-
-            $table->unique(['instructor_id', 'start_time', 'end_time']);
         });
     }
 

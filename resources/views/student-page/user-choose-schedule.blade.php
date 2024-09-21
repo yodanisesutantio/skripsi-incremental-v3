@@ -58,7 +58,7 @@
                                     <div class="flex flex-col gap-1">
                                         <label for="course_date_{{ $i }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Kursus<span class="text-custom-destructive">*</span></label>
                                         {{-- Input Number Column --}}
-                                        <input type="date" name="course_date[]" id="course_date_{{ $i }}" class="p-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date.' . $i) border-2 border-custom-destructive @enderror">
+                                        <input type="date" name="course_date[]" id="course_date_{{ $i }}" class="p-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date.' . $i) border-2 border-custom-destructive @enderror" value="{{ old('course_date.' . $i) }}">
                                         {{-- Error in Validation Message --}}
                                         @error('course_date.' . $i)
                                             <span class="text-custom-destructive">{{ $message }}</span>
