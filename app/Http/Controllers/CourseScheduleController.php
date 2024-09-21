@@ -180,7 +180,7 @@ class CourseScheduleController extends Controller
             }
         }
 
-        dd($newSchedules);
+        // dd($newSchedules);
 
         // Use DB transaction to save all schedules
         DB::transaction(function () use ($newSchedules) {
