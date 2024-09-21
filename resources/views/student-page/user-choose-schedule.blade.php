@@ -14,7 +14,7 @@
                 @for ($i = 0; $i < $enrollment->course->course_length; $i++)
                     {{-- Meeting Number Tabs --}}
                     <li class="whitespace-nowrap rounded-lg duration-300">
-                        <button class="{{ $i === 0 ? 'lg:hover:bg-custom-grey/25 py-1 border-b-2 font-semibold text-custom-green border-custom-green opacity-100' : 'lg:hover:bg-custom-grey/25 py-1 opacity-40' }} {{ $i === $enrollment->course->course_length - 1 ? 'pr-6' : '' }}" id="meeting_{{ $i + 1 }}">Pertemuan {{ $i + 1 }}</button>
+                        <button class="py-1 {{ $i === 0 ? 'border-b-2 font-semibold text-custom-green border-custom-green opacity-100' : 'opacity-40' }} {{ $i === $enrollment->course->course_length - 1 ? 'mr-6' : '' }}" id="mobile_tabs_{{ $i + 1 }}" data-index="{{ $i }}">Pertemuan {{ $i + 1 }}</button>
                     </li>
                 @endfor
             </ul>
@@ -35,7 +35,7 @@
                 @for ($i = 0; $i < $enrollment->course->course_length; $i++)
                     {{-- Meeting Number Tabs --}}
                     <li class="whitespace-nowrap rounded-lg duration-300">
-                        <button class="py-2 px-4 rounded-xl lg:hover:bg-custom-disabled-dark/30 {{ $i === 0 ? 'font-semibold bg-custom-white-hover text-custom-green opacity-100' : 'opacity-40' }}" id="meeting_{{ $i + 1 }}">Pertemuan {{ $i + 1 }}</button>
+                        <button class="py-2 px-4 rounded-xl lg:hover:bg-custom-disabled-dark/30 {{ $i === 0 ? 'font-semibold bg-custom-white-hover text-custom-green opacity-100' : 'opacity-40' }}" id="desktop_tabs_{{ $i + 1 }}" data-index="{{ $i }}">Pertemuan {{ $i + 1 }}</button>
                     </li>
                 @endfor
             </ul>
@@ -89,9 +89,9 @@
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
                     <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
-                    <button type="button" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
+                    <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
                     <button type="button" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-                    <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
+                    <button type="submit" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
                 </div>
             </form>
         </div>
@@ -100,9 +100,9 @@
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
         <a href="{{ url('/admin-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
-        <button type="button" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
+        <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
         <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-        <button type="submit" id="mobileSubmitButton" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
+        <button type="submit" id="mobileSubmitButton" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -110,12 +110,12 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        // Initialize Swiper
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false,
             spaceBetween: 40,
             autoHeight: true,
-
             navigation: {
                 prevEl: '.prev-button',
                 nextEl: '.next-button',
@@ -123,9 +123,71 @@
 
             on: {
                 slideChange: function() {
+                    // Update button states on slide change for both mobile and desktop
+                    const activeIndex = this.activeIndex;
 
+                    // Update desktop buttons
+                    document.querySelectorAll('button[id^="desktop_tabs_"]').forEach((button, index) => {
+                        if (index === activeIndex) {
+                            button.classList.add('font-semibold', 'bg-custom-white-hover', 'text-custom-green', 'opacity-100');
+                            button.classList.remove('opacity-40');
+                        } else {
+                            button.classList.remove('font-semibold', 'bg-custom-white-hover', 'text-custom-green', 'opacity-100');
+                            button.classList.add('opacity-40');
+                        }
+                    });
+
+                    // Update mobile buttons
+                    document.querySelectorAll('button[id^="mobile_tabs_"]').forEach((button, index) => {
+                        if (index === activeIndex) {
+                            button.classList.add('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
+                            button.classList.remove('opacity-40');
+                        } else {
+                            button.classList.remove('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
+                            button.classList.add('opacity-40');
+                        }
+                    });
+
+                    // Toggle hidden class based on activeIndex
+                    document.querySelectorAll('.back-button').forEach(button => {
+                        button.classList.toggle('hidden', activeIndex !== 0);
+                    });
+                    document.querySelectorAll('.prev-button').forEach(button => {
+                        button.classList.toggle('hidden', activeIndex === 0);
+                    });
+                    document.querySelectorAll('.next-button').forEach(button => {
+                        button.classList.toggle('hidden', activeIndex === this.slides.length - 1);
+                    });
+                    document.querySelectorAll('.submit-button').forEach(button => {
+                        button.classList.toggle('hidden', activeIndex !== this.slides.length - 1);
+                    });
                 }
             }
+        });
+
+        // Set initial button state for both mobile and desktop
+        document.querySelectorAll('button[id^="desktop_tabs_"]').forEach((button, index) => {
+            if (index === 0) {
+                button.classList.add('font-semibold', 'bg-custom-white-hover', 'text-custom-green','opacity-100');
+            } else {
+                button.classList.add('opacity-40');
+            }
+        });
+
+        document.querySelectorAll('button[id^="mobile_tabs_"]').forEach((button, index) => {
+            if (index === 0) {
+                button.classList.add('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
+            } else {
+                button.classList.add('opacity-40');
+            }
+        });
+
+        // Add click event listener to each tab button for both mobile and desktop
+        document.querySelectorAll('button[id^="desktop_tabs_"], button[id^="mobile_tabs_"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = this.getAttribute('data-index');
+                swiper.slideTo(index); // Jump to the corresponding slide
+            });
         });
 
         // Mobile Submit Button Function
