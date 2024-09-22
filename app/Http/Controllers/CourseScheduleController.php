@@ -9,6 +9,7 @@ use App\Models\Enrollment; // Access Enrollment Tables
 
 class CourseScheduleController extends Controller
 {
+    // Admin Update schedule logic controller
     public function proposeNewSchedule(Request $request, $course_schedule_id) {
         // Validation Rules and Error Message
         $request->validate([
@@ -103,6 +104,7 @@ class CourseScheduleController extends Controller
     //     dd('sukses'); // Iki ganti success
     // }
 
+    // User/Student Choose New Schedule Logic Controller
     public function createNewSchedule(Request $request, $student_real_name, $enrollment_id) {
         // Validation Rules and Error Message
         $request->validate([
@@ -115,7 +117,9 @@ class CourseScheduleController extends Controller
 
         // dd($request);
     
+        // Get the Enrollment Data
         $enrollmentData = Enrollment::findOrFail($enrollment_id);
+        // Fetch the instructor_id from Enrollment Data
         $instructor_id = $enrollmentData['instructor_id'];
         
         // Array to track selected schedules

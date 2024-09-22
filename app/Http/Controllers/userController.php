@@ -264,6 +264,7 @@ class userController extends Controller
         ]);
     }
 
+    // User Course Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
         $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
@@ -327,6 +328,7 @@ class userController extends Controller
         ]);
     }
 
+    // Choose Schedule for the First Time Page Controller 
     public function chooseFirstSchedulePage($student_fullname, $enrollment_id) {
         // Find the enrollment data for this student
         $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
