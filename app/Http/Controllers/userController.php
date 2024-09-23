@@ -408,4 +408,37 @@ class userController extends Controller
             'paymentMethod' => $paymentMethod,
         ]);
     }
+
+    public function theoryPage($enrollment_id, $meeting_number) {
+        // Static content for each meeting_number
+        $content = [
+            1 => [
+                'title' => 'Meeting 1 Title',
+                'description' => 'Description for Meeting 1',
+                'topics' => [
+                    'Introduction to the Course',
+                    'Overview of the Syllabus',
+                    'Expectations and Goals',
+                ],
+            ],
+            2 => 'Content for Meeting 2',
+            3 => 'Content for Meeting 3',
+            4 => 'Content for Meeting 4',
+            5 => 'Content for Meeting 5',
+        ];
+    
+        // Check if the meeting_number exists in the content array
+        if (!array_key_exists($meeting_number, $content)) {
+            // Generate a flash message via Toastr to let user know that the process is successful
+            session()->flash('warning', 'Panduan untuk Pertemuan ' . $meeting_number . ' belum tersedia');
+            return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
+        }
+
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+    
+        return view('student-page.user-course-theory', [
+            'pageName' => "Panduan | ",
+            'enrollment' => $enrollment,
+        ]);
+    }
 }

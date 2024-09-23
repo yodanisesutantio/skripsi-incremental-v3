@@ -30,6 +30,7 @@ class CoursePaymentsController extends Controller
         return redirect(url('/admin-course-progress/' . $student_real_name . '/' . $enrollment_id));
     }
 
+    // Send Payment Logic Handler
     public function sendPaymentReceipt(Request $request, $student_real_name, $enrollment_id) {
         // Validation Rules
         $this->validate($request, [

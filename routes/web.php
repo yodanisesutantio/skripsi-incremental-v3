@@ -50,6 +50,11 @@ Route::get('/register', [loginController::class, 'registerPage'])->middleware('g
 // Register Logic Handler
 Route::post('/register', [loginController::class, 'registerAccount']);
 
+// Guest / Student Access Course Details Page
+Route::get('/course/{course_name}/{course_id}', [generalPage::class, 'courseDetailsPage']);
+// Guest / Student Access Admin Course List Page
+Route::get('/course/{admin_username}', [generalPage::class, 'drivingSchoolCoursePage']);
+
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
     // Admin Dashboard Page
@@ -199,14 +204,11 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // Student's Choose Course Schedule Page
     Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'chooseFirstSchedulePage']);
     // Student's Choose Course Schedule Logic Handler
-    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}', [CourseScheduleController::class, 'createNewSchedule']);    
+    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}', [CourseScheduleController::class, 'createNewSchedule']);
     // Student's Payment Page Controller
-    Route::get('/user-course/payment/{student_real_name}/{enrollment_id}', [userController::class, 'paymentPage']);    
+    Route::get('/user-course/payment/{student_real_name}/{enrollment_id}', [userController::class, 'paymentPage']);
     // Student's Payment Logic Handler
-    Route::post('/user-course/payment/{student_real_name}/{enrollment_id}', [CoursePaymentsController::class, 'sendPaymentReceipt']);    
+    Route::post('/user-course/payment/{student_real_name}/{enrollment_id}', [CoursePaymentsController::class, 'sendPaymentReceipt']);
+    // Student's Theory Page Controller
+    Route::get('/user-course/theory/{enrollment_id}/{meeting_number}', [userController::class, 'theoryPage']);
 });
-
-// Course Details Page
-Route::get('/course/{course_name}/{course_id}', [generalPage::class, 'courseDetailsPage']);
-// Admin Course List Page
-Route::get('/course/{admin_username}', [generalPage::class, 'drivingSchoolCoursePage']);
