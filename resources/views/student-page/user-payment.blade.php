@@ -551,7 +551,9 @@
                         <p class="text-custom-grey lg:text-center text-lg/tight lg:text-xl/tight font-league">Unggah bukti pembayaran kursus anda melalui form dibawah ini</p>
                     </div>
 
-                    <form action="{{ url('/user-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="POST" id="uploadPaymentReceipt" enctype="multipart/form-data">
+                    <form action="{{ url('/user-course/payment/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="uploadPaymentReceipt" enctype="multipart/form-data">
+                        @csrf
+                        
                         <div class="flex flex-col gap-2 mt-4 lg:px-28">
                             <label for="paymentFile" class="cursor-pointer rounded-lg">
                             {{-- Dropper --}}

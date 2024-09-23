@@ -43,6 +43,8 @@ class CoursePaymentsController extends Controller
             'paymentFile.max' => 'Ukuran gambar maksimal adalah 2 MB',
         ]);
 
+        // dd($request);
+
         // Check if the incoming request has an uploaded license
         $fileName = null;
         if ($request->hasFile('paymentFile')) {
