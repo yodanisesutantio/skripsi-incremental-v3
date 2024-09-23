@@ -230,6 +230,7 @@
                                                         <option value="Mega" {{ $methodOfPayment['payment_vendor'] === "Mega" ? 'selected' : '' }}>Bank Mega</option>
                                                         <option value="BTN" {{ $methodOfPayment['payment_vendor'] === "BTN" ? 'selected' : '' }}>Bank BTN</option>
                                                         <option value="Jatim" {{ $methodOfPayment['payment_vendor'] === "Jatim" ? 'selected' : '' }}>Bank Jatim</option>
+                                                        <option value="Syariah Indonesia (BSI)" {{ $methodOfPayment['payment_vendor'] === "Syariah Indonesia (BSI)" ? 'selected' : '' }}>Bank Syariah Indonesia (BSI)</option>
                                                         <option value="BCA Syariah" {{ $methodOfPayment['payment_vendor'] === "BCA Syariah" ? 'selected' : '' }}>Bank BCA Syariah</option>
                                                         <option value="BNI Syariah" {{ $methodOfPayment['payment_vendor'] === "BNI Syariah" ? 'selected' : '' }}>Bank BNI Syariah</option>
                                                         <option value="BRI Syariah" {{ $methodOfPayment['payment_vendor'] === "BRI Syariah" ? 'selected' : '' }}>Bank BRI Syariah</option>

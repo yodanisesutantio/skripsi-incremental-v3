@@ -5,7 +5,7 @@
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
-            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</strong></p>
+            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
         </div>
 
         {{-- Tabs --}}
@@ -27,7 +27,7 @@
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
                 <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
-                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</strong></p>
+                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
             </div>
 
            {{-- Tabs --}}

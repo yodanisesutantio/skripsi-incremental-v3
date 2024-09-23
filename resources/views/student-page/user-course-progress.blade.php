@@ -69,7 +69,6 @@
                     </button>
                 </div>
             </div>
-
             
             {{-- Meeting Dropdown FOR MOBILE, PLEASE SEE BELOW FOR THE LARGE SCREEN --}}
             <div class="flex flex-col gap-4 font-league mb-6 lg:mb-8 lg:hidden">

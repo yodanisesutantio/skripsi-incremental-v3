@@ -9,6 +9,7 @@ use App\Models\Course; // Access Course Tables
 use App\Models\CourseSchedule; // Access Course Schedule Tables
 use App\Models\CourseInstructor; // Access Course Instructor Tables
 use App\Models\Enrollment; // Access Enrollment Tables
+use App\Models\PaymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
@@ -380,6 +381,31 @@ class userController extends Controller
             'enrollment' => $enrollment,
             'availableSlots' => $availableSlots,
             'instructorOption' => $instructorOption,
+        ]);
+    }
+
+    public function paymentPage($student_real_name, $enrollment_id) {
+        // Find the enrollment data for this student
+        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+
+        // Create new collection to collect the payment_method that the admin/owner own
+        $paymentMethod = PaymentMethod::where('admin_id', $enrollment->course->admin->id)
+            ->where('is_payment_active', 1) // Add this condition to filter active payment methods
+            ->get();
+        // Decrypt the payment_address
+        $paymentMethod->each(function ($method) {
+            $method->payment_address = Crypt::decryptString($method->payment_address);
+        });
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // dd($paymentMethod);
+
+        return view('student-page.user-payment', [
+            'pageName' => "Pembayaran Kursus | ",
+            'enrollment' => $enrollment,
+            'paymentMethod' => $paymentMethod,
         ]);
     }
 }
