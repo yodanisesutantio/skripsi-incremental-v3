@@ -413,18 +413,165 @@ class userController extends Controller
         // Static content for each meeting_number
         $content = [
             1 => [
-                'title' => 'Meeting 1 Title',
-                'description' => 'Description for Meeting 1',
-                'topics' => [
-                    'Introduction to the Course',
-                    'Overview of the Syllabus',
-                    'Expectations and Goals',
+                'title' => 'Preparing to Drive Safely',
+                'title-image' => 'car_preparation.jpg', 
+                'slide-1' => [
+                    'image' => 'seatbelt.jpg',
+                    'content' => 'Always Wear Your Seatbelt: Buckling up is the simplest and most effective way to protect yourself in case of an accident. Ensure all passengers are also wearing their seatbelts before starting your journey.'
+                ],
+                'slide-2' => [
+                    'image' => 'no_drinking_no_sleepy.jpg',
+                    'content' => 'Avoid Driving When Sleepy or Under the Influence: Driving while fatigued or under the influence of alcohol significantly increases the risk of accidents. If you feel tired or impaired, it’s best to avoid driving.'
+                ],
+                'slide-3' => [
+                    'image' => 'engine_warmup.jpg',
+                    'content' => 'Warming Up the Engine: Before starting your journey, let the engine warm up for a few minutes, especially in cold weather, to ensure smooth functioning.'
+                ],
+                'slide-4' => [
+                    'image' => 'blinker_and_brake_check.jpg',
+                    'content' => 'Checking the Blinkers and Brakes: Ensure that your indicator lights are functioning and gently test your brakes before moving. Both are critical for safe driving.'
+                ],
+                'slide-5' => [
+                    'image' => 'headlight_check.jpg',
+                    'content' => 'Headlight and Taillight Check: Verify that your headlights, taillights, and brake lights are working properly for good visibility and safety in all conditions.'
+                ],
+                'slide-6' => [
+                    'image' => 'wiper_and_oil_check.jpg',
+                    'content' => 'Windshield Wipers and Oil Level: Check your wipers for proper functioning and ensure your engine oil is at the right level using the dipstick.'
+                ],
+                'slide-7' => [
+                    'image' => 'tire_pressure_check.jpg',
+                    'content' => 'Tire Pressure: Proper tire pressure ensures safe handling and fuel efficiency. Check the tire pressure before you drive.'
                 ],
             ],
-            2 => 'Content for Meeting 2',
-            3 => 'Content for Meeting 3',
-            4 => 'Content for Meeting 4',
-            5 => 'Content for Meeting 5',
+
+            2 => [
+                'title' => 'Types of Car Transmission and Driving Basics',
+                'title-image' => 'transmission_types.jpg', 
+                'slide-1' => [
+                    'image' => 'manual_vs_automatic.jpg',
+                    'content' => 'Introduction to car transmissions: the difference between manual and automatic transmission systems. Manual cars use a clutch and gear stick, while automatic cars handle the gear shifts automatically.'
+                ],
+                'slide-2' => [
+                    'image' => 'manual_gears.jpg',
+                    'content' => 'Manual Transmission Basics: In a manual car, you control the gears. Learn the functions of each gear and when to use them: 1st gear for starting, 2nd gear for slow speeds, etc.'
+                ],
+                'slide-3' => [
+                    'image' => 'automatic_gears.jpg',
+                    'content' => 'Automatic Transmission Basics: Automatic cars come with a "P-R-N-D" gear selector. Understand how each mode works: Park (P), Reverse (R), Neutral (N), and Drive (D).'
+                ],
+                'slide-4' => [
+                    'image' => 'traffic_jam_gear.jpg',
+                    'content' => 'Gears in Traffic Jam: For manual cars, use 1st or 2nd gear for stop-and-go traffic. In automatic cars, staying in "Drive" is recommended, but switching to "Low Gear" can help in severe traffic jams.'
+                ],
+                'slide-5' => [
+                    'image' => 'flood_gear.jpg',
+                    'content' => 'Gears in Flooding Conditions: In manual cars, use 1st or 2nd gear to keep engine revs high and avoid stalling. In automatic cars, use the "Low Gear" (L) or 2nd gear for more control.'
+                ],
+                'slide-6' => [
+                    'image' => 'uphill_driving.jpg',
+                    'content' => 'Uphill Driving: In manual cars, downshift to 1st or 2nd gear when driving uphill to prevent the engine from struggling. For automatic cars, use "Drive" or shift to "Low Gear."'
+                ],
+                'slide-7' => [
+                    'image' => 'downhill_driving.jpg',
+                    'content' => 'Downhill Driving: In manual cars, downshift to 2nd or 3rd gear to use engine braking, reducing the need for frequent braking. In automatic cars, shift to "Low Gear" for better control.'
+                ],
+            ],
+
+            3 => [
+                'title' => 'Road Signs, Road Markings, and Traffic Lights',
+                'title-image' => 'road_signs.jpg',
+                'slide-1' => [
+                    'image' => 'regulatory_signs.jpg',
+                    'content' => 'Regulatory Signs: These signs give mandatory instructions like stop, yield, and speed limits. Drivers must follow these to avoid penalties. Common examples include Stop signs, No Entry, and Speed Limit signs.'
+                ],
+                'slide-2' => [
+                    'image' => 'warning_signs.jpg',
+                    'content' => 'Warning Signs: These signs alert drivers to potential hazards ahead, such as sharp bends, slippery roads, or animal crossings. These are usually triangular in shape with a red border.'
+                ],
+                'slide-3' => [
+                    'image' => 'informational_signs.jpg',
+                    'content' => 'Informational Signs: These provide helpful information for drivers, like directions, parking areas, or gas stations. They are usually rectangular and blue or green in color.'
+                ],
+                'slide-4' => [
+                    'image' => 'road_markings.jpg',
+                    'content' => 'Road Markings: These include lane dividers, pedestrian crossings, and arrows indicating allowed lane directions. Solid lines generally mean no crossing, while dashed lines may allow lane changes.'
+                ],
+                'slide-5' => [
+                    'image' => 'traffic_lights.jpg',
+                    'content' => 'Traffic Lights: Understanding traffic signals is crucial. Red means stop, yellow indicates that the light is about to change, and green allows you to proceed. Some intersections may also have arrow signals to guide turns.'
+                ],
+                'slide-6' => [
+                    'image' => 'pedestrian_crossings.jpg',
+                    'content' => 'Pedestrian Crossings: Marked by white stripes or "zebra" crossings, drivers must yield to pedestrians at these points. Always slow down near crossings and check for people on foot.'
+                ],
+                'slide-7' => [
+                    'image' => 'intersection_priority.jpg',
+                    'content' => 'Intersection Priority: Learn the right-of-way rules at intersections with and without traffic lights. Drivers should yield to vehicles coming from the right in countries where traffic moves on the right-hand side, unless signs indicate otherwise.'
+                ],
+            ],
+
+            4 => [
+                'title' => 'Driving Ethics and Responsibilities',
+                'title-image' => 'driving_ethics.jpg',
+                'slide-1' => [
+                    'image' => 'overtaking.jpg',
+                    'content' => 'Overtaking Etiquette: When overtaking another vehicle, always check your mirrors and blind spots. Overtake only on the left side (in countries with right-hand traffic) and ensure there’s enough space before returning to your lane. Avoid overtaking in curves, intersections, or when visibility is poor.'
+                ],
+                'slide-2' => [
+                    'image' => 'lane_switching.jpg',
+                    'content' => 'Switching Lanes: Before switching lanes, signal your intent, check mirrors, and look over your shoulder to check blind spots. Make sure the lane is clear, and avoid frequent, unnecessary lane changes.'
+                ],
+                'slide-3' => [
+                    'image' => 'emergency_vehicle_priority.jpg',
+                    'content' => 'Emergency Vehicle Priority: Always give way to emergency vehicles like fire trucks, ambulances, and police patrol cars when you hear sirens or see flashing lights. Pull over to the side of the road and stop if necessary, allowing them to pass quickly and safely.'
+                ],
+                'slide-4' => [
+                    'image' => 'roundabout.jpg',
+                    'content' => 'Turning in a Roundabout: Yield to traffic already in the roundabout, and signal your intent to exit. Stay in the correct lane depending on whether you are turning left, right, or going straight.'
+                ],
+                'slide-5' => [
+                    'image' => 'u_turn.jpg',
+                    'content' => 'Making a U-Turn: Only make U-turns at designated intersections or where permitted. Ensure there is no oncoming traffic and enough space to complete the turn safely. Be cautious of pedestrians and other vehicles.'
+                ],
+                'slide-6' => [
+                    'image' => 'right_of_way.jpg',
+                    'content' => 'Right-of-Way Rules: Always yield the right of way to pedestrians at crosswalks. When two vehicles arrive at an intersection at the same time, the vehicle on the right has the right of way unless signs indicate otherwise.'
+                ],
+                'slide-7' => [
+                    'image' => 'courtesy_driving.jpg',
+                    'content' => 'Courtesy and Safe Driving: Always maintain a safe following distance, use turn signals, and avoid aggressive driving. Show courtesy to other drivers, especially in high-traffic or difficult conditions.'
+                ],
+            ],
+
+            5 => [
+                'title' => 'Basic Driving Laws and Legal Responsibilities',
+                'title-image' => 'basic_laws.jpg',
+                'slide-1' => [
+                    'image' => 'stopped_by_police.jpg',
+                    'content' => 'What to Do When Stopped by Police: Stay calm, pull over safely, and keep your hands visible. Only provide your license, vehicle registration, and insurance when asked. Do not argue or attempt to leave the scene before permitted.'
+                ],
+                'slide-2' => [
+                    'image' => 'collision.jpg',
+                    'content' => 'What to Do After a Collision: Stay at the scene and check for injuries. Call emergency services if necessary and exchange information with the other driver (license, insurance, etc.). Document the scene with photos if possible, and avoid admitting fault on the spot.'
+                ],
+                'slide-3' => [
+                    'image' => 'insurance_claim.jpg',
+                    'content' => 'Filing an Insurance Claim: In case of an accident, contact your insurance company as soon as possible to file a claim. Provide all necessary details, including any police reports, photos, and contact information of the other party involved.'
+                ],
+                'slide-4' => [
+                    'image' => 'no_drunk_driving.jpg',
+                    'content' => 'Prohibition of Drunk and Distracted Driving: It is illegal to drive under the influence of alcohol, drugs, or while distracted (texting, phone use). Violations result in severe penalties, including fines, license suspension, or jail time.'
+                ],
+                'slide-5' => [
+                    'image' => 'vehicle_documents.jpg',
+                    'content' => 'Always Carry Essential Documents: Drivers are required to have their driver’s license, vehicle registration, and proof of insurance when operating a vehicle. These must be presented upon request by law enforcement.'
+                ],
+                'slide-6' => [
+                    'image' => 'traffic_violations.jpg',
+                    'content' => 'Traffic Violations: Speeding, running red lights, illegal parking, and other traffic violations are punishable by fines and points on your license. Accumulating too many points can lead to license suspension.'
+                ],
+            ]
         ];
     
         // Check if the meeting_number exists in the content array
