@@ -198,4 +198,18 @@ class CourseScheduleController extends Controller
         $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
         return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
     }
+
+    public function markTheoryAsDone(Request $request, $enrollment_id, $meeting_number) {
+        $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
+
+        if ($currentSchedule) {
+            $currentSchedule->theoryStatus = 1;
+            $currentSchedule->save();
+
+            return redirect(url('/user-course-progress/' . $currentSchedule->enrollment->student_real_name . '/' . $enrollment_id));
+        } else {
+            session()->flash('error', 'Terjadi Kesalahan. Silahkan coba sekali lagi.');   
+            return redirect()->back();
+        }
+    }
 }

@@ -413,70 +413,77 @@ class userController extends Controller
         // Static content for each meeting_number
         $content = [
             1 => [
-                'title' => 'Preparing to Drive Safely',
-                'title-image' => 'car_preparation.jpg', 
+                'title' => 'Persiapan untuk Berkendara dengan Aman',
+                'title-image-mobile' => 'car_preparation_small.webp', 
+                'title-image-desktop' => 'car_preparation.webp', 
                 'slides' => [
                     [
-                        'image' => 'seatbelt.jpg',
-                        'content' => 'Always Wear Your Seatbelt: Buckling up is the simplest and most effective way to protect yourself in case of an accident. Ensure all passengers are also wearing their seatbelts before starting your journey.'
+                        'image' => 'seatbelt.webp',
+                        'content' => 'Selalu kenakan sabuk pengaman saat mengemudi atau naik kendaraan. Sabuk pengaman adalah alat keselamatan yang penting untuk melindungi Anda dan penumpang Anda dari cedera serius dalam kecelakaan lalu lintas. <br><br>
+
+                        Pastikan sabuk pengaman terpasang dengan benar dan tidak terlalu ketat. Ajarkan penumpang Anda, baik dewasa maupun anak-anak, untuk selalu mengenakan sabuk pengaman. Dengan mengenakan sabuk pengaman, Anda melindungi diri sendiri dan orang-orang yang Anda cintai.'
                     ],
                     [
-                        'image' => 'no_drinking_no_sleepy.jpg',
-                        'content' => 'Avoid Driving When Sleepy or Under the Influence: Driving while fatigued or under the influence of alcohol significantly increases the risk of accidents. If you feel tired or impaired, it’s best to avoid driving.'
+                        'image' => 'no_drinking_no_sleepy.webp',
+                        'content' => 'Mengemudi dalam kondisi lelah atau setelah mengonsumsi alkohol dapat meningkatkan risiko kecelakaan secara drastis. Jika Anda merasa mengantuk atau tidak fit, sebaiknya hindari mengemudi. <br><br>
+
+                        Untuk memastikan keselamatan di jalan raya, pastikan Anda istirahat cukup sebelum mengemudi. Hindari mengonsumsi alkohol sebelum mengemudi. Jika merasa mengantuk, berhentilah di tempat yang aman untuk beristirahat atau tidur sebentar. Minum kopi atau minuman berkafein lainnya dapat membantu meningkatkan kewaspadaan, tetapi jangan mengandalkan kafein sebagai pengganti istirahat yang cukup.'
                     ],
                     [
-                        'image' => 'engine_warmup.jpg',
-                        'content' => 'Warming Up the Engine: Before starting your journey, let the engine warm up for a few minutes, especially in cold weather, to ensure smooth functioning.'
+                        'image' => 'engine_warmup.webp',
+                        'content' => 'Sebelum memulai perjalanan, berikan kesempatan mesin kendaraan Anda untuk menjadi sedikit panas terlebih dahulu. Hal ini sangat penting, terutama dalam cuaca dingin, untuk memastikan kinerja mesin yang optimal dan mencegah kerusakan komponen. Biarkan mesin menyala selama beberapa menit sebelum mengemudi, hingga jarum suhu mencapai titik tengah atau sedikit di atasnya. <br><br>
+
+                        Dengan memanaskan mesin, Anda memberikan waktu bagi oli untuk bersirkulasi dan melumasi komponen-komponen penting mesin. Hal ini dapat membantu mencegah keausan dan meningkatkan umur pakai kendaraan Anda.'
                     ],
                     [
-                        'image' => 'blinker_and_brake_check.jpg',
-                        'content' => 'Checking the Blinkers and Brakes: Ensure that your indicator lights are functioning and gently test your brakes before moving. Both are critical for safe driving.'
+                        'image' => 'blinker_and_brake_check.webp',
+                        'content' => 'Sebelum memulai perjalanan, pastikan lampu sein dan rem kendaraan Anda berfungsi dengan baik. Uji lampu sein kanan dan kiri untuk memastikan sinyal belok Anda terlihat jelas. Kemudian, tekan pedal rem untuk memastikan lampu rem menyala dengan terang. Dengan memeriksa lampu-lampu ini, Anda dapat memastikan keamanan berkendara Anda dan menghindari kecelakaan.'
                     ],
                     [
-                        'image' => 'headlight_check.jpg',
-                        'content' => 'Headlight and Taillight Check: Verify that your headlights, taillights, and brake lights are working properly for good visibility and safety in all conditions.'
+                        'image' => 'headlight_check.webp',
+                        'content' => 'Sebelum memulai perjalanan, pastikan semua lampu kendaraan Anda berfungsi dengan baik. Periksa lampu depan, lampu belakang, lampu sein, dan lampu rem untuk memastikan visibilitas yang optimal. Dengan lampu yang berfungsi dengan baik, Anda dapat meningkatkan keselamatan berkendara Anda dan menghindari kecelakaan.'
                     ],
                     [
-                        'image' => 'wiper_and_oil_check.jpg',
-                        'content' => 'Windshield Wipers and Oil Level: Check your wipers for proper functioning and ensure your engine oil is at the right level using the dipstick.'
+                        'image' => 'wiper_and_oil_check.webp',
+                        'content' => 'Sebelum memulai perjalanan, pastikan wiper kaca depan Anda berfungsi dengan baik untuk memastikan visibilitas yang jelas saat hujan atau cuaca buruk. Periksa juga level oli mesin menggunakan dipstick untuk memastikan mesin Anda terlumasi dengan baik. Dengan melakukan pemeriksaan rutin ini, Anda dapat mencegah kerusakan mesin dan memastikan keselamatan berkendara Anda.'
                     ],
                     [
-                        'image' => 'tire_pressure_check.jpg',
-                        'content' => 'Tire Pressure: Proper tire pressure ensures safe handling and fuel efficiency. Check the tire pressure before you drive.'
+                        'image' => 'tire_pressure_check.webp',
+                        'content' => 'Tekanan angin ban yang tepat sangat penting untuk keselamatan dan efisiensi bahan bakar. Sebelum memulai perjalanan, pastikan tekanan angin ban Anda sesuai dengan rekomendasi pabrik. Gunakan alat pengukur tekanan ban yang akurat untuk mengecek tekanan angin ban secara berkala.'
                     ],
                 ],
             ],
 
             2 => [
                 'title' => 'Types of Car Transmission and Driving Basics',
-                'title-image' => 'transmission_types.jpg', 
+                'title-image' => 'transmission_types.webp', 
                 'slides' => [
                     [
-                        'image' => 'manual_vs_automatic.jpg',
+                        'image' => 'manual_vs_automatic.webp',
                         'content' => 'Introduction to car transmissions: the difference between manual and automatic transmission systems. Manual cars use a clutch and gear stick, while automatic cars handle the gear shifts automatically.'
                     ],
                     [
-                        'image' => 'manual_gears.jpg',
+                        'image' => 'manual_gears.webp',
                         'content' => 'Manual Transmission Basics: In a manual car, you control the gears. Learn the functions of each gear and when to use them: 1st gear for starting, 2nd gear for slow speeds, etc.'
                     ],
                     [
-                        'image' => 'automatic_gears.jpg',
+                        'image' => 'automatic_gears.webp',
                         'content' => 'Automatic Transmission Basics: Automatic cars come with a "P-R-N-D" gear selector. Understand how each mode works: Park (P), Reverse (R), Neutral (N), and Drive (D).'
                     ],
                     [
-                        'image' => 'traffic_jam_gear.jpg',
+                        'image' => 'traffic_jam_gear.webp',
                         'content' => 'Gears in Traffic Jam: For manual cars, use 1st or 2nd gear for stop-and-go traffic. In automatic cars, staying in "Drive" is recommended, but switching to "Low Gear" can help in severe traffic jams.'
                     ],
                     [
-                        'image' => 'flood_gear.jpg',
+                        'image' => 'flood_gear.webp',
                         'content' => 'Gears in Flooding Conditions: In manual cars, use 1st or 2nd gear to keep engine revs high and avoid stalling. In automatic cars, use the "Low Gear" (L) or 2nd gear for more control.'
                     ],
                     [
-                        'image' => 'uphill_driving.jpg',
+                        'image' => 'uphill_driving.webp',
                         'content' => 'Uphill Driving: In manual cars, downshift to 1st or 2nd gear when driving uphill to prevent the engine from struggling. For automatic cars, use "Drive" or shift to "Low Gear."'
                     ],
                     [
-                        'image' => 'downhill_driving.jpg',
+                        'image' => 'downhill_driving.webp',
                         'content' => 'Downhill Driving: In manual cars, downshift to 2nd or 3rd gear to use engine braking, reducing the need for frequent braking. In automatic cars, shift to "Low Gear" for better control.'
                     ],
                 ],                
@@ -484,34 +491,34 @@ class userController extends Controller
 
             3 => [
                 'title' => 'Road Signs, Road Markings, and Traffic Lights',
-                'title-image' => 'road_signs.jpg',
+                'title-image' => 'road_signs.webp',
                 'slides' => [
                     [
-                        'image' => 'regulatory_signs.jpg',
+                        'image' => 'regulatory_signs.webp',
                         'content' => 'Regulatory Signs: These signs give mandatory instructions like stop, yield, and speed limits. Drivers must follow these to avoid penalties. Common examples include Stop signs, No Entry, and Speed Limit signs.'
                     ],
                     [
-                        'image' => 'warning_signs.jpg',
+                        'image' => 'warning_signs.webp',
                         'content' => 'Warning Signs: These signs alert drivers to potential hazards ahead, such as sharp bends, slippery roads, or animal crossings. These are usually triangular in shape with a red border.'
                     ],
                     [
-                        'image' => 'informational_signs.jpg',
+                        'image' => 'informational_signs.webp',
                         'content' => 'Informational Signs: These provide helpful information for drivers, like directions, parking areas, or gas stations. They are usually rectangular and blue or green in color.'
                     ],
                     [
-                        'image' => 'road_markings.jpg',
+                        'image' => 'road_markings.webp',
                         'content' => 'Road Markings: These include lane dividers, pedestrian crossings, and arrows indicating allowed lane directions. Solid lines generally mean no crossing, while dashed lines may allow lane changes.'
                     ],
                     [
-                        'image' => 'traffic_lights.jpg',
+                        'image' => 'traffic_lights.webp',
                         'content' => 'Traffic Lights: Understanding traffic signals is crucial. Red means stop, yellow indicates that the light is about to change, and green allows you to proceed. Some intersections may also have arrow signals to guide turns.'
                     ],
                     [
-                        'image' => 'pedestrian_crossings.jpg',
+                        'image' => 'pedestrian_crossings.webp',
                         'content' => 'Pedestrian Crossings: Marked by white stripes or "zebra" crossings, drivers must yield to pedestrians at these points. Always slow down near crossings and check for people on foot.'
                     ],
                     [
-                        'image' => 'intersection_priority.jpg',
+                        'image' => 'intersection_priority.webp',
                         'content' => 'Intersection Priority: Learn the right-of-way rules at intersections with and without traffic lights. Drivers should yield to vehicles coming from the right in countries where traffic moves on the right-hand side, unless signs indicate otherwise.'
                     ],
                 ],                
@@ -519,34 +526,34 @@ class userController extends Controller
 
             4 => [
                 'title' => 'Driving Ethics and Responsibilities',
-                'title-image' => 'driving_ethics.jpg',
+                'title-image' => 'driving_ethics.webp',
                 'slides' => [
                     [
-                        'image' => 'overtaking.jpg',
+                        'image' => 'overtaking.webp',
                         'content' => 'Overtaking Etiquette: When overtaking another vehicle, always check your mirrors and blind spots. Overtake only on the left side (in countries with right-hand traffic) and ensure there’s enough space before returning to your lane. Avoid overtaking in curves, intersections, or when visibility is poor.'
                     ],
                     [
-                        'image' => 'lane_switching.jpg',
+                        'image' => 'lane_switching.webp',
                         'content' => 'Switching Lanes: Before switching lanes, signal your intent, check mirrors, and look over your shoulder to check blind spots. Make sure the lane is clear, and avoid frequent, unnecessary lane changes.'
                     ],
                     [
-                        'image' => 'emergency_vehicle_priority.jpg',
+                        'image' => 'emergency_vehicle_priority.webp',
                         'content' => 'Emergency Vehicle Priority: Always give way to emergency vehicles like fire trucks, ambulances, and police patrol cars when you hear sirens or see flashing lights. Pull over to the side of the road and stop if necessary, allowing them to pass quickly and safely.'
                     ],
                     [
-                        'image' => 'roundabout.jpg',
+                        'image' => 'roundabout.webp',
                         'content' => 'Turning in a Roundabout: Yield to traffic already in the roundabout, and signal your intent to exit. Stay in the correct lane depending on whether you are turning left, right, or going straight.'
                     ],
                     [
-                        'image' => 'u_turn.jpg',
+                        'image' => 'u_turn.webp',
                         'content' => 'Making a U-Turn: Only make U-turns at designated intersections or where permitted. Ensure there is no oncoming traffic and enough space to complete the turn safely. Be cautious of pedestrians and other vehicles.'
                     ],
                     [
-                        'image' => 'right_of_way.jpg',
+                        'image' => 'right_of_way.webp',
                         'content' => 'Right-of-Way Rules: Always yield the right of way to pedestrians at crosswalks. When two vehicles arrive at an intersection at the same time, the vehicle on the right has the right of way unless signs indicate otherwise.'
                     ],
                     [
-                        'image' => 'courtesy_driving.jpg',
+                        'image' => 'courtesy_driving.webp',
                         'content' => 'Courtesy and Safe Driving: Always maintain a safe following distance, use turn signals, and avoid aggressive driving. Show courtesy to other drivers, especially in high-traffic or difficult conditions.'
                     ],
                 ],                
@@ -554,30 +561,30 @@ class userController extends Controller
 
             5 => [
                 'title' => 'Basic Driving Laws and Legal Responsibilities',
-                'title-image' => 'basic_laws.jpg',
+                'title-image' => 'basic_laws.webp',
                 'slides' => [
                     [
-                        'image' => 'stopped_by_police.jpg',
+                        'image' => 'stopped_by_police.webp',
                         'content' => 'What to Do When Stopped by Police: Stay calm, pull over safely, and keep your hands visible. Only provide your license, vehicle registration, and insurance when asked. Do not argue or attempt to leave the scene before permitted.'
                     ],
                     [
-                        'image' => 'collision.jpg',
+                        'image' => 'collision.webp',
                         'content' => 'What to Do After a Collision: Stay at the scene and check for injuries. Call emergency services if necessary and exchange information with the other driver (license, insurance, etc.). Document the scene with photos if possible, and avoid admitting fault on the spot.'
                     ],
                     [
-                        'image' => 'insurance_claim.jpg',
+                        'image' => 'insurance_claim.webp',
                         'content' => 'Filing an Insurance Claim: In case of an accident, contact your insurance company as soon as possible to file a claim. Provide all necessary details, including any police reports, photos, and contact information of the other party involved.'
                     ],
                     [
-                        'image' => 'no_drunk_driving.jpg',
+                        'image' => 'no_drunk_driving.webp',
                         'content' => 'Prohibition of Drunk and Distracted Driving: It is illegal to drive under the influence of alcohol, drugs, or while distracted (texting, phone use). Violations result in severe penalties, including fines, license suspension, or jail time.'
                     ],
                     [
-                        'image' => 'vehicle_documents.jpg',
+                        'image' => 'vehicle_documents.webp',
                         'content' => 'Always Carry Essential Documents: Drivers are required to have their driver’s license, vehicle registration, and proof of insurance when operating a vehicle. These must be presented upon request by law enforcement.'
                     ],
                     [
-                        'image' => 'traffic_violations.jpg',
+                        'image' => 'traffic_violations.webp',
                         'content' => 'Traffic Violations: Speeding, running red lights, illegal parking, and other traffic violations are punishable by fines and points on your license. Accumulating too many points can lead to license suspension.'
                     ],
                 ],                
@@ -596,6 +603,7 @@ class userController extends Controller
         return view('student-page.user-course-theory', [
             'pageName' => "Panduan | ",
             'enrollment' => $enrollment,
+            'meeting_number' => $meeting_number,
             'content' => $content[$meeting_number],
         ]);
     }

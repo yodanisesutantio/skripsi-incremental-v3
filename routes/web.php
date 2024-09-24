@@ -211,4 +211,6 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::post('/user-course/payment/{student_real_name}/{enrollment_id}', [CoursePaymentsController::class, 'sendPaymentReceipt']);
     // Student's Theory Page Controller
     Route::get('/user-course/theory/{enrollment_id}/{meeting_number}', [userController::class, 'theoryPage']);
+    // Student's Theory Page Done Reading Logic Handler
+    Route::post('/user-course/theory/{enrollment_id}/{meeting_number}', [CourseScheduleController::class, 'markTheoryAsDone']);
 });

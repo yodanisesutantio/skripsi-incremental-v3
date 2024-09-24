@@ -7,24 +7,30 @@
                 background: #24596A;
             }
         </style>
-        
-        {{-- Mobile Forms Header --}}
-        <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden drop-shadow">
-            <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="flex flex-row items-center gap-5 px-5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="#040B0D" fill-rule="evenodd" d="M10.53 5.47a.75.75 0 0 1 0 1.06l-4.72 4.72H20a.75.75 0 0 1 0 1.5H5.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
-                <p class="text-custom-dark text-lg lg:text-2xl font-encode font-semibold mb-0.5">Panduan Kursus</p>
-            </a>
-        </div>
 
         {{-- Course Theory Content --}}
-        <div class="swiper w-full h-full mt-3">
+        <div class="swiper w-full h-full">
             <div class="swiper-wrapper">
+                <div class="swiper-slide select-none">
+                    <div class="w-full h-dvh lg:hidden bg-cover bg-center" style="background-image: url('{{ asset("img/cover/{$content['title-image-mobile']}") }}')">
+                        <div class="relative flex flex-col justify-between w-full h-full bg-custom-dark/45 p-6">
+                            <div class="w-full h-full flex flex-col items-center justify-center">
+                                <div class="px-3 py-1 bg-custom-dark w-fit rounded-md">
+                                    <p class="font-league text-lg/snug text-custom-white">Pertemuan {{ $meeting_number }}</p>
+                                </div>
+                                <h1 class="mt-3 font-encode font-extrabold text-center text-custom-white text-4xl/snug">{{ $content['title'] }}</h1>
+                            </div>
+
+                            <button type="button" id="jump-to-next-slide" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-white text-center text-custom-dark font-semibold lg:order-2">Mulai Belajar</button>
+                        </div>
+                    </div>
+                </div>
                 @foreach ($content['slides'] as $slide)
-                    <div class="swiper-slide select-none overflow-y-auto lg:overflow-hidden">
+                    <div class="swiper-slide pt-4 select-none overflow-y-auto lg:overflow-hidden">
                         <div class="flex flex-col lg:flex-row items-center lg:items-center lg:justify-between gap-2 lg:gap-16 w-full py-2 px-5 lg:px-20 lg:py-11 h-auto lg:h-full">
                             <img src="{{ asset("img/theory-image/{$slide['image']}") }}" alt="Theory Image" class="w-full lg:w-1/2 h-52 lg:h-auto mb-3 lg:mb-0 object-cover object-center flex-shrink-0 rounded-md shadow-lg lg:order-2">
-                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-start w-full h-full lg:order-2 lg:overflow-y-auto">
-                                <p class="font-league text-lg/snug lg:text-xl/snug text-custom-dark font-normal">{{ $slide['content'] }}</p>
+                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-start w-full h-full lg:order-2 lg:overflow-y-auto pb-20 lg:pb-0">
+                                <p class="font-league text-lg/snug lg:text-xl/snug text-custom-dark font-normal">{!! $slide['content'] !!}</p>
                             </div>
                         </div>
                     </div>
@@ -33,10 +39,16 @@
         </div>
 
         {{-- Left and Right Button --}}
-        <div class="fixed bottom-0 flex flex-row flex-shrink-0 w-full px-3 pt-6 lg:pt-5 pb-4 items-center justify-between bg-custom-white select-none">
+        <div class="hidden fixed bottom-0 flex-row flex-shrink-0 w-full px-3 pt-6 lg:pt-5 pb-4 items-center justify-between bg-custom-white select-none z-30" id="nav-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" class="left-button" width="36" height="36" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15 5l-6 7l6 7"/></svg>
             <div class="swiper-pagination h-8"></div>
             <svg xmlns="http://www.w3.org/2000/svg" class="right-button" width="36" height="36" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9 5l6 7l-6 7"/></svg>
+
+            {{-- Done Reading Button --}}
+            <form action="{{ url('/user-course/theory/' . $enrollment['id'] . '/' . $meeting_number) }}" id="done-reading" class="hidden" method="POST">
+                @csrf
+                <button type="submit" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg font-league bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Selesai</button>
+            </form>
         </div>
     </div>
 
@@ -45,6 +57,16 @@
     {{-- Swiper CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        // Add Shadow to Form Header
+        $(window).on('scroll', function () {
+            const scrolled = $(this).scrollTop();
+            if (scrolled > 15) {
+                $('#form-header').addClass('shadow-lg');
+            } else {
+                $('#form-header').removeClass('shadow-lg');
+            }
+        });
+
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false,
@@ -60,6 +82,35 @@
                 prevEl: '.left-button',
                 nextEl: '.right-button',
             },
+
+            on: {
+                slideChange: function () {
+                    // Check if the first slide is active
+                    if (this.isBeginning) {
+                        $('#nav-wrapper').addClass('hidden'); // Hide the nav-wrapper
+                        $('#nav-wrapper').removeClass('flex'); // Hide the nav-wrapper
+                    } else {
+                        $('#nav-wrapper').removeClass('hidden'); // Show the nav-wrapper if not on the first slide
+                        $('#nav-wrapper').addClass('flex'); // Show the nav-wrapper if not on the first slide
+                    }
+
+                    // Check if the last slide is active
+                    if (this.isEnd) {
+                        $('#done-reading').removeClass('hidden'); // Unhide the submit button
+                        $('.right-button').addClass('hidden'); // Hide the Next / Right button
+                        $('.swiper-pagination').addClass('hidden'); // Hide the Pagination Element
+                    } else {
+                        $('#done-reading').addClass('hidden'); // Hide the submit button if not on the last slide
+                        $('.right-button').removeClass('hidden'); // Unhide the Next / Right button
+                        $('.swiper-pagination').removeClass('hidden'); // Hide the Pagination Element
+                    }
+                }
+            }
+        });
+
+        // Jump to the next slide when the button is clicked
+        $('#jump-to-next-slide').on('click', function () {
+            swiper.slideNext(); // Move to the next slide
         });
     </script>
 @endsection
