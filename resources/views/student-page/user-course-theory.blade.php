@@ -12,6 +12,7 @@
         <div class="swiper w-full h-full">
             <div class="swiper-wrapper">
                 <div class="swiper-slide select-none">
+                    {{-- Mobile Cover Slide --}}
                     <div class="w-full h-dvh lg:hidden bg-cover bg-center" style="background-image: url('{{ asset("img/cover/{$content['title-image-mobile']}") }}')">
                         <div class="relative flex flex-col justify-between w-full h-full bg-custom-dark/45 p-6">
                             <div class="w-full h-full flex flex-col items-center justify-center">
@@ -21,15 +22,31 @@
                                 <h1 class="mt-3 font-encode font-extrabold text-center text-custom-white text-4xl/snug">{{ $content['title'] }}</h1>
                             </div>
 
-                            <button type="button" id="jump-to-next-slide" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-white text-center text-custom-dark font-semibold lg:order-2">Mulai Belajar</button>
+                            {{-- Start Button --}}
+                            <button type="button" id="jump-to-next-slide-mobile" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-white text-center text-custom-dark font-semibold lg:order-2">Mulai Belajar</button>
+                        </div>
+                    </div>
+
+                    {{-- Desktop Cover Slide --}}
+                    <div class="w-full h-dvh hidden lg:block bg-cover bg-center" style="background-image: url('{{ asset("img/cover/{$content['title-image-desktop']}") }}')">
+                        <div class="relative flex flex-col justify-center w-full h-full bg-custom-dark/45 p-6">
+                            <div class="w-full h-full flex flex-col items-center justify-center">
+                                <div class="px-4 py-2 bg-custom-dark w-fit rounded-md">
+                                    <p class="font-league text-2xl/snug text-custom-white">Pertemuan {{ $meeting_number }}</p>
+                                </div>
+                                <h1 class="mt-3 font-encode font-extrabold text-center text-custom-white text-5xl/snug">{{ $content['title'] }}</h1>
+
+                                {{-- Start Button --}}
+                                <button type="button" id="jump-to-next-slide-desktop" class="mt-8 px-12 py-3 rounded-lg lg:rounded-lg bg-custom-white hover:bg-custom-white-hover text-xl/snug text-center text-custom-dark font-semibold lg:order-2 duration-300">Mulai Belajar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 @foreach ($content['slides'] as $slide)
-                    <div class="swiper-slide pt-4 select-none overflow-y-auto lg:overflow-hidden">
-                        <div class="flex flex-col lg:flex-row items-center lg:items-center lg:justify-between gap-2 lg:gap-16 w-full py-2 px-5 lg:px-20 lg:py-11 h-auto lg:h-full">
+                    <div class="swiper-slide pt-4 lg:-mt-8 select-none overflow-y-auto lg:overflow-hidden">
+                        <div class="flex flex-col lg:flex-row items-center lg:justify-between gap-2 lg:gap-16 w-full py-2 px-5 lg:px-20 lg:py-11 h-auto lg:h-dvh">
                             <img src="{{ asset("img/theory-image/{$slide['image']}") }}" alt="Theory Image" class="w-full lg:w-1/2 h-52 lg:h-auto mb-3 lg:mb-0 object-cover object-center flex-shrink-0 rounded-md shadow-lg lg:order-2">
-                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-start w-full h-full lg:order-2 lg:overflow-y-auto pb-20 lg:pb-0">
+                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-center w-full h-full lg:order-2 lg:overflow-y-auto pb-20 lg:pb-0">
                                 <p class="font-league text-lg/snug lg:text-xl/snug text-custom-dark font-normal">{!! $slide['content'] !!}</p>
                             </div>
                         </div>
@@ -109,7 +126,7 @@
         });
 
         // Jump to the next slide when the button is clicked
-        $('#jump-to-next-slide').on('click', function () {
+        $('#jump-to-next-slide-mobile, #jump-to-next-slide-desktop').on('click', function () {
             swiper.slideNext(); // Move to the next slide
         });
     </script>
