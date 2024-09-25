@@ -411,6 +411,25 @@ class userController extends Controller
 
     // Course Theory Page Controller
     public function theoryPage($enrollment_id, $meeting_number) {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Get the current date and time
+        $now = now();
+
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        // Check if the course is completed
+        $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
+            return $schedule->end_time < $now; // All meetings have ended
+        });
+
+        if ($isCourseCompleted) {
+            // Return student back if they've done the course
+            session()->flash('info', 'Kursus sudah selesai. Anda tidak bisa mengakses panduan kursus lagi.');
+            return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
+        }
+
         // Static content for each meeting_number
         $content = [
             1 => [
@@ -591,12 +610,10 @@ class userController extends Controller
                 ],                
             ],
         ];
-    
-        $enrollment = Enrollment::findOrFail($enrollment_id);
         
         // Check if the meeting_number exists in the content array
         if (!array_key_exists($meeting_number, $content)) {
-            // Generate a flash message via Toastr to let user know that the process is successful
+            // Generate a flash message via Toastr to let user know that there's no Theory for current Meeting Number
             session()->flash('warning', 'Panduan untuk Pertemuan ' . $meeting_number . ' belum tersedia');
             return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
         }
@@ -611,6 +628,33 @@ class userController extends Controller
 
     // Course Quiz Page Controller
     public function quizPage($enrollment_id, $meeting_number) {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Get the current date and time
+        $now = now();
+
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+
+        // Check if the course is completed
+        $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
+            return $schedule->end_time < $now; // All meetings have ended
+        });
+
+        if ($isCourseCompleted) {
+            // Return student back if they've done the course
+            session()->flash('info', 'Kursus sudah selesai. Anda tidak bisa mengakses Quiz.');
+            return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
+        }
+        
+        $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
+
+        if ($currentSchedule->quizStatus === 1) {
+            // Return student back if they've done the quiz already
+            session()->flash('info', 'Anda sudah menyelesaikan quiz untuk pertemuan ' . $meeting_number);
+            return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
+        }
+
         // Static content for each meeting_number
         $content = [
             1 => [
@@ -619,38 +663,38 @@ class userController extends Controller
                 'title-image-desktop' => 'car_preparation.webp', 
                 'slides' => [
                     [
-                        'image' => 'seatbelt.webp',
-                        'content' => 'Selalu kenakan sabuk pengaman saat mengemudi atau naik kendaraan. Sabuk pengaman adalah alat keselamatan yang penting untuk melindungi Anda dan penumpang Anda dari cedera serius dalam kecelakaan lalu lintas. <br><br>
-
-                        Pastikan sabuk pengaman terpasang dengan benar dan tidak terlalu ketat. Ajarkan penumpang Anda, baik dewasa maupun anak-anak, untuk selalu mengenakan sabuk pengaman. Dengan mengenakan sabuk pengaman, Anda melindungi diri sendiri dan orang-orang yang Anda cintai.'
+                        'question' => '"Mengenakan sabuk pengaman saat mengemudi adalah wajib. Baik bagi pengemudi maupun penumpang." Apakah pernyataan tersebut benar?',
+                        'choice' => [
+                            'Benar',
+                            'Salah',
+                        ],
+                        'correctAnswer' => 0
                     ],
                     [
-                        'image' => 'no_drinking_no_sleepy.webp',
-                        'content' => 'Mengemudi dalam kondisi lelah atau setelah mengonsumsi alkohol dapat meningkatkan risiko kecelakaan secara drastis. Jika Anda merasa mengantuk atau tidak fit, sebaiknya hindari mengemudi. <br><br>
-
-                        Untuk memastikan keselamatan di jalan raya, pastikan Anda istirahat cukup sebelum mengemudi. Hindari mengonsumsi alkohol sebelum mengemudi. Jika merasa mengantuk, berhentilah di tempat yang aman untuk beristirahat atau tidur sebentar. Minum kopi atau minuman berkafein lainnya dapat membantu meningkatkan kewaspadaan, tetapi jangan mengandalkan kafein sebagai pengganti istirahat yang cukup.'
+                        'question' => 'Apabila anda mengantuk pada saat anda sedang mengemudi, mana tindakan dibawah ini yang paling benar?',
+                        'choice' => [
+                            'Lanjutkan Mengemudi',
+                            'Berhenti dan Tidur sejenak di tempat yang aman',
+                            'Memutar lagu untuk mengaburkan rasa kantuk',
+                            'Berhenti di bahu jalan dan menyalakan lampu hazard',
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'engine_warmup.webp',
-                        'content' => 'Sebelum memulai perjalanan, berikan kesempatan mesin kendaraan Anda untuk menjadi sedikit panas terlebih dahulu. Hal ini sangat penting, terutama dalam cuaca dingin, untuk memastikan kinerja mesin yang optimal dan mencegah kerusakan komponen. Biarkan mesin menyala selama beberapa menit sebelum mengemudi, hingga jarum suhu mencapai titik tengah atau sedikit di atasnya. <br><br>
-
-                        Dengan memanaskan mesin, Anda memberikan waktu bagi oli untuk bersirkulasi dan melumasi komponen-komponen penting mesin. Hal ini dapat membantu mencegah keausan dan meningkatkan umur pakai kendaraan Anda.'
+                        'question' => '"Mengendarakan mobil dengan kondisi mesin dingin akan membuat usia kendaraan berkurang". Apakah pernyataan tersebut benar?',
+                        'choice' => [
+                            'Tidak, suhu mobil mesin tidak ada hubungannya dengan usia kendaraan',
+                            'Benar, mesin mobil sebaiknya dipanaskan terlebih dahulu',
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'blinker_and_brake_check.webp',
-                        'content' => 'Sebelum memulai perjalanan, pastikan lampu sein dan rem kendaraan Anda berfungsi dengan baik. Uji lampu sein kanan dan kiri untuk memastikan sinyal belok Anda terlihat jelas. Kemudian, tekan pedal rem untuk memastikan lampu rem menyala dengan terang. Dengan memeriksa lampu-lampu ini, Anda dapat memastikan keamanan berkendara Anda dan menghindari kecelakaan.'
-                    ],
-                    [
-                        'image' => 'headlight_check.webp',
-                        'content' => 'Sebelum memulai perjalanan, pastikan semua lampu kendaraan Anda berfungsi dengan baik. Periksa lampu depan, lampu belakang, lampu sein, dan lampu rem untuk memastikan visibilitas yang optimal. Dengan lampu yang berfungsi dengan baik, Anda dapat meningkatkan keselamatan berkendara Anda dan menghindari kecelakaan.'
-                    ],
-                    [
-                        'image' => 'wiper_and_oil_check.webp',
-                        'content' => 'Sebelum memulai perjalanan, pastikan wiper kaca depan Anda berfungsi dengan baik untuk memastikan visibilitas yang jelas saat hujan atau cuaca buruk. Periksa juga level oli mesin menggunakan dipstick untuk memastikan mesin Anda terlumasi dengan baik. Dengan melakukan pemeriksaan rutin ini, Anda dapat mencegah kerusakan mesin dan memastikan keselamatan berkendara Anda.'
-                    ],
-                    [
-                        'image' => 'tire_pressure_check.webp',
-                        'content' => 'Tekanan angin ban yang tepat sangat penting untuk keselamatan dan efisiensi bahan bakar. Sebelum memulai perjalanan, pastikan tekanan angin ban Anda sesuai dengan rekomendasi pabrik. Gunakan alat pengukur tekanan ban yang akurat untuk mengecek tekanan angin ban secara berkala.'
+                        'question' => '"Kondisi tekanan angin ban yang kurang akan berpengaruh terhadap borosnya bahan bakar kendaraan". Apakah pernyataan tersebut benar?',
+                        'choice' => [
+                            'Salah',
+                            'Benar',
+                        ],
+                        'correctAnswer' => 1
                     ],
                 ],
             ],
@@ -796,7 +840,7 @@ class userController extends Controller
         
         // Check if the meeting_number exists in the content array
         if (!array_key_exists($meeting_number, $content)) {
-            // Generate a flash message via Toastr to let user know that the process is successful
+            // Generate a flash message via Toastr to let user know that there's no quiz
             session()->flash('warning', 'Quiz untuk Pertemuan ' . $meeting_number . ' belum tersedia');
             return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
         }
