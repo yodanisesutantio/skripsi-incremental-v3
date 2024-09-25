@@ -46,7 +46,7 @@
                     <div class="swiper-slide pt-4 lg:-mt-8 select-none overflow-y-auto lg:overflow-hidden">
                         <div class="flex flex-col lg:flex-row items-center lg:justify-between gap-2 lg:gap-16 w-full py-2 px-5 lg:px-20 lg:py-11 h-auto lg:h-dvh">
                             <img src="{{ asset("img/theory-image/{$slide['image']}") }}" alt="Theory Image" class="w-full lg:w-1/2 h-52 lg:h-auto mb-3 lg:mb-0 object-cover object-center flex-shrink-0 rounded-md shadow-lg lg:order-2">
-                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-center w-full h-full lg:order-2 lg:overflow-y-auto pb-20 lg:pb-0">
+                            <div class="flex flex-col gap-2 lg:gap-4 lg:justify-center w-full h-full lg:order-2 lg:overflow-y-auto pb-24 lg:pb-0">
                                 <p class="font-league text-lg/snug lg:text-xl/snug text-custom-dark font-normal">{!! $slide['content'] !!}</p>
                             </div>
                         </div>
@@ -57,11 +57,16 @@
 
         {{-- Left and Right Button --}}
         <div class="hidden fixed bottom-0 flex-row flex-shrink-0 w-full px-3 pt-6 lg:pt-5 pb-4 items-center justify-between bg-custom-white select-none z-30" id="nav-wrapper">
+            {{-- Left Button --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="left-button" width="36" height="36" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15 5l-6 7l6 7"/></svg>
+
+            {{-- Swiper Pagination Divs --}}
             <div class="swiper-pagination h-8"></div>
+
+            {{-- Right Button --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="right-button" width="36" height="36" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9 5l6 7l-6 7"/></svg>
 
-            {{-- Done Reading Button --}}
+            {{-- Done Reading Button, Only shown when student arrived at last slide --}}
             <form action="{{ url('/user-course/theory/' . $enrollment['id'] . '/' . $meeting_number) }}" id="done-reading" class="hidden" method="POST">
                 @csrf
                 <button type="submit" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg font-league bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Selesai</button>
@@ -84,6 +89,7 @@
             }
         });
 
+        // Swiper
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false,

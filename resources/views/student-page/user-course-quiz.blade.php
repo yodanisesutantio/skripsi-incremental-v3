@@ -77,18 +77,6 @@
             direction: 'horizontal',
             loop: false,
             spaceBetween: 40,
-            autoHeight: true,
-
-            pagination: {
-                el: ".swiper-pagination",
-                dynamicBullets: true,
-            },
-
-            on: {
-                slideChange: function () {
-
-                }
-            }
         });
 
         // Jump to the next slide when the button is clicked
