@@ -51,7 +51,7 @@
                     </div>
     
                     {{-- Open Quiz Button --}}
-                    <a href="{{ url('/user-course/quiz/' . $currentMeetingNumber) }}" class="w-full h-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
+                    <a href="{{ url('/user-course/quiz/' . $enrollment['id'] . '/' . $currentMeetingNumber) }}" class="w-full h-full bg-cover bg-center rounded-xl cursor-pointer" style="background-image: url('{{ asset('img/Quiz-BG.webp') }}')">
                         {{-- Overlays --}}
                         <div class="flex flex-col gap-0.5 justify-end p-2.5 bg-gradient-to-t from-custom-dark/80 from-15% to-custom-dark/30 to-70% w-full h-full rounded-xl lg:hover:bg-custom-dark/40 lg:hover:transition-colors lg:duration-500">
                             <h2 class="text-lg/tight lg:text-2xl/[1.7rem] font-semibold">Quiz</h2>
