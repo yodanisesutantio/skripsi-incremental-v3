@@ -11,9 +11,11 @@
                     <div class="w-full h-dvh lg:hidden bg-cover bg-center" style="background-image: url('{{ asset("img/cover/{$content['title-image-mobile']}") }}')">
                         <div class="relative flex flex-col justify-between w-full h-full bg-custom-dark/45 p-6">
                             <div class="w-full h-full flex flex-col items-center justify-center">
+                                {{-- Meeting Number Wrapper --}}
                                 <div class="px-3 py-1 bg-custom-dark w-fit rounded-md">
                                     <p class="font-league text-lg/snug text-custom-white">Pertemuan {{ $meeting_number }}</p>
                                 </div>
+
                                 <h1 class="mt-3 font-encode font-extrabold text-center text-custom-white text-4xl/snug">Quiz : {{ $content['title'] }}</h1>
                             </div>
 
@@ -26,9 +28,11 @@
                     <div class="w-full h-dvh hidden lg:block bg-cover bg-center" style="background-image: url('{{ asset("img/cover/{$content['title-image-desktop']}") }}')">
                         <div class="relative flex flex-col justify-center w-full h-full bg-custom-dark/45 p-6">
                             <div class="w-full h-full flex flex-col items-center justify-center">
+                                {{-- Meeting Number Wrapper --}}
                                 <div class="px-4 py-2 bg-custom-dark w-fit rounded-md">
                                     <p class="font-league text-2xl/snug text-custom-white">Pertemuan {{ $meeting_number }}</p>
                                 </div>
+                                
                                 <h1 class="mt-3 font-encode font-extrabold text-center text-custom-white text-5xl/snug">Quiz : {{ $content['title'] }}</h1>
 
                                 {{-- Start Button --}}
@@ -40,11 +44,13 @@
                 @foreach ($content['slides'] as $index => $slide)
                     <div class="swiper-slide select-none">
                         <div class="flex flex-col justify-between lg:gap-16 w-full h-dvh p-6 lg:px-80 lg:py-11">
+                            {{-- The Questions --}}
                             <div class="flex flex-col gap-1">
                                 <p class="font-league font-normal text-base/snug lg:text-lg/snug lg:text-center text-custom-grey">Pertanyaan No. {{ $index + 1 }}</p>
                                 <h3 class="font-encode font-semibold text-custom-dark text-xl/snug lg:text-3xl/snug">{{ $slide['question'] }}</h3>
                             </div>      
 
+                            {{-- Answers Options --}}
                             <div class="flex flex-col gap-4">
                                 <p class="font-league font-normal text-base/snug lg:text-lg/snug lg:text-center text-custom-grey">Pilih Jawaban :</p>
                                 @foreach ($slide['choice'] as $index => $option)
@@ -75,6 +81,7 @@
             }
         });
 
+        // Swiper Variable
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
             loop: false,

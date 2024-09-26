@@ -201,12 +201,15 @@ class CourseScheduleController extends Controller
 
     // The logic for handling logic after student arrive at the last slide of course theory
     public function markTheoryAsDone(Request $request, $enrollment_id, $meeting_number) {
+        // Get the current schedules to later mark the Theory Status as done
         $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
 
+        // Update the theoryStatus
         if ($currentSchedule) {
             $currentSchedule->theoryStatus = 1;
             $currentSchedule->save();
 
+            // Redirect student back to User Course Progress Page
             return redirect(url('/user-course-progress/' . $currentSchedule->enrollment->student_real_name . '/' . $enrollment_id));
         } else {
             session()->flash('error', 'Terjadi Kesalahan. Silahkan coba sekali lagi.');   
@@ -216,12 +219,15 @@ class CourseScheduleController extends Controller
 
     // The logic for handling logic after student arrive at the last slide of course quiz
     public function markQuizAsDone(Request $request, $enrollment_id, $meeting_number) {
+        // Get the current schedules to later mark the Quiz Status as done
         $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
 
+        // Update the theoryStatus
         if ($currentSchedule) {
             $currentSchedule->quizStatus = 1;
             $currentSchedule->save();
 
+            // Redirect student back to User Course Progress Page
             return redirect(url('/user-course-progress/' . $currentSchedule->enrollment->student_real_name . '/' . $enrollment_id));
         } else {
             session()->flash('error', 'Terjadi Kesalahan. Silahkan coba sekali lagi.');   
