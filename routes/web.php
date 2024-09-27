@@ -34,6 +34,8 @@ Route::get('/', [generalPage::class, 'landing']);
 Route::get('/search', [generalPage::class, 'searchPage']);
 // Search Results Page
 Route::get('/search/results', [generalPage::class, 'searchResult'])->name('search.results');
+// Delete Search History Query
+Route::delete('/search-history/{id}', [generalPage::class, 'deleteSearchHistoryItem'])->name('search.history.delete');
 
 // Guest Dashboard Page
 Route::get('/tamu', [generalPage::class, 'tamu'])->middleware('guest');

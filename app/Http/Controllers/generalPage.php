@@ -156,6 +156,20 @@ class generalPage extends Controller
         ]);
     }
 
+    // To delete the Search History by clicking the X icon beside the Search History Query
+    public function deleteSearchHistoryItem($id) {
+        // Find the search history item by ID
+        $searchHistory = SearchHistory::find($id);
+
+        // Check if the item exists and belongs to the authenticated user
+        if ($searchHistory && ($searchHistory->user_id === auth()->id() || is_null($searchHistory->user_id))) {
+            $searchHistory->delete(); // Delete the item
+            return response()->json(['success' => true, 'message' => 'Search history deleted successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Search history not found.'], 404);
+    }
+
     public function courseDetailsPage($course_name, $course_id) {
         $classProperties = Course::find($course_id);
 
