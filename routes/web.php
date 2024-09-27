@@ -31,6 +31,9 @@ use App\Http\Controllers\InstructorCertificateController;
 Route::get('/', [generalPage::class, 'landing']);
 
 // Guest Dashboard Page
+Route::get('/search', [generalPage::class, 'searchPage']);
+
+// Guest Dashboard Page
 Route::get('/tamu', [generalPage::class, 'tamu'])->middleware('guest');
 
 // About App Page

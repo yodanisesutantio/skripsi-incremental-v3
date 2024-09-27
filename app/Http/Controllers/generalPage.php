@@ -80,6 +80,12 @@ class generalPage extends Controller
         ]);
     }
 
+    public function searchPage() {
+        return view('search', [
+            "pageName" => "Pencarian | "
+        ]);
+    }
+
     public function courseDetailsPage($course_name, $course_id) {
         $classProperties = Course::find($course_id);
 
