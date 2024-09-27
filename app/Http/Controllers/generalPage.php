@@ -83,8 +83,13 @@ class generalPage extends Controller
 
     // Search Page Controller
     public function searchPage() {
+        if (auth()->check()) {
+            $userSearchHistory = SearchHistory::where('user_id', auth()->id())->get();
+        }
+
         return view('search', [
-            "pageName" => "Pencarian | "
+            "pageName" => "Pencarian | ",
+            "userSearchHistory" => $userSearchHistory,
         ]);
     }
 
@@ -92,13 +97,6 @@ class generalPage extends Controller
     public function searchResult(Request $request) {
         // Catch the entered Search Query
         $searchQuery = $request->input('searchQuery');
-
-        // Save the search query to the database
-        SearchHistory::create([
-            // Store the ID of the logged-in user or null for guests
-            'user_id' => auth()->check() ? auth()->id() : null, 
-            'searchQuery' => $searchQuery
-        ]);
 
         // Find the closest Course that has the same name as the entered Search Query
         $courseResults = Course::where('course_name', 'LIKE', "%{$searchQuery}%")
@@ -129,12 +127,25 @@ class generalPage extends Controller
             })
             ->get();
 
-        dd($drivingSchoolResults);
+        // dd($drivingSchoolResults);
 
         // Check if the searching process returning a result, if no, return user
         if ($courseResults->isEmpty() && $drivingSchoolResults->isEmpty()) {
             session()->flash('warning', 'Hasil Tidak Ditemukan. Coba cari dengan kata kunci lain');
             return redirect()->back();
+        }
+
+        // Check if the search query already exists for the user
+        $existingSearch = SearchHistory::where('user_id', auth()->check() ? auth()->id() : null)
+            ->where('searchQuery', $searchQuery)
+            ->first();
+
+        // Only create a new search history if it doesn't exist
+        if (!$existingSearch) {
+            SearchHistory::create([
+                'user_id' => auth()->check() ? auth()->id() : null, // Store the ID of the logged-in user or null for guests
+                'searchQuery' => $searchQuery
+            ]);
         }
 
         return view('search-result', [

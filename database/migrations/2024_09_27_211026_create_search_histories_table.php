@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('searchQuery');
             $table->timestamps();
+
+            // Add a unique index for user_id and query combination
+            $table->unique(['user_id', 'query']); // Ensure unique search queries per user
         });
     }
 

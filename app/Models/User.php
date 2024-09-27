@@ -22,6 +22,12 @@ class User extends Authenticatable
     ];
 
     // Setting Relationship where an Instructor can only have 1 Admin
+    public function searchHistory()
+    {
+        return $this->hasMany(searchHistory::class, 'user_id');
+    }
+
+    // Setting Relationship where an Instructor can only have 1 Admin
     public function admin()
     {
         return $this->belongsTo(User::class, 'admin_id');
