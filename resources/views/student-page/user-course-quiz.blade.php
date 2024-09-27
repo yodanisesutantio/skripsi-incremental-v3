@@ -98,6 +98,13 @@
                 $(this).addClass('bg-custom-success/40'); // Correct answer
             } else {
                 $(this).addClass('bg-custom-destructive/40'); // Incorrect answer
+                
+                // Highlight the correct answer within the current slide
+                $(this).siblings('.answer-option').each(function() {
+                    if ($(this).data('index') === correctIndex) {
+                        $(this).addClass('bg-custom-success/40'); // Highlight the correct answer
+                    }
+                });
             }
 
             // Wait for 1.2 seconds before moving to the next slide or submitting the form

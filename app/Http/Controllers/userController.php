@@ -593,7 +593,7 @@ class userController extends Controller
             ],
 
             5 => [
-                'title' => 'Basic Driving Laws and Legal Responsibilities',
+                'title' => 'Hukum dan Peraturan di Jalan Raya',
                 'title-image-mobile' => 'basic_driving_mobile.webp', 
                 'title-image-desktop' => 'basic_driving_desktop.webp', 
                 'slides' => [
@@ -710,137 +710,233 @@ class userController extends Controller
             ],
 
             2 => [
-                'title' => 'Types of Car Transmission and Driving Basics',
-                'title-image' => 'transmission_types.webp', 
+                'title' => 'Jenis Transmisi Mobil dan Dasar-Dasar Mengemudi',
+                'title-image-mobile' => 'types_of_transmission_mobile.webp', 
+                'title-image-desktop' => 'types_of_transmission_desktop.webp', 
                 'slides' => [
                     [
-                        'image' => 'manual_vs_automatic.webp',
-                        'content' => 'Introduction to car transmissions: the difference between manual and automatic transmission systems. Manual cars use a clutch and gear stick, while automatic cars handle the gear shifts automatically.'
+                        'question' => 'Apa perbedaan utama antara transmisi manual dan otomatis?',
+                        'choice' => [
+                            'Transmisi manual lebih efisien bahan bakar, sedangkan transmisi otomatis lebih nyaman.',
+                            'Keduanya memiliki efisiensi bahan bakar yang sama.',
+                            'Transmisi manual lebih sulit digunakan daripada transmisi otomatis.',
+                            'Semua jawaban salah.'
+                        ],
+                        'correctAnswer' => 0
                     ],
                     [
-                        'image' => 'manual_gears.webp',
-                        'content' => 'Manual Transmission Basics: In a manual car, you control the gears. Learn the functions of each gear and when to use them: 1st gear for starting, 2nd gear for slow speeds, etc.'
+                        'question' => 'Kapan sebaiknya menggunakan gigi 1 pada mobil manual?',
+                        'choice' => [
+                            'Saat melaju di jalan tol.',
+                            'Saat memulai perjalanan atau dalam kondisi jalan yang sangat lambat.',
+                            'Saat mendaki tanjakan yang curam.',
+                            'Saat melewati tikungan tajam.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'automatic_gears.webp',
-                        'content' => 'Automatic Transmission Basics: Automatic cars come with a "P-R-N-D" gear selector. Understand how each mode works: Park (P), Reverse (R), Neutral (N), and Drive (D).'
+                        'question' => 'Apa fungsi posisi "N" pada transmisi otomatis?',
+                        'choice' => [
+                            'Untuk mundur.',
+                            'Untuk parkir.',
+                            'Untuk berhenti sementara atau menunda transmisi.',
+                            'Untuk melaju dengan kecepatan tinggi.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'traffic_jam_gear.webp',
-                        'content' => 'Gears in Traffic Jam: For manual cars, use 1st or 2nd gear for stop-and-go traffic. In automatic cars, staying in "Drive" is recommended, but switching to "Low Gear" can help in severe traffic jams.'
+                        'question' => 'Dalam kondisi banjir, gigi mana yang sebaiknya digunakan pada mobil manual untuk menjaga mesin tetap hidup?',
+                        'choice' => [
+                            'Gigi 4 atau 5.',
+                            'Gigi 3.',
+                            'Gigi 2 atau 1.',
+                            'Tidak perlu mengubah gigi.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'flood_gear.webp',
-                        'content' => 'Gears in Flooding Conditions: In manual cars, use 1st or 2nd gear to keep engine revs high and avoid stalling. In automatic cars, use the "Low Gear" (L) or 2nd gear for more control.'
-                    ],
-                    [
-                        'image' => 'uphill_driving.webp',
-                        'content' => 'Uphill Driving: In manual cars, downshift to 1st or 2nd gear when driving uphill to prevent the engine from struggling. For automatic cars, use "Drive" or shift to "Low Gear."'
-                    ],
-                    [
-                        'image' => 'downhill_driving.webp',
-                        'content' => 'Downhill Driving: In manual cars, downshift to 2nd or 3rd gear to use engine braking, reducing the need for frequent braking. In automatic cars, shift to "Low Gear" for better control.'
+                        'question' => 'Manakah pernyataan yang BENAR mengenai penggunaan gigi saat mendaki tanjakan?',
+                        'choice' => [
+                            'Gunakan gigi tertinggi untuk mengurangi beban mesin.',
+                            'Gunakan gigi terendah untuk membantu mesin mengatasi tanjakan.',
+                            'Tidak perlu mengubah gigi saat mendaki.',
+                            'Gunakan gigi netral untuk menjaga kecepatan konstan.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                 ],                
             ],
 
             3 => [
-                'title' => 'Road Signs, Road Markings, and Traffic Lights',
-                'title-image' => 'road_signs.webp',
+                'title' => 'Rambu Jalan, Marka Jalan, dan Lampu Lalu Lintas',
+                'title-image-mobile' => 'road_attributes_mobile.webp', 
+                'title-image-desktop' => 'road_attributes_desktop.webp', 
                 'slides' => [
                     [
-                        'image' => 'regulatory_signs.webp',
-                        'content' => 'Regulatory Signs: These signs give mandatory instructions like stop, yield, and speed limits. Drivers must follow these to avoid penalties. Common examples include Stop signs, No Entry, and Speed Limit signs.'
+                        'question' => 'Apa fungsi utama dari tanda-tanda peringatan lalu lintas?',
+                        'choice' => [
+                            'Memberikan instruksi yang harus diikuti oleh pengemudi.',
+                            'Memberikan informasi tentang potensi bahaya di depan.',
+                            'Memberikan petunjuk arah dan informasi bermanfaat.',
+                            'Menunjukkan batas kecepatan maksimum.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'warning_signs.webp',
-                        'content' => 'Warning Signs: These signs alert drivers to potential hazards ahead, such as sharp bends, slippery roads, or animal crossings. These are usually triangular in shape with a red border.'
+                        'question' => 'Apa yang diartikan oleh garis putus-putus pada marka jalan?',
+                        'choice' => [
+                            'Larangan untuk berpindah jalur.',
+                            'Izin untuk berpindah jalur.',
+                            'Menunjukkan adanya tikungan tajam.',
+                            'Menunjukkan adanya persimpangan.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'informational_signs.webp',
-                        'content' => 'Informational Signs: These provide helpful information for drivers, like directions, parking areas, or gas stations. They are usually rectangular and blue or green in color.'
+                        'Siapa yang harus diprioritaskan saat melewati zebra cross?',
+                        'choice' => [
+                            'Kendaraan yang datang dari arah berlawanan.',
+                            'Kendaraan yang berjalan lurus.',
+                            'Pejalan kaki.',
+                            'Tidak ada yang harus diprioritaskan.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'road_markings.webp',
-                        'content' => 'Road Markings: These include lane dividers, pedestrian crossings, and arrows indicating allowed lane directions. Solid lines generally mean no crossing, while dashed lines may allow lane changes.'
+                        'Apa warna umum untuk tanda-tanda informasi lalu lintas?',
+                        'choice' => [
+                            'Merah',
+                            'Biru atau hijau.',
+                            'Kuning',
+                            'Hitam dan putih.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'traffic_lights.webp',
-                        'content' => 'Traffic Lights: Understanding traffic signals is crucial. Red means stop, yellow indicates that the light is about to change, and green allows you to proceed. Some intersections may also have arrow signals to guide turns.'
-                    ],
-                    [
-                        'image' => 'pedestrian_crossings.webp',
-                        'content' => 'Pedestrian Crossings: Marked by white stripes or "zebra" crossings, drivers must yield to pedestrians at these points. Always slow down near crossings and check for people on foot.'
-                    ],
-                    [
-                        'image' => 'intersection_priority.webp',
-                        'content' => 'Intersection Priority: Learn the right-of-way rules at intersections with and without traffic lights. Drivers should yield to vehicles coming from the right in countries where traffic moves on the right-hand side, unless signs indicate otherwise.'
+                        'Apa yang harus dilakukan saat melihat lampu lalu lintas berwarna kuning?',
+                        'choice' => [
+                            'Segera berhenti.',
+                            'Bersiap-siap untuk berhenti.',
+                            'Melaju dengan kecepatan tinggi.',
+                            'Melaju dengan kecepatan rendah.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                 ],                
             ],
 
             4 => [
-                'title' => 'Driving Ethics and Responsibilities',
-                'title-image' => 'driving_ethics.webp',
+                'title' => 'Etika dan Kewajiban Pengemudi',
+                'title-image-mobile' => 'driving_ethics_mobile.webp', 
+                'title-image-desktop' => 'driving_ethics_desktop.webp', 
                 'slides' => [
                     [
-                        'image' => 'overtaking.webp',
-                        'content' => 'Overtaking Etiquette: When overtaking another vehicle, always check your mirrors and blind spots. Overtake only on the left side (in countries with right-hand traffic) and ensure there’s enough space before returning to your lane. Avoid overtaking in curves, intersections, or when visibility is poor.'
+                        'question' => 'Apa yang harus dilakukan sebelum menyalip kendaraan lain?',
+                        'choice' => [
+                            'Menyalakan lampu sein dan memastikan tidak ada kendaraan di titik buta.',
+                            'Menyalakan lampu jauh dan mempercepat laju kendaraan.',
+                            'Menyalip dari sisi kanan.',
+                            'Tidak perlu melakukan tindakan apa-apa.'
+                        ],
+                        'correctAnswer' => 0
                     ],
                     [
-                        'image' => 'lane_switching.webp',
-                        'content' => 'Switching Lanes: Before switching lanes, signal your intent, check mirrors, and look over your shoulder to check blind spots. Make sure the lane is clear, and avoid frequent, unnecessary lane changes.'
+                        'question' => 'Apa yang harus dilakukan sebelum berpindah jalur?',
+                        'choice' => [
+                            'Menyalakan lampu sein dan memastikan jalur tujuan kosong.',
+                            'Menyalakan lampu jauh dan mempercepat laju kendaraan.',
+                            'Tidak perlu melakukan apa-apa.',
+                            'Langsung berpindah jalur tanpa melihat ke belakang.'
+                        ],
+                        'correctAnswer' => 0
                     ],
                     [
-                        'image' => 'emergency_vehicle_priority.webp',
-                        'content' => 'Emergency Vehicle Priority: Always give way to emergency vehicles like fire trucks, ambulances, and police patrol cars when you hear sirens or see flashing lights. Pull over to the side of the road and stop if necessary, allowing them to pass quickly and safely.'
+                        'question' => 'Apa yang harus dilakukan saat melihat kendaraan darurat dengan sirene dan lampu berkedip?',
+                        'choice' => [
+                            'Mengerem mendadak untuk menghentikan kendaraan.',
+                            'Menyalakan lampu jauh untuk memberi sinyal.',
+                            'Memberikan jalan kepada kendaraan darurat.',
+                            'Tidak melakukan apa-apa.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'roundabout.webp',
-                        'content' => 'Turning in a Roundabout: Yield to traffic already in the roundabout, and signal your intent to exit. Stay in the correct lane depending on whether you are turning left, right, or going straight.'
+                        'question' => 'Apa yang harus dilakukan saat memasuki persimpangan bundaran?',
+                        'choice' => [
+                            'Langsung melaju tanpa memperhatikan kendaraan lain.',
+                            'Menyalip kendaraan yang sudah berada di dalam bundaran.',
+                            'Memberikan jalan kepada kendaraan yang sudah berada di dalam bundaran.',
+                            'Tidak melakukan apa-apa.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'u_turn.webp',
-                        'content' => 'Making a U-Turn: Only make U-turns at designated intersections or where permitted. Ensure there is no oncoming traffic and enough space to complete the turn safely. Be cautious of pedestrians and other vehicles.'
-                    ],
-                    [
-                        'image' => 'right_of_way.webp',
-                        'content' => 'Right-of-Way Rules: Always yield the right of way to pedestrians at crosswalks. When two vehicles arrive at an intersection at the same time, the vehicle on the right has the right of way unless signs indicate otherwise.'
-                    ],
-                    [
-                        'image' => 'courtesy_driving.webp',
-                        'content' => 'Courtesy and Safe Driving: Always maintain a safe following distance, use turn signals, and avoid aggressive driving. Show courtesy to other drivers, especially in high-traffic or difficult conditions.'
+                        'question' => 'Apa yang harus dilakukan saat ingin melakukan putar balik?',
+                        'choice' => [
+                            'Putar balik di mana saja yang dianggap aman.',
+                            'Putar balik hanya di tempat yang diizinkan dan tidak mengganggu lalu lintas.',
+                            'Putar balik dengan cara mundur.',
+                            'Tidak melakukan putar balik.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                 ],                
             ],
 
             5 => [
-                'title' => 'Basic Driving Laws and Legal Responsibilities',
-                'title-image' => 'basic_laws.webp',
+                'title' => 'Hukum-Hukum di Jalan Raya',
+                'title-image-mobile' => 'basic_driving_mobile.webp', 
+                'title-image-desktop' => 'basic_driving_desktop.webp', 
                 'slides' => [
                     [
-                        'image' => 'stopped_by_police.webp',
-                        'content' => 'What to Do When Stopped by Police: Stay calm, pull over safely, and keep your hands visible. Only provide your license, vehicle registration, and insurance when asked. Do not argue or attempt to leave the scene before permitted.'
+                        'question' => 'Apa yang harus dilakukan jika dihentikan oleh polisi?',
+                        'choice' => [
+                            'Mencoba melarikan diri.',
+                            'Berhenti di tempat yang aman dan tetap tenang.',
+                            'Berdebat dengan petugas polisi.',
+                            'Tidak memberikan dokumen yang diminta.'
+                        ],
+                        'correctAnswer' => 1
                     ],
                     [
-                        'image' => 'collision.webp',
-                        'content' => 'What to Do After a Collision: Stay at the scene and check for injuries. Call emergency services if necessary and exchange information with the other driver (license, insurance, etc.). Document the scene with photos if possible, and avoid admitting fault on the spot.'
+                        'question' => 'Apa yang harus dilakukan setelah terjadi kecelakaan?',
+                        'choice' => [
+                            'Langsung meninggalkan tempat kejadian.',
+                            'Mencari bantuan dari orang-orang di sekitar.',
+                            'Menghubungi polisi dan memeriksa korban luka.',
+                            'Tidak melakukan apa-apa.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'insurance_claim.webp',
-                        'content' => 'Filing an Insurance Claim: In case of an accident, contact your insurance company as soon as possible to file a claim. Provide all necessary details, including any police reports, photos, and contact information of the other party involved.'
+                        'question' => 'Apa yang harus dilakukan jika terjadi kecelakaan?',
+                        'choice' => [
+                            'Langsung meninggalkan tempat kejadian.',
+                            'Mencari bantuan dari orang-orang di sekitar.',
+                            'Menghubungi polisi dan memeriksa korban luka.',
+                            'Tidak melakukan apa-apa.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'no_drunk_driving.webp',
-                        'content' => 'Prohibition of Drunk and Distracted Driving: It is illegal to drive under the influence of alcohol, drugs, or while distracted (texting, phone use). Violations result in severe penalties, including fines, license suspension, or jail time.'
+                        'question' => 'Apa yang dianggap sebagai pelanggaran lalu lintas?',
+                        'choice' => [
+                            'Mengemudi dengan kecepatan yang sesuai.',
+                            'Menyalakan lampu sein saat berbelok.',
+                            'Mengemudi sambil mengobrol di telepon.',
+                            'Tidak ada yang dianggap pelanggaran lalu lintas.'
+                        ],
+                        'correctAnswer' => 2
                     ],
                     [
-                        'image' => 'vehicle_documents.webp',
-                        'content' => 'Always Carry Essential Documents: Drivers are required to have their driver’s license, vehicle registration, and proof of insurance when operating a vehicle. These must be presented upon request by law enforcement.'
-                    ],
-                    [
-                        'image' => 'traffic_violations.webp',
-                        'content' => 'Traffic Violations: Speeding, running red lights, illegal parking, and other traffic violations are punishable by fines and points on your license. Accumulating too many points can lead to license suspension.'
+                        'question' => 'Dokumen apa saja yang wajib dibawa saat mengemudi?',
+                        'choice' => [
+                            'SIM, STNK, dan bukti asuransi kendaraan.',
+                            'SIM saja.',
+                            'STNK saja.',
+                            'Tidak ada dokumen yang wajib dibawa.'
+                        ],
+                        'correctAnswer' => 0
                     ],
                 ],                
             ],
