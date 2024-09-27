@@ -15,7 +15,7 @@
         </form>
 
         {{-- The Query History --}}
-        @if (!$userSearchHistory->isEmpty())
+        @if ($userSearchHistory->isNotEmpty())
             <div class="flex lg:grid flex-col lg:grid-cols-2 gap-3 lg:gap-4 w-full">
                 @foreach ($userSearchHistory as $history)
                     {{-- Search History --}}

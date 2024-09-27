@@ -83,9 +83,9 @@ class generalPage extends Controller
 
     // Search Page Controller
     public function searchPage() {
-        if (auth()->check()) {
-            $userSearchHistory = SearchHistory::where('user_id', auth()->id())->get();
-        }
+        $userSearchHistory = auth()->check()
+            ? SearchHistory::where('user_id', auth()->id())->get()
+            : collect(); // Return an empty collection for guests
 
         return view('search', [
             "pageName" => "Pencarian | ",
