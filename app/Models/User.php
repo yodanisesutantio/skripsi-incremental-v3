@@ -54,7 +54,7 @@ class User extends Authenticatable
     // Setting Relationship where Admin and Instructor can have more than 1 Course
     public function courses()
     {
-        return $this->hasMany(Course::class); // For admins/instructors
+        return $this->hasMany(Course::class, 'admin_id'); // For admins/instructors
     }
 
     // Many to Many Relationship between Instructor and Course via course_instructors table

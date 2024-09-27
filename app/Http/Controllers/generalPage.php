@@ -80,9 +80,55 @@ class generalPage extends Controller
         ]);
     }
 
+    // Search Page Controller
     public function searchPage() {
         return view('search', [
             "pageName" => "Pencarian | "
+        ]);
+    }
+
+    // Search Results Page Controller
+    public function searchResult(Request $request) {
+        // Catch the entered Search Query
+        $searchQuery = $request->input('searchQuery');
+
+        // Catch the entered Search Query
+        $searchQuery = $request->input('searchQuery');
+
+        // Find the closest Course that has the same name as the entered Search Query
+        $courseResults = Course::where('course_name', 'LIKE', "%{$searchQuery}%")
+            ->where('course_availability', 1) // Check if course is available
+            ->where(function ($subQuery) { // Renamed to $subQuery
+                $subQuery->doesntHave('enrollments') // Include courses with no enrollments
+                          ->orWhere(function ($enrollmentQuery) { // Renamed to $enrollmentQuery
+                              $enrollmentQuery->whereHas('enrollments', function ($scheduleQuery) {
+                                  $scheduleQuery->whereHas('schedule', function ($timeQuery) {
+                                      $timeQuery->where('end_time', '>', now());
+                                  });
+                              })
+                              ->havingRaw('COUNT(enrollments.id) < course_quota'); // Check if active students are less than course quota
+                          });
+            })
+            ->get();
+
+        // dd($courseResults);
+        
+        // Find the closest Driving School that has the same name as the entered Search Query
+        $drivingSchoolResults = User::where('role', 'admin')
+            ->where('availability', 1)
+            ->where(function ($adminQuery) use ($searchQuery) {
+                $adminQuery->where('fullname', 'LIKE', "%{$searchQuery}%"); // Match admin name
+            })
+            ->havingRaw('EXISTS (SELECT 1 FROM courses WHERE courses.admin_id = users.id AND courses.course_name LIKE ?)', ["%{$searchQuery}%"]) // Ensure at least one course matches
+            ->get();
+
+        // dd($drivingSchoolResults);
+
+        return view('search-result', [
+            "pageName" => "Hasil Pencarian | ",
+            "query" => $query,
+            "courseResults" => $courseResults,
+            "drivingSchoolResults" => $drivingSchoolResults,
         ]);
     }
 
@@ -94,13 +140,14 @@ class generalPage extends Controller
 
         // Fetch similar courses based on course_length or similar course_price, limited to 5
         $offered = Course::where('id', '!=', $classProperties->id) // Exclude the current course
-        ->where(function($query) use ($classProperties) {
-            $query->where('course_length', $classProperties->course_length)
-                    ->orWhere('course_price', '<=', $classProperties->course_price * 1.5)
-                    ->orWhere('course_price', '>=', $classProperties->course_price * 0.6);
-        })
-        ->take(5) // Limit to 5 results
-        ->get();
+            ->where('course_availability', 1) // Check if course is available
+            ->where(function($query) use ($classProperties) {
+                $query->where('course_length', $classProperties->course_length)
+                      ->orWhere('course_price', '<=', $classProperties->course_price * 1.5)
+                      ->orWhere('course_price', '>=', $classProperties->course_price * 0.6);
+            })
+            ->take(5) // Limit to 5 results
+            ->get();
 
         return view('course-details', [
             "pageName" => "Detail Kelas | ",
