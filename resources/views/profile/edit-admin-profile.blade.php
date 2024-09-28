@@ -178,6 +178,27 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                {{-- Form Sub Headers --}}
+                                <div class="flex flex-col gap-1 mt-8">
+                                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Pertanyaan Lupa Password</h2>
+                                </div>
+                                {{-- Input Password Challenge Question --}}
+                                <div class="flex flex-col gap-2">
+                                    <label for="fp_question" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pertanyaan Tantangan<span class="text-custom-destructive">*</span></label>
+                                    <textarea name="fp_question" id="fp_question" rows="5" placeholder="Masukkan Pertanyaan Tantangan" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('fp_question') border-2 border-custom-destructive @enderror">{{ auth()->user()->fp_question }}</textarea>
+                                    @error('fp_question')
+                                        <span class="text-custom-destructive">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                {{-- Input Password Challenge Answer --}}
+                                <div class="flex flex-col gap-2">
+                                    <label for="fp_answer" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jawaban<span class="text-custom-destructive">*</span></label>
+                                    <input type="text" name="fp_answer" id="fp_answer" placeholder="Nama Lengkap" class="p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('fp_answer') border-2 border-custom-destructive @enderror" value="{{ $decryptedFpAnswer }}">
+                                    @error('fp_answer')
+                                        <span class="text-custom-destructive">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                         </form>
                     </div>

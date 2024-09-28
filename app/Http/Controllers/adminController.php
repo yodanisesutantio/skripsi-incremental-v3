@@ -238,6 +238,13 @@ class adminController extends Controller
             }
         }
 
+        $user = auth()->user();
+        $decryptedFpAnswer = null;
+
+        if ($user && $user->fp_answer) {
+            $decryptedFpAnswer = Crypt::decryptString($user->fp_answer);
+        }
+
         // Check for active driving school licenses
         $hasActiveLicense = DrivingSchoolLicense::where('admin_id', auth()->id())
             ->where('licenseStatus', 'Aktif')
@@ -245,6 +252,7 @@ class adminController extends Controller
 
         return view('profile.edit-admin-profile', [
             "pageName" => "Edit Profil | ",
+            "decryptedFpAnswer" => $decryptedFpAnswer,
             "paymentMethod" => $paymentMethod,
             "hasActiveLicense" => $hasActiveLicense,
         ]);
@@ -262,6 +270,8 @@ class adminController extends Controller
             'availability' => 'required|boolean',
             'open_hours_for_admin' => 'required',
             'close_hours_for_admin' => 'required',
+            'fp_question' => 'required|max:255',
+            'fp_answer' => 'required|max:255',
         ],
         
         // Validation Error Messages
@@ -280,12 +290,16 @@ class adminController extends Controller
             'close_hours_for_admin.required' => 'Jam tutup harus diisi',
             'open_hours_for_admin.date_format' => 'Format jam buka tidak valid',
             'close_hours_for_admin.date_format' => 'Format jam tutup tidak valid',
+            'fp_question.required' => 'Kolom ini harus diisi',
+            'fp_question.max' => 'Pertanyaan Terlalu Panjang',
+            'fp_answer.required' => 'Kolom ini harus diisi',
+            'fp_answer.max' => 'Jawaban Terlalu Panjang',
         ]);
 
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin']));
+        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin', 'fp_question']));
 
         // Check if users uploaded new profile picture
         $fileName = null;
@@ -307,6 +321,9 @@ class adminController extends Controller
         // Format phone number to +62 and remove non-numeric characters
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
         $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+
+        // Encrypt the fp_answer before saving
+        $user->fp_answer = Crypt::encryptString($request->input('fp_answer'));
 
         // Save new User data
         $user->save();
