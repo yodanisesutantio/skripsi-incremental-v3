@@ -194,14 +194,14 @@
         </div>
     </div>
 
-    {{-- Course Recommendation --}}
+    {{-- DrivingSchool Recommendation --}}
     <div class="flex flex-row justify-between items-center mt-8 mb-2 px-6 lg:px-[4.25rem]">
         <h2 class="text-custom-dark font-league font-semibold text-xl/tight lg:text-3xl/tight mt-1">Kursus Populer</h2>
     </div>
-    {{-- Course Recommendation Wrapper --}}
+    {{-- DrivingSchool Recommendation Wrapper --}}
     <div class="relative swiper swiperSchool h-fit mb-5 lg:mb-11 select-none">
         <div class="swiper-wrapper px-6 lg:px-[4.25rem]">
-            {{-- Course Recommendation Card --}}
+            {{-- DrivingSchool Recommendation Card --}}
             @foreach ($randomDrivingSchool as $drivingSchoolRecommendation)
                 {{-- I've added conditional padding-right since our layout is fucked, this is the only way to make it right --}}
                 <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-[8.5rem]' : '' }}" style="width: auto !important;">
@@ -243,10 +243,10 @@
         <div class="flex flex-col gap-4 bg-custom-grey/10 border border-custom-disabled-light p-4 lg:p-9 lg:w-[33rem] rounded-xl items-center">
             <div class="flex flex-col gap-1">
                 <h2 class="text-custom-dark font-league font-semibold text-center text-xl/tight lg:text-3xl/tight">Tidak Menemukan yang Anda Cari?</h2>
-                <p class="text-custom-grey font-league font-medium text-center text-base/snug lg:text-xl px-3">Coba cari Nama Kursus atau mobil tipe apa yang ingin anda kuasai?</p>
+                <p class="text-custom-grey font-league font-medium text-center text-base/snug lg:text-xl px-3">Coba cari Nama Penyedia Kursus atau mobil tipe apa yang ingin anda kuasai?</p>
             </div>
             {{-- Redirect to Search Page --}}
-            <a href="#" class="relative font-league lg:text-lg/none text-custom-secondary lg:-mb-1 px-8 lg:px-14 py-2.5 border border-custom-secondary text-center rounded-full hover:bg-custom-grey/20 duration-300">
+            <a href="/search" class="relative font-league lg:text-lg/none text-custom-secondary lg:-mb-1 px-8 lg:px-14 py-2.5 border border-custom-secondary text-center rounded-full hover:bg-custom-grey/20 duration-300">
                 <div class="flex flex-row justify-center items-center gap-3 lg:gap-4 py-1 lg:py-0 pr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="#495D64" stroke-width="2"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg>
                     <p class="mt-[4px] lg:mt-[1.5px] text-base/[0] lg:text-lg/snug">Coba Fitur Pencarian</p>
