@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Add a unique index for user_id and query combination
-            $table->unique(['user_id', 'query']); // Ensure unique search queries per user
+            $table->unique(['user_id', 'searchQuery']); // Ensure unique search queries per user
         });
     }
 

@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             'description' => 'House of Surabaya Driving School',
             'open_hours_for_admin' => '08:00:00',
             'close_hours_for_admin' => '17:00:00',
+            'fp_question' => 'Satu ditambah satu sama dengan?',
+            'fp_answer' => Crypt::encryptString("2"),
         ]);
         User::create([
             'fullname' => 'Kursus Mengemudi Magetan',
@@ -41,6 +43,8 @@ class DatabaseSeeder extends Seeder
             'description' => 'House of Magetan Driving School',
             'open_hours_for_admin' => '09:00:00',
             'close_hours_for_admin' => '20:00:00',
+            'fp_question' => 'Satu ditambah satu sama dengan?',
+            'fp_answer' => Crypt::encryptString("2"),
         ]);
         User::create([
             'fullname' => 'Instruktur A',
@@ -51,6 +55,8 @@ class DatabaseSeeder extends Seeder
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
             'availability' => 0,
+            'fp_question' => 'Satu ditambah satu sama dengan?',
+            'fp_answer' => Crypt::encryptString("Dua"),
             'admin_id' => 1
         ]);
         User::create([
@@ -62,6 +68,8 @@ class DatabaseSeeder extends Seeder
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
             'availability' => 1,
+            'fp_question' => 'Satu ditambah satu sama dengan?',
+            'fp_answer' => Crypt::encryptString("Dua"),
             'admin_id' => 1
         ]);
         User::create([
@@ -73,6 +81,8 @@ class DatabaseSeeder extends Seeder
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Surabaya',
             'availability' => 0,
+            'fp_question' => 'Satu ditambah satu sama dengan?',
+            'fp_answer' => Crypt::encryptString("Dua"),
             'admin_id' => 1
         ]);
         User::create([
@@ -83,6 +93,8 @@ class DatabaseSeeder extends Seeder
             'age' => 19,
             'role' => 'user',
             'description' => 'Saya adalah Siswa',
+            'fp_question' => 'Sebutkan Ibu Kota Negara Jerman',
+            'fp_answer' => Crypt::encryptString("Berlin"),
         ]);
         User::create([
             'fullname' => 'Siswa 2',
@@ -92,6 +104,8 @@ class DatabaseSeeder extends Seeder
             'age' => 27,
             'role' => 'user',
             'description' => 'Saya adalah Siswa',
+            'fp_question' => 'Sebutkan Ibu Kota Negara Jepang',
+            'fp_answer' => Crypt::encryptString("Tokyo"),
         ]);
         User::create([
             'fullname' => 'Siswa 3',
@@ -101,6 +115,8 @@ class DatabaseSeeder extends Seeder
             'age' => 24,
             'role' => 'user',
             'description' => 'Saya adalah Siswa',
+            'fp_question' => 'Lingkaran mempunyai berapa sisi?',
+            'fp_answer' => Crypt::encryptString("Satu"),
         ]);
 
         DrivingSchoolLicense::create([
