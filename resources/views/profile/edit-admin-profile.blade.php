@@ -193,7 +193,7 @@
                                 </div>
                                 {{-- Input FP Answer --}}
                                 <div class="flex flex-col gap-2">
-                                    <label for="fp_answer" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Ketik Ulang Password Baru<span class="text-custom-destructive">*</span></label>
+                                    <label for="fp_answer" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jawaban<span class="text-custom-destructive">*</span></label>
                                     <div class="relative flex justify-end items-center">
                                         <input type="password" name="fp_answer" id="fp_answer" placeholder="Masukkan Jawaban dari Pertanyaan diatas" class="relative py-4 pl-4 pr-10 w-full font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('password') border-2 border-custom-destructive @enderror" value="{{ $decryptedFpAnswer }}">
                                         <div class="eyeIcon absolute mr-3" onclick="showHideFpAnswer()">
