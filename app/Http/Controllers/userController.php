@@ -96,8 +96,16 @@ class userController extends Controller
 
     // User-Profile/Edit Page Controller
     public function editProfilePage() {
+        $user = auth()->user();
+        $decryptedFpAnswer = null;
+
+        if ($user && $user->fp_answer) {
+            $decryptedFpAnswer = Crypt::decryptString($user->fp_answer);
+        }
+
         return view('profile.edit-user-profile', [
             "pageName" => "Edit Profil | ",
+            "decryptedFpAnswer" => $decryptedFpAnswer,
         ]);
     }
 
@@ -111,6 +119,8 @@ class userController extends Controller
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
             'age' => 'nullable|integer|min:18|max:70',
+            'fp_question' => 'required|max:255',
+            'fp_answer' => 'required|max:255',
         ],
         
         // Validation Error Messages
@@ -128,12 +138,16 @@ class userController extends Controller
             'age.max' => 'Usia maksimal yang diizinkan adalah 70 tahun',
             'phone_number.required' => 'Kolom ini harus diisi',
             'phone_number.max' => 'Nomor Terlalu Panjang',
+            'fp_question.required' => 'Kolom ini harus diisi',
+            'fp_question.max' => 'Pertanyaan Terlalu Panjang',
+            'fp_answer.required' => 'Kolom ini harus diisi',
+            'fp_answer.max' => 'Jawaban Terlalu Panjang',
         ]);
 
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'age', 'phone_number']));
+        $user->update($request->only(['fullname', 'username', 'description', 'age', 'phone_number', 'fp_question']));
 
         // Check if users uploaded new profile picture
         $fileName = null;
@@ -155,6 +169,9 @@ class userController extends Controller
         // Format phone number to +62 and remove non-numeric characters
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
         $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+
+        // Encrypt the fp_answer before saving
+        $user->fp_answer = Crypt::encryptString($request->input('fp_answer'));
 
         // Save new User data
         $user->save();
