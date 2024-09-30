@@ -42,7 +42,7 @@ class User extends Authenticatable
     // Setting Relationship where an Admin can have more than one Driving School Licenses, to keep all the past records
     public function drivingSchoolLicense()
     {
-        return $this->hasMany(drivingSchoolLicense::class);
+        return $this->hasMany(drivingSchoolLicense::class, 'admin_id');
     }
 
     // Setting Relationship where an Instructor can have more than one Instructor Certificate, to keep all the past records

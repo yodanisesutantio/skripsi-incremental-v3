@@ -75,6 +75,22 @@
             </div>
         </div>
 
+        {{-- How to be Instructor --}}
+        <div class="px-3 border-b border-custom-grey rounded-lg">
+            <h2 class="font-league font-medium text-lg/snug lg:text-2xl/snug py-2.5 lg:py-4">
+                <button class="accordion-button flex flex-row justify-between items-center w-full text-left" type="button" aria-expanded="false" aria-controls="collapseOne">
+                    <p class="mt-1.5">Bagaimana cara saya dapat menjadi Instruktur?</p>
+                    {{-- Plus Sign --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="plus-sign flex-shrink-0" width="28" height="28" viewBox="0 0 32 32"><path fill="#040B0D" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z"/></svg>
+                    {{-- Minus Sign --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="hidden minus-sign flex-shrink-0" width="28" height="28" viewBox="0 0 32 32"><path fill="#040B0D" d="M8 15h16v2H8z"/></svg>
+                </button>
+            </h2>
+            <div id="collapseOne" class="font-league text-base lg:text-lg py-1.5 lg:py-3 text-custom-dark/80 hidden">
+                Untuk dapat menjadi Instruktur, Pemilik / Admin Kursus Mengemudi dapat mendaftarkan Anda melalui <span class="font-semibold">Halaman Profil->Instruktur Saya</span>. Pastikan Anda mengirimkan soft file Sertifikat Instruktur yang sah dan berlaku ke Pemilik / Admin. Atau anda dapat mendaftarkan kursus mengemudi anda sendiri melalui <span class="font-semibold">Halaman Profil->Penyedia Kursus Mengemudi?</span>
+            </div>
+        </div>
+
         {{-- Driving School Verification Process --}}
         <div class="px-3 border-b border-custom-grey rounded-lg">
             <h2 class="font-league font-medium text-lg/snug lg:text-2xl/snug py-2.5 lg:py-4">

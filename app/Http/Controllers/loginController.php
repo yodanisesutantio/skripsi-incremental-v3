@@ -146,7 +146,7 @@ class loginController extends Controller
             'fp_answer' => Crypt::encryptString($validatedData['fp_answer']),
         ]);
 
-        dd($user);
+        // dd($user);
 
         // Authenticate User
         Auth::login($user);

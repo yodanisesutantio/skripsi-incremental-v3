@@ -1008,4 +1008,14 @@ class userController extends Controller
             'content' => $content[$meeting_number],
         ]);
     }
+
+    // New Driving School Page Controller
+    public function newDrivingSchool() {
+        $user = auth()->user();
+
+        return view('student-page.new-driving-school', [
+            'pageName' => "Quiz | ",
+            'user' => $user,
+        ]);
+    }
 }

@@ -238,4 +238,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::get('/user-course/quiz/{enrollment_id}/{meeting_number}', [userController::class, 'quizPage']);
     // Student's Quiz Page Done Reading Logic Handler
     Route::post('/user-course/quiz/{enrollment_id}/{meeting_number}', [CourseScheduleController::class, 'markQuizAsDone']);
+
+    // General User Submit New Driving School Page Controller
+    Route::get('/new-driving-school', [userController::class, 'newDrivingSchool']);
 });
