@@ -1014,7 +1014,7 @@ class userController extends Controller
         $user = auth()->user();
 
         return view('student-page.new-driving-school', [
-            'pageName' => "Quiz | ",
+            'pageName' => "Ajukan Kursus Mengemudi Baru | ",
             'user' => $user,
         ]);
     }

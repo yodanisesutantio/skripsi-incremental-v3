@@ -665,6 +665,9 @@
 
                 $('#sendPaymentReceiptWrapper').addClass('lg:flex');
                 $('#mobileSubmitButton').removeClass('hidden');
+
+                // Update Swiper to recalculate height
+                swiper.update();
             };
             reader.readAsDataURL(file); // Read the file as a data URL
         });
@@ -710,6 +713,9 @@
 
                 $('#sendPaymentReceiptWrapper').addClass('lg:flex');
                 $('#mobileSubmitButton').removeClass('hidden');
+
+                // Update Swiper to recalculate height
+                swiper.update();
             };
             reader.readAsDataURL(file); // Read the file as a data URL
         }
