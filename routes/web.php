@@ -54,8 +54,16 @@ Route::post('/login', [loginController::class, 'authenticate']);
 Route::post('/logout', [loginController::class, 'logout']);
 // Forgot Password Initial Page
 Route::get('/forgot-password', [generalPage::class, 'forgotPasswordPage'])->middleware('guest');
-// Forgot Password Challenge Page
-Route::get('/forgot-password/{username}', [generalPage::class, 'forgotPasswordUsername'])->middleware('guest');
+// Forgot Password Challenge Page Using Username
+Route::get('/forgot-password/username/{username}', [generalPage::class, 'forgotPasswordUsername'])->middleware('guest');
+// Forgot Password Challenge Page Using Phone Number
+Route::get('/forgot-password/phone/{phone_number}', [generalPage::class, 'forgotPasswordPhoneNumber'])->middleware('guest');
+// Check the Answer from the Password Challenge Page
+Route::post('/password-challenge/{username}', [generalPage::class, 'passwordChallenge'])->middleware('guest');
+// Reset Password Page
+Route::get('/reset-password/{username}', [generalPage::class, 'resetPasswordForm'])->middleware('guest')->name('reset-password');
+// Reset Password Logic Handler
+Route::post('/reset-password/{username}', [userController::class, 'resetPassword'])->middleware('guest');
 // Register Page
 Route::get('/register', [loginController::class, 'registerPage'])->middleware('guest')->name('register');
 // Register Logic Handler

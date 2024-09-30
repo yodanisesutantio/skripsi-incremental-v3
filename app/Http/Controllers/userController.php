@@ -216,6 +216,39 @@ class userController extends Controller
         return redirect()->intended('/user-profile');
     }
 
+    // Reset Password Logic Handler
+    public function resetPassword(Request $request, $username) {
+        // Validation Rules
+        $request->validate([
+            'password' => 'required|min:5|max:255|confirmed',
+            'password_confirmation' => 'required|min:5|max:255',
+        ],
+        
+        // Validation Error Messages
+        [
+            'password.required' => 'Kolom ini harus diisi',
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password terlalu panjang',
+            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
+            'password_confirmation.required' => 'Kolom ini harus diisi',
+            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
+            'password_confirmation.max' => 'Password terlalu panjang',
+        ]);
+
+        // Find the User data by matching it with the current authenticated user ID
+        $user = User::where('username', $username)->firstOrFail();
+
+        // Crypt the new password
+        $user->password = bcrypt($request->password);
+        // Save the new password to User Tables
+        $user->save();
+
+        // Flash User with Success Message
+        session()->flash('success', 'Password berhasil diatur ulang!');
+        // Redirect user to profile page
+        return redirect('/login');
+    }
+
     public function deleteAccountPermanently() {
         // Find the desired course
         $user = User::findOrFail(auth()->id());

@@ -7,6 +7,7 @@ use Carbon\Carbon; // Use Carbon Method by Laravel
 use App\Models\User; // Access User Tables
 use App\Models\Course; // Access Course Tables
 use App\Models\SearchHistory; // Access Course Tables
+use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 use Illuminate\Http\Request; // Use Request Method by Laravel
 
 class generalPage extends Controller
@@ -31,6 +32,50 @@ class generalPage extends Controller
         }
 
         return view('forgot-password-challenge', [
+            "pageName" => "Lupa Password | ",
+            "user" => $user
+        ]);
+    }
+    public function forgotPasswordPhoneNumber($phone_number) {
+        $user = User::where('phone_number', $phone_number)->first();
+
+        // If the phone_number does not exist, redirect back with an error message
+        if (!$user) {
+            return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp tidak ditemukan']);
+        }
+
+        return view('forgot-password-challenge', [
+            "pageName" => "Lupa Password | ",
+            "user" => $user
+        ]);
+    }
+
+    public function passwordChallenge(Request $request, $username) {
+        // Validation Rules
+        $request->validate([
+            'fp_answer' => 'required',
+        ],
+        
+        // Validation Error Messages
+        [
+            'fp_answer.required' => 'Kolom ini harus diisi',
+        ]);
+
+        $user = User::where('username', $username)->first();
+        $correctAnswer = Crypt::decryptString($user->fp_answer);
+
+        // If the fp_answer is wrong, redirect back with errors
+        if ($request->fp_answer !== $correctAnswer) {
+            return redirect()->back()->withErrors(['fp_answer' => 'Jawaban Salah. Coba lagi!']);
+        }
+
+        return redirect()->route('reset-password', ['username' => $username]);
+    }
+
+    public function resetPasswordForm($username) {
+        $user = User::where('username', $username)->first();
+
+        return view('reset-password', [
             "pageName" => "Lupa Password | ",
             "user" => $user
         ]);

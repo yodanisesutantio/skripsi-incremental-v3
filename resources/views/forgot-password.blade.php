@@ -2,12 +2,12 @@
 
 @section('content')
     {{-- Body Background Image --}}
-    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/forgot-password.webp')">
+    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('{{ asset('img/forgot-password.webp') }}')">
         {{-- Glass Effect --}}
         <div class="flex flex-col p-6 lg:px-8 lg:py-6 w-full lg:w-[27rem] bg-center bg-custom-dark/40 border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
             <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Lupa Password</h1>
-            <p class="font-normal font-league text-lg text-center text-custom-white">Isi salah satu data dibawah ini</p>
+            <p class="font-normal font-league mt-2 text-lg text-center text-custom-white">Isi salah satu data dibawah ini</p>
 
             {{-- Tabs --}}
             <div class="flex flex-row justify-center gap-5 mt-2">
@@ -26,41 +26,44 @@
                 <div class="swiper w-full">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <form id="forgotPasswordUsername" method="GET" action="{{ url('/forgot-password') }}">
+                            <form id="forgotPasswordUsername" method="GET">
                                 {{-- Input Username --}}
                                 <div class="flex flex-col gap-1">
                                     <input type="text" name="username" id="username" placeholder="Username" class="p-4 font-league text-lg/none text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
                                     @error('username')
                                         <span class="text-custom-destructive">{{ $message }}</span>
                                     @enderror
-                                    <span id="usernameError" class="text-custom-destructive"></span> {{-- Error message placeholder --}}
+                                    <span id="usernameError" class="text-custom-destructive"></span>
                                 </div>
                             
                                 {{-- Submit Button --}}
-                                <div class="flex mt-7 lg:mt-7">
-                                    <button type="submit" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Lanjut</button>
+                                <div class="flex mt-7">
+                                    <button type="submit" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500" data-type="username">Lanjut</button>
                                 </div>
                             </form>
                         </div>
 
                         <div class="swiper-slide">
-                            {{-- Input Phone Number --}}
-                            <div class="flex flex-col gap-1">
-                                <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league text-lg/none bg-custom-dark/40 text-custom-white placeholder:#FAFAFA rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ old('phone_number') }}" oninput="deleteAnyString(this)">
-                                @error('phone_number')
-                                    <span class="text-custom-destructive">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            <form id="forgotPasswordPhoneNumber" method="GET">
+                                {{-- Input Phone Number --}}
+                                <div class="flex flex-col gap-1">
+                                    <input type="tel" name="phone_number" id="phone_number" placeholder="081818181818" class="w-full p-4 font-league text-lg/none bg-custom-dark/40 text-custom-white placeholder:#FAFAFA rounded-lg @error('phone_number') border-2 border-custom-destructive @enderror" value="{{ old('phone_number') }}" oninput="deleteAnyString(this)">
+                                    @error('phone_number')
+                                        <span class="text-custom-destructive">{{ $message }}</span>
+                                    @enderror
+                                    <span id="phoneNumberError" class="text-custom-destructive"></span>
+                                </div>
 
-                            {{-- Submit Button --}}
-                            <div class="flex mt-7 lg:mt-7">
-                                <a href="{{ url('/forgot-password') }}" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Lanjut</a>
-                            </div>
+                                {{-- Submit Button --}}
+                                <div class="flex mt-7">
+                                    <button type="submit" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500" data-type="phone">Lanjut</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- Redirect to Register Link --}}
+            {{-- Redirect to Login Link --}}
             <p class="mt-5 lg:mt-3 text-custom-white text-center text-lg font-league font-light lg:text-xl">Kembali ke halaman <a href="/login" class="text-custom-white font-medium underline hover:no-underline">Login</a></p>
         </div>        
     </div>
@@ -117,36 +120,64 @@
         });
         // Remove any non-numerical characters when pressed
         phoneInputField.addEventListener('keypress', function(event) {
-            let value = input.value.replace(/\D/g, '');
+            let value = phoneInputField.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
-                event.preventDefault(); // Prevent non-numerical input
+                event.preventDefault(); // Prevent non-numerical phoneInputField
             }
         });
         // Even when users tried to copy and paste a non-numerical characters, delete it immediately
-        function deleteAnyString(input) {
-            let value = input.value.replace(/\D/g, '');
-            input.value = value;
+        function deleteAnyString(phoneInputField) {
+            let value = phoneInputField.value.replace(/\D/g, '');
+            phoneInputField.value = value;
         }
 
-        $('#forgotPasswordUsername').on('submit', function(event) {
+        $('button[type="submit"]').on('click', function(event) {
             event.preventDefault(); // Prevent the form from submitting immediately
 
-            // Get the username input value
-            var username = $('#username').val();
-            $('#usernameError').text(''); // Clear any previous error message
+            var type = $(this).data('type'); // Get the type of form            
+            var actionUrl;
+            var errorMessage = '';
 
-            // Frontend validation: Check if the input is empty
-            if (username.trim() === '') {
-                $('#usernameError').text('Kolom ini harus diisi');
-                return; // Stop the form from being submitted
+            if (type === 'username') {
+                var username = $('#username').val();
+                $('#usernameError').text(''); // Clear any previous error message
+
+                // Frontend validation: Check if the input is empty
+                if (username.trim() === '') {
+                    $('#usernameError').text('Kolom ini harus diisi');
+                    return; // Stop the form from being submitted
+                }
+
+                // Update the form action URL dynamically
+                actionUrl = "{{ url('/forgot-password/username') }}" + "/" + encodeURIComponent(username);
+                $('#forgotPasswordUsername').attr('action', actionUrl);
+                $('#forgotPasswordUsername').submit(); // Submit the form
+            } 
+            
+            else if (type === 'phone') {
+                var phoneNumber = $('#phone_number').val();
+                $('#phoneNumberError').text(''); // Clear any previous error message
+
+                // Frontend validation: Check if the input is empty
+                if (phoneNumber.trim() === '') {
+                    $('#phoneNumberError').text('Kolom ini harus diisi');
+                    return; // Stop the form from being submitted
+                }
+
+                // Convert the phone number to start with +62
+                if (phoneNumber.startsWith('0')) {
+                    phoneNumber = phoneNumber.replace(/^0/, '+62');
+                } else if (phoneNumber.startsWith('62')) {
+                    phoneNumber = phoneNumber.replace(/^62/, '+62');
+                } else if (!phoneNumber.startsWith('+62')) {
+                    phoneNumber = '+62' + phoneNumber; // Add +62 prefix if it doesn't already have it
+                }
+
+                // Update the form action URL dynamically
+                actionUrl = "{{ url('/forgot-password/phone') }}" + "/" + encodeURIComponent(phoneNumber);
+                $('#forgotPasswordPhoneNumber').attr('action', actionUrl);
+                $('#forgotPasswordPhoneNumber').submit(); // Submit the form
             }
-
-            // Update the form action URL dynamically
-            var actionUrl = "{{ url('/forgot-password') }}" + "/" + encodeURIComponent(username);
-            $(this).attr('action', actionUrl);
-
-            // Submit the form after updating the action
-            this.submit();
         });
     </script>
 @endsection

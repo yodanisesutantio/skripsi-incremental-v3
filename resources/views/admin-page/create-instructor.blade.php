@@ -231,14 +231,14 @@
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
         });
         phoneInputField.addEventListener('keypress', function(event) {
-            let value = input.value.replace(/\D/g, '');
+            let value = phoneInputField.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
-                event.preventDefault(); // Prevent non-numerical input
+                event.preventDefault(); // Prevent non-numerical phoneInputField
             }
         });
-        function deleteAnyString(input) {
-            let value = input.value.replace(/\D/g, '');
-            input.value = value;
+        function deleteAnyString(phoneInputField) {
+            let value = phoneInputField.value.replace(/\D/g, '');
+            phoneInputField.value = value;
         }
 
         // Add Shadow to Form Header

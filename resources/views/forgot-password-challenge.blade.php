@@ -2,89 +2,43 @@
 
 @section('content')
     {{-- Body Background Image --}}
-    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/forgot-password.webp')">
+    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('{{ asset('img/forgot-password.webp') }}')">
         {{-- Glass Effect --}}
         <div class="flex flex-col p-6 lg:px-8 lg:py-6 w-full lg:w-[27rem] bg-center bg-custom-dark/40 border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             {{-- Form Header --}}
             <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Lupa Password</h1>
-            <p class="font-normal font-league text-lg text-center text-custom-white">Jawab Pertanyaan Dibawah ini untuk mengganti password</p>
+            <p class="font-normal font-league text-lg/tight mt-2 text-center text-custom-white">Jawab Pertanyaan Dibawah ini untuk mengganti password</p>
+
+            {{-- Forms --}}
+            <form id="passwordChallenge" method="POST" action="{{ url('/password-challenge/' . $user->username) }}">
+                @csrf
+                <div class="flex flex-col mt-8 lg:mt-6 gap-5 lg:gap-7">
+                    {{-- Input FP_Answer --}}
+                    <div class="flex flex-col gap-1">
+                        <label for="fp_answer" class="font-medium font-league text-lg text-custom-white">"{{ $user->fp_question }}?"<span class="text-custom-destructive">*</span></label>
+                        <input type="text" name="fp_answer" id="fp_answer" autofocus placeholder="Jawaban Anda" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('fp_answer') border-2 border-custom-destructive @enderror">
+                        @error('fp_answer')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Submit Button --}}
+                    <div class="flex mt-0">
+                        <button type="submit" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Lanjut</button>
+                    </div>
+                </div>
+            </form>
+
+            {{-- Redirect to Login Link --}}
+            <p class="mt-5 lg:mt-3 text-custom-white text-center text-lg font-league font-light lg:text-xl">Kembali ke halaman <a href="/login" class="text-custom-white font-medium underline hover:no-underline">Login</a></p>
         </div>
     </div>
-    
+
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     {{-- Swiper CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        const swiper = new Swiper('.swiper', {
-            direction: 'horizontal',
-            loop: false,
-            spaceBetween: 40,
-
-            on: {
-                slideChange: function() {
-                    // Check the current active slide index
-                    if (swiper.activeIndex === 0) {
-                        // If the first slide (index 0), make the "Username" tab active
-                        $('#toUsername').addClass('border-b-2 border-custom-white').removeClass('opacity-40');
-                        $('#toPhoneNumber').removeClass('border-b-2 border-custom-white').addClass('opacity-40');
-                    } else if (swiper.activeIndex === 1) {
-                        // If the second slide (index 1), make the "Phone Number" tab active
-                        $('#toPhoneNumber').addClass('border-b-2 border-custom-white').removeClass('opacity-40');
-                        $('#toUsername').removeClass('border-b-2 border-custom-white').addClass('opacity-40');
-                    }
-                }
-            }
-        });
-
-        // when Username Tabs is clicked jump to first slide
-        $('#toUsername').on('click', function() {
-            swiper.slideTo(0);
-        });
-        // when Phone Number Tabs is clicked jump to second slide
-        $('#toPhoneNumber').on('click', function() {
-            swiper.slideTo(1);
-        });
-
-        // To assist user so they can't press space when typing the username
-        $("#username").on("keydown input", function(event) {
-            if (event.type === "keydown" && event.keyCode === 32) {
-                event.preventDefault();
-            } else if (event.type === "input") {
-                $(this).val($(this).val().replace(/\s/g, ""));
-            }
-        });
-
-        // Tel Input Script
-        const phoneInputField = document.getElementById('phone_number');        
-        const intlTelInput = window.intlTelInput(phoneInputField, {
-            initialCountry: "ID", 
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
-        });
-        // Remove any non-numerical characters when pressed
-        phoneInputField.addEventListener('keypress', function(event) {
-            let value = input.value.replace(/\D/g, '');
-            if (isNaN(event.key)) {
-                event.preventDefault(); // Prevent non-numerical input
-            }
-        });
-        // Even when users tried to copy and paste a non-numerical characters, delete it immediately
-        function deleteAnyString(input) {
-            let value = input.value.replace(/\D/g, '');
-            input.value = value;
-        }
-
-        $('#submitUsername').on('click', function(e) {
-            e.preventDefault(); // Prevent immediate redirection
-
-            // Get the username value
-            var username = $('#username').val();
-
-            // Build the URL with the username appended
-            var url = '/forgot-password/' + encodeURIComponent(username);
-
-            // Redirect the user to the constructed URL
-            window.location.href = url;
-        });
+        
     </script>
 @endsection

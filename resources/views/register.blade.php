@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Body Background Image --}}
-    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('img/for-register-page.webp')">
+    <div class="flex flex-col justify-center items-center bg-cover bg-center h-screen w-screen p-4" style="background-image: url('{{ asset('img/for-register-page.webp') }}')">
         {{-- Glass Effect --}}
         <div class="flex flex-col p-6 lg:px-8 lg:py-6 w-full lg:w-[27rem] bg-center bg-[#231f2088] border border-t-custom-white/25 border-b-custom-disabled-dark/20 border-r-custom-disabled-dark/20 border-l-custom-white/25 lg:gap-4 rounded-lg lg:rounded-2xl backdrop-blur-md">
             <div class="swiper w-full px-0">
@@ -192,15 +192,15 @@
         });
         // Remove any non-numerical characters when pressed
         phoneInputField.addEventListener('keypress', function(event) {
-            let value = input.value.replace(/\D/g, '');
+            let value = phoneInputField.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
-                event.preventDefault(); // Prevent non-numerical input
+                event.preventDefault(); // Prevent non-numerical phoneInputField
             }
         });
         // Even when users tried to copy and paste a non-numerical characters, delete it immediately
-        function deleteAnyString(input) {
-            let value = input.value.replace(/\D/g, '');
-            input.value = value;
+        function deleteAnyString(phoneInputField) {
+            let value = phoneInputField.value.replace(/\D/g, '');
+            phoneInputField.value = value;
         }
 
         // To assist user so they can't press space when typing the username

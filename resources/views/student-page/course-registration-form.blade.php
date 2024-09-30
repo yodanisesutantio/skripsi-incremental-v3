@@ -242,15 +242,15 @@
         });
         // Remove any non-numerical characters when pressed
         phoneInputField.addEventListener('keypress', function(event) {
-            let value = input.value.replace(/\D/g, '');
+            let value = phoneInputField.value.replace(/\D/g, '');
             if (isNaN(event.key)) {
-                event.preventDefault(); // Prevent non-numerical input
+                event.preventDefault(); // Prevent non-numerical phoneInputField
             }
         });
         // Even when users tried to copy and paste a non-numerical characters, delete it immediately
-        function deleteAnyString(input) {
-            let value = input.value.replace(/\D/g, '');
-            input.value = value;
+        function deleteAnyString(phoneInputField) {
+            let value = phoneInputField.value.replace(/\D/g, '');
+            phoneInputField.value = value;
         }
 
         // Preview the uploaded profile picture
