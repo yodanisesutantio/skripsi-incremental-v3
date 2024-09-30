@@ -25,7 +25,7 @@
                         {{-- Kursus --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-course-list">Kursus</a></li>
                             @elseif (auth()->user()->role === 'instructor')
                                 <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-course">Kursus</a></li>
                             @elseif (auth()->user()->role === 'admin')

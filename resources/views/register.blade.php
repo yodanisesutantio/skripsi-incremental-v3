@@ -92,6 +92,31 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Slide 3 : Forgot Password Challenge --}}
+                    <div class="swiper-slide">
+                        <p class="font-league font-light w-full text-center text-lg/snug lg:text-xl/snug text-custom-white">Untuk berjaga-jaga jika anda lupa password</p>
+
+                        <div class="flex flex-col mt-5 lg:mt-6 gap-5 lg:gap-7">
+                            {{-- Input Password Challenge Question --}}
+                            <div class="flex flex-col gap-2">
+                                <label for="fp_question" class="font-normal font-league text-lg text-custom-white">Pertanyaan Tantangan<span class="text-custom-destructive">*</span></label>
+                                <textarea name="fp_question" id="fp_question" rows="5" placeholder="Masukkan Pertanyaan Tantangan" class="px-4 py-3.5 h-36 font-league font-medium text-lg/snug bg-custom-dark/40 text-custom-white placeholder:#48484833 resize-none rounded-lg @error('fp_question') border-2 border-custom-destructive @enderror">{{ old('fp_question') }}</textarea>
+                                @error('fp_question')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- Input Password Challenge Answer --}}
+                            <div class="flex flex-col gap-2">
+                                <label for="fp_answer" class="font-normal font-league text-lg text-custom-white">Jawaban<span class="text-custom-destructive">*</span></label>
+                                <input type="text" name="fp_answer" id="fp_answer" placeholder="Masukkan Jawaban dari Pertanyaan diatas" class="p-4 font-league font-medium text-lg/[0] bg-custom-dark/40 text-custom-white placeholder:#48484833 rounded-lg @error('fp_answer') border-2 border-custom-destructive @enderror" value="{{ old('fp_answer') }}">
+                                @error('fp_answer')
+                                    <span class="text-custom-destructive">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 {{-- Submit Button --}}
                 <div class="flex flex-row justify-between">

@@ -53,7 +53,7 @@
                 @auth
                     {{-- User Course Nav Button --}}
                     @if (auth()->user()->role === 'user')
-                        <a href="/user-course" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
+                        <a href="/user-course-list" class="flex flex-col justify-center border-t border-b border-r px-6 border-custom-dark/40 cursor-pointer hover:bg-custom-green hover:text-custom-white duration-300">
                             <p class="font-league font-medium text-xl w-full">Kursus</p>
                         </a>
                     {{-- Instructor Course Nav Button --}}

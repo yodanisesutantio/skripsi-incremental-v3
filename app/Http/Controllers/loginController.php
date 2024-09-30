@@ -7,6 +7,7 @@ use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Http\RedirectResponse; // Use RedirectResponse Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\Session; // Use Session Method by Laravel
+use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 
 class loginController extends Controller
 {
@@ -93,6 +94,8 @@ class loginController extends Controller
             'username' => 'required|max:255|unique:users,username,',
             'password' => 'required|min:5|max:255|confirmed',
             'password_confirmation' => 'required|min:5|max:255',
+            'fp_question' => 'required|max:255',
+            'fp_answer' => 'required|max:255',
         ],
 
         // Validation Error messages
@@ -114,10 +117,22 @@ class loginController extends Controller
             'password_confirmation.required' => 'Kolom ini harus diisi',
             'password_confirmation.min' => 'Password minimal berisi 5 karakter',
             'password_confirmation.max' => 'Password terlalu panjang',
+            'fp_question.required' => 'Kolom ini harus diisi',
+            'fp_question.max' => 'Pertanyaan Terlalu Panjang',
+            'fp_answer.required' => 'Kolom ini harus diisi',
+            'fp_answer.max' => 'Jawaban Terlalu Panjang',
         ]);
 
         // Format phone number to +62
         $validatedData['phone_number'] = preg_replace('/^(0|62)/', '+62', $validatedData['phone_number']);
+
+        // Check if a duplicate phone number exists
+        $duplicatePhoneNumber = User::where('phone_number', $validatedData['phone_number'])->exists();
+
+        // If a duplicate is found
+        if ($duplicatePhoneNumber) {
+            return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp sudah terdaftar'])->onlyInput('fullname', 'age', 'username', 'fp_question', 'fp_answer');
+        }
 
         // Create User
         $user = User::create([
@@ -127,7 +142,11 @@ class loginController extends Controller
             'username' => $validatedData['username'],
             'password' => bcrypt($validatedData['password']),
             'role' => 'user', // Set default role
+            'fp_question' => $validatedData['fp_question'],
+            'fp_answer' => Crypt::encryptString($validatedData['fp_answer']),
         ]);
+
+        dd($user);
 
         // Authenticate User
         Auth::login($user);
