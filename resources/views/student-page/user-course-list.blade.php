@@ -41,21 +41,32 @@
                         <div class="flex flex-col gap-1">
                             {{-- Course Name --}}
                             <h3 class="font-encode tracking-tight font-semibold text-[21px]/tight lg:text-[25px]/tight text-custom-dark">{{ $incomingCourse->course->course_name }}</h3>
-                            {{-- Course Meeting Number --}}
-                            <p class="font-league text-[17px]/tight lg:text-xl/tight text-custom-grey">Pertemuan ke-{{ $incomingCourse->schedule[0]->meeting_number }}</p>
+                            {{-- Check if there is a schedule --}}
+                            @if ($incomingCourse->schedule->isNotEmpty() && $incomingCourse->schedule->first() !== null)
+                                {{-- Access the first schedule in the collection --}}
+                                <p class="font-league text-[17px]/tight lg:text-xl/tight text-custom-grey">
+                                    Pertemuan ke-{{ $incomingCourse->schedule->first()->meeting_number }}
+                                </p>
+                            @else
+                                <p class="font-league text-[17px]/tight lg:text-xl/tight text-custom-grey">No upcoming meeting</p>
+                            @endif
                         </div>
                         <div class="flex flex-col lg:flex-row gap-2 lg:gap-3">
                             {{-- Next Course Date --}}
                             <div class="flex flex-row items-center w-fit gap-2 px-2 lg:px-2.5 py-1 lg:py-1.5 border border-custom-green/50 rounded-lg">
                                 {{-- Small icons --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="-mt-0.5" width="22" height="22" viewBox="0 0 24 24"><path fill="#24596A" d="M22 14v-2c0-.839 0-1.585-.013-2.25H2.013C2 10.415 2 11.161 2 12v2c0 3.771 0 5.657 1.172 6.828C4.343 22 6.229 22 10 22h4c3.771 0 5.657 0 6.828-1.172C22 19.657 22 17.771 22 14M7.75 2.5a.75.75 0 0 0-1.5 0v1.58c-1.44.115-2.384.397-3.078 1.092c-.695.694-.977 1.639-1.093 3.078h19.842c-.116-1.44-.398-2.384-1.093-3.078c-.694-.695-1.639-.977-3.078-1.093V2.5a.75.75 0 0 0-1.5 0v1.513C15.585 4 14.839 4 14 4h-4c-.839 0-1.585 0-2.25.013z"/></svg>
-                                <h4 class="font-league text-base/tight lg:text-lg/tight mt-1 text-custom-green font-medium line-clamp-1 whitespace-nowrap">{{ \Carbon\Carbon::parse($incomingCourse->schedule[0]->start_time)->locale('id')->translatedFormat('d F Y') }}</h4>
+                                @if ($incomingCourse->schedule->isNotEmpty() && $incomingCourse->schedule->first() !== null)
+                                    <h4 class="font-league text-base/tight lg:text-lg/tight mt-1 text-custom-green font-medium line-clamp-1 whitespace-nowrap">{{ \Carbon\Carbon::parse($incomingCourse->schedule->first()->start_time)->locale('id')->translatedFormat('d F Y') }}</h4>
+                                @endif
                             </div>
                             {{-- Next Course Time --}}
                             <div class="flex flex-row items-center w-fit gap-2 px-2 lg:px-2.5 py-1 lg:py-1.5 border border-custom-green/50 rounded-lg">
                                 {{-- Small icons --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="-mt-0.5" width="22" height="22" viewBox="0 0 24 24"><path fill="#24596A" d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34M12 6a1 1 0 0 0-1 1v5.026l.009.105l.02.107l.04.129l.048.102l.046.078l.042.06l.069.08l.088.083l.083.062l3 2a1 1 0 1 0 1.11-1.664L13 11.464V7a1 1 0 0 0-.883-.993z"/></svg>
-                                <h4 class="font-league text-base/tight lg:text-lg/tight mt-1 text-custom-green font-medium line-clamp-1 whitespace-nowrap">{{ \Carbon\Carbon::parse($incomingCourse->schedule[0]->start_time)->locale('id')->translatedFormat('H:i') }} - {{ \Carbon\Carbon::parse($incomingCourse->schedule[0]->end_time)->locale('id')->translatedFormat('H:i') }} WIB</h4>
+                                @if ($incomingCourse->schedule->isNotEmpty() && $incomingCourse->schedule->first() !== null)
+                                    <h4 class="font-league text-base/tight lg:text-lg/tight mt-1 text-custom-green font-medium line-clamp-1 whitespace-nowrap">{{ \Carbon\Carbon::parse($incomingCourse->schedule->first()->start_time)->locale('id')->translatedFormat('H:i') }} - {{ \Carbon\Carbon::parse($incomingCourse->schedule->first()->end_time)->locale('id')->translatedFormat('H:i') }} WIB</h4>
+                                @endif
                             </div>
                         </div>
                     </div>

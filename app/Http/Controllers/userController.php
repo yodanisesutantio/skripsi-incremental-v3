@@ -250,7 +250,7 @@ class userController extends Controller
             $query->where('start_time', '>', now());
         })
         ->with(['schedule' => function ($query) {
-            $query->where('start_time', '>', now())->orderBy('start_time')->limit(1);
+            $query->where('start_time', '>', now())->orderBy('start_time');
         }, 'course'])
         ->get();
 

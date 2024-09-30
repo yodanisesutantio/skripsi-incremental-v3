@@ -68,6 +68,9 @@ class EnrollmentController extends Controller
             $file->storeAs('enrollment/profile_pictures', $fileName);
         }
 
+        // Format phone number to +62 and remove non-numeric characters
+        $cleanedPhoneNumber = preg_replace('/\D/', '', $request['student_phone_number']); // Remove non-numeric characters
+
         // Create a new Enrollment Data in the Enrollment Tables
         $enrollment = new Enrollment();
         $enrollment->course_id = $course_id;
@@ -78,7 +81,7 @@ class EnrollmentController extends Controller
         $enrollment->student_birth_of_place = $request['student_birth_of_place'];
         $enrollment->student_birth_of_date = $request['student_birth_of_date'];
         $enrollment->student_occupation = $request['student_occupation'];
-        $enrollment->student_phone_number = $request['student_phone_number'];
+        $enrollment->student_phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
         $enrollment->student_address = $request['student_address'];
         $enrollment->student_education_level = $request['student_education_level'];
         $enrollment->student_profile_picture = $fileName;
