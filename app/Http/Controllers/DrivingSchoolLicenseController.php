@@ -106,21 +106,27 @@ class DrivingSchoolLicenseController extends Controller
             $file->storeAs('drivingSchoolLicense', $fileName);
         }
 
-        // Create a new Driving School License in the same named Tables
-        $newLicense = new DrivingSchoolLicense();      
-        // instead of the file being stored in database, we save the filename of the file from Laravel Storage
-        $newLicense->licensePath = $fileName;
-        // assign the value of the startLicenseDate attribute as per request
-        $newLicense->startLicenseDate = $request['startLicenseDate'];
-        // assign the value of the endLicenseDate attribute as per request
-        $newLicense->endLicenseDate = $request['endLicenseDate'];
-        // assign the value of the admin_id attribute by the currently authenticated user
-        $newLicense->admin_id = Auth::id();
-        // Save the new array of data to DrivingSchoolLicense Tables
-        $newLicense->save();
+        // Check if a license already exists for the authenticated user (admin)
+        $existingLicense = DrivingSchoolLicense::where('admin_id', auth()->id())->first();
+
+        if ($existingLicense) {
+            // License exists, update the existing license
+            $existingLicense->licensePath = $fileName;
+            $existingLicense->startLicenseDate = $request['startLicenseDate'];
+            $existingLicense->endLicenseDate = $request['endLicenseDate'];
+            $existingLicense->save(); // Save the updates to the existing license
+        } else {
+            // No existing license, create a new one
+            $newLicense = new DrivingSchoolLicense();
+            $newLicense->licensePath = $fileName;
+            $newLicense->startLicenseDate = $request['startLicenseDate'];
+            $newLicense->endLicenseDate = $request['endLicenseDate'];
+            $newLicense->admin_id = Auth::id();
+            $newLicense->save(); // Save the new license
+        }
 
         // Generate a flash message via Toastr to let user know that the process is successful
-        $request->session()->flash('success', 'Izin Kursus Berhasil Ditambahkan, Admin Sistem Akan Memvalidasi Izin Anda Terlebih Dahulu!');
+        $request->session()->flash('success', 'Izin Kursus Berhasil Diunggah, Admin Sistem Akan Memvalidasi Izin Anda Terlebih Dahulu!');
         // Redirect user to List of Driving School License        
         return redirect()->intended('/user-profile');
     }

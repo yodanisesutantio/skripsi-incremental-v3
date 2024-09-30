@@ -41,23 +41,41 @@
                             <label for="licensePath" class="cursor-pointer rounded-lg">
                             {{-- Dropper --}}
                             @if ($user->drivingSchoolLicense->isNotEmpty())
-                                <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-64 lg:h-72 bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light border-dashed overflow-hidden duration-300" id="licensePath_wrapper" style="background-image: url('{{ asset('storage/licensePath/' . $user->drivingSchoolLicense->licensePath) }}')">
+                            {{-- {{ dd($user->drivingSchoolLicense->first()) }} --}}
+                                <div class="relative flex flex-col items-center justify-center w-full rounded-lg h-64 lg:h-72 bg-cover bg-center bg-custom-disabled-light/60 hover:bg-custom-disabled-light border-dashed overflow-hidden duration-300" id="licensePath_wrapper" style="background-image: url('{{ asset('storage/drivingSchoolLicense/' . $user->drivingSchoolLicense->first()->licensePath) }}')">
                                     {{-- Hidden Overlays, uncover when there's an uploaded file --}}
                                     <div class="absolute top-0 left-0 w-full h-full hover:bg-custom-dark/30 duration-300" id="licensePath_overlay"></div>
 
                                     {{-- licenseStatus Indicator --}}
-                                    @if ($user->drivingSchoolLicense && $user->drivingSchoolLicense->licenseStatus === 'Belum Divalidasi')
+                                    @if ($user->drivingSchoolLicense && $user->drivingSchoolLicense->first()->licenseStatus === 'Belum Divalidasi')
                                         {{-- License Status Overlay --}}
-                                        <div class="hidden absolute top-0 left-0 flex-col justify-center items-center w-full h-full px-6 bg-custom-dark/75 hover:bg-custom-dark/40 duration-300" id="licensePath_status">
+                                        <div class="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full px-6 bg-custom-dark/75 hover:bg-custom-dark/55 duration-300" id="licensePath_status">
                                             {{-- Hourglass Icon --}}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#F6F6F6" fill-rule="evenodd" d="M12 2C7.867 2 5.8 2 5.198 3.3a2.521 2.521 0 0 0-.13.346c-.41 1.387 1.052 2.995 3.974 6.21L11 12h2l1.958-2.143c2.922-3.216 4.383-4.824 3.974-6.21a2.507 2.507 0 0 0-.13-.348C18.2 2 16.133 2 12 2" clip-rule="evenodd"/><path fill="#F6F6F6" d="M5.198 20.7C5.8 22 7.867 22 12 22c4.133 0 6.2 0 6.802-1.3a2.51 2.51 0 0 0 .13-.346c.41-1.387-1.052-2.995-3.974-6.21L13 12h-2l-1.958 2.143c-2.922 3.216-4.383 4.824-3.974 6.21c.035.12.078.236.13.348" opacity=".5"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#F6F6F6" fill-rule="evenodd" d="M12 2C7.867 2 5.8 2 5.198 3.3a2.521 2.521 0 0 0-.13.346c-.41 1.387 1.052 2.995 3.974 6.21L11 12h2l1.958-2.143c2.922-3.216 4.383-4.824 3.974-6.21a2.507 2.507 0 0 0-.13-.348C18.2 2 16.133 2 12 2" clip-rule="evenodd"/><path fill="#F6F6F6" d="M5.198 20.7C5.8 22 7.867 22 12 22c4.133 0 6.2 0 6.802-1.3a2.51 2.51 0 0 0 .13-.346c.41-1.387-1.052-2.995-3.974-6.21L13 12h-2l-1.958 2.143c-2.922 3.216-4.383 4.824-3.974 6.21c.035.12.078.236.13.348" opacity=".5"/></svg>
 
                                             {{-- Text Content --}}
                                             <h3 class="mt-4 font-league font-semibold text-xl/snug lg:text-2xl/snug text-custom-white">Dokumen sedang kami tinjau</h3>
-                                            <p class="font-league text-sm lg:text-base text-center text-custom-white">Jangan khawatir, kami akan memberitahukan anda jika terdapat kemajuan selambat-lambatnya selama 24 Jam</p>
+                                            <p class="font-league text-sm lg:text-base text-center text-custom-white">Jangan khawatir, kami akan memberitahukan anda jika terdapat kemajuan selambat-lambatnya selama 24 Jam. <span class="font-semibold">Anda masih dapat mengunggah ulang dokumen disini jika anda tidak yakin.</span></p>
                                         </div>
-                                    @else
-                                        
+                                    @elseif ($user->drivingSchoolLicense && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                                        {{-- License Status Overlay --}}
+                                        <div class="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full px-6 bg-custom-dark/75 hover:bg-custom-dark/55 duration-300" id="licensePath_status">
+                                            {{-- Checkmark Icon --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#3AB500" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
+
+                                            {{-- Text Content --}}
+                                            <h3 class="mt-4 font-league font-semibold text-xl/snug lg:text-2xl/snug text-custom-white">Dokumen berhasil diverifikasi</h3>
+                                        </div>
+                                    @elseif ($user->drivingSchoolLicense && $user->drivingSchoolLicense->first()->licenseStatus === 'Verifikasi Gagal')
+                                        {{-- License Status Overlay --}}
+                                        <div class="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full px-6 bg-custom-dark/75 hover:bg-custom-dark/55 duration-300" id="licensePath_status">
+                                            {{-- X Icon --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#FD3124" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06" clip-rule="evenodd"/></svg>
+
+                                            {{-- Text Content --}}
+                                            <h3 class="mt-4 font-league font-semibold text-xl/snug lg:text-2xl/snug text-custom-white">Verifikasi Gagal</h3>
+                                            <p class="font-league text-sm lg:text-base text-center text-custom-white">Periksa kembali dokumen yang diunggah sah dan berlaku. Pastikan dokumen yang dikirim terlihat jelas. <span class="font-semibold">Unggah ulang dokumen Anda disini.</span></p>
+                                        </div>
                                     @endif
 
                                     {{-- Upload information such as file size limit, file type, etc. --}}
@@ -92,7 +110,7 @@
                         <div class="flex flex-col gap-2 mt-4 lg:px-28">
                             <label for="startLicenseDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Awal Berlaku<span class="text-custom-destructive">*</span></label>
                             {{-- Input Date Column --}}
-                            <input type="date" name="startLicenseDate" id="startLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('startLicenseDate') border-2 border-custom-destructive @enderror" value="{{ old('startLicenseDate') }}">
+                            <input type="date" name="startLicenseDate" id="startLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('startLicenseDate') border-2 border-custom-destructive @enderror" value="{{ $user->drivingSchoolLicense->isNotEmpty() ? $user->drivingSchoolLicense->first()->startLicenseDate : old('startLicenseDate') }}">
                             {{-- Error in Validation Message --}}
                             @error('startLicenseDate')
                                 <span class="text-custom-destructive">{{ $message }}</span>
@@ -103,17 +121,24 @@
                         <div class="flex flex-col gap-2 mt-4 lg:px-28">
                             <label for="endLicenseDate" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Tanggal Akhir Berlaku<span class="text-custom-destructive">*</span></label>
                             {{-- Input Date Column --}}
-                            <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror" value="{{ old('endLicenseDate') }}">
+                            <input type="date" name="endLicenseDate" id="endLicenseDate" class="p-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('endLicenseDate') border-2 border-custom-destructive @enderror" value="{{ $user->drivingSchoolLicense->isNotEmpty() ? $user->drivingSchoolLicense->first()->endLicenseDate : old('endLicenseDate') }}">
                             {{-- Error in Validation Message --}}
                             @error('endLicenseDate')
                                 <span class="text-custom-destructive">{{ $message }}</span>
                             @enderror
                         </div>
     
-                        {{-- Button Groups for Desktop View --}}
-                        <div class="flex-row w-full lg:mt-5 py-4 lg:py-5 lg:px-28 items-center justify-end bg-custom-white hidden" id="sendPaymentReceiptWrapper">
-                            <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Kirim Izin Kursus</button>
-                        </div>
+                        @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                            {{-- Button Groups for Desktop View --}}
+                            <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 lg:px-28 items-center justify-end bg-custom-white hidden">
+                                <a href="/new-driving-school/account-info" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</a>
+                            </div>
+                        @else
+                            {{-- Button Groups for Desktop View --}}
+                            <div class="flex-row w-full lg:mt-5 py-4 lg:py-5 lg:px-28 items-center justify-end bg-custom-white hidden" id="sendPaymentReceiptWrapper">
+                                <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Kirim Izin Kursus</button>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -122,6 +147,9 @@
             <div class="flex flex-col gap-3 fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden" id="mobile-button-groups">
                 <button type="button" id="mobileNextButton" class="next-button w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Unggah Izin Kursus</button>
                 <button type="submit" id="mobileSubmitButton" class="hidden w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Kirim Izin Kursus</button>
+                @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                    <a href="/new-driving-school/account-info" class="w-full py-4 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center text-lg/none text-custom-white-hover font-semibold font-league duration-500">Lanjut</a>
+                @endif
                 <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
             </div>
         </div>
@@ -173,8 +201,8 @@
                 $('#sendPaymentReceiptWrapper').addClass('lg:flex');
                 $('#mobileSubmitButton').removeClass('hidden');
 
-                $('#licensePath_status').addClass('flex');
-                $('#licensePath_status').removeClass('hidden');
+                $('#licensePath_status').removeClass('flex');
+                $('#licensePath_status').addClass('hidden');
 
                 // Update Swiper to recalculate height
                 swiper.update();
@@ -224,8 +252,8 @@
                 $('#sendPaymentReceiptWrapper').addClass('lg:flex');
                 $('#mobileSubmitButton').removeClass('hidden');
 
-                $('#licensePath_status').addClass('flex');
-                $('#licensePath_status').removeClass('hidden');
+                $('#licensePath_status').removeClass('flex');
+                $('#licensePath_status').addClass('hidden');
 
                 // Update Swiper to recalculate height
                 swiper.update();
