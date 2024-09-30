@@ -142,6 +142,8 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::get('/admin-course/payment-verification/{student_real_name}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
     Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
+    // Admin's Unverify Payment Logic Handler
+    Route::post('/unverify-payment/{coursePayment_id}', [coursePaymentsController::class, 'unverifyPaymentLogic']);
     // Admin's Delete Active Student Logic Handler
     Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
 });

@@ -41,6 +41,10 @@
             @else
                 <div class="px-6 w-full fixed bottom-6 lg:px-0 lg:mt-6 lg:static">
                     <button type="button" id="openVerifyModals" class="py-3 w-full rounded-lg lg:rounded-lg bg-custom-success hover:bg-custom-success/85 text-center lg:text-lg text-custom-white font-semibold duration-500">Verifikasi Pembayaran</button>
+                    <form action="{{ url('/unverify-payment/' . $enrollment->coursePayment->id) }}" method="post" class="mt-4">
+                        @csrf
+                        <button type="submit" class="py-3 w-full rounded-lg lg:rounded-lg border border-custom-destructive hover:bg-custom-destructive/20 text-center lg:text-lg text-custom-destructive font-semibold duration-500">Tolak Pembayaran</button>
+                    </form>
                 </div>
             @endif
         </div>

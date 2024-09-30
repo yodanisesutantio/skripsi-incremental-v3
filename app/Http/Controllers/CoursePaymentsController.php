@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\CoursePayment; // Access Course Payment Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
+use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 
 class CoursePaymentsController extends Controller
 {
+    // Verify payment logic
     public function verifyPaymentLogic(Request $request, $coursePayment_id) {
         // Validation Rules
         $request->validate([
@@ -26,6 +28,26 @@ class CoursePaymentsController extends Controller
 
         // Generate a flash message via Toastr to let user know that the process is successful
         $request->session()->flash('success', 'Verifikasi Pembayaran Berhasil!');
+        // Redirect owner/admin to List of Course Page
+        return redirect(url('/admin-course-progress/' . $student_real_name . '/' . $enrollment_id));
+    }
+
+    // Unverify Payment Logic
+    public function unverifyPaymentLogic(Request $request, $coursePayment_id) {
+        // Find the desired Course Payment
+        $coursePayment = CoursePayment::findOrFail($coursePayment_id);
+
+        if ($coursePayment->paymentFile) {
+            Storage::delete('paymentFile/' . $coursePayment->paymentFile);
+        }
+
+        $coursePayment->delete();
+
+        $student_real_name = $coursePayment->enrollment->student_real_name; // Adjust this line based on your relationships
+        $enrollment_id = $coursePayment->enrollment_id; // Adjust this line based on your model
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Pembayaran Kursus berhasil ditolak! Silahkan hubungi siswa terkait untuk segera mengunggah bukti pembayaran yang valid');
         // Redirect owner/admin to List of Course Page
         return redirect(url('/admin-course-progress/' . $student_real_name . '/' . $enrollment_id));
     }
