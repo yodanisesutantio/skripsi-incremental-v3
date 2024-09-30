@@ -43,7 +43,7 @@
                         </div>
                     </div>
 
-                    {{-- Slide 2 : Phone Number --}}
+                    {{-- Slide 2 : Username & Password --}}
                     <div class="swiper-slide">
                         <p class="font-league font-light w-full text-center text-lg/snug lg:text-xl/snug text-custom-white">Buat Username dan Password mu</p>
 

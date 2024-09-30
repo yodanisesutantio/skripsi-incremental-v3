@@ -21,37 +21,44 @@ class loginController extends Controller
     public function authenticate(Request $request): RedirectResponse {
         // Validation Rules
         $credentials = $request->validate([
-            'username' => ['required'],
+            'identifier' => ['required'],
             'password' => ['required']
         ],
         
         // Validation Error messages
         [
-            'username.required' => 'Kolom ini harus diisi',
+            'identifier.required' => 'Kolom ini harus diisi',
             'password.required' => 'Kolom ini harus diisi',
         ]);
 
-        // Authentication Logic
-        if (Auth::attempt($credentials)) {
-            // Get the User data for this current user
-            $user = Auth::user();
-            // Get the User Role from the User data 
-            $role = $user->role; 
-          
-            // Create a Session
-            $request->session()->regenerate(); 
-            // Generate a flash message via Toastr after login successful
+        // Check if the input is a valid phone number format
+        if (preg_match('/^[0-9]{10,15}$/', $credentials['identifier'])) {
+            // Normalize the phone number to start with +62
+            $phone_number = preg_replace('/^(0|62)/', '+62', $credentials['identifier']);
+            
+            // If it's a phone number, attempt login using phone number
+            $user = User::where('phone_number', $phone_number)->first();
+        } else {
+            // Otherwise, attempt login using the username
+            $user = User::where('username', $credentials['identifier'])->first();
+        }
+
+        // If a user is found, attempt authentication
+        if ($user && Auth::attempt(['username' => $user->username, 'password' => $credentials['password']])) {
+            // Get the User data and role
+            $role = $user->role;
+
+            // Regenerate session and redirect
+            $request->session()->regenerate();
             $request->session()->flash('success', 'Login Berhasil');
-          
-            // Redirect User to the designated dashboard. If their role is Admin, go to admin-index, if their role is Instructor, go to instructor-index, if their role is user(student), then go to user-index
             return redirect()->intended('/' . $role . '-index');
         }
 
         // If authentication failed, return this error message
         return back()->withErrors([
-            'username' => 'Periksa kembali username anda',
+            'identifier' => 'Periksa kembali username atau nomor WhatsApp anda',
             'password' => 'Periksa kembali password anda',
-        ])->onlyInput('username'); // Give the value of the username input field back, but leave the password input blank
+        ])->onlyInput('identifier'); // Give the value of the username input field back, but leave the password input blank
     }
 
     // Logout Logic Handler
@@ -82,7 +89,7 @@ class loginController extends Controller
         $validatedData = $request->validate([
             'fullname' => 'required|max:255',
             'age' => 'required|integer|between:18,70',
-            'phone_number' => 'required|max:20',
+            'phone_number' => 'required|max:20|unique:users,phone_number',
             'username' => 'required|max:255|unique:users,username,',
             'password' => 'required|min:5|max:255|confirmed',
             'password_confirmation' => 'required|min:5|max:255',

@@ -12,11 +12,11 @@
             <form action="/login" method="post">
                 @csrf
                 <div class="flex flex-col mt-8 lg:mt-6 gap-5 lg:gap-7">
-                    {{-- Input Username --}}
+                    {{-- Input Identifier --}}
                     <div class="flex flex-col gap-1">
-                        <label for="username" class="font-normal font-league text-lg text-custom-white">Username<span class="text-custom-destructive">*</span></label>
-                        <input type="text" name="username" id="username" autofocus placeholder="Username" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('username') border-2 border-custom-destructive @enderror" value="{{ old('username') }}">
-                        @error('username')
+                        <label for="identifier" class="font-normal font-league text-lg text-custom-white">Username / No. Whatsapp<span class="text-custom-destructive">*</span></label>
+                        <input type="text" name="identifier" id="identifier" autofocus placeholder="Username atau No. Whatsapp" class="p-4 font-league text-lg/[0] text-custom-white bg-custom-dark/40 placeholder:#FAFAFA rounded-lg @error('identifier') border-2 border-custom-destructive @enderror" value="{{ old('identifier') }}">
+                        @error('identifier')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
                     </div>
