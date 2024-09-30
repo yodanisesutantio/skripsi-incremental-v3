@@ -35,7 +35,12 @@
                         @error('password')
                             <span class="text-custom-destructive">{{ $message }}</span>
                         @enderror
+
+                        <div class="w-full flex justify-end">
+                            <a href="/forgot-password" class="text-custom-white text-lg lg:text-xl font-league font-medium underline hover:no-underline">Lupa Password?</a>
+                        </div>
                     </div>
+
                 </div>
 
                 {{-- Submit Button --}}

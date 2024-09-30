@@ -17,6 +17,25 @@ class generalPage extends Controller
         ]);
     }
 
+    public function forgotPasswordPage() {
+        return view('forgot-password', [
+            "pageName" => "Lupa Password | "
+        ]);
+    }
+    public function forgotPasswordUsername($username) {
+        $user = User::where('username', $username)->first();
+
+        // If the username does not exist, redirect back with an error message
+        if (!$user) {
+            return redirect()->back()->withErrors(['username' => 'Username tidak ditemukan']);
+        }
+
+        return view('forgot-password-challenge', [
+            "pageName" => "Lupa Password | ",
+            "user" => $user
+        ]);
+    }
+
     public function about() {
         return view('about-app', [
             "pageName" => "Tentang Aplikasi |  "

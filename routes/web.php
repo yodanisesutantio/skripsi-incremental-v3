@@ -52,6 +52,10 @@ Route::get('/login', [loginController::class, 'loginPage'])->middleware('guest')
 Route::post('/login', [loginController::class, 'authenticate']);
 // Logout Logic Handler
 Route::post('/logout', [loginController::class, 'logout']);
+// Forgot Password Initial Page
+Route::get('/forgot-password', [generalPage::class, 'forgotPasswordPage'])->middleware('guest');
+// Forgot Password Challenge Page
+Route::get('/forgot-password/{username}', [generalPage::class, 'forgotPasswordUsername'])->middleware('guest');
 // Register Page
 Route::get('/register', [loginController::class, 'registerPage'])->middleware('guest')->name('register');
 // Register Logic Handler
