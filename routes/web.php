@@ -249,4 +249,6 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::post('/new-driving-school/account-info', [adminController::class, 'newDrivingSchoolAccountInfoLogic']);
     // General User Add Payment Method Page
     Route::get('/new-driving-school/payment-method', [userController::class, 'newDrivingSchoolPayment']);
+    // General User Add Payment Method Logic Handler
+    Route::post('/new-driving-school/payment-method', [paymentMethodController::class, 'newDrivingSchoolPaymentLogic']);
 });

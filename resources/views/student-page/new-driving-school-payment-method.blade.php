@@ -19,7 +19,7 @@
         </div>
         
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/edit-admin-payment-method" method="post" class="px-6 pb-24 lg:pb-0">
+            <form action="/new-driving-school/payment-method" method="post" class="px-6 pb-24 lg:pb-0">
                 @csrf
 
                 <div class="form-wrapper new-payment-method">
@@ -33,8 +33,8 @@
                         <div class="flex flex-col gap-2">
                             {{-- Dropdown --}}
                             <label for="payment_vendor" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Metode Pembayaran<span class="text-custom-destructive">*</span></label>
-                            <select name="payment_vendor" id="payment_vendor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg">
-                                <option value="" disabled selected>-- Metode Pembayaran --</option>
+                            <select name="payment_vendor" id="payment_vendor" class="px-3 py-4 font-league font-medium text-lg/[0] text-custom-secondary placeholder:#48484833 rounded-lg @error('payment_vendor') border-2 border-custom-destructive @enderror">
+                                <option disabled selected>-- Metode Pembayaran --</option>
                                 <option value="BCA">Bank BCA</option>
                                 <option value="BNI">Bank BNI</option>
                                 <option value="BRI">Bank BRI</option>
@@ -47,6 +47,9 @@
                                 <option value="BRI Syariah">Bank BRI Syariah</option>
                                 <option value="Jenius">Jenius</option>
                             </select>
+                            @error('payment_vendor')
+                                <span class="text-custom-destructive">{{ $message }}</span>
+                            @enderror
                         </div>
     
                         {{-- Input Receiver Name --}}
