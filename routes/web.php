@@ -246,5 +246,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // General User Update their Account Info Page
     Route::get('/new-driving-school/account-info', [userController::class, 'newDrivingSchoolAccountInfo']);
     // General User Update their Account Info Logic Handler
-    Route::post('/new-driving-school/account-info', [adminController::class, 'newDrivingSchoolAccountInfo']);
+    Route::post('/new-driving-school/account-info', [adminController::class, 'newDrivingSchoolAccountInfoLogic']);
+    // General User Add Payment Method Page
+    Route::get('/new-driving-school/payment-method', [userController::class, 'newDrivingSchoolPayment']);
 });

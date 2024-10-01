@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
 use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
+use Illuminate\Support\Facades\Validator;
+
 
 class adminController extends Controller
 {
@@ -779,7 +781,8 @@ class adminController extends Controller
         ]);
     }
 
-    public function newDrivingSchoolAccountInfo(Request $request) {
+    public function newDrivingSchoolAccountInfoLogic(Request $request) {
+        // dd($request);
         // Validation Rules
         $this->validate($request, [
             'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
@@ -787,7 +790,6 @@ class adminController extends Controller
             'username' => 'required|max:255|unique:users,username,' . Auth::id(),
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20',
-            'availability' => 'required|boolean',
             'open_hours_for_admin' => 'required',
             'close_hours_for_admin' => 'required',
             'password' => 'nullable|min:5|max:255|confirmed',
@@ -808,8 +810,6 @@ class adminController extends Controller
             'phone_number.max' => 'Nomor Terlalu Panjang',
             'open_hours_for_admin.required' => 'Jam buka harus diisi',
             'close_hours_for_admin.required' => 'Jam tutup harus diisi',
-            'open_hours_for_admin.date_format' => 'Format jam buka tidak valid',
-            'close_hours_for_admin.date_format' => 'Format jam tutup tidak valid',
             'password.min' => 'Password minimal berisi 5 karakter',
             'password.max' => 'Password terlalu panjang',
             'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
@@ -819,8 +819,15 @@ class adminController extends Controller
 
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
+
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin', 'fp_question']));
+        $user->fill([
+            'fullname' => $request->input('fullname'),
+            'username' => $request->input('username'),
+            'description' => $request->input('description'),
+            'open_hours_for_admin' => $request->input('open_hours_for_admin'),
+            'close_hours_for_admin' => $request->input('close_hours_for_admin'),
+        ]);
 
         // Check if users uploaded new profile picture
         $fileName = null;

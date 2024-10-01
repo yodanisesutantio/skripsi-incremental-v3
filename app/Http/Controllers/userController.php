@@ -1025,4 +1025,11 @@ class userController extends Controller
             'pageName' => "Informasi Akun | ",
         ]);
     }
+
+    // New Driving School Add Payment Method Page Controller   
+    public function newDrivingSchoolPayment() {
+        return view('student-page.new-driving-school-payment-method', [
+            'pageName' => "Tambah Rek. Pembayaran | ",
+        ]);
+    }
 }
