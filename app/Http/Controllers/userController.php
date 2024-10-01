@@ -1011,6 +1011,17 @@ class userController extends Controller
 
     // New Driving School Page Controller
     public function newDrivingSchool() {
+        // Check if the user has any upcoming schedules
+        $hasUpcomingSchedule = Enrollment::where('student_id', auth()->id())
+            ->whereHas('schedule', function ($query) {
+                $query->where('start_time', '>', now());
+            })->exists();
+
+        if ($hasUpcomingSchedule) {
+            session()->flash('error', 'Anda masih memiliki kursus berlangsung, Silahkan coba lagi jika kursus anda sudah selesai!');
+            return redirect('/user-profile');
+        }
+
         $user = auth()->user();
 
         return view('student-page.new-driving-school', [
