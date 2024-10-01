@@ -1018,4 +1018,11 @@ class userController extends Controller
             'user' => $user,
         ]);
     }
+
+    // New Driving School Account Info Update Page Controller   
+    public function newDrivingSchoolAccountInfo() {
+        return view('student-page.new-driving-school-account-info', [
+            'pageName' => "Informasi Akun | ",
+        ]);
+    }
 }

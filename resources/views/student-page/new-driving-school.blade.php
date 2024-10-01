@@ -15,6 +15,7 @@
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Anda bisa menjadi instruktur melalui Pemilik / Admin yang sudah terdaftar di KEMUDI. <span class="font-semibold underline text-custom-green"><a href="/contact-us">Bagaimana mendapat undangan mengajar?</a></span></p>
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Atau anda bisa mendaftarkan kursus milik anda di KEMUDI. Anda wajib mengunggah dokumen Izin Penyelenggaraan Pendidikan dan Pelatihan Mengemudi Kendaraan Bermotor sebagaimana yang diatur pada <span class="font-semibold">Peraturan Daerah Kota Surabaya No. 22 Tahun 2012.</span></p>
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Dokumen yang anda unggah akan kami tinjau paling lama 1 hari (24 Jam), setiap kemajuan dan masalah yang kami temui akan kami notifikasikan ke anda.</p>
+                                    <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Selain dokumen izin penyelenggaraan kursus, anda diwajibkan untuk memiliki 1 (satu) No. Rekening untuk didaftarkan sebagai sarana transaksi pembayaran jasa anda</p>
                                 </div>
                             </div>
 

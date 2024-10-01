@@ -778,4 +778,83 @@ class adminController extends Controller
             'availableSlots' => $availableSlots,
         ]);
     }
+
+    public function newDrivingSchoolAccountInfo(Request $request) {
+        // Validation Rules
+        $this->validate($request, [
+            'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
+            'fullname' => 'required|max:255',
+            'username' => 'required|max:255|unique:users,username,' . Auth::id(),
+            'description' => 'nullable|max:255',
+            'phone_number' => 'required|max:20',
+            'availability' => 'required|boolean',
+            'open_hours_for_admin' => 'required',
+            'close_hours_for_admin' => 'required',
+            'password' => 'nullable|min:5|max:255|confirmed',
+            'password_confirmation' => 'nullable|min:5|max:255',
+        ],
+        
+        // Validation Error Messages
+        [
+            'hash_for_profile_picture.mimes' => 'Format yang didukung adalah .jpg, .png, dan .webp',
+            'hash_for_profile_picture.max' => 'Ukuran gambar maksimal adalah 2 MB',
+            'fullname.required' => 'Kolom ini harus diisi',
+            'fullname.max' => 'Nama Terlalu Panjang',
+            'username.required' => 'Kolom ini harus diisi',
+            'username.max' => 'Username Terlalu Panjang',
+            'username.unique' => 'Username sudah digunakan',
+            'description.max' => 'Deskripsi terlalu panjang',
+            'phone_number.required' => 'Kolom ini harus diisi',
+            'phone_number.max' => 'Nomor Terlalu Panjang',
+            'open_hours_for_admin.required' => 'Jam buka harus diisi',
+            'close_hours_for_admin.required' => 'Jam tutup harus diisi',
+            'open_hours_for_admin.date_format' => 'Format jam buka tidak valid',
+            'close_hours_for_admin.date_format' => 'Format jam tutup tidak valid',
+            'password.min' => 'Password minimal berisi 5 karakter',
+            'password.max' => 'Password terlalu panjang',
+            'password.confirmed' => 'Pastikan anda mengetikkan password yang sama',
+            'password_confirmation.min' => 'Password minimal berisi 5 karakter',
+            'password_confirmation.max' => 'Password terlalu panjang',
+        ]);
+
+        // Find the User data by matching it with the current authenticated user ID
+        $user = User::find(Auth::id());
+        // Immediately update this attribute as per request
+        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin', 'fp_question']));
+
+        // Check if users uploaded new profile picture
+        $fileName = null;
+        if ($request->hasFile('hash_for_profile_picture')) {
+            // Delete old pictures
+            if ($user->hash_for_profile_picture && Storage::disk('public')->exists("profile_pictures/" . $user->hash_for_profile_picture)) {
+                Storage::disk('public')->delete("profile_pictures/" . $user->hash_for_profile_picture);
+            }
+
+            // rename the file name to store it inside the database
+            $fileName = time() . '.' . $request->hash_for_profile_picture->getClientOriginalExtension();
+            // save the uploaded file to Laravel Storage System
+            $request->hash_for_profile_picture->storeAs('profile_pictures', $fileName);
+
+            // instead of the file updated in database, we save the filename of the file from Laravel Storage
+            $user->fill(['hash_for_profile_picture' => $fileName]);
+        }     
+
+        // Format phone number to +62 and remove non-numeric characters
+        $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
+        $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+
+        // When users creating new password, do this
+        if ($request->has('password') && $request->has('password_confirmation') && !empty($request->password)) {
+            // Crypt the new password
+            $user->password = bcrypt($request->password);
+        }
+
+        // Save new User data
+        $user->save();
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Informasi Akun berhasil diperbarui!');
+        // Redirect owner/admin to List of Course Page
+        return redirect()->intended('/new-driving-school/payment-method');
+    }
 }

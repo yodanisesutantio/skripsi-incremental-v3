@@ -243,4 +243,8 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     Route::get('/new-driving-school', [userController::class, 'newDrivingSchool']);
     // General User Submit New Driving School Logic Handler
     Route::post('/new-driving-school', [drivingSchoolLicenseController::class, 'newDrivingSchoolLicense']);
+    // General User Update their Account Info Page
+    Route::get('/new-driving-school/account-info', [userController::class, 'newDrivingSchoolAccountInfo']);
+    // General User Update their Account Info Logic Handler
+    Route::post('/new-driving-school/account-info', [adminController::class, 'newDrivingSchoolAccountInfo']);
 });
