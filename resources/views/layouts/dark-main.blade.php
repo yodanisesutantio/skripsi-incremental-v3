@@ -21,10 +21,8 @@
 
     <title>{{ $pageName }} Kemudi</title>
 </head>
-<body class="bg-custom-dark">    
-    <div class="lg:px-[3.25rem]">
-        @yield('content')
-    </div>
+<body class="bg-[#231F20]">    
+    @yield('content')
 
     {{-- Toastr CDN --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

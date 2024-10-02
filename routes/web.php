@@ -6,6 +6,7 @@ use App\Http\Controllers\generalPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\systemController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\courseController;
 use App\Http\Controllers\enrollmentController;
@@ -163,7 +164,7 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 // System Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(function () {
     // Instructor Dashboard Page
-    Route::get('/system-index', [systemController::class, 'systemIndex']);
+    Route::get('/sysAdmin-index', [systemController::class, 'systemIndex']);
 });
 
 // Instructor Specific Route
