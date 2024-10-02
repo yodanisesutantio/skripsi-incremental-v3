@@ -163,8 +163,10 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
 // System Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(function () {
-    // Instructor Dashboard Page
+    // System Admin Dashboard Page
     Route::get('/sysAdmin-index', [systemController::class, 'systemIndex']);
+    // System Admin Manage Account Page
+    Route::get('/sysAdmin-index/account', [systemController::class, 'accountPage']);
 });
 
 // Instructor Specific Route

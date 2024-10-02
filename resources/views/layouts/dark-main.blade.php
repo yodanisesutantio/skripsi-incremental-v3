@@ -21,7 +21,7 @@
 
     <title>{{ $pageName }} Kemudi</title>
 </head>
-<body class="bg-[#231F20]">    
+<body class="bg-custom-dark-hover">    
     @yield('content')
 
     {{-- Toastr CDN --}}

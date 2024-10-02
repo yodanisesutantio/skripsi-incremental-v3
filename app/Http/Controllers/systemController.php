@@ -22,8 +22,23 @@ class systemController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Access User Tables
+        $user = User::where('id', '!=', Auth::id())->get();
+
+        // dd($user);
+
         return view('home.sysAdmin', [
-            "pageName" => "Dashboard Sistem | ",
+            "pageName" => "Daftar Pengguna | ",
+            "user" => $user,
+        ]);
+    }
+
+    public function accountPage() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        return view('sysadmin-page.sysadminaccount', [
+            "pageName" => "Daftar Pengguna | ",
         ]);
     }
 }
