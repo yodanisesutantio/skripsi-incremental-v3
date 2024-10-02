@@ -163,12 +163,12 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
 
 // System Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(function () {
-    // System Admin Dashboard Page
+    // System Admin Dashboard Manage Account Page
     Route::get('/sysAdmin-index', [systemController::class, 'systemIndex']);
     // Reset Account Password Page 
     Route::post('/sysAdmin-reset-password/{id}', [systemController::class, 'resetPassword']);
-    // System Admin Manage Account Page
-    Route::get('/sysAdmin-index/account', [systemController::class, 'accountPage']);
+    // System Admin Manage Instructor Certificate Page
+    Route::get('/sysAdmin-certificate', [systemController::class, 'certificatePage']);
 });
 
 // Instructor Specific Route

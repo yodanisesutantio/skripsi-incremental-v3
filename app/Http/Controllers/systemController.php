@@ -53,12 +53,12 @@ class systemController extends Controller
         return redirect('/sysAdmin-index');
     }
 
-    public function accountPage() {
+    public function certificatePage() {
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
-        return view('sysadmin-page.sysadminaccount', [
-            "pageName" => "Daftar Pengguna | ",
+        return view('sysadmin-page.sysadmin-certificate', [
+            "pageName" => "Sertifikat Instruktur | ",
         ]);
     }
 }
