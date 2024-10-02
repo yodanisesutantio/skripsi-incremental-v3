@@ -33,6 +33,25 @@ class systemController extends Controller
         ]);
     }
 
+    public function resetPassword(Request $request, $id) {
+        // Validate the request if necessary
+        $request->validate([
+            'password' => 'required|min:5|max:255',
+        ]);
+
+        dd($request);
+    
+        // Find the user by ID
+        $user = User::findOrFail($id);
+    
+        // Update the user's password
+        $user->password = bcrypt($request->password);
+        $user->save();
+    
+        // Redirect back with a success message
+        return redirect()->back();
+    }
+
     public function accountPage() {
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');

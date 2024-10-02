@@ -39,7 +39,7 @@
                 </div>
 
                 @foreach ($user as $index => $allUser)
-                    <div class="grid grid-cols-9 gap-6 px-4 py-6 border-b border-custom-white/20 {{ $index % 2 == 0 ? 'bg-custom-dark/30' : '' }}">
+                    <div class="grid grid-cols-9 gap-6 px-4 py-6 border-b border-custom-white/20 {{ $index % 2 == 0 ? 'bg-custom-dark/20' : '' }}">
                         {{-- Fullname --}}
                         <div class="h-12 flex items-center col-span-2">
                             <p class="font-league font-normal text-base/snug text-custom-white">{{ $allUser->fullname }}</p>
@@ -56,13 +56,18 @@
                         </div>
 
                         {{-- Role --}}
-                        <div class="h-12 flex items-center col-span-2">
+                        <div class="h-12 flex items-center">
                             <p class="font-league font-normal text-base/snug text-custom-white">{{ $allUser->role }}</p>
                         </div>
 
                         {{-- Reset Password Action --}}
-                        <div class="h-12 flex items-center">
-                            <p class="font-league font-normal text-base/snug text-custom-white"></p>
+                        <div class="h-12 flex items-center col-span-2">
+                            <form action="{{ url('/sysAdmin-reset-password/' . $allUser->id) }}" method="POST" class="w-full px-6">
+                                @csrf
+
+                                <input type="hidden" name="password" value="12345678">
+                                <button type="submit" class="w-full py-3 font-encode font-semibold text-custom-destructive bg-[#FEE2E2] rounded-lg hover:bg-custom-white-hover duration-300">Reset Password</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
