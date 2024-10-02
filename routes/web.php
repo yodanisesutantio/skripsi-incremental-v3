@@ -160,6 +160,12 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
 });
 
+// System Admin Specific Route
+Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(function () {
+    // Instructor Dashboard Page
+    Route::get('/system-index', [systemController::class, 'systemIndex']);
+});
+
 // Instructor Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\instructorMiddleware'])->group(function () {
     // Instructor Dashboard Page

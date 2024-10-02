@@ -23,6 +23,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
+            'fullname' => 'Master KEMUDI',
+            'username' => 'master_kemudi_',
+            'phone_number' => '+6282145649388',
+            'password' => bcrypt('ichbindersystemmaster'),
+            'role' => "sysAdmin",
+            'fp_question' => 'Wie ist es in Surabaya?',
+            'fp_answer' => Crypt::encryptString("Surabaya ist zu heiß"),
+        ]);
+        User::create([
             'fullname' => 'Pemilik / Admin',
             'username' => 'pemilik_kursus',
             'phone_number' => '+6282145749388',
