@@ -39,7 +39,7 @@ class systemController extends Controller
             'password' => 'required|min:5|max:255',
         ]);
 
-        dd($request);
+        // dd($request);
     
         // Find the user by ID
         $user = User::findOrFail($id);
@@ -48,8 +48,9 @@ class systemController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
     
+        $request->session()->flash('success', 'Password berhasil diatur ulang!');
         // Redirect back with a success message
-        return redirect()->back();
+        return redirect('/sysAdmin-index');
     }
 
     public function accountPage() {

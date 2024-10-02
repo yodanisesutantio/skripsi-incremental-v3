@@ -1,5 +1,3 @@
-{{-- Layouts for Sys Admin Views --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

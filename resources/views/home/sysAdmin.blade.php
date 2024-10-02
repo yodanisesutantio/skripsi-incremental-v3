@@ -52,7 +52,7 @@
 
                         {{-- Phone Number --}}
                         <div class="h-12 flex items-center col-span-2">
-                            <p class="font-league font-normal italic text-base/snug text-custom-white">{{ $allUser->phone_number }}</p>
+                            <p class="font-league font-normal text-base/snug text-custom-white">{{ $allUser->phone_number }}</p>
                         </div>
 
                         {{-- Role --}}
@@ -62,7 +62,7 @@
 
                         {{-- Reset Password Action --}}
                         <div class="h-12 flex items-center col-span-2">
-                            <form action="{{ url('/sysAdmin-reset-password/' . $allUser->id) }}" method="POST" class="w-full px-6">
+                            <form action="{{ url('/sysAdmin-reset-password/' . $allUser->id) }}" method="POST" class="w-full px-6" onsubmit="return confirm('Are you sure you want to reset the password to 12345678?');">
                                 @csrf
 
                                 <input type="hidden" name="password" value="12345678">
@@ -90,4 +90,11 @@
             </form>
         </div>
     </div>
+
+    {{-- jQuery JS --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <script>
+        
+    </script>
 @endsection
