@@ -479,15 +479,15 @@ class instructorController extends Controller
             // Localize the endCertificateDate to Indonesian
             $endDate = Carbon::parse($certificate->endCertificateDate);
     
-            // Avoid certificate that has certificateStatus of "Belum Divalidasi"
-            if ($certificate->certificateStatus !== 'Belum Divalidasi') {
+            // Avoid certificate that has certificateStatus of "Belum Divalidasi" or "Validasi Gagal"
+            if ($certificate->certificateStatus !== 'Belum Divalidasi' && $certificates->certificateStatus !== 'Validasi Gagal') {
                 // If today's date is between the startCertificateDate and endCertificateDate 
                 if ($startDate->lte($today) && $endDate->gt($today)) {
                     // Change the certificateStatus to "Aktif"
                     $certificate->certificateStatus = 'Aktif';
                     // change the $hasActiveCertificate to true, since we has an active certificate
                     $hasActiveCertificate = true;
-                } 
+                }
                 
                 // if today's date is way past the endCertificateDate
                 elseif ($endDate->lt($today)) {

@@ -47,7 +47,7 @@
                     <div class="grid grid-cols-6 gap-6 px-4 py-6 border-b border-custom-white/20 {{ $index % 2 == 0 ? 'bg-custom-dark/20' : '' }}">
                         {{-- Certificate Thumbnail --}}
                         <div class="h-12 flex items-center">
-                            <a href="{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}" class="w-2/3 h-full bg-cover bg-center" style="background-image: url('{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}')"></a>
+                            <a href="{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}" class="w-2/3 h-full bg-cover bg-center" style="background-image: url('{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}')" target="_blank"></a>
                         </div>
 
                         {{-- Start Date --}}
@@ -72,21 +72,29 @@
 
                         {{-- Action --}}
                         <div class="h-12 flex flex-row gap-8 items-center justify-center">
-                            {{-- Validate Certificate --}}
-                            <form action="{{ url('') }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor Certificate?');">
-                                @csrf
+                            @if ($certificates->certificateStatus !== 'Aktif' && $certificates->certificateStatus !== 'Tidak Berlaku')
+                                {{-- Validate Certificate --}}
+                                <form action="{{ url('/sysAdmin-certificate/status/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor Certificate?');">
+                                    @csrf
 
-                                <input type="hidden" name="certificateStatus" value="Sudah Divalidasi">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
-                            </form>
+                                    <input type="hidden" name="certificateStatus" value="Sudah Divalidasi">
+                                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg></button>
+                                </form>
 
-                            {{-- Invalidate Certificate --}}
-                            <form action="{{ url('') }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to invalidate this Instructor Certificate?');">
-                                @csrf
+                                {{-- Invalidate Certificate --}}
+                                <form action="{{ url('/sysAdmin-certificate/status/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to invalidate this Instructor Certificate?');">
+                                    @csrf
 
-                                <input type="hidden" name="certificateStatus" value="Validasi Gagal">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg>
-                            </form>
+                                    <input type="hidden" name="certificateStatus" value="Validasi Gagal">
+                                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
+                                </form>
+                            @else
+                                {{-- Inactive Validate Icon --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-40" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
+
+                                {{-- Inactive Invalidate Icon --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-40" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg>
+                            @endif
 
                             <form action="{{ url('/sysAdmin-certificate/delete/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to delete this certificate?');">
                                 @method('delete')

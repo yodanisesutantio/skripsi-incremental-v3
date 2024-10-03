@@ -72,7 +72,7 @@ class systemController extends Controller
             $endDate = Carbon::parse($certificates->endCertificateDate);
     
             // Avoid certificate that has certificateStatus of "Belum Divalidasi"
-            if ($certificates->certificateStatus !== 'Belum Divalidasi') {
+            if ($certificates->certificateStatus !== 'Belum Divalidasi' && $certificates->certificateStatus !== 'Validasi Gagal') {
                 // If today's date is between the startCertificateDate and endCertificateDate 
                 if ($startDate->lte($today) && $endDate->gt($today)) {
                     // Change the certificateStatus to "Aktif"
@@ -94,6 +94,33 @@ class systemController extends Controller
             "pageName" => "Sertifikat Instruktur | ",
             "certificate" => $certificate,
         ]);
+    }
+
+    // Instructor Certificate Delete Logic Handler
+    public function updateCertificateStatus($id, Request $request)
+    {
+        // Validate the request if necessary
+        $request->validate([
+            'certificateStatus' => 'required|string',
+        ]);
+
+        // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
+        $certificate = InstructorCertificate::findOrFail($id);
+    
+        // Change the certificateStatus to "Aktif"
+        $certificate->certificateStatus = $request['certificateStatus'];
+        // Update the certificate data
+        $certificate->save();
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        if ($request['certificateStatus'] === 'Sudah Divalidasi') {
+            $request->session()->flash('success', 'Sertifikat Instruktur berhasil divalidasi!');
+        } elseif ($request['certificateStatus'] === 'Validasi Gagal') {
+            $request->session()->flash('success', 'Validasi Sertifikat Instruktur digagalkan!');
+        }
+        
+        // Redirect Admin to List of Instructor Certificate
+        return redirect()->intended('/sysAdmin-certificate');
     }
 
     // Instructor Certificate Delete Logic Handler
