@@ -173,6 +173,12 @@ Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(fun
     Route::post('/sysAdmin-certificate/status/{id}', [systemController::class, 'updateCertificateStatus']);
     // System Admin Delete Instructor Certificate Logic Handler
     Route::delete('/sysAdmin-certificate/delete/{id}', [systemController::class, 'deleteCertificate']);
+    // System Admin Manage Driving School License Page
+    Route::get('/sysAdmin-license', [systemController::class, 'licensePage']);
+    // System Admin Update Status of Driving School Licenses Logic Handler
+    Route::post('/sysAdmin-license/status/{id}', [systemController::class, 'updateLicenseStatus']);
+    // System Admin Delete Driving School Licenses Logic Handler
+    Route::delete('/sysAdmin-license/delete/{id}', [systemController::class, 'deleteLicense']);
 });
 
 // Instructor Specific Route

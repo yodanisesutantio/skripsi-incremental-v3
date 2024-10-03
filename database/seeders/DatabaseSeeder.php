@@ -130,22 +130,22 @@ class DatabaseSeeder extends Seeder
 
         DrivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2024-08-21',
-            'endLicenseDate' => '2026-08-21',
+            'startLicenseDate' => '2024-10-21',
+            'endLicenseDate' => '2026-10-21',
             'licenseStatus' => 'Sudah Tervalidasi',
             'admin_id' => 2,
         ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2022-08-21',
-            'endLicenseDate' => '2024-08-21',
+            'startLicenseDate' => '2022-10-21',
+            'endLicenseDate' => '2024-10-21',
             'licenseStatus' => 'Aktif',
             'admin_id' => 2,
         ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2020-08-21',
-            'endLicenseDate' => '2022-08-21',
+            'startLicenseDate' => '2020-10-21',
+            'endLicenseDate' => '2022-10-21',
             'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 2,
         ]);

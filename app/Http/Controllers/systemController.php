@@ -8,7 +8,8 @@ use App\Models\User; // Access User Tables
 use App\Models\Course; // Access Course Tables
 use App\Models\CourseSchedule; // Access Course Schedule Tables
 use App\Models\CourseInstructor; // Access Course Instructor Tables
-use App\Models\InstructorCertificate; // Access Course Instructor Tables
+use App\Models\InstructorCertificate; // Access Instructor Certificate Tables
+use App\Models\DrivingSchoolLicense; // Access Driving School License Tables
 use App\Models\Enrollment; // Access Enrollment Tables
 use App\Models\PaymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
@@ -140,5 +141,93 @@ class systemController extends Controller
         $request->session()->flash('success', 'Sertifikat Instruktur berhasil dihapus!');
         // Redirect Admin to List of Instructor Certificate
         return redirect()->intended('/sysAdmin-certificate');
+    }
+
+    public function licensePage() {
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Get today's date and localized it to Indonesian
+        $today = Carbon::today();
+
+        // Access User Tables
+        $license = DrivingSchoolLicense::all();
+
+        // Run through the Instructor Certificate collection
+        foreach ($license as $licenses) {
+            // Localize the startLicenseDate to Indonesian
+            $startDate = Carbon::parse($licenses->startLicenseDate);
+            // Localize the endLicenseDate to Indonesian
+            $endDate = Carbon::parse($licenses->endLicenseDate);
+    
+            // Avoid certificate that has licenseStatus of "Belum Divalidasi"
+            if ($licenses->licenseStatus !== 'Belum Divalidasi' && $licenses->licenseStatus !== 'Validasi Gagal') {
+                // If today's date is between the startLicenseDate and endLicenseDate 
+                if ($startDate->lte($today) && $endDate->gt($today)) {
+                    // Change the licenseStatus to "Aktif"
+                    $licenses->licenseStatus = 'Aktif';
+                } 
+                
+                // if today's date is way past the endLicenseDate
+                elseif ($endDate->lt($today)) {
+                    // Change the licenseStatus to "Tidak Berlaku"
+                    $licenses->licenseStatus = 'Tidak Berlaku';
+                }
+
+                // Update the licenses data
+                $licenses->save();
+            }
+        }
+
+        return view('sysadmin-page.sysadmin-license', [
+            "pageName" => "Sertifikat Instruktur | ",
+            "license" => $license,
+        ]);
+    }
+
+    // Driving School License Delete Logic Handler
+    public function updateLicenseStatus($id, Request $request)
+    {
+        // Validate the request if necessary
+        $request->validate([
+            'licenseStatus' => 'required|string',
+        ]);
+
+        // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
+        $license = DrivingSchoolLicense::findOrFail($id);
+    
+        // Change the licenseStatus to "Aktif"
+        $license->licenseStatus = $request['licenseStatus'];
+        // Update the certificate data
+        $license->save();
+
+        // Generate a flash message via Toastr to let user know that the process is successful
+        if ($request['licenseStatus'] === 'Sudah Divalidasi') {
+            $request->session()->flash('success', 'Izin Kursus berhasil divalidasi!');
+        } elseif ($request['licenseStatus'] === 'Validasi Gagal') {
+            $request->session()->flash('success', 'Validasi Izin Kursus digagalkan!');
+        }
+        
+        // Redirect Admin to List of Driving School License
+        return redirect()->intended('/sysAdmin-license');
+    }
+
+    // Driving School License Delete Logic Handler
+    public function deleteLicense($id, Request $request)
+    {
+        // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
+        $license = DrivingSchoolLicense::findOrFail($id);
+    
+        // Delete the thumbnail from storage
+        if ($license->licensePath) {
+            Storage::delete('drivingSchoolLicense/' . $license->licensePath);
+        }
+
+        // Delete the desired DrivingSchoolLicense
+        $license->delete();
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Izin Kursus berhasil dihapus!');
+        // Redirect Admin to List of Driving School License
+        return redirect()->intended('/sysAdmin-license');
     }
 }

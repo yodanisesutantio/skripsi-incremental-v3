@@ -172,7 +172,7 @@ class adminController extends Controller
             $endDate = Carbon::parse($license->endLicenseDate);
     
             // Avoid license that has licenseStatus of "Belum Divalidasi"
-            if ($license->licenseStatus !== 'Belum Divalidasi') {
+            if ($license->licenseStatus !== 'Belum Divalidasi' && $license->licenseStatus !== 'Validasi Gagal') {
                 // If today's date is between the startLicenseDate and endLicenseDate 
                 if ($startDate->lte($today) && $endDate->gt($today)) {
                     // Change the licenseStatus to "Aktif"

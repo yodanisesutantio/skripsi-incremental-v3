@@ -4,17 +4,17 @@
     {{-- Grid Wrapper --}}
     <div class="relative flex flex-col w-full h-dvh">
         <div class="my-8">
-            <h2 class="font-semibold font-encode text-4xl/tight text-center text-custom-white mb-2">Sertifikat Instruktur</h2>
-            <p class="font-light font-league text-lg/tight text-center text-custom-white">Berikut adalah daftar Sertifikat Instruktur yang berhasil diunggah di aplikasi KEMUDI</p>
+            <h2 class="font-semibold font-encode text-4xl/tight text-center text-custom-white mb-2">Izin Kursus Mengemudi</h2>
+            <p class="font-light font-league text-lg/tight text-center text-custom-white">Berikut adalah daftar Izin Kursus Mengemudi yang berhasil diunggah di aplikasi KEMUDI</p>
         </div>
 
         <div class="px-20 flex flex-col w-full h-full mt-8">
-            {{-- Certificate Tables --}}
+            {{-- License Tables --}}
             <div class="flex flex-col pb-28">
                 <div class="grid grid-cols-6 gap-6 px-4 pb-2 border-b border-custom-white/25">
-                    {{-- Certificate Thumbnail --}}
+                    {{-- License Thumbnail --}}
                     <div class="flex flex-col justify-center">
-                        <h2 class="font-encode font-semibold text-2xl/snug text-custom-white">Certificate</h2>
+                        <h2 class="font-encode font-semibold text-2xl/snug text-custom-white">License</h2>
                     </div>
 
                     {{-- Start Date --}}
@@ -29,7 +29,7 @@
 
                     {{-- Owner --}}
                     <div class="flex flex-col justify-center">
-                        <h2 class="font-encode font-semibold text-2xl/snug text-custom-white">Instructor</h2>
+                        <h2 class="font-encode font-semibold text-2xl/snug text-custom-white">Owner</h2>
                     </div>
 
                     {{-- Status --}}
@@ -43,49 +43,49 @@
                     </div>
                 </div>
 
-                @foreach ($certificate as $index => $certificates)
+                @foreach ($license as $index => $licenses)
                     <div class="grid grid-cols-6 gap-6 px-4 py-6 border-b border-custom-white/20 {{ $index % 2 == 0 ? 'bg-custom-dark/20' : '' }}">
-                        {{-- Certificate Thumbnail --}}
+                        {{-- License Thumbnail --}}
                         <div class="h-12 flex items-center">
-                            <a href="{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}" class="w-2/3 h-full bg-cover bg-center" style="background-image: url('{{ asset('storage/instructor_certificate/' . $certificates['certificatePath']) }}')" target="_blank"></a>
+                            <a href="{{ asset('storage/drivingSchoolLicense/' . $licenses['licensePath']) }}" class="w-2/3 h-full bg-cover bg-center" style="background-image: url('{{ asset('storage/drivingSchoolLicense/' . $licenses['licensePath']) }}')" target="_blank"></a>
                         </div>
 
                         {{-- Start Date --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($certificates->startCertificateDate)->translatedFormat('d F Y') }}</p>
+                            <p class="font-league font-normal text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($licenses->startLicenseDate)->translatedFormat('d F Y') }}</p>
                         </div>
 
                         {{-- End Date --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($certificates->endCertificateDate)->translatedFormat('d F Y') }}</p>
+                            <p class="font-league font-normal text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($licenses->endLicenseDate)->translatedFormat('d F Y') }}</p>
                         </div>
 
                         {{-- Owner --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal italic text-base/snug text-custom-white">{{ $certificates->instructor->username }}</p>
+                            <p class="font-league font-normal italic text-base/snug text-custom-white">{{ $licenses->admin->username }}</p>
                         </div>
 
                         {{-- Status --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal text-base/snug text-custom-white">{{ $certificates->certificateStatus }}</p>
+                            <p class="font-league font-normal text-base/snug text-custom-white">{{ $licenses->licenseStatus }}</p>
                         </div>
 
                         {{-- Action --}}
                         <div class="h-12 flex flex-row gap-8 items-center justify-center">
-                            @if ($certificates->certificateStatus !== 'Aktif' && $certificates->certificateStatus !== 'Tidak Berlaku')
-                                {{-- Validate Certificate --}}
-                                <form action="{{ url('/sysAdmin-certificate/status/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor Certificate?');">
+                            @if ($licenses->licenseStatus !== 'Aktif' && $licenses->licenseStatus !== 'Tidak Berlaku')
+                                {{-- Validate License --}}
+                                <form action="{{ url('/sysAdmin-license/status/' . $licenses->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor License?');">
                                     @csrf
 
-                                    <input type="hidden" name="certificateStatus" value="Sudah Divalidasi">
+                                    <input type="hidden" name="licenseStatus" value="Sudah Divalidasi">
                                     <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg></button>
                                 </form>
 
-                                {{-- Invalidate Certificate --}}
-                                <form action="{{ url('/sysAdmin-certificate/status/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to invalidate this Instructor Certificate?');">
+                                {{-- Invalidate License --}}
+                                <form action="{{ url('/sysAdmin-license/status/' . $licenses->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to invalidate this Instructor License?');">
                                     @csrf
 
-                                    <input type="hidden" name="certificateStatus" value="Validasi Gagal">
+                                    <input type="hidden" name="licenseStatus" value="Validasi Gagal">
                                     <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg></button>
                                 </form>
                             @else
@@ -96,7 +96,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="opacity-40" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg>
                             @endif
 
-                            <form action="{{ url('/sysAdmin-certificate/delete/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to delete this certificate?');">
+                            <form action="{{ url('/sysAdmin-license/delete/' . $licenses->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to delete this license?');">
                                 @method('delete')
                                 @csrf
 
@@ -112,7 +112,7 @@
         <div class="fixed bottom-5 left-1/2 bg-custom-dark transform -translate-x-1/2 flex flex-row gap-2 p-2 rounded-full">
             {{-- Account --}}
             <a href="/sysAdmin-index" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Pengguna</a>
-            {{-- Certificate --}}
+            {{-- License --}}
             <a href="/sysAdmin-certificate" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug bg-custom-green/25 rounded-full cursor-pointer duration-300">Sertifikat</a>
             {{-- Licenses --}}
             <a href="/sysAdmin-license" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Izin Kursus</a>
