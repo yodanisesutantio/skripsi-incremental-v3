@@ -52,7 +52,7 @@
 
                         {{-- Start Date --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal italic text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($certificates->startCertificateDate)->translatedFormat('d F Y') }}</p>
+                            <p class="font-league font-normal text-base/snug text-custom-white">{{ \Carbon\Carbon::parse($certificates->startCertificateDate)->translatedFormat('d F Y') }}</p>
                         </div>
 
                         {{-- End Date --}}
@@ -62,7 +62,7 @@
 
                         {{-- Owner --}}
                         <div class="h-12 flex items-center">
-                            <p class="font-league font-normal text-base/snug text-custom-white">{{ $certificates->instructor->username }}</p>
+                            <p class="font-league font-normal italic text-base/snug text-custom-white">{{ $certificates->instructor->username }}</p>
                         </div>
 
                         {{-- Status --}}
@@ -71,21 +71,28 @@
                         </div>
 
                         {{-- Action --}}
-                        <div class="h-12 flex flex-row gap-2 items-center">
-                            {{-- Update Status --}}
-                            <form action="{{ url('') }}" method="POST" class="w-full" onsubmit="return confirm('Are you sure you want to reset the password to 12345678?');">
+                        <div class="h-12 flex flex-row gap-8 items-center justify-center">
+                            {{-- Validate Certificate --}}
+                            <form action="{{ url('') }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor Certificate?');">
                                 @csrf
 
-                                <input type="hidden" name="password" value="12345678">
-                                <button type="submit" class="w-full py-3 font-encode font-semibold text-custom-destructive bg-[#FEE2E2] rounded-lg hover:bg-custom-white-hover duration-300">Validate</button>
+                                <input type="hidden" name="certificateStatus" value="Sudah Divalidasi">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
                             </form>
 
-                            {{-- Delete Certificate --}}
-                            <form action="{{ url('') }}" method="POST" class="w-full" onsubmit="return confirm('Are you sure you want to reset the password to 12345678?');">
+                            {{-- Invalidate Certificate --}}
+                            <form action="{{ url('') }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to invalidate this Instructor Certificate?');">
                                 @csrf
 
-                                <input type="hidden" name="password" value="12345678">
-                                <button type="submit" class="w-full py-3 font-encode font-semibold text-custom-destructive bg-[#FEE2E2] rounded-lg hover:bg-custom-white-hover duration-300">Delete</button>
+                                <input type="hidden" name="certificateStatus" value="Validasi Gagal">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#FD3124" d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></svg>
+                            </form>
+
+                            <form action="{{ url('/sysAdmin-certificate/delete/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to delete this certificate?');">
+                                @method('delete')
+                                @csrf
+
+                                <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#F6F6F6" d="M216 48h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a8 8 0 0 0 0 16h8v144a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16V64h8a8 8 0 0 0 0-16M96 40a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm96 168H64V64h128Zm-80-104v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0m48 0v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0"/></svg></button>
                             </form>
                         </div>
                     </div>

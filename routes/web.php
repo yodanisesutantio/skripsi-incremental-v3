@@ -169,6 +169,8 @@ Route::middleware(['auth', 'App\Http\Middleware\sysAdminMiddleware'])->group(fun
     Route::post('/sysAdmin-reset-password/{id}', [systemController::class, 'resetPassword']);
     // System Admin Manage Instructor Certificate Page
     Route::get('/sysAdmin-certificate', [systemController::class, 'certificatePage']);
+    // System Admin Delete Instructor Certificate Logic Handler
+    Route::delete('/sysAdmin-certificate/delete/{id}', [systemController::class, 'deleteCertificate']);
 });
 
 // Instructor Specific Route

@@ -58,12 +58,60 @@ class systemController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Get today's date and localized it to Indonesian
+        $today = Carbon::today();
+
         // Access User Tables
         $certificate = InstructorCertificate::all();
+
+        // Run through the Instructor Certificate collection
+        foreach ($certificate as $certificates) {
+            // Localize the startCertificateDate to Indonesian
+            $startDate = Carbon::parse($certificates->startCertificateDate);
+            // Localize the endCertificateDate to Indonesian
+            $endDate = Carbon::parse($certificates->endCertificateDate);
+    
+            // Avoid certificate that has certificateStatus of "Belum Divalidasi"
+            if ($certificates->certificateStatus !== 'Belum Divalidasi') {
+                // If today's date is between the startCertificateDate and endCertificateDate 
+                if ($startDate->lte($today) && $endDate->gt($today)) {
+                    // Change the certificateStatus to "Aktif"
+                    $certificates->certificateStatus = 'Aktif';
+                } 
+                
+                // if today's date is way past the endCertificateDate
+                elseif ($endDate->lt($today)) {
+                    // Change the certificateStatus to "Tidak Berlaku"
+                    $certificates->certificateStatus = 'Tidak Berlaku';
+                }
+
+                // Update the certificate data
+                $certificates->save();
+            }
+        }
 
         return view('sysadmin-page.sysadmin-certificate', [
             "pageName" => "Sertifikat Instruktur | ",
             "certificate" => $certificate,
         ]);
+    }
+
+    // Instructor Certificate Delete Logic Handler
+    public function deleteCertificate($id, Request $request)
+    {
+        // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
+        $certificate = InstructorCertificate::findOrFail($id);
+    
+        // Delete the thumbnail from storage
+        if ($certificate->certificatePath) {
+            Storage::delete('instructor_certificate/' . $certificate->certificatePath);
+        }
+
+        // Delete the desired InstructorCertificate
+        $certificate->delete();
+        // Generate a flash message via Toastr to let user know that the process is successful
+        $request->session()->flash('success', 'Sertifikat Instruktur berhasil dihapus!');
+        // Redirect Admin to List of Instructor Certificate
+        return redirect()->intended('/sysAdmin-certificate');
     }
 }

@@ -72,7 +72,7 @@ class InstructorCertificateController extends Controller
         // Delete the desired InstructorCertificate
         $certificate->delete();
         // Generate a flash message via Toastr to let user know that the process is successful
-        $request->session()->flash('success', 'Sertifikat Kursus berhasil dihapus!');
+        $request->session()->flash('success', 'Sertifikat Instruktur berhasil dihapus!');
         // Redirect Admin to List of Instructor Certificate
         return redirect()->intended('/instructor-certificate');
     }
