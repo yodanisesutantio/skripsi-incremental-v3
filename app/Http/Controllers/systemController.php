@@ -8,6 +8,7 @@ use App\Models\User; // Access User Tables
 use App\Models\Course; // Access Course Tables
 use App\Models\CourseSchedule; // Access Course Schedule Tables
 use App\Models\CourseInstructor; // Access Course Instructor Tables
+use App\Models\InstructorCertificate; // Access Course Instructor Tables
 use App\Models\Enrollment; // Access Enrollment Tables
 use App\Models\PaymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
@@ -23,7 +24,7 @@ class systemController extends Controller
         Carbon::setLocale('id');
 
         // Access User Tables
-        $user = User::where('id', '!=', Auth::id())->get();
+        $user = User::where('role', '!=', 'sysAdmin')->get();
 
         // dd($user);
 
@@ -57,8 +58,12 @@ class systemController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Access User Tables
+        $certificate = InstructorCertificate::all();
+
         return view('sysadmin-page.sysadmin-certificate', [
             "pageName" => "Sertifikat Instruktur | ",
+            "certificate" => $certificate,
         ]);
     }
 }

@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
             'availability' => 0,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
-            'admin_id' => 1
+            'admin_id' => 2
         ]);
         User::create([
             'fullname' => 'Instruktur Manual',
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
-            'admin_id' => 1
+            'admin_id' => 2
         ]);
         User::create([
             'fullname' => 'Instruktur Matic',
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             'availability' => 0,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
-            'admin_id' => 1
+            'admin_id' => 2
         ]);
         User::create([
             'fullname' => 'Siswa 1',
@@ -133,21 +133,21 @@ class DatabaseSeeder extends Seeder
             'startLicenseDate' => '2024-08-21',
             'endLicenseDate' => '2026-08-21',
             'licenseStatus' => 'Sudah Tervalidasi',
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2022-08-21',
             'endLicenseDate' => '2024-08-21',
             'licenseStatus' => 'Aktif',
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         DrivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2020-08-21',
             'endLicenseDate' => '2022-08-21',
             'licenseStatus' => 'Tidak Berlaku',
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
 
         InstructorCertificate::create([
@@ -155,13 +155,6 @@ class DatabaseSeeder extends Seeder
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Belum Divalidasi',
-            'instructor_id' => 3,
-        ]);
-        InstructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
-            'startCertificateDate' => '2020-08-01',
-            'endCertificateDate' => '2025-08-01',
-            'certificateStatus' => 'Sudah Divalidasi',
             'instructor_id' => 4,
         ]);
         InstructorCertificate::create([
@@ -170,6 +163,13 @@ class DatabaseSeeder extends Seeder
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Sudah Divalidasi',
             'instructor_id' => 5,
+        ]);
+        InstructorCertificate::create([
+            'certificatePath' => '1722614055.webp',
+            'startCertificateDate' => '2020-08-01',
+            'endCertificateDate' => '2025-08-01',
+            'certificateStatus' => 'Sudah Divalidasi',
+            'instructor_id' => 6,
         ]);
 
         Course::create([
@@ -181,7 +181,7 @@ class DatabaseSeeder extends Seeder
             'course_duration' => 90,
             'car_type' => "Manual",
             'can_use_own_car' => false,
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         Course::create([
             'course_name' => 'Kursus Mobil Matic untuk Pemula',
@@ -193,7 +193,7 @@ class DatabaseSeeder extends Seeder
             'car_type' => "Automatic",
             'can_use_own_car' => false,
             'course_availability' => 0,
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         Course::create([
             'course_name' => 'Kursus Kilat Mobil Manual',
@@ -204,7 +204,7 @@ class DatabaseSeeder extends Seeder
             'course_duration' => 90,
             'car_type' => "Manual",
             'can_use_own_car' => false,
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         Course::create([
             'course_name' => 'Kursus Privat',
@@ -215,7 +215,7 @@ class DatabaseSeeder extends Seeder
             'course_duration' => 120,
             'car_type' => "Both",
             'can_use_own_car' => true,
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
 
         // Course::create([
@@ -276,8 +276,8 @@ class DatabaseSeeder extends Seeder
 
         Enrollment::create([
             'course_id' => 1,
-            'instructor_id' => 4,
-            'student_id' => 6,
+            'instructor_id' => 5,
+            'student_id' => 7,
             'student_real_name' => 'Nama Saya Budi',
             'student_gender' => 'Pria',
             'student_birth_of_place' => 'Madiun',
@@ -289,8 +289,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 2,
-            'instructor_id' => 5,
-            'student_id' => 7,
+            'instructor_id' => 6,
+            'student_id' => 8,
             'student_real_name' => 'Nama Saya Ani',
             'student_gender' => 'Wanita',
             'student_birth_of_place' => 'Trenggalek',
@@ -302,8 +302,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 4,
-            'instructor_id' => 4,
-            'student_id' => 8,
+            'instructor_id' => 5,
+            'student_id' => 9,
             'student_real_name' => 'Nama Saya Arya',
             'student_gender' => 'Pria',
             'student_birth_of_place' => 'Gresik',
@@ -315,8 +315,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Enrollment::create([
             'course_id' => 1,
-            'instructor_id' => 3,
-            'student_id' => 6,
+            'instructor_id' => 4,
+            'student_id' => 7,
             'student_real_name' => 'Lolok',
             'student_gender' => 'Pria',
             'student_birth_of_place' => 'Banjarmasin',
@@ -329,27 +329,23 @@ class DatabaseSeeder extends Seeder
 
         CourseInstructor::create([
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
         ]);
         CourseInstructor::create([
             'course_id' => 1,
+            'instructor_id' => 5,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 2,
             'instructor_id' => 4,
         ]);
         CourseInstructor::create([
             'course_id' => 2,
-            'instructor_id' => 3,
-        ]);
-        CourseInstructor::create([
-            'course_id' => 2,
-            'instructor_id' => 5,
+            'instructor_id' => 6,
         ]);
         CourseInstructor::create([
             'course_id' => 3,
-            'instructor_id' => 4,
-        ]);
-        CourseInstructor::create([
-            'course_id' => 4,
-            'instructor_id' => 3,
+            'instructor_id' => 5,
         ]);
         CourseInstructor::create([
             'course_id' => 4,
@@ -358,13 +354,17 @@ class DatabaseSeeder extends Seeder
         CourseInstructor::create([
             'course_id' => 4,
             'instructor_id' => 5,
+        ]);
+        CourseInstructor::create([
+            'course_id' => 4,
+            'instructor_id' => 6,
         ]);
 
         // Pertemuan 1, Enrollment 1
         CourseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-11 08:00:00',
             'end_time' => '2024-09-11 09:30:00',
             'meeting_number' => 1,
@@ -375,7 +375,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-18 08:00:00',
             'end_time' => '2024-09-18 09:30:00',
             'meeting_number' => 2,
@@ -386,7 +386,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-25 08:00:00',
             'end_time' => '2024-09-25 09:30:00',
             'meeting_number' => 3,
@@ -397,7 +397,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-01 08:00:00',
             'end_time' => '2024-10-01 09:30:00',
             'meeting_number' => 4,
@@ -408,7 +408,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-08 08:00:00',
             'end_time' => '2024-10-08 09:30:00',
             'meeting_number' => 5,
@@ -420,7 +420,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-11 15:30:00',
             'end_time' => '2024-09-11 17:00:00',
             'meeting_number' => 1,
@@ -431,7 +431,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-18 15:30:00',
             'end_time' => '2024-09-18 17:00:00',
             'meeting_number' => 2,
@@ -442,7 +442,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-09-25 15:30:00',
             'end_time' => '2024-09-25 17:00:00',
             'meeting_number' => 3,
@@ -453,7 +453,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-01 15:30:00',
             'end_time' => '2024-10-01 17:00:00',
             'meeting_number' => 4,
@@ -464,7 +464,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-08 15:30:00',
             'end_time' => '2024-10-08 17:00:00',
             'meeting_number' => 5,
@@ -476,7 +476,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-24 13:00:00',
             'end_time' => '2024-10-24 14:30:00',
             'meeting_number' => 1,
@@ -487,7 +487,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-10-31 13:00:00',
             'end_time' => '2024-10-31 14:30:00',
             'meeting_number' => 2,
@@ -498,7 +498,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-11-07 13:00:00',
             'end_time' => '2024-11-07 14:30:00',
             'meeting_number' => 3,
@@ -509,7 +509,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-11-11 13:00:00',
             'end_time' => '2024-11-11 14:30:00',
             'meeting_number' => 4,
@@ -520,7 +520,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
-            'instructor_id' => 4,
+            'instructor_id' => 5,
             'start_time' => '2024-11-18 13:00:00',
             'end_time' => '2024-11-18 14:30:00',
             'meeting_number' => 5,
@@ -532,7 +532,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
             'start_time' => '2024-08-11 08:00:00',
             'end_time' => '2024-08-11 09:30:00',
             'meeting_number' => 1,
@@ -543,7 +543,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
             'start_time' => '2024-08-18 08:00:00',
             'end_time' => '2024-08-18 09:30:00',
             'meeting_number' => 2,
@@ -554,7 +554,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
             'start_time' => '2024-08-25 08:00:00',
             'end_time' => '2024-08-25 09:30:00',
             'meeting_number' => 3,
@@ -565,7 +565,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
             'start_time' => '2024-09-01 08:00:00',
             'end_time' => '2024-09-01 09:30:00',
             'meeting_number' => 4,
@@ -576,7 +576,7 @@ class DatabaseSeeder extends Seeder
         CourseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
-            'instructor_id' => 3,
+            'instructor_id' => 4,
             'start_time' => '2024-09-08 08:00:00',
             'end_time' => '2024-09-08 09:30:00',
             'meeting_number' => 5,
@@ -605,14 +605,14 @@ class DatabaseSeeder extends Seeder
             'payment_receiver_name' => "Agus",
             'payment_address' => Crypt::encryptString("282831039210"),
             'is_payment_active' => 1,
-            'admin_id' => 1,
+            'admin_id' => 2,
         ]);
         PaymentMethod::create([
             'payment_vendor' => "Mandiri",
             'payment_receiver_name' => "Kursus Magetan",
             'payment_address' => Crypt::encryptString("283101263159"),
             'is_payment_active' => 1,
-            'admin_id' => 2,
+            'admin_id' => 3,
         ]);
     }
 }
