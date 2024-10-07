@@ -24,21 +24,30 @@
             </div>
         {{-- When Admin doesn't have any courses --}}
         @elseif (auth()->user()->courses()->count() == 0)
-            <div class="my-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
-                <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+            <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                     <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
                     <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
                 </div>
             </div>
         {{-- When Admin doesn't have any instructor --}}
         @elseif (auth()->user()->courses()->count() == 0)
-        <div class="my-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
-            <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
-                <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+            <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                    <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
+                    <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+                </div>
             </div>
-        </div>
+        {{-- When Admin doesn't have Active Driving School Licenses --}}
+        @elseif (!auth()->user()->drivingSchoolLicense()->where('licenseStatus', 'Aktif')->exists())
+            <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                    <p>Anda tidak memiliki izin kursus aktif. Segera unggah izin kursus baru!</p>
+                    <a class="underline lg:hover:no-underline text-right" href="/admin-driving-school-license">Kelola Izin</a>
+                </div>
+            </div>
         @endif
+        
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Hi, {{ auth()->user()->fullname }}</p>
         @if ($incomingSchedule)
             <h1 class="mb-3 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl/tight">Kursus Mendatang</h1>

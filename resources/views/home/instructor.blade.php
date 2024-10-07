@@ -5,6 +5,16 @@
 @section('content')
     {{-- Greetings Element --}}
     <div class="flex flex-col mt-5 mb-8 lg:mb-11 px-6 lg:px-[4.25rem]">
+        {{-- When Instructor doesn't have Active Instructor Certificates --}}
+        @if (!auth()->user()->instructorCertificate()->where('certificateStatus', 'Aktif')->exists())
+            <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                    <p>Anda tidak memiliki sertifikat aktif. Segera unggah sertifikat baru!</p>
+                    <a class="underline lg:hover:no-underline text-right" href="/admin-driving-school-license">Kelola Sertifikat</a>
+                </div>
+            </div>
+        @endif
+
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Hi, {{ auth()->user()->fullname }}</p>
         @if ($incomingSchedule)
             <h1 class="mb-3 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl/tight">Kursus Mendatang</h1>
