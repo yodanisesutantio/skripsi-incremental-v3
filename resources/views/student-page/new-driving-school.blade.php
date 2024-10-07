@@ -58,7 +58,7 @@
                                             <h3 class="mt-4 font-league font-semibold text-xl/snug lg:text-2xl/snug text-custom-white">Dokumen sedang kami tinjau</h3>
                                             <p class="font-league text-sm lg:text-base text-center text-custom-white">Jangan khawatir, kami akan memberitahukan anda jika terdapat kemajuan selambat-lambatnya selama 24 Jam. <span class="font-semibold">Anda masih dapat mengunggah ulang dokumen disini jika anda tidak yakin.</span></p>
                                         </div>
-                                    @elseif ($user->drivingSchoolLicense && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                                    @elseif ($user->drivingSchoolLicense && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi' || $user->drivingSchoolLicense->first()->licenseStatus === 'Aktif')
                                         {{-- License Status Overlay --}}
                                         <div class="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full px-6 bg-custom-dark/75 hover:bg-custom-dark/55 duration-300" id="licensePath_status">
                                             {{-- Checkmark Icon --}}
@@ -129,7 +129,7 @@
                             @enderror
                         </div>
     
-                        @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                        @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi' || $user->drivingSchoolLicense->first()->licenseStatus === 'Aktif')
                             {{-- Button Groups for Desktop View --}}
                             <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 lg:px-28 items-center justify-end bg-custom-white hidden">
                                 <a href="/new-driving-school/account-info" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</a>
@@ -148,7 +148,7 @@
             <div class="flex flex-col gap-3 fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden" id="mobile-button-groups">
                 <button type="button" id="mobileNextButton" class="next-button w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Unggah Izin Kursus</button>
                 <button type="submit" id="mobileSubmitButton" class="hidden w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Kirim Izin Kursus</button>
-                @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi')
+                @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()->licenseStatus === 'Sudah Tervalidasi' || $user->drivingSchoolLicense->first()->licenseStatus === 'Aktif')
                     <a href="/new-driving-school/account-info" class="w-full py-4 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center text-lg/none text-custom-white-hover font-semibold font-league duration-500">Lanjut</a>
                 @endif
                 <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>

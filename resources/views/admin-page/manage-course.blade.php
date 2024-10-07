@@ -9,7 +9,7 @@
 
     {{-- Create New Course Button --}}
     <div class="flex">
-        <a href="admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
+        <a href="/admin-manage-course/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Kelas</div></a>
     </div>
 
     {{-- If Admin's haven't added any Course, display this --}}

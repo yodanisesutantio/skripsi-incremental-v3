@@ -5,6 +5,40 @@
 @section('content')
     {{-- Greetings Element --}}
     <div class="flex flex-col mt-5 mb-8 lg:mb-11 px-6 lg:px-[4.25rem]">
+        {{-- When Admin doesn't have any instructor or courses --}}
+        @if (auth()->user()->instructors()->count() == 0 && auth()->user()->courses()->count() == 0)
+            <div class="flex flex-col gap-3 mb-5">
+                <div class="p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                    <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                        <p>Anda belum mempunyai Instruktur Kursus!</p>
+                        <a class="underline lg:hover:no-underline text-right" href="/admin-manage-instructor/create">Tambah Instruktur</a>
+                    </div>
+                </div>
+    
+                <div class="p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                    <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                        <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
+                        <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Kelas</a>
+                    </div>
+                </div>
+            </div>
+        {{-- When Admin doesn't have any courses --}}
+        @elseif (auth()->user()->courses()->count() == 0)
+            <div class="my-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                    <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
+                    <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+                </div>
+            </div>
+        {{-- When Admin doesn't have any instructor --}}
+        @elseif (auth()->user()->courses()->count() == 0)
+        <div class="my-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+            <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
+                <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+            </div>
+        </div>
+        @endif
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Hi, {{ auth()->user()->fullname }}</p>
         @if ($incomingSchedule)
             <h1 class="mb-3 lg:mb-5 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-4xl/tight">Kursus Mendatang</h1>
