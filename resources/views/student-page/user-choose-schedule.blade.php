@@ -91,7 +91,7 @@
                     <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
                     <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
                     <button type="button" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-                    <button type="submit" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
+                    <button type="submit" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
                 </div>
             </form>
         </div>
@@ -102,7 +102,7 @@
         <a href="{{ url('/admin-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
         <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
         <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-        <button type="submit" id="mobileSubmitButton" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Ajukan</button>
+        <button type="submit" id="mobileSubmitButton" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
     </div>
 
     {{-- Swiper CDN --}}
