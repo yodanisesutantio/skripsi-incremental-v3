@@ -141,7 +141,7 @@ class CourseScheduleController extends Controller
                 // Check for minimum schedule time
                 if ($start_time < now()->addHours(24) || $end_time < now()->addHours(24)) {
                     $request->session()->flash('error', 'Pastikan jadwal baru berlangsung tidak kurang dari 24 jam');
-                    return redirect()->back();
+                    return redirect()->back()->withInput();
                 }
 
                 // Check for duplicate schedules in the user's input
@@ -167,7 +167,7 @@ class CourseScheduleController extends Controller
                 // If there's a conflict, return error
                 if ($existingSchedule) {
                     $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus di tanggal ' . $course_date . ' pada jam ' . $course_time . '. Silahkan Ubah Opsi Tanggal atau Jam Kursus');
-                    return redirect()->back();
+                    return redirect()->back()->withInput();
                 }
 
                 // Prepare the new schedule for later saving

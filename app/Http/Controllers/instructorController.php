@@ -480,7 +480,7 @@ class instructorController extends Controller
             $endDate = Carbon::parse($certificate->endCertificateDate);
     
             // Avoid certificate that has certificateStatus of "Belum Divalidasi" or "Validasi Gagal"
-            if ($certificate->certificateStatus !== 'Belum Divalidasi' && $certificates->certificateStatus !== 'Validasi Gagal') {
+            if ($certificate->certificateStatus !== 'Belum Divalidasi' && $certificate->certificateStatus !== 'Validasi Gagal') {
                 // If today's date is between the startCertificateDate and endCertificateDate 
                 if ($startDate->lte($today) && $endDate->gt($today)) {
                     // Change the certificateStatus to "Aktif"

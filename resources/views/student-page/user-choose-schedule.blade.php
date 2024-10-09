@@ -42,7 +42,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            {{-- Update Schedule Form --}}
+            {{-- New Schedule Form --}}
             <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 

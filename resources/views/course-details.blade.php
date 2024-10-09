@@ -125,7 +125,7 @@
                             @else
                                 <div class="bg-center bg-cover rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
                             @endif
-                                    <div class="relative flex flex-col flex-shrink-0 w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] justify-end gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
+                                    <a href="{{ url('/course/' . $recommendedClass->course_name . '/' . $recommendedClass->id) }}" class="relative flex flex-col flex-shrink-0 w-48 lg:w-[22.5rem] h-60 lg:h-[14rem] justify-end gap-3 rounded-xl lg:cursor-pointer lg:hover:bg-custom-dark-low lg:transition-colors duration-500">
                                         <div class="flex flex-col px-3 py-3 rounded-xl backdrop-blur-sm bg-custom-dark-low text-custom-white font-league">
                                             <p class="text-sm/tight lg:text-lg/tight font-light lg:mb-[-2px]">{{ $recommendedClass->course_length }} Pertemuan</p>
                                             <h3 class="text-xl/tight lg:text-2xl/tight font-semibold truncate mb-1 lg:mb-[0px]">{{ $recommendedClass->course_name }}</h3>
@@ -134,7 +134,7 @@
                                         <div class="absolute top-0 right-0 bg-custom-destructive text-custom-white font-league px-3 pt-2 pb-1 lg:px-4 lg:pt-3 lg:pb-2 rounded-bl-xl rounded-tr-xl">
                                             <p class="text-md lg:text-xl lg:font-medium">Rp. {{ number_format($recommendedClass->course_price, 0, ',', '.') }},-</p>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach

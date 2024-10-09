@@ -309,6 +309,19 @@ class userController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Checking how many student that still has incoming schedules
+        $activeEnrollmentsCount = $course->enrollments->filter(function ($enrollment) {
+            return $enrollment->schedule->contains(function ($schedule) {
+                return $schedule->end_time > now();
+            });
+        })->count();
+
+        // Check if the number of active enrollments is greater than or equal to the course quota
+        if ($activeEnrollmentsCount >= $course->course_quota) {
+            // Redirect back with a message or error notification
+            return redirect()->back()->with('error', 'Kuota Kelas Kursus sudah terpenuhi. Silahkan pilih kelas lain');
+        }
+
         return view('student-page.course-registration-form', [
             "pageName" => "Form Pendaftaran Kursus | ",
             "course" => $course,
