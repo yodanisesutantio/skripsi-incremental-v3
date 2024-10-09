@@ -438,7 +438,7 @@ class adminController extends Controller
             Auth::login($newUser);
             $request->session()->flash('success', 'Data Kursus berhasil dihapus. Sekarang anda adalah pengguna umum!');
             $request->session()->flash('info', 'Password akun anda di atur ulang menjadi "12345678"');
-            return redirect('/user-profile'); // Redirect to user profile
+            return redirect('/user-home'); // Redirect to user Index
         }
 
         else {

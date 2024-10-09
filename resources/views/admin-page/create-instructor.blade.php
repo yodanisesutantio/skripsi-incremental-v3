@@ -129,7 +129,7 @@
                     <div class="flex flex-col gap-2">
                         <label for="age" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Usia Instruktur (opsional)</label>
                         {{-- Input Number Column --}}
-                        <input type="number" name="age" id="age" min="18" max="99" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
+                        <input type="number" name="age" id="age" min="18" max="70" placeholder="Usia minimal adalah 18 tahun" class="w-full p-4 font-league font-medium text-lg/[0] bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('age') border-2 border-custom-destructive @enderror" value="{{ old('age') }}">
                         {{-- Error in Validation Message --}}
                         @error('age')
                             <span class="text-custom-destructive">{{ $message }}</span>

@@ -311,7 +311,7 @@ class instructorController extends Controller
             'hash_for_profile_picture' => 'nullable|mimes:jpeg,png,jpg,webp|max:2048',
             'fullname' => 'required|max:255',
             'username' => 'required|max:255|unique:users',
-            'age' => 'nullable|integer|min:18|max:99',
+            'age' => 'nullable|integer|min:18|max:70',
             'description' => 'nullable|max:255',
             'phone_number' => 'required|max:20|unique:users',
             'password' => 'required|min:5|max:255|confirmed',

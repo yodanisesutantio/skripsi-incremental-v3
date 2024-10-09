@@ -28,13 +28,13 @@
                 <div class="flex flex-row my-5 lg:hidden">
                     {{-- Course Price Range. For marketing purpose --}}
                     <div class="flex flex-col items-center justify-center w-1/2 border-r border-custom-grey px-2 py-1">
-                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
-                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rentang Harga Kursus</p>
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark whitespace-nowrap">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey whitespace-nowrap">Rentang Harga Kursus</p>
                     </div>
                     {{-- Course Length Average. For student consideration --}}
                     <div class="flex flex-col items-center justify-center w-1/2 px-2 py-1">
-                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
-                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark whitespace-nowrap">{{ $averageCourseLength }}x</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey whitespace-nowrap">Rata-Rata Pertemuan</p>
                     </div>
                 </div>
 
@@ -42,13 +42,13 @@
                 <div class="lg:flex lg:flex-col lg:my-0 hidden">
                     {{-- Course Price Range. For marketing purpose --}}
                     <div id="coursePrice" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 border-r lg:border-r-0 border-custom-grey px-2 lg:px-0 py-1 lg:py-0">
-                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
-                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rentang Harga Kursus</p>
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark whitespace-nowrap">{{ $minCoursePrice }} - {{ $maxCoursePrice }}</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey whitespace-nowrap">Rentang Harga Kursus</p>
                     </div>
                     {{-- Course Length Average. For student consideration --}}
                     <div id="courseLength" class="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:w-80 lg:gap-2 px-2 lg:px-0 py-1 lg:py-0">
-                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark">{{ $averageCourseLength }}x</h2>
-                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey">Rata-Rata Pertemuan</p>
+                        <h2 class="font-league font-semibold text-[21px] text-center text-custom-dark whitespace-nowrap">{{ $averageCourseLength }}x</h2>
+                        <p class="font-league font-normal text-[14px]/tight lg:text-[21px]/tight text-center text-custom-grey whitespace-nowrap">Rata-Rata Pertemuan</p>
                     </div>
                 </div>
                 
