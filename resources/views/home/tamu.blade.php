@@ -144,8 +144,8 @@
 
             // No Navigation Button
             navigation: {
-                prevEl: '.prevSchool',
-                nextEl: '.nextSchool',
+                prevEl: '#prevSchool',
+                nextEl: '#nextSchool',
             },
         });
 
