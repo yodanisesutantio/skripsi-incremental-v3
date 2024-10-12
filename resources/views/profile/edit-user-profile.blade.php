@@ -58,7 +58,7 @@
                 <div class="swiper-wrapper">
                     {{-- Account Info Form --}}
                     <div class="swiper-slide overflow-y-auto">
-                        <form action="/edit-user-account-info" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0">
+                        <form action="{{ url('/edit-user-account-info') }}" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pb-0" id="account-info-form">
                             @csrf                    
                             {{-- Form Sub Headers --}}
                             <div class="flex flex-col gap-1 mb-4">
@@ -173,7 +173,7 @@
 
                     {{-- Security --}}
                     <div class="swiper-slide">
-                        <form action="/edit-user-password" method="post" class="px-6">
+                        <form action="{{ url('/edit-user-password') }}" method="post" class="px-6" id="edit-password-form">
                             @csrf
                             {{-- Form Sub Headers --}}
                             <div class="mb-4">
@@ -220,7 +220,7 @@
 
             {{-- Button Groups for Desktop View --}}
             <div class="lg:flex flex-row w-full lg:mt-5 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+                <a href="{{ url('/user-profile') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
 
                 {{-- Submit Edit Profile Button --}}
                 <button type="submit" id="submitEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
@@ -233,7 +233,7 @@
 
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
-        <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
+        <a href="{{ url('/user-profile') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover cancelLink">Batal</a>
 
         {{-- Submit Edit Profile Button --}}
         <button type="submit" id="mobileEditProfileForms" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
@@ -317,12 +317,12 @@
 
         // Function to submit editProfile forms
         $('#submitEditProfileForms, #mobileEditProfileForms').on('click', function() {
-            $('form[action="/edit-user-account-info"]').submit();
+            $('#account-info-form').submit();
         });
 
         // Function to submit editPassword forms
         $('#submitEditPasswordForms, #mobileEditPasswordForms').on('click', function() {
-            $('form[action="/edit-user-password"]').submit();
+            $('#edit-password-form').submit();
         });
 
         // Tel Input Script

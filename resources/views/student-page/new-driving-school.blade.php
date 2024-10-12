@@ -12,7 +12,7 @@
                             <div class="flex flex-col gap-4 lg:gap-6">
                                 <h1 class="text-2xl/tight lg:text-4xl lg:text-center text-custom-dark font-encode tracking-tight font-semibold">Syarat-syarat Pendaftaran Kursus Mengemudi</h1>
                                 <div class="flex flex-col gap-2">
-                                    <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Anda bisa menjadi instruktur melalui Pemilik / Admin yang sudah terdaftar di KEMUDI. <span class="font-semibold underline text-custom-green"><a href="/contact-us">Bagaimana mendapat undangan mengajar?</a></span></p>
+                                    <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Anda bisa menjadi instruktur melalui Pemilik / Admin yang sudah terdaftar di KEMUDI. <span class="font-semibold underline text-custom-green"><a href="{{ url('/contact-us') }}">Bagaimana mendapat undangan mengajar?</a></span></p>
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Atau anda bisa mendaftarkan kursus milik anda di KEMUDI. Anda wajib mengunggah dokumen Izin Penyelenggaraan Pendidikan dan Pelatihan Mengemudi Kendaraan Bermotor sebagaimana yang diatur pada <span class="font-semibold">Peraturan Daerah Kota Surabaya No. 22 Tahun 2012.</span></p>
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Dokumen yang anda unggah akan kami tinjau paling lama 1 hari (24 Jam), setiap kemajuan dan masalah yang kami temui akan kami notifikasikan ke anda.</p>
                                     <p class="text-custom-dark lg:text-center text-lg/tight lg:text-xl/tight font-league">Selain dokumen izin penyelenggaraan kursus, anda diwajibkan untuk memiliki 1 (satu) No. Rekening untuk didaftarkan sebagai sarana transaksi pembayaran jasa anda</p>
@@ -21,7 +21,7 @@
 
                             {{-- Button Groups for Desktop View --}}
                             <div class="lg:flex flex-row w-full lg:mt-8 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                                <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
+                                <a href="{{ url('/user-profile') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
                                 <button type="button" class="next-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Unggah Izin Kursus</button>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                         @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()?->licenseStatus === 'Sudah Tervalidasi' || $user->drivingSchoolLicense->first()?->licenseStatus === 'Aktif')
                             {{-- Button Groups for Desktop View --}}
                             <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 lg:px-28 items-center justify-end bg-custom-white hidden">
-                                <a href="/new-driving-school/account-info" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</a>
+                                <a href="{{ url('/new-driving-school/account-info') }}" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Lanjut</a>
                             </div>
                         @else
                             {{-- Button Groups for Desktop View --}}
@@ -149,9 +149,9 @@
                 <button type="button" id="mobileNextButton" class="next-button w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Unggah Izin Kursus</button>
                 <button type="submit" id="mobileSubmitButton" class="hidden w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Kirim Izin Kursus</button>
                 @if ($user->drivingSchoolLicense->isNotEmpty() && $user->drivingSchoolLicense->first()?->licenseStatus === 'Sudah Tervalidasi' || $user->drivingSchoolLicense->first()?->licenseStatus === 'Aktif')
-                    <a href="/new-driving-school/account-info" class="w-full py-4 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center text-lg/none text-custom-white-hover font-semibold font-league duration-500">Lanjut</a>
+                    <a href="{{ url('/new-driving-school/account-info') }}" class="w-full py-4 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center text-lg/none text-custom-white-hover font-semibold font-league duration-500">Lanjut</a>
                 @endif
-                <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
+                <a href="{{ url('/user-profile') }}" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
             </div>
         </div>
     </div>

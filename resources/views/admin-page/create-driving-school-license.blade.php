@@ -19,7 +19,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/admin-driving-school-license/create" method="POST" class="px-6 pb-24 lg:pb-0 lg:pt-5" id="uploadNewLicenseForm" enctype="multipart/form-data">
+            <form action="{{ url('/admin-driving-school-license/create') }}" method="POST" class="px-6 pb-24 lg:pb-0 lg:pt-5" id="uploadNewLicenseForm" enctype="multipart/form-data">
                 @csrf
                 {{-- Form Sub Headers --}}
                 <div class="mb-4 lg:mt-4 hidden lg:block">
@@ -71,7 +71,7 @@
 
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                    <a href="/admin-driving-school-license" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
+                    <a href="{{ url('/admin-driving-school-license') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
                     <button type="submit" class="px-8 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Ajukan Izin Baru</button>
                 </div>
             </form>
@@ -80,7 +80,7 @@
 
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden" id="mobileButtonGroupWrapper">
-        <a href="/admin-driving-school-license" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
+        <a href="{{ url('/admin-driving-school-license') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Batal</a>
         <button type="submit" id="mobileSubmitButton" class="px-8 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Ajukan Izin Baru</button>
     </div>
 

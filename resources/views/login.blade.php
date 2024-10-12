@@ -37,7 +37,7 @@
                         @enderror
 
                         <div class="w-full flex justify-end">
-                            <a href="/forgot-password" class="text-custom-white text-lg lg:text-xl font-league font-medium underline hover:no-underline">Lupa Password?</a>
+                            <a href="{{ url('/forgot-password') }}" class="text-custom-white text-lg lg:text-xl font-league font-medium underline hover:no-underline">Lupa Password?</a>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                 </div>
 
                 {{-- Redirect to Register Link --}}
-                <p class="mt-8 lg:mt-6 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="/register" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
+                <p class="mt-8 lg:mt-6 text-custom-white text-center text-lg font-league font-light lg:text-xl">Belum punya akun? <a href="{{ url('/register') }}" class="text-custom-white font-medium underline hover:no-underline">Daftar Sekarang</a></p>
             </form>
         </div>        
     </div>

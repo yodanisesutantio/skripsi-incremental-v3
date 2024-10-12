@@ -12,24 +12,24 @@
                         {{-- Beranda --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-index') }}">Beranda</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-index') }}">Beranda</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-index">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-index') }}">Beranda</a></li>
                             @endif
                         @else
-                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/tamu">Beranda</a></li>
+                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/tamu') }}">Beranda</a></li>
                         @endauth
 
                         {{-- Kursus --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-course-list">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-course-list') }}">Kursus</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-course') }}">Kursus</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-course">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-course') }}">Kursus</a></li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Kursus</a></li>
@@ -38,29 +38,29 @@
                         {{-- Profil --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/user-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-profile') }}">Profil</a></li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/instructor-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-profile') }}">Profil</a></li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/admin-profile">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-profile') }}">Profil</a></li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Profil</a></li>
                         @endauth
 
                         {{-- Garis Pemisah --}}
-                        <li class="p-3 text-custom-green font-bold lg:text-xl"><a href=""><hr class="border-custom-grey border-opacity-35"></a></li>
+                        <li class="p-3 text-custom-green font-bold lg:text-xl"><div><hr class="border-custom-grey border-opacity-35"></div></li>
 
                         {{-- Logout / Login Button --}}
                         @auth
                             <li class="lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item">
                                 <button type="button" class="w-full text-left p-3 text-custom-destructive font-semibold" onclick="logoutConfirmation()">Log Out</button>
-                                <form action="/logout" method="post" class="mb-1 hidden">
+                                <form action="{{ url('/logout') }}" method="post" class="mb-1 hidden">
                                     @csrf
                                 </form>
                             </li>
                         @else
-                            <li class="mb-1 p-3 lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="/login" class="text-custom-green font-semibold">Login</a></li>
+                            <li class="mb-1 p-3 lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/login') }}" class="text-custom-green font-semibold">Login</a></li>
                         @endauth
                     </ul>                    
                 </div>
@@ -69,10 +69,10 @@
         {{-- SVG Search --}}
         @auth
             @if (auth()->user()->role !== 'instructor' && auth()->user()->role !== 'admin')
-                <a href="/search"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg></a>
+                <a href="{{ url('/search') }}"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg></a>
             @endif
         @else
-            <a href="/search"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg></a>
+            <a href="{{ url('/search') }}"><svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g fill="none" stroke="#040B0D" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg></a>
         @endauth
     </div>
 
@@ -90,7 +90,7 @@
             <div class="flex flex-row justify-end gap-4 px-5 mt-4">                
                 <button type="button" id="closeModals" class="w-fit rounded text-left p-3 text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
                 <button type="submit" id="yesLogout" class="w-fit rounded text-left p-3 bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Log Out</button>
-                <form action="/logout" method="post" class="mb-1 hidden">
+                <form action="{{ url('/logout') }}" method="post" class="mb-1 hidden">
                     @csrf
                 </form>
             </div>

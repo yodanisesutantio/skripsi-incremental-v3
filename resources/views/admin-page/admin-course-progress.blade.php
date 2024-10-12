@@ -713,7 +713,7 @@
             <div class="flex flex-row justify-end gap-2 lg:gap-4 px-5 mt-4">                
                 <button type="button" id="closeDelete" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight text-custom-dark font-semibold hover:bg-custom-dark-hover/20">Batal</button>
                 <button type="submit" id="yesDelete" class="w-fit rounded text-left p-3 text-sm/tight lg:text-base/tight whitespace-nowrap bg-custom-destructive hover:bg-[#EC2013] text-custom-white font-semibold">Ya, Hapus Siswa</button>
-                <form action="/delete-student" method="post" class="mb-1 hidden">
+                <form action="{{ url('/delete-student') }}" method="post" class="mb-1 hidden">
                     @method('delete')
                     @csrf
                     <input type="hidden" name="enrollment_id" value="{{ $enrollment->id }}">

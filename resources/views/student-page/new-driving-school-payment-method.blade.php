@@ -19,7 +19,7 @@
         </div>
         
         <div class="lg:col-span-2 lg:px-24">
-            <form action="/new-driving-school/payment-method" method="post" class="px-6 pb-24 lg:pb-0">
+            <form action="{{ url('/new-driving-school/payment-method') }}" method="post" class="px-6 pb-24 lg:pb-0" id="payment-method-form">
                 @csrf
 
                 <div class="form-wrapper new-payment-method">
@@ -74,7 +74,7 @@
 
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                    <a href="/new-driving-school/account-info" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
+                    <a href="{{ url('/new-driving-school/account-info') }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
                     {{-- Submit Button --}}
                     <button type="submit" class="submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
                 </div>
@@ -85,7 +85,7 @@
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-col gap-3 fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden" id="mobile-button-groups">
         <button type="submit" id="mobileSubmitButton" class="w-full py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500">Simpan</button>
-        <a href="/user-profile" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
+        <a href="{{ url('/user-profile') }}" class="text-custom-dark font-league font-medium px-1 pt-5 pb-4 text-lg/none underline hover:text-custom-green-hover">Kembali</a>
     </div>
 
     {{-- jQuery JS --}}
@@ -94,7 +94,7 @@
         // Mobile Submit Button Function
         $('#mobileSubmitButton').click(function(event) {
             event.preventDefault();
-            $('form[action="/new-driving-school/payment-method"]').submit();
+            $('#payment-method-form').submit();
         });
     </script>
 @endsection

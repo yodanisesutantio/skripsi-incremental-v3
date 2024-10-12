@@ -9,7 +9,7 @@
                 {{-- Form Header --}}
                 <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white whitespace-nowrap font-encode tracking-tight font-semibold">Halo Pengguna Baru!</h1>
                 {{-- Forms --}}
-                <form action="/register" method="post" class="swiper-wrapper pt-1 pb-6" id="createAccountForm">
+                <form action="{{ url('/register') }}" method="post" class="swiper-wrapper pt-1 pb-6" id="createAccountForm">
                     @csrf
                     {{-- Slide 1 : Account Info --}}
                     <div class="swiper-slide">
@@ -126,7 +126,7 @@
                 </div>
             </div>
             {{-- Redirect to Register Link --}}
-            <p class="mt-8 lg:mt-2 text-custom-white text-center text-lg font-league font-light lg:text-xl">Sudah punya akun? <a href="/login" class="text-custom-white font-medium underline hover:no-underline">Masuk</a></p>
+            <p class="mt-8 lg:mt-2 text-custom-white text-center text-lg font-league font-light lg:text-xl">Sudah punya akun? <a href="{{ url('/register') }}" class="text-custom-white font-medium underline hover:no-underline">Masuk</a></p>
         </div>
     </div>
 

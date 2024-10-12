@@ -11,14 +11,14 @@
                 <div class="p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                     <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                         <p>Anda belum mempunyai Instruktur Kursus!</p>
-                        <a class="underline lg:hover:no-underline text-right" href="/admin-manage-instructor/create">Tambah Instruktur</a>
+                        <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-manage-instructor/create') }}">Tambah Instruktur</a>
                     </div>
                 </div>
     
                 <div class="p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                     <div class="flex flex-row justify-between font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                         <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
-                        <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Kelas</a>
+                        <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-manage-course/create') }}">Tambah Kelas</a>
                     </div>
                 </div>
             </div>
@@ -27,15 +27,15 @@
             <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                 <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                     <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
-                    <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+                    <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-manage-course/create') }}">Tambah Kelas</a>
                 </div>
             </div>
         {{-- When Admin doesn't have any instructor --}}
         @elseif (auth()->user()->courses()->count() == 0)
             <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                 <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
-                    <p>Anda belum mempunyai Kelas Kursus yang ditawarkan</p>
-                    <a class="underline lg:hover:no-underline text-right" href="/admin-manage-course/create">Tambah Instruktur</a>
+                    <p>Anda belum mempunyai Instruktur Kursus!</p>
+                    <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-manage-instructor/create') }}">Tambah Instruktur</a>
                 </div>
             </div>
         {{-- When Admin doesn't have Active Driving School Licenses --}}
@@ -43,7 +43,7 @@
             <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                 <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                     <p>Anda tidak memiliki izin kursus aktif. Segera unggah izin kursus baru!</p>
-                    <a class="underline lg:hover:no-underline text-right" href="/admin-driving-school-license">Kelola Izin</a>
+                    <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-driving-school-license') }}">Kelola Izin</a>
                 </div>
             </div>
         @endif

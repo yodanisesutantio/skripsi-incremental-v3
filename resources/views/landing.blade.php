@@ -14,8 +14,8 @@
             
             {{-- Button Group --}}
             <div class="px-6 lg:px-20 py-5 lg:py-0 flex flex-col lg:flex-row gap-3 lg:gap-5">
-                <a href="/login" class="w-full py-3 lg:py-3 rounded-lg lg:rounded-xl bg-custom-white text-center lg:text-lg text-custom-dark font-semibold lg:order-2 hover:bg-custom-white-hover duration-500">Login / Daftar</a>
-                <a href="/tamu" class="w-full py-3 lg:py-3 rounded-lg lg:rounded-xl bg-custom-dark text-center lg:text-lg text-custom-white font-semibold lg:order-1 hover:bg-custom-dark-hover duration-500">Lewati Dulu</a>
+                <a href="{{ url('/login') }}" class="w-full py-3 lg:py-3 rounded-lg lg:rounded-xl bg-custom-white text-center lg:text-lg text-custom-dark font-semibold lg:order-2 hover:bg-custom-white-hover duration-500">Login / Daftar</a>
+                <a href="{{ url('/tamu') }}" class="w-full py-3 lg:py-3 rounded-lg lg:rounded-xl bg-custom-dark text-center lg:text-lg text-custom-white font-semibold lg:order-1 hover:bg-custom-dark-hover duration-500">Lewati Dulu</a>
             </div>
         </div>
     </div>

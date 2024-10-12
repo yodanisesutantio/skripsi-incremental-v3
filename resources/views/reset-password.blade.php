@@ -51,7 +51,7 @@
             </form>
 
             {{-- Redirect to Login Link --}}
-            <p class="mt-5 lg:mt-3 text-custom-white text-center text-lg font-league font-light lg:text-xl">Kembali ke halaman <a href="/login" class="text-custom-white font-medium underline hover:no-underline">Login</a></p>
+            <p class="mt-5 lg:mt-3 text-custom-white text-center text-lg font-league font-light lg:text-xl">Kembali ke halaman <a href="{{ url('/login') }}" class="text-custom-white font-medium underline hover:no-underline">Login</a></p>
         </div>        
     </div>
 

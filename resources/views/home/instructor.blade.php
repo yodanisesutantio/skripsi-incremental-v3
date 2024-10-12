@@ -10,7 +10,7 @@
             <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                 <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                     <p>Anda tidak memiliki sertifikat aktif. Segera unggah sertifikat baru!</p>
-                    <a class="underline lg:hover:no-underline text-right" href="/admin-driving-school-license">Kelola Sertifikat</a>
+                    <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-driving-school-license') }}">Kelola Sertifikat</a>
                 </div>
             </div>
         @endif

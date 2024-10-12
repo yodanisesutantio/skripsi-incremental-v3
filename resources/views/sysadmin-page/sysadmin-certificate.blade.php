@@ -111,13 +111,13 @@
         {{-- Navs --}}
         <div class="fixed bottom-5 left-1/2 bg-custom-dark transform -translate-x-1/2 flex flex-row gap-2 p-2 rounded-full">
             {{-- Account --}}
-            <a href="/sysAdmin-index" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Pengguna</a>
+            <a href="{{ url('/sysAdmin-index') }}" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Pengguna</a>
             {{-- Certificate --}}
-            <a href="/sysAdmin-certificate" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug bg-custom-green/25 rounded-full cursor-pointer duration-300">Sertifikat</a>
+            <a href="{{ url('/sysAdmin-certificate') }}" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug bg-custom-green/25 rounded-full cursor-pointer duration-300">Sertifikat</a>
             {{-- Licenses --}}
-            <a href="/sysAdmin-license" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Izin Kursus</a>
+            <a href="{{ url('/sysAdmin-license') }}" class="px-5 py-2.5 font-league font-normal text-custom-white text-lg/snug hover:bg-custom-green/10 rounded-full cursor-pointer duration-300">Izin Kursus</a>
             {{-- Log Out --}}
-            <form action="/logout" method="post">
+            <form action="{{ url('/logout') }}" method="post">
                 @csrf
                 
                 <button type="submit" class="px-5 py-2.5 font-league font-normal text-custom-destructive text-lg/snug hover:bg-custom-destructive/10 rounded-full cursor-pointer duration-300">Log Out</button>

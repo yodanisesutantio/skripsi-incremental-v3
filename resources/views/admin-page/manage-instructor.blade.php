@@ -9,7 +9,7 @@
 
     {{-- Add New Instructor Button --}}
     <div class="flex">
-        <a href="/admin-manage-instructor/create"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Instruktur</div></a>
+        <a href="{{ url('/admin-manage-instructor/create') }}"><div class="w-fit pl-3.5 pr-5 py-3 my-3 rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white font-semibold duration-500">+ Tambah Instruktur</div></a>
     </div>
 
     {{-- If Instructors collection is not exist, show this --}}

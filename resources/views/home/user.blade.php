@@ -246,7 +246,7 @@
                 <p class="text-custom-grey font-league font-medium text-center text-base/snug lg:text-xl px-3">Coba cari Nama Penyedia Kursus atau mobil tipe apa yang ingin anda kuasai?</p>
             </div>
             {{-- Redirect to Search Page --}}
-            <a href="/search" class="relative font-league lg:text-lg/none text-custom-secondary lg:-mb-1 px-8 lg:px-14 py-2.5 border border-custom-secondary text-center rounded-full hover:bg-custom-grey/20 duration-300">
+            <a href="{{ url('/search') }}" class="relative font-league lg:text-lg/none text-custom-secondary lg:-mb-1 px-8 lg:px-14 py-2.5 border border-custom-secondary text-center rounded-full hover:bg-custom-grey/20 duration-300">
                 <div class="flex flex-row justify-center items-center gap-3 lg:gap-4 py-1 lg:py-0 pr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="#495D64" stroke-width="2"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg>
                     <p class="mt-[4px] lg:mt-[1.5px] text-base/[0] lg:text-lg/snug">Coba Fitur Pencarian</p>

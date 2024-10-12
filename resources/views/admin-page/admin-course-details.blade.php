@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-col lg:flex-row">
         {{-- Back Button --}}
-        <a href="/user-index" class="flex absolute top-8 left-5 bg-custom-dark-low rounded-full z-20 p-3 lg:hidden">
+        <a href="{{ url('/admin-course') }}" class="flex absolute top-8 left-5 bg-custom-dark-low rounded-full z-20 p-3 lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#EBF0F2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4m0 0l6-6m-6 6l6 6"/></svg>
         </a>
 
@@ -19,7 +19,7 @@
             {{-- Class Main Info --}}
             <div class="flex flex-col px-6 mt-5 lg:px-8 lg:mt-8 gap-1">
                 <h1 class="font-encode text-3xl lg:text-4xl font-semibold tracking-tight">{{ $classProperties->course_name }}</h1>
-                <p class="text-custom-grey text-lg lg:text-xl font-league">oleh <span class="font-semibold text-custom-dark"><a href="/driving-school-profile">{{ $classProperties->admin->fullname }}</a></span></p>
+                <p class="text-custom-grey text-lg lg:text-xl font-league">oleh <span class="font-semibold text-custom-dark"><a href="{{ url('/admin-course') }}">{{ $classProperties->admin->fullname }}</a></span></p>
                 <p class="font-league text-custom-dark font-bold text-2xl lg:text-3xl lg:mt-2">Rp. {{ number_format($classProperties->course_price, 0, '', '.') }},-</p>
             </div>
 
