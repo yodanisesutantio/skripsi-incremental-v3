@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User; // Access User Tables
-use App\Models\Course; // Access Course Tables
+use App\Models\course; // Access Course Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel

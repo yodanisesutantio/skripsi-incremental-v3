@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
-use App\Models\Course; // Access Course Tables
+use App\Models\course; // Access Course Tables
 use App\Models\SearchHistory; // Access Course Tables
 use Illuminate\Support\Facades\Crypt; // Use Crypt Method by Laravel
 use Illuminate\Http\Request; // Use Request Method by Laravel

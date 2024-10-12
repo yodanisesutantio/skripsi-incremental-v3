@@ -34,12 +34,12 @@ class course extends Model
     // One to Many Relationship with Enrollment Tables
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class);
+        return $this->hasMany(enrollment::class);
     }
 
     // Many to Many Relationship with Course Instructors
     public function courseInstructors()
     {
-        return $this->hasMany(CourseInstructor::class, 'course_id');
+        return $this->hasMany(courseInstructor::class, 'course_id');
     }
 }
