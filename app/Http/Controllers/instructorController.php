@@ -205,7 +205,7 @@ class instructorController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $request->hash_for_profile_picture->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $request->hash_for_profile_picture->storeAs('profile_pictures', $fileName);
+            $request->hash_for_profile_picture->storeAs('public/profile_pictures', $fileName);
 
             // instead of the file updated in database, we save the filename of the file from Laravel Storage
             $user->fill(['hash_for_profile_picture' => $fileName]);
@@ -356,7 +356,7 @@ class instructorController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('profile_pictures', $fileName);
+            $file->storeAs('public/profile_pictures', $fileName);
         }
         
         // Create a new Instructor Data in User Tables
@@ -392,7 +392,7 @@ class instructorController extends Controller
             // rename the filename to store it inside the database
             $certificateFile = time() . '.' . $fileCertificate->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $fileCertificate->storeAs('instructor_certificate', $certificateFile);
+            $fileCertificate->storeAs('public/instructor_certificate', $certificateFile);
         }
 
         // Create a new Instructor Certificate Data in InstructorCertificate Tables

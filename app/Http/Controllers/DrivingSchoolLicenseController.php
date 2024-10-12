@@ -36,7 +36,7 @@ class DrivingSchoolLicenseController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('drivingSchoolLicense', $fileName);
+            $file->storeAs('public/drivingSchoolLicense', $fileName);
         }
 
         // Create a new Driving School License in the same named Tables
@@ -103,7 +103,7 @@ class DrivingSchoolLicenseController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('drivingSchoolLicense', $fileName);
+            $file->storeAs('public/drivingSchoolLicense', $fileName);
         }
 
         // Check if a license already exists for the authenticated user (admin)

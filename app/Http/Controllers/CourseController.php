@@ -102,7 +102,7 @@ class CourseController extends Controller
         if ($request->hasFile('course_thumbnail')) {
             $file = $request->file('course_thumbnail');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('classOrCourse_thumbnail', $fileName);
+            $file->storeAs('public/classOrCourse_thumbnail', $fileName);
         }
 
         // Create a new Course in the Course Tables
@@ -206,7 +206,7 @@ class CourseController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('classOrCourse_thumbnail', $fileName);
+            $file->storeAs('public/classOrCourse_thumbnail', $fileName);
             // instead of the file updated in database, we save the filename of the file from Laravel Storage
             $course->course_thumbnail = $fileName;
         }
