@@ -9,7 +9,7 @@
             <h1 class="text-3xl/tight lg:text-4xl text-center text-custom-white font-encode tracking-tight font-semibold">Selamat Datang!</h1>
 
             {{-- Forms --}}
-            <form action="/login" method="post">
+            <form action="{{ url('/login') }}" method="post">
                 @csrf
                 <div class="flex flex-col mt-8 lg:mt-6 gap-5 lg:gap-7">
                     {{-- Input Identifier --}}

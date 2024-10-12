@@ -28,6 +28,16 @@ use App\Http\Controllers\InstructorCertificateController;
 |
 */
 
+// Clear Cache
+Route::get('/bersihkan', function() {
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('route:clear');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('route:cache');
+    return 'DONE';
+});
+
 // Landing Page
 Route::get('/', [generalPage::class, 'landing']);
 
