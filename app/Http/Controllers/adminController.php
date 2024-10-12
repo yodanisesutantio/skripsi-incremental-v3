@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
-use App\Models\DrivingSchoolLicense; // Access DrivingSchoolLicense Tables
-use App\Models\InstructorCertificate; // Access DrivingSchoolLicense Tables
+use App\Models\drivingSchoolLicense; // Access DrivingSchoolLicense Tables
+use App\Models\instructorCertificate; // Access DrivingSchoolLicense Tables
 use App\Models\course; // Access Course Tables
 use App\Models\courseSchedule; // Access Course Schedule Tables
-use App\Models\Enrollment; // Access Enrollment Tables
-use App\Models\PaymentMethod; // Access PaymentMethod Tables
+use App\Models\enrollment; // Access Enrollment Tables
+use App\Models\paymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
