@@ -140,7 +140,7 @@
         $(document).on('click', '.deactivate-instructor, .activate-instructor', function() {
             var button = $(this); // Which button is being clicked
             var instructorId = button.data('id'); // Which instructors is it
-            var actionUrl = button.hasClass('deactivate-instructor') ? '/admin-deactivate-instructor' : '/admin-activate-instructor'; // if deactivate button is clicked, redirect to admin-deactivate-instructor route, else, redirect to admin-activate-instructor
+            var actionUrl = button.hasClass('deactivate-instructor') ? '{{ url('/admin-deactivate-instructor') }}' : '{{ url('/admin-activate-instructor') }}'; // if deactivate button is clicked, redirect to admin-deactivate-instructor route, else, redirect to admin-activate-instructor
             var newAvailability = button.hasClass('deactivate-instructor') ? 0 : 1; // Bring the new value, 1 to activate, 0 to deactivate
 
             // AJAX Function
@@ -199,7 +199,7 @@
             instructorId = $(this).data('id');
             const instructorName = $(this).data('name');
             $('#instructorNameToDelete').text(instructorName);
-            $('#deleteInstructorForm').attr('action', `/admin-delete-instructor/${instructorId}`);
+            $('#deleteInstructorForm').attr('action', `{{ url('/admin-delete-instructor/${instructorId}') }}`);
             $('#deleteInstructorOverlay').removeClass('hidden');
             $('#deleteInstructorOverlay').addClass('flex');
         });

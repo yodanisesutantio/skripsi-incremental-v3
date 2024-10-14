@@ -60,7 +60,7 @@
                                 </form>
                             </li>
                         @else
-                            <li class="mb-1 p-3 lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/login') }}" class="text-custom-green font-semibold">Login</a></li>
+                            <li class="mb-1 p-3 lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/login') }}'"><p class="text-custom-green font-semibold">Login</p></li>
                         @endauth
                     </ul>                    
                 </div>
