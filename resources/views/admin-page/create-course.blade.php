@@ -66,7 +66,7 @@
                     <div class="flex flex-col gap-1">
                         <label for="course_description" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Deskripsi Kelas<span class="text-custom-destructive">*</span></label>
                         {{-- Input Text Area Column --}}
-                        <textarea name="course_description" id="course_description" rows="4" placeholder="Tuliskan Deskripsi Kelas Kursus" class="px-4 py-3.5 h-32 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('course_description') border-2 border-custom-destructive @enderror"></textarea>
+                        <textarea name="course_description" id="course_description" rows="4" placeholder="Tuliskan Deskripsi Kelas Kursus" class="px-4 py-3.5 h-32 font-league font-medium text-lg/snug bg-custom-white-hover text-custom-secondary placeholder:#48484833 resize-none rounded-lg @error('course_description') border-2 border-custom-destructive @enderror">{{ old('course_description') }}</textarea>
                         {{-- Error in Validation Message --}}
                         @error('course_description')
                             <span class="text-custom-destructive">{{ $message }}</span>

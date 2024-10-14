@@ -17,6 +17,9 @@
     {{-- Toastr CDN --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    <!-- Add the favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('./favicon.ico') }}">
+    
     <title>{{ $pageName }} Kemudi</title>
 </head>
 <body class="relative bg-custom-white">

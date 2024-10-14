@@ -131,7 +131,7 @@
         $(document).on('click', '.deactivate-course, .activate-course', function() {
             var button = $(this); // Which button is clicked
             var courseId = button.data('id'); // ID of the course
-            var actionUrl = button.hasClass('deactivate-course') ? '/admin-deactivate-course' : '/admin-activate-course'; // if deactivate button is clicked, redirect to admin-deactivate-course route, else, redirect to admin-activate-course
+            var actionUrl = button.hasClass('deactivate-course') ? '{{ url('/admin-deactivate-course') }}' : '{{ url('/admin-activate-course') }}'; // if deactivate button is clicked, redirect to admin-deactivate-course route, else, redirect to admin-activate-course
             var newAvailability = button.hasClass('deactivate-course') ? 0 : 1; // Bring the new value, 1 to activate, 0 to deactivate
 
             // AJAX Function
@@ -167,6 +167,7 @@
                     
                     // Do this when availability change failed
                     else {
+                        console.log(xhr.responseText);
                         toastr.options.timeOut = 2500;
                         toastr.options.closeButton = true;
                         toastr.options.progressBar = true;
@@ -190,7 +191,7 @@
             courseId = $(this).data('id');
             const courseName = $(this).data('name');
             $('#deleteCourseName').text(courseName);
-            $('#deleteCourseForm').attr('action', `/admin-delete-course/${courseId}`);
+            $('#deleteCourseForm').attr('action', `{{ url('/admin-delete-course/${courseId}') }}`);
             $('#deleteCourseOverlay').removeClass('hidden');
             $('#deleteCourseOverlay').addClass('flex');
         });

@@ -166,9 +166,17 @@ class userController extends Controller
             $user->fill(['hash_for_profile_picture' => $fileName]);
         }     
 
-        // Format phone number to +62 and remove non-numeric characters
+        // Format the phone number to +62 and remove non-numeric characters
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
-        $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+        $formattedPhoneNumber = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+
+        // Check if a duplicate phone number exists after formatting
+        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)->exists();
+
+        // If a duplicate is found
+        if ($duplicatePhoneNumber) {
+            return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp sudah terdaftar']);
+        }
 
         // Encrypt the fp_answer before saving
         $user->fp_answer = Crypt::encryptString($request->input('fp_answer'));

@@ -8,14 +8,14 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\systemController;
 use App\Http\Controllers\loginController;
-use App\Http\Controllers\courseController;
-use App\Http\Controllers\enrollmentController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\instructorController;
-use App\Http\Controllers\paymentMethodController;
-use App\Http\Controllers\coursePaymentsController;
-use App\Http\Controllers\courseScheduleController;
-use App\Http\Controllers\drivingSchoolLicenseController;
-use App\Http\Controllers\instructorCertificateController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\CoursePaymentsController;
+use App\Http\Controllers\CourseScheduleController;
+use App\Http\Controllers\DrivingSchoolLicenseController;
+use App\Http\Controllers\InstructorCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,9 +114,9 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin Edit Account Info Logic Handler
     Route::post('/edit-admin-account-info', [adminController::class, 'editAccountInfo']);
     // Admin Edit Payment Method Logic Handler
-    Route::post('/edit-admin-payment-method', [paymentMethodController::class, 'editPaymentMethod']);
+    Route::post('/edit-admin-payment-method', [PaymentMethodController::class, 'editPaymentMethod']);
     // Admin Remove Payment Method Logic Handler
-    Route::post('/delete-admin-payment-method', [paymentMethodController::class, 'deletePaymentMethod'])->name('deletePaymentMethod');
+    Route::post('/delete-admin-payment-method', [PaymentMethodController::class, 'deletePaymentMethod'])->name('deletePaymentMethod');
     // Admin Edit Password Logic Handler
     Route::post('/edit-admin-password', [adminController::class, 'editPassword']);
     
@@ -130,17 +130,17 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Create Course Page
     Route::get('/admin-manage-course/create', [adminController::class, 'createCoursePage']);
     // Admin's Create Course Logic Handler
-    Route::post('/admin-manage-course/create', [courseController::class, 'createCourseLogic']);
+    Route::post('/admin-manage-course/create', [CourseController::class, 'createCourseLogic']);
     // Admin's Edit Course Page
     Route::get('/admin-manage-course/edit/{username}/{course_name}', [adminController::class, 'editCoursePage']);
     // Admin's Edit Course Logic Handler
-    Route::post('/admin-manage-course/edit/{username}/{course_name}', [courseController::class, 'editCourseLogic']);
+    Route::post('/admin-manage-course/edit/{username}/{course_name}', [CourseController::class, 'editCourseLogic']);
     // Admin's Delete Course Logic Handler
-    Route::delete('/admin-delete-course/{id}', [courseController::class, 'deleteCourse']);    
+    Route::delete('/admin-delete-course/{id}', [CourseController::class, 'deleteCourse']);    
     // Admin Deactivate Course Switch Logic Handler
-    Route::post('/admin-deactivate-course', [courseController::class, 'deactivateCourse']);
+    Route::post('/admin-deactivate-course', [CourseController::class, 'deactivateCourse']);
     // Admin Activate Course Switch Logic Handler
-    Route::post('/admin-activate-course', [courseController::class, 'activateCourse']);
+    Route::post('/admin-activate-course', [CourseController::class, 'activateCourse']);
 
     // Admin's My Instructor Page
     Route::get('/admin-manage-instructor', [adminController::class, 'manageInstructorPage']);
@@ -170,11 +170,11 @@ Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(functi
     // Admin's Verify Payment 
     Route::get('/admin-course/payment-verification/{student_real_name}/{enrollment_id}', [adminController::class, 'paymentVerification']);
     // Admin's Verify Payment Logic Handler
-    Route::post('/verify-payment/{coursePayment_id}', [coursePaymentsController::class, 'verifyPaymentLogic']);
+    Route::post('/verify-payment/{coursePayment_id}', [CoursePaymentsController::class, 'verifyPaymentLogic']);
     // Admin's Unverify Payment Logic Handler
-    Route::post('/unverify-payment/{coursePayment_id}', [coursePaymentsController::class, 'unverifyPaymentLogic']);
+    Route::post('/unverify-payment/{coursePayment_id}', [CoursePaymentsController::class, 'unverifyPaymentLogic']);
     // Admin's Delete Active Student Logic Handler
-    Route::delete('/delete-student', [enrollmentController::class, 'deleteStudent']);
+    Route::delete('/delete-student', [EnrollmentController::class, 'deleteStudent']);
 });
 
 // System Admin Specific Route
@@ -255,7 +255,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // Course Registration Form Page
     Route::get('/course/registration-form/{course_name}/{course_id}', [userController::class, 'courseRegistrationForm']);
     // Course Registration Form Logic Handler
-    Route::post('/course/registration-form/{course_name}/{course_id}', [enrollmentController::class, 'newStudent']);
+    Route::post('/course/registration-form/{course_name}/{course_id}', [EnrollmentController::class, 'newStudent']);
 
     // Student's View Course Progress Detail Page
     Route::get('/user-course-progress/{student_real_name}/{enrollment_id}', [userController::class, 'courseProgressPage']);
@@ -279,7 +279,7 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // General User Submit New Driving School Page Controller
     Route::get('/new-driving-school', [userController::class, 'newDrivingSchool']);
     // General User Submit New Driving School Logic Handler
-    Route::post('/new-driving-school', [drivingSchoolLicenseController::class, 'newDrivingSchoolLicense']);
+    Route::post('/new-driving-school', [DrivingSchoolLicenseController::class, 'newDrivingSchoolLicense']);
     // General User Update their Account Info Page
     Route::get('/new-driving-school/account-info', [userController::class, 'newDrivingSchoolAccountInfo']);
     // General User Update their Account Info Logic Handler
@@ -287,5 +287,5 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // General User Add Payment Method Page
     Route::get('/new-driving-school/payment-method', [userController::class, 'newDrivingSchoolPayment']);
     // General User Add Payment Method Logic Handler
-    Route::post('/new-driving-school/payment-method', [paymentMethodController::class, 'newDrivingSchoolPaymentLogic']);
+    Route::post('/new-driving-school/payment-method', [PaymentMethodController::class, 'newDrivingSchoolPaymentLogic']);
 });
