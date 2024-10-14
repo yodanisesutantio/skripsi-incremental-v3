@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User; // Access User Tables
-use App\Models\PaymentMethod; // Access Payment Method Tables
+use App\Models\paymentMethod; // Access Payment Method Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
@@ -35,14 +35,14 @@ class PaymentMethodController extends Controller
             // Handle Payment Method Deletes Logic
             if ($request->has('payment_methods_to_delete')) {
                 foreach ($request->payment_methods_to_delete as $paymentMethodId) {
-                    PaymentMethod::findOrFail($paymentMethodId)->delete();
+                    paymentMethod::findOrFail($paymentMethodId)->delete();
                 }
             }
 
             foreach ($request->payment_methods as $paymentMethodData) {
                 // If user only update the payment method data find the ID
                 if (isset($paymentMethodData['id'])) {
-                    $paymentMethod = PaymentMethod::findOrFail($paymentMethodData['id']);
+                    $paymentMethod = paymentMethod::findOrFail($paymentMethodData['id']);
                 } 
                 
                 // If user added a new payment method, make a new data

@@ -60,31 +60,31 @@ class User extends Authenticatable
     // Setting Relationship where Admin and Instructor can have more than 1 Course
     public function courses()
     {
-        return $this->hasMany(Course::class, 'admin_id'); // For admins/instructors
+        return $this->hasMany(course::class, 'admin_id'); // For admins/instructors
     }
 
     // Many to Many Relationship between Instructor and Course via course_instructors table
     public function instructedCourses()
     {
-        return $this->belongsToMany(Course::class, 'course_instructors', 'instructor_id', 'course_id')
+        return $this->belongsToMany(course::class, 'course_instructors', 'instructor_id', 'course_id')
                     ->withTimestamps();
     }
 
     // Setting Relationship where Student can have only 1 Course
     public function singleCourse()
     {
-        return $this->hasOne(Course::class); // For users/students
+        return $this->hasOne(course::class); // For users/students
     }
 
     // One to Many Relationship with Enrollment Tables, so, Instructors can teach more than one student
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class, 'instructor_id');
+        return $this->hasMany(enrollment::class, 'instructor_id');
     }
 
     // Setting Relationship where Admin can have more than 1 Payment Methods
     public function payment_methods()
     {
-        return $this->hasMany(PaymentMethod::class);
+        return $this->hasMany(paymentMethod::class);
     }
 }

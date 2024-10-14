@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
-use App\Models\CourseSchedule; // Access Course Schedule Tables
-use App\Models\Enrollment; // Access Enrollment Tables
+use App\Models\courseSchedule; // Access Course Schedule Tables
+use App\Models\enrollment; // Access Enrollment Tables
 
 class CourseScheduleController extends Controller
 {
@@ -38,7 +38,7 @@ class CourseScheduleController extends Controller
 
         // Find any conflicting schedule if any
         foreach ($request->instructor_ids as $instructor_id) {
-            $existingSchedule = CourseSchedule::where(function ($query) use ($instructor_id, $start_time, $end_time) {
+            $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $start_time, $end_time) {
                 $query->where('instructor_id', $instructor_id)
                     ->where(function ($q) use ($start_time, $end_time) {
                         $q->whereBetween('start_time', [$start_time, $end_time])
@@ -57,7 +57,7 @@ class CourseScheduleController extends Controller
             }
     
             // But when the requested schedule didn't have any conflict, update the courseSchedule
-            $newSchedule = CourseSchedule::find($course_schedule_id);
+            $newSchedule = courseSchedule::find($course_schedule_id);
             $newSchedule->instructor_id = $instructor_id;
             $newSchedule->start_time = $start_time;
             $newSchedule->end_time = $end_time;
@@ -74,7 +74,7 @@ class CourseScheduleController extends Controller
     //     $request->stime = '2024-08-11 08:00:00';
     //     $request->etime = '2024-08-11 09:30:00';
 
-    //     $existingSchedule = CourseSchedule::where(function ($query) use ($request) {
+    //     $existingSchedule = courseSchedule::where(function ($query) use ($request) {
     //         $query->where('instructor_id', $request->ins_id)
     //               ->where(function ($q) use ($request) {
     //                   $q->whereBetween('start_time', [$request->stime, $request->etime])
@@ -90,7 +90,7 @@ class CourseScheduleController extends Controller
     //         dd('gagal'); // Iki ganti return error
     //     }
 
-    //     $schedule = CourseSchedule::find(1);
+    //     $schedule = courseSchedule::find(1);
     //     $schedule->enrollment_id = 1;
     //     $schedule->course_id = 1;
     //     $schedule->instructor_id = $request->ins_id;
@@ -118,7 +118,7 @@ class CourseScheduleController extends Controller
         // dd($request);
     
         // Get the Enrollment Data
-        $enrollmentData = Enrollment::findOrFail($enrollment_id);
+        $enrollmentData = enrollment::findOrFail($enrollment_id);
         // Fetch the instructor_id from Enrollment Data
         $instructor_id = $enrollmentData['instructor_id'];
         
@@ -154,7 +154,7 @@ class CourseScheduleController extends Controller
                 $selectedSchedules[] = $scheduleKey;
 
                 // Check for conflicting schedules
-                $existingSchedule = CourseSchedule::where('instructor_id', $instructor_id)
+                $existingSchedule = courseSchedule::where('instructor_id', $instructor_id)
                     ->where(function ($query) use ($start_time, $end_time) {
                         $query->whereBetween('start_time', [$start_time, $end_time])
                             ->orWhereBetween('end_time', [$start_time, $end_time])
@@ -202,7 +202,7 @@ class CourseScheduleController extends Controller
     // The logic for handling logic after student arrive at the last slide of course theory
     public function markTheoryAsDone(Request $request, $enrollment_id, $meeting_number) {
         // Get the current schedules to later mark the Theory Status as done
-        $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
+        $currentSchedule = courseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
 
         // Update the theoryStatus
         if ($currentSchedule) {
@@ -220,7 +220,7 @@ class CourseScheduleController extends Controller
     // The logic for handling logic after student arrive at the last slide of course quiz
     public function markQuizAsDone(Request $request, $enrollment_id, $meeting_number) {
         // Get the current schedules to later mark the Quiz Status as done
-        $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
+        $currentSchedule = courseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
 
         // Update the theoryStatus
         if ($currentSchedule) {

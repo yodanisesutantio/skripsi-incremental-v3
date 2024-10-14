@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
-use App\Models\InstructorCertificate; // Access Instructor Certificate Tables
-use App\Models\Course; // Access Course Tables
-use App\Models\CourseSchedule; // Access Course Schedule Tables
-use App\Models\Enrollment; // Access Enrollment Tables
-use App\Models\PaymentMethod; // Access PaymentMethod Tables
+use App\Models\instructorCertificate; // Access Instructor Certificate Tables
+use App\Models\course; // Access Course Tables
+use App\Models\courseSchedule; // Access Course Schedule Tables
+use App\Models\enrollment; // Access Enrollment Tables
+use App\Models\paymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
@@ -24,7 +24,7 @@ class instructorController extends Controller
         Carbon::setLocale('id');
         
         // Check for incoming course schedules for the authenticated admin
-        $incomingSchedule = CourseSchedule::where('instructor_id', auth()->id())
+        $incomingSchedule = courseSchedule::where('instructor_id', auth()->id())
             ->where('start_time', '>', now()) // Filter for upcoming schedules
             ->orderBy('start_time', 'asc') // Order by start time
             ->first(); // Get the first upcoming schedule
@@ -37,7 +37,7 @@ class instructorController extends Controller
         }
 
         // Fetch today's schedule from the course_schedule table
-        $todaySchedule = CourseSchedule::where('instructor_id', auth()->id())
+        $todaySchedule = courseSchedule::where('instructor_id', auth()->id())
             ->whereDate('start_time', \Carbon\Carbon::today())
             ->orderBy('start_time', 'asc')
             ->get();
@@ -53,7 +53,7 @@ class instructorController extends Controller
         // Fetch schedules for the next 7 days
         $nextWeekSchedules = [];
         for ($i = 1; $i <= 6; $i++) {
-        $nextWeekSchedules[$i] = CourseSchedule::where('instructor_id', auth()->id())
+        $nextWeekSchedules[$i] = courseSchedule::where('instructor_id', auth()->id())
             ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
             ->get();
 
@@ -79,7 +79,7 @@ class instructorController extends Controller
     // Instructor-Course Page Controller
     public function instructorCoursePage() {
         // Find the active student by searching Enrollment Tables that the Course is teached by this instructor
-        $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
+        $activeEnrolledStudent = enrollment::query()->whereHas('course', function($query) {
             $query->where('instructor_id', auth()->id());
         })
         ->with('schedule')->get(); // Load schedules with the enrollment
@@ -396,7 +396,7 @@ class instructorController extends Controller
         }
 
         // Create a new Instructor Certificate Data in InstructorCertificate Tables
-        $certificate = InstructorCertificate::create([
+        $certificate = instructorCertificate::create([
             // instead of the file being stored in database, we save the filename of the file from Laravel Storage
             'certificatePath' => $certificateFile,
             // assign the value of the startCertificateDate attribute as per request
@@ -422,7 +422,7 @@ class instructorController extends Controller
         $instructor = User::findOrFail($id);
 
         // Check if the instructor has any upcoming schedules
-        $hasUpcomingSchedule = CourseSchedule::where('instructor_id', $id)
+        $hasUpcomingSchedule = courseSchedule::where('instructor_id', $id)
             ->where('start_time', '>', now())
             ->exists();
 
@@ -465,7 +465,7 @@ class instructorController extends Controller
         $today = Carbon::today();
     
         // Collect every Instructor Certificate that are owned by this instructor and sort it from the latest added instructor
-        $instructorCertificate = InstructorCertificate::where('instructor_id', $instructorId)
+        $instructorCertificate = instructorCertificate::where('instructor_id', $instructorId)
             ->orderBy('created_at', 'desc')
             ->get();
     
@@ -538,7 +538,7 @@ class instructorController extends Controller
     // Instructor-Course-Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
-        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -598,7 +598,7 @@ class instructorController extends Controller
     // View Registration Form Page Controller
     public function registrationForm($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -612,7 +612,7 @@ class instructorController extends Controller
     // Payment Verification Page Controller
     public function paymentPage($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         if (!$enrollment->coursePayment) {
             // Generate a flash message via Toastr to let user know that the process is successful

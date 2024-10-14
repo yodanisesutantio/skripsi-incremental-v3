@@ -115,7 +115,7 @@ class generalPage extends Controller
         // Keep fetching random courses until we have 6 available ones
         while ($availableCourses->count() < 6) {
             // Fetch random courses as Recommendation
-            $randomCourses = Course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
+            $randomCourses = course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
 
             // Filter courses based on availability and enrollment
             $filteredCourses = $randomCourses->filter(function ($course) {
@@ -170,7 +170,7 @@ class generalPage extends Controller
         $searchQuery = $request->input('searchQuery');
 
         // Find the closest Course that has the same name as the entered Search Query
-        $courseResults = Course::where('course_name', 'LIKE', "%{$searchQuery}%")
+        $courseResults = course::where('course_name', 'LIKE', "%{$searchQuery}%")
             ->where('course_availability', 1) // Check if course is available
             ->where(function ($subQuery) { // Renamed to $subQuery
                 $subQuery->doesntHave('enrollments') // Include courses with no enrollments
@@ -242,13 +242,13 @@ class generalPage extends Controller
     }
 
     public function courseDetailsPage($course_name, $course_id) {
-        $classProperties = Course::find($course_id);
+        $classProperties = course::find($course_id);
 
         // Fetch instructors related to the course
         $instructorArray = $classProperties->courseInstructors;
 
         // Fetch similar courses based on course_length or similar course_price, limited to 5
-        $offered = Course::where('id', '!=', $classProperties->id) // Exclude the current course
+        $offered = course::where('id', '!=', $classProperties->id) // Exclude the current course
             ->where('course_availability', 1) // Check if course is available
             ->where(function($query) use ($classProperties) {
                 $query->where('course_length', $classProperties->course_length)
@@ -278,20 +278,20 @@ class generalPage extends Controller
         $formattedCloseHours = Carbon::parse($drivingSchool->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
 
         // Display all Course that are Active and is owned by the owner/admin
-        $course = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->get();
+        $course = course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->get();
 
         // Display only Manual Course that are Active and is owned by the owner/admin
-        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
+        $courseManual = course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
             $query->where('car_type', 'Manual')->orWhere('car_type', 'Both');
         })->get();
 
         // Display only Matic Course that are Active and is owned by the owner/admin
-        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
+        $courseMatic = course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where(function($query) {
             $query->where('car_type', 'Automatic')->orWhere('car_type', 'Both');
         })->get();
 
         // Display only Quick Course that are Active and is owned by the owner/admin
-        $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where('course_length', '<', 4)->get();
+        $courseQuick = course::query()->where('course_availability', 1)->where('admin_id', $drivingSchool->id)->where('course_length', '<', 4)->get();
 
         // Calculate the average of all of the active course_length
         $averageCourseLength = (int) $course->avg('course_length');

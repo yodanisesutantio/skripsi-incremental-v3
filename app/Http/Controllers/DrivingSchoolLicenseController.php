@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User; // Access User Tables
-use App\Models\DrivingSchoolLicense; // Access DrivingSchoolLicense Tables
+use App\Models\drivingSchoolLicense; // Access DrivingSchoolLicense Tables
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 use Illuminate\Http\Request; // Use Request Method by Laravel
@@ -62,7 +62,7 @@ class DrivingSchoolLicenseController extends Controller
     public function drivingSchoolLicenseDelete($id, Request $request)
     {
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $license = DrivingSchoolLicense::findOrFail($id);
+        $license = drivingSchoolLicense::findOrFail($id);
     
         // Delete the thumbnail from storage
         if ($license->licensePath) {
@@ -107,7 +107,7 @@ class DrivingSchoolLicenseController extends Controller
         }
 
         // Check if a license already exists for the authenticated user (admin)
-        $existingLicense = DrivingSchoolLicense::where('admin_id', auth()->id())->first();
+        $existingLicense = drivingSchoolLicense::where('admin_id', auth()->id())->first();
 
         if ($existingLicense) {
             // License exists, update the existing license

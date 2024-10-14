@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
-use App\Models\Course; // Access Course Tables
-use App\Models\CourseSchedule; // Access Course Schedule Tables
-use App\Models\CourseInstructor; // Access Course Instructor Tables
-use App\Models\InstructorCertificate; // Access Instructor Certificate Tables
-use App\Models\DrivingSchoolLicense; // Access Driving School License Tables
-use App\Models\Enrollment; // Access Enrollment Tables
-use App\Models\PaymentMethod; // Access PaymentMethod Tables
+use App\Models\course; // Access Course Tables
+use App\Models\courseSchedule; // Access Course Schedule Tables
+use App\Models\courseInstructor; // Access Course Instructor Tables
+use App\Models\instructorCertificate; // Access Instructor Certificate Tables
+use App\Models\drivingSchoolLicense; // Access Driving School License Tables
+use App\Models\enrollment; // Access Enrollment Tables
+use App\Models\paymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
@@ -63,7 +63,7 @@ class systemController extends Controller
         $today = Carbon::today();
 
         // Access User Tables
-        $certificate = InstructorCertificate::all();
+        $certificate = instructorCertificate::all();
 
         // Run through the Instructor Certificate collection
         foreach ($certificate as $certificates) {
@@ -106,7 +106,7 @@ class systemController extends Controller
         ]);
 
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $certificate = InstructorCertificate::findOrFail($id);
+        $certificate = instructorCertificate::findOrFail($id);
     
         // Change the certificateStatus to "Aktif"
         $certificate->certificateStatus = $request['certificateStatus'];
@@ -128,7 +128,7 @@ class systemController extends Controller
     public function deleteCertificate($id, Request $request)
     {
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $certificate = InstructorCertificate::findOrFail($id);
+        $certificate = instructorCertificate::findOrFail($id);
     
         // Delete the thumbnail from storage
         if ($certificate->certificatePath) {
@@ -151,7 +151,7 @@ class systemController extends Controller
         $today = Carbon::today();
 
         // Access User Tables
-        $license = DrivingSchoolLicense::all();
+        $license = drivingSchoolLicense::all();
 
         // Run through the Instructor Certificate collection
         foreach ($license as $licenses) {
@@ -194,7 +194,7 @@ class systemController extends Controller
         ]);
 
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $license = DrivingSchoolLicense::findOrFail($id);
+        $license = drivingSchoolLicense::findOrFail($id);
     
         // Change the licenseStatus to "Aktif"
         $license->licenseStatus = $request['licenseStatus'];
@@ -216,7 +216,7 @@ class systemController extends Controller
     public function deleteLicense($id, Request $request)
     {
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $license = DrivingSchoolLicense::findOrFail($id);
+        $license = drivingSchoolLicense::findOrFail($id);
     
         // Delete the thumbnail from storage
         if ($license->licensePath) {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User; // Access User Tables
-use App\Models\InstructorCertificate; // Access InstructorCertificate Tables
+use App\Models\instructorCertificate; // Access InstructorCertificate Tables
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 use Illuminate\Http\Request; // Use Request Method by Laravel
@@ -62,7 +62,7 @@ class InstructorCertificateController extends Controller
     public function instructorCertificateDelete($id, Request $request)
     {
         // find the desired license match the incoming ID with the ID from DrivingSchoolLicense Tables
-        $certificate = InstructorCertificate::findOrFail($id);
+        $certificate = instructorCertificate::findOrFail($id);
     
         // Delete the thumbnail from storage
         if ($certificate->certificatePath) {

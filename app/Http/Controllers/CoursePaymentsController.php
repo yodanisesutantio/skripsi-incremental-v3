@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CoursePayment; // Access Course Payment Tables
+use App\Models\coursePayment; // Access Course Payment Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Storage; // Use Storage Method by Laravel
 
@@ -16,7 +16,7 @@ class CoursePaymentsController extends Controller
         ]);
 
         // Find the desired Course Payment
-        $coursePayment = CoursePayment::findOrFail($coursePayment_id);
+        $coursePayment = coursePayment::findOrFail($coursePayment_id);
 
         // Change the paymentStatus as per request
         $coursePayment->paymentStatus = $request->paymentStatus;
@@ -35,7 +35,7 @@ class CoursePaymentsController extends Controller
     // Unverify Payment Logic
     public function unverifyPaymentLogic(Request $request, $coursePayment_id) {
         // Find the desired Course Payment
-        $coursePayment = CoursePayment::findOrFail($coursePayment_id);
+        $coursePayment = coursePayment::findOrFail($coursePayment_id);
 
         if ($coursePayment->paymentFile) {
             Storage::delete('paymentFile/' . $coursePayment->paymentFile);
@@ -80,7 +80,7 @@ class CoursePaymentsController extends Controller
         }
 
         // If User already have uploaded the payment Receipt, then replace them
-        $existingPaymentReceipt = CoursePayment::where('enrollment_id', $enrollment_id)->first();
+        $existingPaymentReceipt = coursePayment::where('enrollment_id', $enrollment_id)->first();
         if ($existingPaymentReceipt) {
             // Update the existing payment receipt
             $existingPaymentReceipt->paymentFile = $fileName; // Update the file name

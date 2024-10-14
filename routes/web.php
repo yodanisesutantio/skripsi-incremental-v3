@@ -8,14 +8,14 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\systemController;
 use App\Http\Controllers\loginController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\courseController;
+use App\Http\Controllers\enrollmentController;
 use App\Http\Controllers\instructorController;
-use App\Http\Controllers\PaymentMethodController;
-use App\Http\Controllers\CoursePaymentsController;
-use App\Http\Controllers\CourseScheduleController;
-use App\Http\Controllers\DrivingSchoolLicenseController;
-use App\Http\Controllers\InstructorCertificateController;
+use App\Http\Controllers\paymentMethodController;
+use App\Http\Controllers\coursePaymentsController;
+use App\Http\Controllers\courseScheduleController;
+use App\Http\Controllers\drivingSchoolLicenseController;
+use App\Http\Controllers\instructorCertificateController;
 
 /*
 |--------------------------------------------------------------------------

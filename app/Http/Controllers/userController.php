@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon; // Use Carbon Method by Laravel
 
 use App\Models\User; // Access User Tables
-use App\Models\Course; // Access Course Tables
-use App\Models\CourseSchedule; // Access Course Schedule Tables
-use App\Models\CourseInstructor; // Access Course Instructor Tables
-use App\Models\Enrollment; // Access Enrollment Tables
-use App\Models\PaymentMethod; // Access PaymentMethod Tables
+use App\Models\course; // Access Course Tables
+use App\Models\courseSchedule; // Access Course Schedule Tables
+use App\Models\courseInstructor; // Access Course Instructor Tables
+use App\Models\enrollment; // Access Enrollment Tables
+use App\Models\paymentMethod; // Access PaymentMethod Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
@@ -24,13 +24,13 @@ class userController extends Controller
         Carbon::setLocale('id');
 
         // Find the enrollment ID by comparing student_id with the authenticated user's ID
-        $enrollment = Enrollment::where('student_id', auth()->id())->first();
+        $enrollment = enrollment::where('student_id', auth()->id())->first();
         $enrollment_id = $enrollment ? $enrollment->id : null; // Return null if not found
 
         $incomingSchedule = null; // Initialize to null
         // Only run the query if enrollment_id is not null
         if ($enrollment_id) {
-            $incomingSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)
+            $incomingSchedule = courseSchedule::where('enrollment_id', $enrollment_id)
                 ->where('start_time', '>', now()) // Filter for upcoming schedules
                 ->orderBy('start_time', 'asc') // Order by start time
                 ->first(); // Get the first upcoming schedule
@@ -49,7 +49,7 @@ class userController extends Controller
         // Keep fetching random courses until we have 6 available ones
         while ($availableCourses->count() < 6) {
             // Fetch random courses as Recommendation
-            $randomCourses = Course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
+            $randomCourses = course::inRandomOrder()->take(3)->get(); // Fetch more than 6 to increase chances
 
             // Filter courses based on availability and enrollment
             $filteredCourses = $randomCourses->filter(function ($course) {
@@ -254,7 +254,7 @@ class userController extends Controller
         $user = User::findOrFail(auth()->id());
 
         // Check if the user has any upcoming schedules
-        $hasUpcomingSchedule = Enrollment::where('student_id', auth()->id())
+        $hasUpcomingSchedule = enrollment::where('student_id', auth()->id())
             ->whereHas('schedule', function ($query) {
                 $query->where('start_time', '>', now());
             })->exists();
@@ -278,7 +278,7 @@ class userController extends Controller
 
     // User Course history Page Controller
     public function courseHistoryPage() {
-        $upcomingCourses = Enrollment::where('student_id', auth()->id())
+        $upcomingCourses = enrollment::where('student_id', auth()->id())
         ->whereHas('schedule', function ($query) {
             $query->where('start_time', '>', now());
         })
@@ -287,7 +287,7 @@ class userController extends Controller
         }, 'course'])
         ->get();
 
-        $enrolledCourse = Enrollment::where('student_id', auth()->id())
+        $enrolledCourse = enrollment::where('student_id', auth()->id())
         ->whereDoesntHave('schedule', function ($query) {
             $query->where('start_time', '>', now()); // Exclude upcoming courses
         })
@@ -304,7 +304,7 @@ class userController extends Controller
     // Course Registration Form Page Controller
     public function courseRegistrationForm($course_name, $course_id) {
         // Find the enrollment data for this student
-        $course = Course::findOrFail($course_id);
+        $course = course::findOrFail($course_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -331,7 +331,7 @@ class userController extends Controller
     // User Course Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
-        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -395,7 +395,7 @@ class userController extends Controller
     // Choose Schedule for the First Time Page Controller 
     public function chooseFirstSchedulePage($student_fullname, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -436,7 +436,7 @@ class userController extends Controller
         }
 
         // Collect every Instructors that are assigned to this class from Course Instructor Tables
-        $instructorOption = CourseInstructor::query()->where('course_id', $enrollment->course->id)->orderBy('created_at', 'desc')->get();
+        $instructorOption = courseInstructor::query()->where('course_id', $enrollment->course->id)->orderBy('created_at', 'desc')->get();
         // dd($instructorOption);
 
         return view('student-page.user-choose-schedule', [
@@ -449,10 +449,10 @@ class userController extends Controller
 
     public function paymentPage($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
         // Create new collection to collect the payment_method that the admin/owner own
-        $paymentMethod = PaymentMethod::where('admin_id', $enrollment->course->admin->id)
+        $paymentMethod = paymentMethod::where('admin_id', $enrollment->course->admin->id)
             ->where('is_payment_active', 1) // Add this condition to filter active payment methods
             ->get();
         // Decrypt the payment_address
@@ -480,7 +480,7 @@ class userController extends Controller
         // Get the current date and time
         $now = now();
 
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         // Check if the course is completed
         $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
@@ -707,7 +707,7 @@ class userController extends Controller
         // Get the current date and time
         $now = now();
 
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         // Check if the course is completed
         $isCourseCompleted = $enrollment->schedule->every(function ($schedule) use ($now) {
@@ -720,7 +720,7 @@ class userController extends Controller
             return redirect(url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment_id));
         }
         
-        $currentSchedule = CourseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
+        $currentSchedule = courseSchedule::where('enrollment_id', $enrollment_id)->where('meeting_number', $meeting_number)->first();
 
         if ($currentSchedule->quizStatus === 1) {
             // Return student back if they've done the quiz already
@@ -1005,7 +1005,7 @@ class userController extends Controller
             ],
         ];
     
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
         
         // Check if the meeting_number exists in the content array
         if (!array_key_exists($meeting_number, $content)) {
@@ -1025,7 +1025,7 @@ class userController extends Controller
     // New Driving School Page Controller
     public function newDrivingSchool() {
         // Check if the user has any upcoming schedules
-        $hasUpcomingSchedule = Enrollment::where('student_id', auth()->id())
+        $hasUpcomingSchedule = enrollment::where('student_id', auth()->id())
             ->whereHas('schedule', function ($query) {
                 $query->where('start_time', '>', now());
             })->exists();

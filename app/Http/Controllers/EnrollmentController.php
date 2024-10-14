@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment; // Access Enrollment Tables
+use App\Models\enrollment; // Access Enrollment Tables
 use Illuminate\Http\Request; // Use Request Method by Laravel
 
 class EnrollmentController extends Controller
@@ -15,7 +15,7 @@ class EnrollmentController extends Controller
 
         // dd($request);
 
-        $enrollment = Enrollment::findOrFail($request->enrollment_id);
+        $enrollment = enrollment::findOrFail($request->enrollment_id);
         $enrollment->delete();
 
         // Generate a flash message via Toastr to let user know that the process is successful

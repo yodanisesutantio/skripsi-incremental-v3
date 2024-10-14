@@ -14,7 +14,7 @@ class CourseController extends Controller
     // Deactivate Course Logic Handler
     public function deactivateCourse(Request $request) {
         // Find the desired course by matching the incoming requested ID with ID from Course Tables
-        $course = Course::find($request->course_id);
+        $course = course::find($request->course_id);
 
         // If course is found, do this data transaction
         if ($course) {
@@ -34,7 +34,7 @@ class CourseController extends Controller
     // Activate Course Logic Handler
     public function activateCourse(Request $request) {
         // Find the desired course by matching the incoming requested ID with ID from Course Tables
-        $course = Course::find($request->course_id);
+        $course = course::find($request->course_id);
 
         // If course is found, do this data transaction
         if ($course) {
@@ -195,7 +195,7 @@ class CourseController extends Controller
         $coursePrice = preg_replace('/\D/', '', $request->input('course_price'));
 
         // Find the chosen course to be edited that is owned by the owner/admin
-        $course = Course::whereHas('admin', function ($query) use ($username) {
+        $course = course::whereHas('admin', function ($query) use ($username) {
             $query->where('username', $username);
         })->where('course_name', $course_name)->firstOrFail();
 
@@ -275,7 +275,7 @@ class CourseController extends Controller
     public function deleteCourse($id)
     {
         // Find the desired course
-        $course = Course::findOrFail($id);
+        $course = course::findOrFail($id);
     
         // Delete the thumbnail from storage
         if ($course->course_thumbnail) {
@@ -286,7 +286,7 @@ class CourseController extends Controller
         $course->delete();
 
         // Check if the user has any remaining classes
-        $remainingCourses = Course::where('admin_id', auth()->id())->count();
+        $remainingCourses = course::where('admin_id', auth()->id())->count();
 
         // When they had no more instructors, generate this flash message via Toastr
         if ($remainingCourses == 0) {

@@ -27,7 +27,7 @@ class adminController extends Controller
         Carbon::setLocale('id');
         
         // Check for incoming course schedules for the authenticated admin
-        $incomingSchedule = CourseSchedule::whereHas('enrollment.course', function($query) {
+        $incomingSchedule = courseSchedule::whereHas('enrollment.course', function($query) {
             $query->where('admin_id', auth()->id());
         })
             ->where('start_time', '>=', now()) // Filter for upcoming schedules
@@ -44,7 +44,7 @@ class adminController extends Controller
         }
 
         // Fetch today's schedule from the course_schedule table
-        $todaySchedule = CourseSchedule::whereHas('enrollment.course', function($query) {
+        $todaySchedule = courseSchedule::whereHas('enrollment.course', function($query) {
             $query->where('admin_id', auth()->id());
         })
             ->whereDate('start_time', \Carbon\Carbon::today())
@@ -61,7 +61,7 @@ class adminController extends Controller
         // Fetch schedules for the next 7 days
         $nextWeekSchedules = [];
         for ($i = 1; $i <= 6; $i++) {
-        $nextWeekSchedules[$i] = CourseSchedule::whereHas('enrollment.course', function($query) {
+        $nextWeekSchedules[$i] = courseSchedule::whereHas('enrollment.course', function($query) {
                 $query->where('admin_id', auth()->id());
             })
             ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
@@ -97,20 +97,20 @@ class adminController extends Controller
         $formattedCloseHours = Carbon::parse($user->close_hours_for_admin)->locale('id')->translatedFormat('H:i');
 
         // Display all Course that are Active and is owned by the owner/admin
-        $course = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
+        $course = course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->get();
 
         // Display only Manual Course that are Active and is owned by the owner/admin
-        $courseManual = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
+        $courseManual = course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
             $query->where('car_type', 'Manual')->orWhere('car_type', 'Both');
         })->get();
 
         // Display only Matic Course that are Active and is owned by the owner/admin
-        $courseMatic = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
+        $courseMatic = course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where(function($query) {
             $query->where('car_type', 'Automatic')->orWhere('car_type', 'Both');
         })->get();
 
         // Display only Quick Course that are Active and is owned by the owner/admin
-        $courseQuick = Course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
+        $courseQuick = course::query()->where('course_availability', 1)->where('admin_id', auth()->id())->where('course_length', '<', 4)->get();
 
         // Calculate the average of all of the active course_length
         $averageCourseLength = (int) $course->avg('course_length');
@@ -157,7 +157,7 @@ class adminController extends Controller
         $today = Carbon::today();
     
         // Collect every drivingschoollicense that are owned by this owner/admin and sort it from the latest added license
-        $drivingSchoolLicenses = DrivingSchoolLicense::where('admin_id', $adminId)
+        $drivingSchoolLicenses = drivingSchoolLicense::where('admin_id', $adminId)
             ->orderBy('created_at', 'desc')
             ->get();
     
@@ -231,7 +231,7 @@ class adminController extends Controller
     // Admin-Profile/Edit Page Controller
     public function editProfilePage() {
         // Collect every payment method that are owned by this admin/owner
-        $paymentMethod = PaymentMethod::where('admin_id', auth()->id())->get();
+        $paymentMethod = paymentMethod::where('admin_id', auth()->id())->get();
 
         if ($paymentMethod) {
             // Run through every payment method in every collection, then decrypt it
@@ -248,7 +248,7 @@ class adminController extends Controller
         }
 
         // Check for active driving school licenses
-        $hasActiveLicense = DrivingSchoolLicense::where('admin_id', auth()->id())
+        $hasActiveLicense = drivingSchoolLicense::where('admin_id', auth()->id())
             ->where('licenseStatus', 'Aktif')
             ->exists();
 
@@ -403,7 +403,7 @@ class adminController extends Controller
     public function destroy(Request $request)
     {
         // Check for enrollments related to the authenticated user's courses
-        $enrollments = Enrollment::whereHas('course', function($query) {
+        $enrollments = enrollment::whereHas('course', function($query) {
             $query->where('admin_id', auth()->id());
         })->get();
 
@@ -450,7 +450,7 @@ class adminController extends Controller
     // Admin-Manage-Course Page Controller
     public function manageCoursePage() {
         // Collect every course that are owned by this owner/admin and sort it from the latest
-        $course = Course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        $course = course::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
         
         // Find the User data by matching it with the current authenticated user
         $user = auth()->user();
@@ -475,7 +475,7 @@ class adminController extends Controller
     // Admin-Manage-Course/Edit Page Controller
     public function editCoursePage($username, $course_name) {
         // Get the desired Course that are owned by this owner/admin
-        $course = Course::whereHas('admin', function ($query) use ($username) {
+        $course = course::whereHas('admin', function ($query) use ($username) {
             $query->where('username', $username);
         })->where('course_name', $course_name)->firstOrFail();
 
@@ -559,13 +559,13 @@ class adminController extends Controller
     }
 
     public function courseDetailsPreview($course_name, $course_id) {
-        $classProperties = Course::find($course_id);
+        $classProperties = course::find($course_id);
 
         // Fetch instructors related to the course
         $instructorArray = $classProperties->courseInstructors;
 
         // Fetch similar courses based on course_length or similar course_price, limited to 5
-        $offered = Course::where('id', '!=', $classProperties->id) // Exclude the current course
+        $offered = course::where('id', '!=', $classProperties->id) // Exclude the current course
         ->where(function($query) use ($classProperties) {
             $query->where('course_length', $classProperties->course_length)
                     ->orWhere('course_price', '<=', $classProperties->course_price * 1.5)
@@ -585,7 +585,7 @@ class adminController extends Controller
     // Admin-Course/Active-Student-List Page Controller
     public function activeStudentPage() {
         // Find the active student by searching Enrollment Tables that the Course is owned by this admin/owner
-        $activeEnrolledStudent = Enrollment::query()->whereHas('course', function($query) {
+        $activeEnrolledStudent = enrollment::query()->whereHas('course', function($query) {
             $query->where('admin_id', auth()->id());
         })
         ->with('schedule')->get(); // Load schedules with the enrollment
@@ -641,7 +641,7 @@ class adminController extends Controller
     // Admin-Course-Progress Page Controller
     public function courseProgressPage($student_fullname, $enrollment_id) {        
         // Find the enrollment data for this student
-        $enrollment = Enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -697,7 +697,7 @@ class adminController extends Controller
     // View Registration Form Page Controller
     public function registrationForm($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
@@ -711,7 +711,7 @@ class adminController extends Controller
     // Payment Verification Page Controller
     public function paymentVerification($student_real_name, $enrollment_id) {
         // Find the enrollment data for this student
-        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $enrollment = enrollment::findOrFail($enrollment_id);
 
         if (!$enrollment->coursePayment) {
             // Generate a flash message via Toastr to let user know that the process is successful
@@ -732,7 +732,7 @@ class adminController extends Controller
     // Propose new schedule form page controller
     public function newScheduleForm($course_schedule_id) {
         // Find the selected schedule
-        $schedule = CourseSchedule::findOrFail($course_schedule_id);
+        $schedule = courseSchedule::findOrFail($course_schedule_id);
 
         // Collect every Instructors that are owned by this owner/admin and sort it from the latest, so admin/owner can assigned them to the new added course
         $instructors = User::query()->where('admin_id', auth()->id())->orderBy('created_at', 'desc')->get();
