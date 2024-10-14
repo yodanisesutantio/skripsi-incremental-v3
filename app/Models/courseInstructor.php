@@ -21,7 +21,7 @@ class courseInstructor extends Model
     // Many to Many Relationship with Course Instructors
     public function course()
     {
-        return $this->belongsTo(CourseInstructor::class, 'course_id');
+        return $this->belongsTo(courseInstructor::class, 'course_id');
     }
 
     // Many to Many Relationship with Course Instructors

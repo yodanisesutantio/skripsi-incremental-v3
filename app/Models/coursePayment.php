@@ -26,6 +26,6 @@ class coursePayment extends Model
     // One to One Relationship with Enrollment Tables
     public function enrollment()
     {
-        return $this->belongsTo(Enrollment::class);
+        return $this->belongsTo(enrollment::class);
     }
 }

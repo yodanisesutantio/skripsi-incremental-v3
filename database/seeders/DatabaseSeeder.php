@@ -4,14 +4,14 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
-use App\Models\DrivingSchoolLicense;
-use App\Models\InstructorCertificate;
-use App\Models\Course;
-use App\Models\CourseInstructor;
-use App\Models\CoursePayment;
-use App\Models\CourseSchedule;
-use App\Models\Enrollment;
-use App\Models\PaymentMethod;
+use App\Models\drivingSchoolLicense;
+use App\Models\instructorCertificate;
+use App\Models\course;
+use App\Models\courseInstructor;
+use App\Models\coursePayment;
+use App\Models\courseSchedule;
+use App\Models\enrollment;
+use App\Models\paymentMethod;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Crypt;
 
@@ -217,42 +217,42 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 11
         ]);
 
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2024-10-21',
             'endLicenseDate' => '2026-10-21',
             'licenseStatus' => 'Sudah Tervalidasi',
             'admin_id' => 2,
         ]);
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2022-10-21',
             'endLicenseDate' => '2024-10-21',
             'licenseStatus' => 'Aktif',
             'admin_id' => 2,
         ]);
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2020-10-21',
             'endLicenseDate' => '2022-10-21',
             'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 2,
         ]);
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2023-10-21',
             'endLicenseDate' => '2025-10-21',
             'licenseStatus' => 'Aktif',
             'admin_id' => 3,
         ]);
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2023-08-03',
             'endLicenseDate' => '2025-08-03',
             'licenseStatus' => 'Aktif',
             'admin_id' => 10,
         ]);
-        DrivingSchoolLicense::create([
+        drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
             'startLicenseDate' => '2023-01-13',
             'endLicenseDate' => '2025-01-13',
@@ -260,63 +260,63 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 11,
         ]);
 
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Sudah Divalidasi',
             'instructor_id' => 4,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 5,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 6,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2022-04-01',
             'endCertificateDate' => '2027-04-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 12,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2022-04-22',
             'endCertificateDate' => '2027-04-22',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 13,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2022-06-19',
             'endCertificateDate' => '2027-06-19',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 14,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2023-02-14',
             'endCertificateDate' => '2028-02-14',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 15,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2019-02-28',
             'endCertificateDate' => '2024-02-28',
             'certificateStatus' => 'Tidak Berlaku',
             'instructor_id' => 16,
         ]);
-        InstructorCertificate::create([
+        instructorCertificate::create([
             'certificatePath' => '1722614055.webp',
             'startCertificateDate' => '2024-02-28',
             'endCertificateDate' => '2029-02-28',
@@ -324,7 +324,7 @@ class DatabaseSeeder extends Seeder
             'instructor_id' => 16,
         ]);
 
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Manual untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -335,7 +335,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 2,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Matic untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil matic, kursus ini tepat untuk anda.',
             'course_quota' => 5,
@@ -347,7 +347,7 @@ class DatabaseSeeder extends Seeder
             'course_availability' => 0,
             'admin_id' => 2,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Kilat Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 3,
@@ -358,7 +358,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 2,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Privat',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda. Anda bebas memilih transmisi yang ingin anda pelajari.',
             'course_quota' => 6,
@@ -370,7 +370,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 2,
         ]);
 
-        Course::create([
+        course::create([
             'course_name' => 'Belajar Mengemudi Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -381,7 +381,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 3,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Belajar Mengemudi Mobil Matic',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 8,
@@ -392,7 +392,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 3,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mengemudi Murah di Surabaya',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 8,
@@ -403,7 +403,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 3,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mengemudi Mobil Surabaya',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 11,
@@ -414,7 +414,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 3,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mengemudi Mobil Mandiri',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 5,
@@ -426,7 +426,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 3,
         ]);
 
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Manual untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -437,7 +437,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 10,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Matic untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil matic, kursus ini tepat untuk anda.',
             'course_quota' => 5,
@@ -449,7 +449,7 @@ class DatabaseSeeder extends Seeder
             'course_availability' => 0,
             'admin_id' => 10,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Kilat Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 3,
@@ -461,7 +461,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 10,
         ]);
 
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Paket A',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 4,
@@ -472,7 +472,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 11,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Paket B',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan lancar & cepat, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -483,7 +483,7 @@ class DatabaseSeeder extends Seeder
             'can_use_own_car' => false,
             'admin_id' => 11,
         ]);
-        Course::create([
+        course::create([
             'course_name' => 'Kursus Mobil Paket C',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan lancar, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -495,7 +495,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 11,
         ]);
 
-        Enrollment::create([
+        enrollment::create([
             'course_id' => 1,
             'instructor_id' => 5,
             'student_id' => 7,
@@ -508,7 +508,7 @@ class DatabaseSeeder extends Seeder
             'student_address' => 'Citra Land Surabaya',
             'student_education_level' => 'Magister',
         ]);
-        Enrollment::create([
+        enrollment::create([
             'course_id' => 2,
             'instructor_id' => 6,
             'student_id' => 8,
@@ -521,7 +521,7 @@ class DatabaseSeeder extends Seeder
             'student_address' => 'Citra Land Surabaya',
             'student_education_level' => 'SMA/SMK Sederajat',
         ]);
-        Enrollment::create([
+        enrollment::create([
             'course_id' => 4,
             'instructor_id' => 5,
             'student_id' => 9,
@@ -534,7 +534,7 @@ class DatabaseSeeder extends Seeder
             'student_address' => 'Citra Land Surabaya',
             'student_education_level' => 'S1 Sederajat',
         ]);
-        Enrollment::create([
+        enrollment::create([
             'course_id' => 1,
             'instructor_id' => 4,
             'student_id' => 7,
@@ -548,101 +548,101 @@ class DatabaseSeeder extends Seeder
             'student_education_level' => 'S1/D4',
         ]);
 
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 1,
             'instructor_id' => 4,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 1,
             'instructor_id' => 5,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 2,
             'instructor_id' => 4,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 2,
             'instructor_id' => 6,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 3,
             'instructor_id' => 5,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 4,
             'instructor_id' => 4,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 4,
             'instructor_id' => 5,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 4,
             'instructor_id' => 6,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 5,
             'instructor_id' => 12,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 5,
             'instructor_id' => 13,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 6,
             'instructor_id' => 12,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 6,
             'instructor_id' => 13,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 7,
             'instructor_id' => 12,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 7,
             'instructor_id' => 13,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 8,
             'instructor_id' => 12,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 9,
             'instructor_id' => 13,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 10,
             'instructor_id' => 14,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 11,
             'instructor_id' => 15,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 12,
             'instructor_id' => 14,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 12,
             'instructor_id' => 15,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 13,
             'instructor_id' => 16,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 14,
             'instructor_id' => 16,
         ]);
-        CourseInstructor::create([
+        courseInstructor::create([
             'course_id' => 15,
             'instructor_id' => 16,
         ]);
 
-        // Pertemuan 1, Enrollment 1
-        CourseSchedule::create([
+        // Pertemuan 1, enrollment 1
+        courseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
@@ -652,8 +652,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 2, Enrollment 1
-        CourseSchedule::create([
+        // Pertemuan 2, enrollment 1
+        courseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
@@ -663,8 +663,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 3, Enrollment 1
-        CourseSchedule::create([
+        // Pertemuan 3, enrollment 1
+        courseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
@@ -674,8 +674,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 4, Enrollment 1
-        CourseSchedule::create([
+        // Pertemuan 4, enrollment 1
+        courseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
@@ -685,8 +685,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 5, Enrollment 1
-        CourseSchedule::create([
+        // Pertemuan 5, enrollment 1
+        courseSchedule::create([
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
@@ -697,8 +697,8 @@ class DatabaseSeeder extends Seeder
             'quizStatus' => 0,
         ]);
 
-        // Pertemuan 1, Enrollment 2
-        CourseSchedule::create([
+        // Pertemuan 1, enrollment 2
+        courseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
@@ -708,8 +708,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 2, Enrollment 2
-        CourseSchedule::create([
+        // Pertemuan 2, enrollment 2
+        courseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
@@ -719,8 +719,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 3, Enrollment 2
-        CourseSchedule::create([
+        // Pertemuan 3, enrollment 2
+        courseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
@@ -730,8 +730,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 4, Enrollment 2
-        CourseSchedule::create([
+        // Pertemuan 4, enrollment 2
+        courseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
@@ -741,8 +741,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 5, Enrollment 2
-        CourseSchedule::create([
+        // Pertemuan 5, enrollment 2
+        courseSchedule::create([
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
@@ -753,8 +753,8 @@ class DatabaseSeeder extends Seeder
             'quizStatus' => 0,
         ]);
 
-        // Pertemuan 1, Enrollment 3
-        CourseSchedule::create([
+        // Pertemuan 1, enrollment 3
+        courseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
@@ -764,8 +764,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 2, Enrollment 3
-        CourseSchedule::create([
+        // Pertemuan 2, enrollment 3
+        courseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
@@ -775,8 +775,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 3, Enrollment 3
-        CourseSchedule::create([
+        // Pertemuan 3, enrollment 3
+        courseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
@@ -786,8 +786,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 4, Enrollment 3
-        CourseSchedule::create([
+        // Pertemuan 4, enrollment 3
+        courseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
@@ -797,8 +797,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 5, Enrollment 3
-        CourseSchedule::create([
+        // Pertemuan 5, enrollment 3
+        courseSchedule::create([
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
@@ -809,8 +809,8 @@ class DatabaseSeeder extends Seeder
             'quizStatus' => 0,
         ]);
 
-        // Pertemuan 1, Enrollment 4
-        CourseSchedule::create([
+        // Pertemuan 1, enrollment 4
+        courseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
@@ -820,8 +820,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 1,
         ]);
-        // Pertemuan 2, Enrollment 4
-        CourseSchedule::create([
+        // Pertemuan 2, enrollment 4
+        courseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
@@ -831,8 +831,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 1,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 3, Enrollment 4
-        CourseSchedule::create([
+        // Pertemuan 3, enrollment 4
+        courseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
@@ -842,8 +842,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 4, Enrollment 4
-        CourseSchedule::create([
+        // Pertemuan 4, enrollment 4
+        courseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
@@ -853,8 +853,8 @@ class DatabaseSeeder extends Seeder
             'theoryStatus' => 0,
             'quizStatus' => 0,
         ]);
-        // Pertemuan 5, Enrollment 4
-        CourseSchedule::create([
+        // Pertemuan 5, enrollment 4
+        courseSchedule::create([
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
@@ -866,57 +866,57 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Bukti Pembayaran untuk Siswa 1
-        CoursePayment::create([
+        coursePayment::create([
             'enrollment_id' => 1,
             'paymentFile' => '1723140944.png',
         ]);
         // Bukti Pembayaran untuk Siswa 2
-        CoursePayment::create([
+        coursePayment::create([
             'enrollment_id' => 2,
             'paymentFile' => '1722842843.png',
         ]);
         // Bukti Pembayaran untuk Siswa 3
-        CoursePayment::create([
+        coursePayment::create([
             'enrollment_id' => 3,
             'paymentFile' => '1722842843.png',
         ]);
 
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Agus",
             'payment_address' => Crypt::encryptString("282831039210"),
             'is_payment_active' => 1,
             'admin_id' => 2,
         ]);
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "Mandiri",
             'payment_receiver_name' => "Kursus Pulung",
             'payment_address' => Crypt::encryptString("283101263159"),
             'is_payment_active' => 1,
             'admin_id' => 3,
         ]);
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "BNI",
             'payment_receiver_name' => "Kursus Pulung",
             'payment_address' => Crypt::encryptString("2371417510"),
             'is_payment_active' => 1,
             'admin_id' => 3,
         ]);
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Suwono",
             'payment_address' => Crypt::encryptString("10480171569"),
             'is_payment_active' => 1,
             'admin_id' => 10,
         ]);
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "BCA",
             'payment_receiver_name' => "Hafiz Hidayat",
             'payment_address' => Crypt::encryptString("2831840157"),
             'is_payment_active' => 1,
             'admin_id' => 11,
         ]);
-        PaymentMethod::create([
+        paymentMethod::create([
             'payment_vendor' => "BRI",
             'payment_receiver_name' => "Hafiz Hidayat",
             'payment_address' => Crypt::encryptString("1203104566"),

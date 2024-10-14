@@ -62,7 +62,14 @@ class generalPage extends Controller
         ]);
 
         $user = User::where('username', $username)->first();
-        $correctAnswer = Crypt::decryptString($user->fp_answer);
+
+        try {
+            // Decrypt the stored answer
+            $correctAnswer = Crypt::decryptString($user->fp_answer);
+        } catch (\Exception $e) {
+            // Handle the decryption error
+            return redirect()->back()->withErrors(['fp_answer' => 'Unable to validate answer.']);
+        }
 
         // If the fp_answer is wrong, redirect back with errors
         if ($request->fp_answer !== $correctAnswer) {

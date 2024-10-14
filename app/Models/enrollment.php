@@ -45,6 +45,6 @@ class enrollment extends Model
     // One to One Relationship with Course Payment Tables
     public function coursePayment()
     {
-        return $this->hasOne(CoursePayment::class);
+        return $this->hasOne(coursePayment::class);
     }
 }

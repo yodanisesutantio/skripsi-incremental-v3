@@ -38,6 +38,12 @@ Route::get('/bersihkan', function() {
     return 'DONE';
 });
 
+Route::get('/show-app-key', function () {
+    return response()->json([
+        'APP_KEY' => config('app.key')
+    ]);
+});
+
 // Landing Page
 Route::get('/', [generalPage::class, 'landing']);
 
