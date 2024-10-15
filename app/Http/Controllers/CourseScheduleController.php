@@ -111,8 +111,8 @@ class CourseScheduleController extends Controller
             'course_date.*' => 'required|date',
             'course_time.*' => 'required',
         ],[
-            'course_date.required' => 'Silahkan Pilih Tanggal Kursus',
-            'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
+            'course_date.*.required' => 'Silahkan Pilih Tanggal Kursus',
+            'course_time.*.required' => 'Silahkan Pilih Salah Satu Opsi',
         ]);
 
         // dd($request);
@@ -127,6 +127,8 @@ class CourseScheduleController extends Controller
         // Prepare an array to hold new schedules
         $newSchedules = [];
 
+        $current_time = \Carbon\Carbon::now();
+
         // Assuming course_time is also an array with the same length as course_date
         foreach ($request->course_date as $date_index => $course_date) {
             // Get the corresponding course time for the current date
@@ -138,8 +140,11 @@ class CourseScheduleController extends Controller
                 $start_time = \Carbon\Carbon::parse($course_date . ' ' . $start_time_str);
                 $end_time = \Carbon\Carbon::parse($course_date . ' ' . $end_time_str);
 
+                // Calculate the minimum allowed start time (24 hours from now)
+                $minimum_start_time = \Carbon\Carbon::now()->addHours(24);
+
                 // Check for minimum schedule time
-                if ($start_time < now()->addHours(24) || $end_time < now()->addHours(24)) {
+                if ($start_time < $minimum_start_time || $end_time < $minimum_start_time) {
                     $request->session()->flash('error', 'Pastikan jadwal baru berlangsung tidak kurang dari 24 jam');
                     return redirect()->back()->withInput();
                 }

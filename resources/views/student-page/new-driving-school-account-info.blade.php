@@ -98,7 +98,7 @@
                         {{-- Open Hours --}}
                         <div class="flex flex-col gap-2">
                             <label for="open_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Buka<span class="text-custom-destructive">*</span></label>
-                            <input type="time" name="open_hours_for_admin" id="open_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('open_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ old('open_hours_for_admin') }}">
+                            <input type="time" name="open_hours_for_admin" id="open_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('open_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ old('open_hours_for_admin', auth()->user()->open_hours_for_admin ?? '') }}">
                             @error('open_hours_for_admin')
                                 <span class="text-custom-destructive">{{ $message }}</span>
                             @enderror
@@ -107,7 +107,7 @@
                         {{-- Close Hours --}}
                         <div class="flex flex-col gap-2">
                             <label for="close_hours_for_admin" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Jam Tutup<span class="text-custom-destructive">*</span></label>
-                            <input type="time" name="close_hours_for_admin" id="close_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('close_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ old('close_hours_for_admin') }}">
+                            <input type="time" name="close_hours_for_admin" id="close_hours_for_admin" placeholder="081818181818" class="w-full px-4 py-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('close_hours_for_admin') border-2 border-custom-destructive @enderror" value="{{ old('close_hours_for_admin', auth()->user()->close_hours_for_admin ?? '') }}">
                             @error('close_hours_for_admin')
                                 <span class="text-custom-destructive">{{ $message }}</span>
                             @enderror

@@ -50,9 +50,12 @@
             event.preventDefault(); // Prevent default action
 
             var id = $(this).data('id'); // Get the ID of the search history item
+            var actionUrl = '{{ url('/search-history') }}' + '/' + id;
+            console.log(actionUrl);
+            
 
             $.ajax({
-                url: '/search-history/' + id,
+                url: actionUrl,
                 type: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}'

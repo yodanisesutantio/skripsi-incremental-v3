@@ -90,7 +90,7 @@ class loginController extends Controller
         $validatedData = $request->validate([
             'fullname' => 'required|max:255',
             'age' => 'required|integer|between:18,70',
-            'phone_number' => 'required|max:20|unique:users,phone_number',
+            'phone_number' => 'required|max:20',
             'username' => 'required|max:255|unique:users,username,',
             'password' => 'required|min:5|max:255|confirmed',
             'password_confirmation' => 'required|min:5|max:255',
@@ -124,6 +124,7 @@ class loginController extends Controller
         ]);
 
         // Format phone number to +62
+        $validatedData['phone_number'] = preg_replace('/\D/', '', $validatedData['phone_number']);
         $validatedData['phone_number'] = preg_replace('/^(0|62)/', '+62', $validatedData['phone_number']);
 
         // Check if a duplicate phone number exists
