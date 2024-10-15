@@ -93,7 +93,7 @@
                 </a>
 
                 {{-- Course Card --}}
-                <a href="{{ url('/user-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
+                <a href="{{ url('/instructor-course-progress/' . $incomingSchedule->enrollment->student_real_name . '/' . $incomingSchedule->enrollment['id']) }}" class="col-span-3 w-full bg-custom-white-hover p-3 lg:p-6 rounded-xl overflow-hidden drop-shadow-lg lg:cursor-pointer lg:drop-shadow lg:hover:drop-shadow-lg duration-300">
                     <div class="flex flex-col gap-4">
                         {{-- Student Information --}}
                         <div class="flex flex-row gap-3 items-center lg:hidden">

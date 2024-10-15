@@ -192,7 +192,7 @@ class instructorController extends Controller
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'age', 'phone_number', 'fp_question']));
+        $user->update($request->only(['fullname', 'username', 'description', 'age', 'fp_question']));
 
         // Check if users uploaded new profile picture
         $fileName = null;
@@ -215,13 +215,18 @@ class instructorController extends Controller
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
         $formattedPhoneNumber = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
 
-        // Check if a duplicate phone number exists after formatting
-        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)->exists();
+        // Check if a duplicate phone number exists after formatting, excluding the current user's phone number
+        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)
+            ->where('id', '!=', $user->id) // Exclude the current user
+            ->exists();
 
         // If a duplicate is found
         if ($duplicatePhoneNumber) {
             return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp sudah terdaftar']);
         }
+
+        // Update the user's phone number if no duplicate is found
+        $user->phone_number = $formattedPhoneNumber;
 
         // Encrypt the fp_answer before saving
         $user->fp_answer = Crypt::encryptString($request->input('fp_answer'));

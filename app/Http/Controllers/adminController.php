@@ -301,7 +301,7 @@ class adminController extends Controller
         // Find the User data by matching it with the current authenticated user ID
         $user = User::find(Auth::id());
         // Immediately update this attribute as per request
-        $user->update($request->only(['fullname', 'username', 'description', 'phone_number', 'availability', 'open_hours_for_admin', 'close_hours_for_admin', 'fp_question']));
+        $user->update($request->only(['fullname', 'username', 'description', 'availability', 'open_hours_for_admin', 'close_hours_for_admin', 'fp_question']));
 
         // Check if users uploaded new profile picture
         $fileName = null;
@@ -324,13 +324,18 @@ class adminController extends Controller
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
         $formattedPhoneNumber = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
 
-        // Check if a duplicate phone number exists after formatting
-        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)->exists();
+        // Check if a duplicate phone number exists after formatting, excluding the current user's phone number
+        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)
+            ->where('id', '!=', $user->id) // Exclude the current user
+            ->exists();
 
         // If a duplicate is found
         if ($duplicatePhoneNumber) {
             return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp sudah terdaftar']);
         }
+
+        // Update the user's phone number if no duplicate is found
+        $user->phone_number = $formattedPhoneNumber;
 
         // Encrypt the fp_answer before saving
         $user->fp_answer = Crypt::encryptString($request->input('fp_answer'));
@@ -854,9 +859,22 @@ class adminController extends Controller
             $user->fill(['hash_for_profile_picture' => $fileName]);
         }     
 
-        // Format phone number to +62 and remove non-numeric characters
+        // Format the phone number to +62 and remove non-numeric characters
         $cleanedPhoneNumber = preg_replace('/\D/', '', $request['phone_number']); // Remove non-numeric characters
-        $user->phone_number = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+        $formattedPhoneNumber = preg_replace('/^(0|62)/', '+62', $cleanedPhoneNumber);
+
+        // Check if a duplicate phone number exists after formatting, excluding the current user's phone number
+        $duplicatePhoneNumber = User::where('phone_number', $formattedPhoneNumber)
+            ->where('id', '!=', $user->id) // Exclude the current user
+            ->exists();
+
+        // If a duplicate is found
+        if ($duplicatePhoneNumber) {
+            return redirect()->back()->withErrors(['phone_number' => 'No. Whatsapp sudah terdaftar']);
+        }
+
+        // Update the user's phone number if no duplicate is found
+        $user->phone_number = $formattedPhoneNumber;
 
         // When users creating new password, do this
         if ($request->has('password') && $request->has('password_confirmation') && !empty($request->password)) {
