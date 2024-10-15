@@ -12,24 +12,24 @@
                         {{-- Beranda --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-index') }}">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/user-index') }}'">Beranda</li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-index') }}">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/instructor-index') }}'">Beranda</li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-index') }}">Beranda</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/admin-index') }}'">Beranda</li>
                             @endif
                         @else
-                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/tamu') }}">Beranda</a></li>
+                            <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/tamu') }}'">Beranda</li>
                         @endauth
 
                         {{-- Kursus --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-course-list') }}">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/user-course') }}'">Kursus</li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-course') }}">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/instructor-course') }}'">Kursus</li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-course') }}">Kursus</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/admin-course') }}'">Kursus</li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Kursus</a></li>
@@ -38,11 +38,11 @@
                         {{-- Profil --}}
                         @auth
                             @if (auth()->user()->role === 'user')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/user-profile') }}">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/user-profile') }}'">Profil</li>
                             @elseif (auth()->user()->role === 'instructor')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/instructor-profile') }}">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/instructor-profile') }}'">Profil</li>
                             @elseif (auth()->user()->role === 'admin')
-                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="{{ url('/admin-profile') }}">Profil</a></li>
+                                <li class="p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item" onclick="window.location='{{ url('/admin-profile') }}'">Profil</li>
                             @endif
                         @else
                             <li class="guest-profile-link p-3 text-custom-green font-bold lg:text-xl hover:bg-custom-dark/10 cursor-pointer nav-item"><a href="#">Profil</a></li>
