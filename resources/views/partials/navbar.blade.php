@@ -132,14 +132,14 @@
         const currentRoute = window.location.pathname.split('/').pop().toLowerCase();
 
         $navItems.each(function () {
-        const $link = $(this);
-        const href = $link.find('a').attr('href'); 
+            const $link = $(this);
+            const href = $link.attr('onclick') ? $link.attr('onclick').match(/'([^']+)'/)[1] : null; // Extract URL from onclick
 
-        $link.removeClass('text-custom-green font-bold').addClass('text-custom-dark');
+            $link.removeClass('text-custom-green font-bold').addClass('text-custom-dark');
 
-        if (href && href.toLowerCase().endsWith(currentRoute)) {
-            $link.addClass('text-custom-green font-bold');
-        }
+            if (href && href.toLowerCase().endsWith(currentRoute)) {
+                $link.addClass('text-custom-green font-bold');
+            }
         });
     }
     checkActiveRoutes();
