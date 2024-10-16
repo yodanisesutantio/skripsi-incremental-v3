@@ -19,7 +19,7 @@
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
-            <form action="{{ url('/course/registration-form/' . $course->course_name . '/' . $course->id) }}" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/course/registration-form/' . $course->course_name . '/' . $course->id) }}" method="post" enctype="multipart/form-data" class="px-6 pb-24 lg:pt-5 lg:pb-0" id="course-registration-form">
                 @csrf
 
                 {{-- Form Sub Headers --}}
@@ -263,6 +263,12 @@
                 }
                 reader.readAsDataURL(file); // Read the file as a data URL
             }
+        });
+
+        // Mobile Submit Button Function
+        $('#mobileSubmitButton').click(function(event) {
+            event.preventDefault();
+            $('#course-registration-form').submit();
         });
 
         // Add Shadow to Form Header
