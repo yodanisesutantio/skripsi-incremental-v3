@@ -60,7 +60,7 @@
             <div class="flex flex-col gap-4 font-league mb-6 lg:mb-8 lg:hidden">
                 <h2 class="font-semibold font-encode text-xl/tight lg:text-3xl/tight">Informasi Pertemuan</h2>
                 @for ($i = 1; $i <= $enrollment->course->course_length; $i++)
-                    @if ($i < $currentMeetingNumber)
+                    @if ($i > $currentMeetingNumber)
                         <div class="font-league text-custom-white relative">
                             {{-- Accordion Button --}}
                             <h2 class="font-medium text-lg/tight lg:text-2xl/tight relative z-10 p-4 bg-custom-green drop-shadow rounded-lg">
@@ -341,7 +341,7 @@
             <div class="lg:flex lg:flex-col lg:gap-4 font-league lg:mb-8 hidden">
                 <h2 class="font-semibold font-encode text-xl/tight lg:text-3xl/tight">Informasi Pertemuan</h2>
                 @for ($i = 1; $i <= $enrollment->course->course_length; $i++)
-                    @if ($i < $currentMeetingNumber)
+                    @if ($i > $currentMeetingNumber)
                         <div class="font-league text-custom-white relative">
                             {{-- Accordion Button --}}
                             <h2 class="font-medium text-lg/tight lg:text-xl/tight relative z-10 p-4 bg-custom-green drop-shadow rounded-lg">
