@@ -202,14 +202,28 @@
 
     {{-- Schedule Interface --}}
     <div class="flex flex-col">
-        <h2 class="mb-3 lg:mb-4 text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight px-6 lg:px-[4.25rem]">Jadwal Kursus</h2>
+        <div class="flex flex-row justify-between items-center mb-3 lg:mb-4 px-6 lg:px-[4.25rem]">
+            <h2 class="text-custom-dark font-encode tracking-tight font-semibold text-xl/tight lg:text-3xl/tight">Jadwal Kursus</h2>
+
+            <div class="lg:flex flex-row gap-2 hidden">
+                {{-- Prev Days --}}
+                <button type="button" class="prevWeek flex flex-row items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="rotate-180" width="28" height="28" viewBox="0 0 24 24"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M0 0h24v24H0z"/><path fill="#040B0D" d="M6 4v16a1 1 0 0 0 1.524.852l13-8a1 1 0 0 0 0-1.704l-13-8A1 1 0 0 0 6 4"/></g></svg>
+                </button>
+
+                {{-- Next Days --}}
+                <button type="button" class="nextWeek flex flex-row items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M0 0h24v24H0z"/><path fill="#040B0D" d="M6 4v16a1 1 0 0 0 1.524.852l13-8a1 1 0 0 0 0-1.704l-13-8A1 1 0 0 0 6 4"/></g></svg>
+                </button>
+            </div>
+        </div>
 
         {{-- Tabs --}}
-        <div class="overflow-x-auto px-6 py-1 lg:px-[4.25rem]" style="scrollbar-width: none;">
-            <ul class="flex flex-row lg:grid lg:grid-cols-7 items-center gap-3 lg:gap-3 font-league text-custom-dark text-base/tight font-semibold text-center">
+        <div class="swiper swiperTabs w-full py-1" style="scrollbar-width: none;">
+            <ul class="swiper-wrapper font-league text-custom-dark text-base/tight font-semibold text-center">
                 {{-- Today's Tab --}}
-                <li class="flex-shrink-0">
-                    <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 days-button" id="todays-tab" data-index="0">
+                <li class="swiper-slide pl-6 lg:pl-[4.25rem]" style="width: auto !important;">
+                    <button class="flex flex-col grow w-[5.5rem] lg:w-40 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-white-hover border-2 border-custom-dark rounded-lg duration-300 days-button" id="todays-tab" data-index="0">
                         <div class="flex flex-col lg:hidden">
                             {{-- Days for Mobile --}}
                             <p class="font-normal">{{ \Carbon\Carbon::now()->translatedFormat('D') }}</p>
@@ -230,13 +244,13 @@
                 </li>
 
                 {{-- Loop for Next Day Tabs --}}
-                @for ($i = 1; $i <= 6; $i++)
-                    @if ($i === 6)
-                    <li class="flex-shrink-0 pr-6 lg:pr-0">
+                @for ($i = 1; $i <= 29; $i++)
+                    @if ($i === 29)
+                    <li class="swiper-slide pr-6 lg:pr-[4.25rem]" style="width: auto !important;">
                     @else
-                    <li class="flex-shrink-0">
+                    <li class="swiper-slide" style="width: auto !important;">
                     @endif
-                        <button class="flex flex-col grow w-[5.5rem] lg:w-full justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 days-button" id="today+{{ $i }}" data-index="{{ $i }}">
+                        <button class="flex flex-col grow w-[5.5rem] lg:w-40 justify-center items-center p-2 lg:pt-3 lg:pb-2 lg:px-3 bg-custom-disabled-light/40 rounded-lg duration-300 days-button" id="today+{{ $i }}" data-index="{{ $i }}">
                             <div class="flex flex-col lg:hidden">
                                 {{-- Days for Mobile --}}
                                 <p class="font-normal">{{ \Carbon\Carbon::now()->addDays($i)->translatedFormat('D') }}</p>
@@ -259,11 +273,11 @@
             </ul>
         </div>
 
-        <div class="swiper w-full px-6">
+        <div class="swiper swiperResults w-full">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                <div class="swiper-slide px-6 lg:px-[4.25rem]">
                     @if ($todaySchedule && !$todaySchedule->isEmpty())
-                        <div class="px-6 lg:px-[4.25rem] mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
+                        <div class="mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
                             @foreach ($todaySchedule as $todayCourse)
                                 {{-- Past Course --}}
                                 @if (Carbon\Carbon::parse($todayCourse->formattedEndTime)->isPast())
@@ -387,14 +401,14 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
+                        <p class="font-league text-center lg:text-xl my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }})</p>
                     @endif
                 </div>
 
-                @foreach ($nextWeekSchedules as $day => $schedules)
-                    <div class="swiper-slide">
+                @foreach ($nextDaySchedules as $day => $schedules)
+                    <div class="swiper-slide px-6 lg:px-[4.25rem]">
                         @if ($schedules->isNotEmpty())
-                        <div class="px-6 lg:px-[4.25rem] mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
+                        <div class="mt-5 lg:mt-8 mb-8 font-league lg:grid lg:grid-cols-2 lg:gap-12">
                             @foreach ($schedules as $schedule)
                                 <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-fit overflow-hidden"> <!-- Adjusted here -->
                                     {{-- Decorative Element --}}
@@ -435,7 +449,7 @@
                             @endforeach
                         </div>
                         @else
-                        <p class="font-league text-center lg:text-xl px-6 lg:px-[4.25rem] my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
+                        <p class="font-league text-center lg:text-xl my-12 lg:my-20">(Tidak ada kursus untuk {{ \Carbon\Carbon::now()->addDays($day)->translatedFormat('d F Y') }})</p>
                         @endif
                     </div>
                 @endforeach
@@ -452,7 +466,7 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        const swiper = new Swiper('.swiper', {
+        const swiper = new Swiper('.swiperResults', {
             direction: 'horizontal',
             loop: false,
             spaceBetween: 40,
@@ -477,6 +491,27 @@
                     this.update();
                 }
             }
+        });
+
+        // Initialize Days Tab Swiper
+        const swiperTabs = new Swiper('.swiperTabs', {
+            slidesPerView: "auto",
+            spaceBetween: window.innerWidth >= 1024 ? 15 : 10,
+        });
+
+        // Jump back 7 slides
+        $('.prevWeek').on('click', function() {
+            const currentIndex = swiperTabs.activeIndex;
+            const newIndex = Math.max(currentIndex - 7, 0); // Ensure it doesn't go below 0
+            swiperTabs.slideTo(newIndex);
+        });
+
+        // Jump forward 7 slides
+        $('.nextWeek').on('click', function() {
+            const currentIndex = swiperTabs.activeIndex;
+            const lastIndex = swiperTabs.slides.length - 1;
+            const newIndex = Math.min(currentIndex + 7, lastIndex); // Ensure it doesn't exceed the last index
+            swiperTabs.slideTo(newIndex);
         });
 
         $(document).on('click', '.days-button', function() {

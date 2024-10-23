@@ -51,15 +51,15 @@ class instructorController extends Controller
         }
 
         // Fetch schedules for the next 7 days
-        $nextWeekSchedules = [];
-        for ($i = 1; $i <= 6; $i++) {
-        $nextWeekSchedules[$i] = courseSchedule::where('instructor_id', auth()->id())
+        $nextDaySchedules = [];
+        for ($i = 1; $i <= 29; $i++) {
+        $nextDaySchedules[$i] = courseSchedule::where('instructor_id', auth()->id())
             ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
             ->get();
 
             // The Same as the today schedule, run through each schedule and format the start time and end time 08:00
-            if ($nextWeekSchedules[$i]->isNotEmpty()) {
-                $nextWeekSchedules[$i]->each(function ($schedule) {
+            if ($nextDaySchedules[$i]->isNotEmpty()) {
+                $nextDaySchedules[$i]->each(function ($schedule) {
                     $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
                     $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
                 });
@@ -72,7 +72,7 @@ class instructorController extends Controller
             "pageName" => "Beranda | ",
             "incomingSchedule" => $incomingSchedule,
             "todaySchedule" => $todaySchedule,
-            "nextWeekSchedules" => $nextWeekSchedules,
+            "nextDaySchedules" => $nextDaySchedules,
         ]);
     }
 

@@ -59,29 +59,29 @@ class adminController extends Controller
         }
 
         // Fetch schedules for the next 7 days
-        $nextWeekSchedules = [];
-        for ($i = 1; $i <= 6; $i++) {
-        $nextWeekSchedules[$i] = courseSchedule::whereHas('enrollment.course', function($query) {
+        $nextDaySchedules = [];
+        for ($i = 1; $i <= 29; $i++) {
+        $nextDaySchedules[$i] = courseSchedule::whereHas('enrollment.course', function($query) {
                 $query->where('admin_id', auth()->id());
             })
             ->whereDate('start_time', \Carbon\Carbon::today()->addDays($i))
             ->get();
 
-            if ($nextWeekSchedules[$i]->isNotEmpty()) {
-                $nextWeekSchedules[$i]->each(function ($schedule) {
+            if ($nextDaySchedules[$i]->isNotEmpty()) {
+                $nextDaySchedules[$i]->each(function ($schedule) {
                     $schedule->formattedStartTime = Carbon::parse($schedule->start_time)->translatedFormat('H:i');
                     $schedule->formattedEndTime = Carbon::parse($schedule->end_time)->translatedFormat('H:i');
                 });
             }
         }
 
-        // dd($nextWeekSchedules[1]);
+        // dd($nextDaySchedules[1]);
     
         return view('home.admin', [
             "pageName" => "Beranda | ",
             "incomingSchedule" => $incomingSchedule,
             "todaySchedule" => $todaySchedule,
-            "nextWeekSchedules" => $nextWeekSchedules,
+            "nextDaySchedules" => $nextDaySchedules,
         ]);
     }
 
