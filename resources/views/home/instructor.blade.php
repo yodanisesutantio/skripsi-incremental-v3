@@ -234,25 +234,25 @@
                             @foreach ($todaySchedule as $todayCourse)
                                 {{-- Past Course --}}
                                 @if (Carbon\Carbon::parse($todayCourse->formattedEndTime)->isPast())
-                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-fit">
                                     {{-- Decorative Element --}}
                                     <div class="flex flex-col py-0.5 h-full">
                                         {{-- Checkmark Icons --}}
                                         <div class="flex justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="32" height="32" viewBox="0 0 24 24"><path fill="#24596A" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0" width="32" height="32" viewBox="0 0 24 24"><path fill="#646464" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10m-5.97-3.03a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47l2.235-2.235L14.97 8.97a.75.75 0 0 1 1.06 0" clip-rule="evenodd"/></svg>
                                         </div>
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($todayCourse !== $todaySchedule->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green lg:hidden"></div>                                            
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey lg:hidden"></div>                                            
                                         @endif
                                     </div>
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($todayCourse !== $todaySchedule->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 lg:pb-0 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 lg:pb-0 gap-5">
                                     @else
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
                                     @endif
                                         <div class="flex flex-col gap-2 lg:gap-4">
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
@@ -269,13 +269,13 @@
                                         </div>
 
                                         {{-- Course Status --}}
-                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-green text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Selesai</div>
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Selesai</div>
                                     </div>
                                 </div>                                    
 
                                 {{-- Present Course --}}
                                 @elseif(Carbon\Carbon::parse($todayCourse->formattedStartTime)->isPast() && Carbon\Carbon::parse($todayCourse->formattedEndTime)->isFuture())
-                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-fit">
                                     {{-- Decorative Element --}}
                                     <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
                                         {{-- Checkmark Icons --}}
@@ -314,23 +314,23 @@
 
                                 {{-- Future Course --}}
                                 @else
-                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-full">
+                                <div class="grid grid-cols-7 gap-3.5 lg:gap-1 items-start h-fit">
                                     {{-- Decorative Element --}}
                                     <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
                                         {{-- Checkmark Icons --}}
-                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-grey rounded-full"></div></div>
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-green rounded-full"></div></div>
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($todayCourse !== $todaySchedule->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow"></div>
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green flex-grow"></div>
                                         @endif
                                     </div>
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($todayCourse !== $todaySchedule->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
                                     @else
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
                                     @endif
                                         <div class="flex flex-col gap-2 lg:gap-4">
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
@@ -347,7 +347,7 @@
                                         </div>
 
                                         {{-- Course Status --}}
-                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-green text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
                                     </div>
                                 </div>                                    
                                 @endif
@@ -367,19 +367,19 @@
                                     {{-- Decorative Element --}}
                                     <div class="flex flex-col py-0.5 lg:py-1.5 flex-grow h-full">
                                         {{-- Checkmark Icons --}}
-                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-grey rounded-full"></div></div>
+                                        <div class="flex justify-center"><div class="w-[26px] h-[26px] flex-shrink-0 bg-custom-white border-4 border-custom-green rounded-full"></div></div>
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($schedule !== $schedules->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow lg:hidden"></div>
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green flex-grow lg:hidden"></div>
                                         @endif
                                     </div>
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($schedule !== $schedules->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
                                     @else
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
                                     @endif
                                         <div class="flex flex-col gap-2 lg:gap-4">
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
@@ -396,7 +396,7 @@
                                         </div>
 
                                         {{-- Course Status --}}
-                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-grey text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
+                                        <div class="flex items-center h-10 lg:h-[42px] bg-custom-green text-custom-white text-base/tight lg:text-lg/tight flex-shrink-0 rounded-full px-4 lg:px-6">Mendatang</div>
                                     </div>
                                 </div>
                             @endforeach
@@ -412,7 +412,7 @@
 
     <div class="px-6 lg:px-[4.25rem]">
         @include('partials.footer')
-    </div>z
+    </div>
 
     {{-- Swiper CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
