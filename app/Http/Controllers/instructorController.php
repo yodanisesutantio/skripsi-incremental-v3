@@ -388,6 +388,8 @@ class instructorController extends Controller
             'description' => $request->description,
             // assign the value of the phone_number as it is already formatted from the request
             'phone_number' => $request->phone_number,
+            // assign the value of the phone_number as it is already formatted from the request
+            'role' => "instructor",
             // set the value of availability attribute to 0 by default, since sys_admin need to validate it first
             'availability' => 0,
             // assign the value of the admin_id attribute by the currently authenticated user
