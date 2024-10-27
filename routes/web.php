@@ -45,7 +45,11 @@ Route::get('/show-app-key', function () {
 });
 
 // Landing Page
-Route::get('/', [generalPage::class, 'landing']);
+Route::get('/', function() {
+    return redirect('/welcome');
+});
+
+Route::get('/welcome', [generalPage::class, 'landing']);
 
 // Search Page
 Route::get('/search', [generalPage::class, 'searchPage']);
