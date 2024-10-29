@@ -28,14 +28,17 @@ use App\Http\Controllers\InstructorCertificateController;
 |
 */
 
-// Clear Cache
+// Clear all caches similar to php artisan optimize:clear
 Route::get('/bersihkan', function() {
-    $exitCode = Artisan::call('config:clear');
-    $exitCode = Artisan::call('route:clear');
-    $exitCode = Artisan::call('cache:clear');
-    $exitCode = Artisan::call('config:cache');
-    $exitCode = Artisan::call('route:cache');
-    return 'DONE';
+    // Clear various caches
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear'); // Clear compiled views
+    Artisan::call('config:cache'); // Re-cache the configuration
+    Artisan::call('route:cache'); // Re-cache the routes
+
+    return 'All caches cleared and optimized!';
 });
 
 Route::get('/show-app-key', function () {
@@ -44,8 +47,14 @@ Route::get('/show-app-key', function () {
     ]);
 });
 
-// Landing Page
 Route::get('/', [generalPage::class, 'landing']);
+
+// Redirect from root to /welcome
+// Route::get('/', function() {
+//     return redirect('/welcome');
+// });
+
+// Route::get('/welcome', [generalPage::class, 'landing']);
 
 // Search Page
 Route::get('/search', [generalPage::class, 'searchPage']);
