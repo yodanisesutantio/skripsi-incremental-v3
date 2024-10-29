@@ -76,7 +76,7 @@ class CoursePaymentsController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('public/paymentFile', $fileName);
+            $file->storeAs('paymentFile', $fileName);
         }
 
         // If User already have uploaded the payment Receipt, then replace them
