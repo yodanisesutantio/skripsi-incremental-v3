@@ -552,10 +552,10 @@ class adminController extends Controller
                 $instructor->save(); // Save the updated instructor availability
             } 
             // Update instructor availability immediately if they have an active certificates
-            elseif ($hasActive) {
-                $instructor->availability = 1; // Set availability to 1 if we detect active certificates
-                $instructor->save(); // Save the updated instructor availability
-            }            
+            // elseif ($hasActive) {
+            //     $instructor->availability = 1; // Set availability to 1 if we detect active certificates
+            //     $instructor->save(); // Save the updated instructor availability
+            // }            
         }
 
         return view('admin-page.manage-instructor', [

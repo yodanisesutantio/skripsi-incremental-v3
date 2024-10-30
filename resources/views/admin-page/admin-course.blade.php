@@ -210,7 +210,8 @@
                 <div class="flex lg:grid flex-col lg:grid-cols-3 gap-6">
                     @foreach ($courseQuick as $quickCourse)
                     @if ($quickCourse->course_thumbnail)
-                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}');">
+                        <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="
+                        : url('{{ asset('storage/classOrCourse_thumbnail/' . $quickCourse['course_thumbnail']) }}');">
                     @else
                         <div class="bg-center bg-cover w-full h-60 lg:h-[14rem] rounded-xl" style="background-image: url('{{ asset('img/BG-Class-4.webp') }}');">
                     @endif
