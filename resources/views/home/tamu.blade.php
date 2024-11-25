@@ -98,7 +98,7 @@
     </div>
 
     {{-- Recommend to do a Search --}}
-    <div class="flex my-8 lg:justify-center">
+    <div class="flex my-8 px-6 lg:px-[4.25rem] lg:justify-center">
         <div class="flex flex-col gap-4 bg-custom-grey/10 border border-custom-disabled-light p-4 lg:p-9 lg:w-[33rem] rounded-xl items-center">
             <div class="flex flex-col gap-1">
                 <h2 class="text-custom-dark font-league font-semibold text-center text-xl/tight lg:text-3xl/tight">Tidak Menemukan yang Anda Cari?</h2>
