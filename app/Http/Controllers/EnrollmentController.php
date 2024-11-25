@@ -65,7 +65,7 @@ class EnrollmentController extends Controller
         if ($request->hasFile('student_profile_picture')) {
             $file = $request->file('student_profile_picture');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/enrollment/profile_pictures', $fileName);
+            $file->storeAs('enrollment/profile_pictures', $fileName);
         }
 
         // Format phone number to +62 and remove non-numeric characters

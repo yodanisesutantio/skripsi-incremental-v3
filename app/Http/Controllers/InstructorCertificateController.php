@@ -36,7 +36,7 @@ class InstructorCertificateController extends Controller
             // rename the file name to store it inside the database
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             // save the uploaded file to Laravel Storage System
-            $file->storeAs('public/instructor_certificate', $fileName);
+            $file->storeAs('instructor_certificate', $fileName);
         }
 
         // Create a new Instructor Certificate in the same named Tables
