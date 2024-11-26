@@ -227,6 +227,39 @@ class DatabaseSeeder extends Seeder
             'fp_answer' => Crypt::encryptString("Dua"),
             'admin_id' => 11
         ]);
+        User::create([
+            'fullname' => 'Diki',
+            'username' => 'ini_Diki',
+            'phone_number' => '+62876383182318',
+            'password' => bcrypt('sayaDiki'),
+            'age' => 33,
+            'role' => 'user',
+            'description' => 'Saya Diki Siswa Kursus',
+            'fp_question' => 'Sebutkan Ibu Kota Negara Russia',
+            'fp_answer' => Crypt::encryptString("Moscow"),
+        ]);
+        User::create([
+            'fullname' => 'Umar',
+            'username' => 'ini_Umar',
+            'phone_number' => '+6288238138568',
+            'password' => bcrypt('sayaUmar'),
+            'age' => 33,
+            'role' => 'user',
+            'description' => 'Siswa Kursus',
+            'fp_question' => 'Sebutkan Ibu Kota Negara Mexico',
+            'fp_answer' => Crypt::encryptString("Mexico City"),
+        ]);
+        User::create([
+            'fullname' => 'Rian',
+            'username' => 'ini_Rian',
+            'phone_number' => '+628238138568',
+            'password' => bcrypt('sayaRian'),
+            'age' => 33,
+            'role' => 'user',
+            'description' => 'Pekerja Swasta',
+            'fp_question' => 'Sebutkan Nama Presiden Ke-4 Indonesia',
+            'fp_answer' => Crypt::encryptString("Gus Dur"),
+        ]);
 
         drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
@@ -524,7 +557,7 @@ class DatabaseSeeder extends Seeder
             'course_id' => 1,
             'instructor_id' => 5,
             'student_id' => 7,
-            'student_real_name' => 'Budiono Siregar',
+            'student_real_name' => 'Abdul',
             'student_gender' => 'Pria',
             'student_birth_of_place' => 'Madiun',
             'student_birth_of_date' => '1997-08-30',
@@ -557,7 +590,7 @@ class DatabaseSeeder extends Seeder
             'student_occupation' => 'Wiraswasta',
             'student_phone_number' => '+6281403232713',
             'student_address' => 'Citra Land Surabaya',
-            'student_education_level' => 'S1 Sederajat',
+            'student_education_level' => 'S1/D4',
         ]);
         enrollment::create([
             'course_id' => 1,
@@ -570,6 +603,60 @@ class DatabaseSeeder extends Seeder
             'student_occupation' => 'Karyawan Swasta',
             'student_phone_number' => '+62881041401285',
             'student_address' => 'Bangkalan, Madura',
+            'student_education_level' => 'S1/D4',
+        ]);
+
+        enrollment::create([
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'student_id' => 9,
+            'student_real_name' => 'Erik',
+            'student_gender' => 'Pria',
+            'student_birth_of_place' => 'Lombok',
+            'student_birth_of_date' => '1988-12-01',
+            'student_occupation' => 'Karyawan Swasta',
+            'student_phone_number' => '+6212838123104',
+            'student_address' => 'Surabaya',
+            'student_education_level' => 'SMA/SMK Sederajat',
+        ]);
+        enrollment::create([
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'student_id' => 17,
+            'student_real_name' => 'Erina',
+            'student_gender' => 'Wanita',
+            'student_birth_of_place' => 'Surabaya',
+            'student_birth_of_date' => '1995-02-03',
+            'student_occupation' => 'Karyawan Swasta',
+            'student_phone_number' => '+628120923164',
+            'student_address' => 'Surabaya',
+            'student_education_level' => 'SMA/SMK Sederajat',
+        ]);
+
+        enrollment::create([
+            'course_id' => 13,
+            'instructor_id' => 16,
+            'student_id' => 18,
+            'student_real_name' => 'Hana',
+            'student_gender' => 'Wanita',
+            'student_birth_of_place' => 'Surabaya',
+            'student_birth_of_date' => '2002-03-05',
+            'student_occupation' => 'Mahasiswa',
+            'student_phone_number' => '+6283182310164',
+            'student_address' => 'Surabaya',
+            'student_education_level' => 'S1/D4',
+        ]);
+        enrollment::create([
+            'course_id' => 15,
+            'instructor_id' => 16,
+            'student_id' => 19,
+            'student_real_name' => 'Rian',
+            'student_gender' => 'Pria',
+            'student_birth_of_place' => 'Surabaya',
+            'student_birth_of_date' => '2000-10-29',
+            'student_occupation' => 'Mahasiswa',
+            'student_phone_number' => '+628391230164',
+            'student_address' => 'Surabaya',
             'student_education_level' => 'S1/D4',
         ]);
 
