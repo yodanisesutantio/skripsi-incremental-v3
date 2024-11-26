@@ -758,8 +758,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
-            'start_time' => '2024-10-11 08:00:00',
-            'end_time' => '2024-10-11 09:30:00',
+            'start_time' => '2024-11-15 08:00:00',
+            'end_time' => '2024-11-15 09:30:00',
             'meeting_number' => 1,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -769,8 +769,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
-            'start_time' => '2024-10-18 08:00:00',
-            'end_time' => '2024-10-18 09:30:00',
+            'start_time' => '2024-11-22 08:00:00',
+            'end_time' => '2024-11-22 09:30:00',
             'meeting_number' => 2,
             'theoryStatus' => 1,
             'quizStatus' => 0,
@@ -780,8 +780,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
-            'start_time' => '2024-10-25 08:00:00',
-            'end_time' => '2024-10-25 09:30:00',
+            'start_time' => '2024-11-29 08:00:00',
+            'end_time' => '2024-11-29 09:30:00',
             'meeting_number' => 3,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -791,8 +791,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
-            'start_time' => '2024-11-01 08:00:00',
-            'end_time' => '2024-11-01 09:30:00',
+            'start_time' => '2024-12-01 08:00:00',
+            'end_time' => '2024-12-01 09:30:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -802,8 +802,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 1,
             'course_id' => 1,
             'instructor_id' => 5,
-            'start_time' => '2024-11-08 08:00:00',
-            'end_time' => '2024-11-08 09:30:00',
+            'start_time' => '2024-12-03 08:00:00',
+            'end_time' => '2024-12-03 09:30:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -814,8 +814,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
-            'start_time' => '2024-10-11 15:30:00',
-            'end_time' => '2024-10-11 17:00:00',
+            'start_time' => '2024-11-24 15:30:00',
+            'end_time' => '2024-11-24 17:00:00',
             'meeting_number' => 1,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -825,8 +825,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
-            'start_time' => '2024-10-18 15:30:00',
-            'end_time' => '2024-10-18 17:00:00',
+            'start_time' => '2024-11-26 15:30:00',
+            'end_time' => '2024-11-26 17:00:00',
             'meeting_number' => 2,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -836,8 +836,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
-            'start_time' => '2024-10-25 15:30:00',
-            'end_time' => '2024-10-25 17:00:00',
+            'start_time' => '2024-11-28 15:30:00',
+            'end_time' => '2024-11-28 17:00:00',
             'meeting_number' => 3,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -847,8 +847,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
-            'start_time' => '2024-11-01 15:30:00',
-            'end_time' => '2024-11-01 17:00:00',
+            'start_time' => '2024-11-30 15:30:00',
+            'end_time' => '2024-11-30 17:00:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -858,8 +858,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 2,
             'course_id' => 2,
             'instructor_id' => 6,
-            'start_time' => '2024-11-08 15:30:00',
-            'end_time' => '2024-11-08 17:00:00',
+            'start_time' => '2024-12-08 15:30:00',
+            'end_time' => '2024-12-08 17:00:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -870,8 +870,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
-            'start_time' => '2024-10-24 13:00:00',
-            'end_time' => '2024-10-24 14:30:00',
+            'start_time' => '2024-11-29 13:00:00',
+            'end_time' => '2024-11-29 14:30:00',
             'meeting_number' => 1,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -881,8 +881,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
-            'start_time' => '2024-10-31 13:00:00',
-            'end_time' => '2024-10-31 14:30:00',
+            'start_time' => '2024-12-04 13:00:00',
+            'end_time' => '2024-12-04 14:30:00',
             'meeting_number' => 2,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -892,8 +892,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
-            'start_time' => '2024-11-07 13:00:00',
-            'end_time' => '2024-11-07 14:30:00',
+            'start_time' => '2024-12-12 13:00:00',
+            'end_time' => '2024-12-12 14:30:00',
             'meeting_number' => 3,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -903,8 +903,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
-            'start_time' => '2024-11-11 13:00:00',
-            'end_time' => '2024-11-11 14:30:00',
+            'start_time' => '2024-12-16 13:00:00',
+            'end_time' => '2024-12-16 14:30:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 1,
@@ -914,8 +914,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 3,
             'course_id' => 4,
             'instructor_id' => 5,
-            'start_time' => '2024-11-18 13:00:00',
-            'end_time' => '2024-11-18 14:30:00',
+            'start_time' => '2024-12-22 13:00:00',
+            'end_time' => '2024-12-22 14:30:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -926,8 +926,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-11 08:00:00',
-            'end_time' => '2024-08-11 09:30:00',
+            'start_time' => '2024-11-20 08:00:00',
+            'end_time' => '2024-11-20 09:30:00',
             'meeting_number' => 1,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -937,8 +937,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-18 08:00:00',
-            'end_time' => '2024-08-18 09:30:00',
+            'start_time' => '2024-11-24 08:00:00',
+            'end_time' => '2024-11-24 09:30:00',
             'meeting_number' => 2,
             'theoryStatus' => 1,
             'quizStatus' => 0,
@@ -948,8 +948,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-08-25 08:00:00',
-            'end_time' => '2024-08-25 09:30:00',
+            'start_time' => '2024-11-28 08:00:00',
+            'end_time' => '2024-11-28 09:30:00',
             'meeting_number' => 3,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -959,8 +959,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-09-01 08:00:00',
-            'end_time' => '2024-09-01 09:30:00',
+            'start_time' => '2024-11-30 08:00:00',
+            'end_time' => '2024-11-30 09:30:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -970,8 +970,120 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 4,
             'course_id' => 1,
             'instructor_id' => 4,
-            'start_time' => '2024-09-08 08:00:00',
-            'end_time' => '2024-09-08 09:30:00',
+            'start_time' => '2024-12-01 08:00:00',
+            'end_time' => '2024-12-01 09:30:00',
+            'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, enrollment 5
+        courseSchedule::create([
+            'enrollment_id' => 5,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-20 08:00:00',
+            'end_time' => '2024-11-20 09:30:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, enrollment 5
+        courseSchedule::create([
+            'enrollment_id' => 5,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-24 08:00:00',
+            'end_time' => '2024-11-24 09:30:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 3, enrollment 5
+        courseSchedule::create([
+            'enrollment_id' => 5,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-28 08:00:00',
+            'end_time' => '2024-11-28 09:30:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 4, enrollment 5
+        courseSchedule::create([
+            'enrollment_id' => 5,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-30 08:00:00',
+            'end_time' => '2024-11-30 09:30:00',
+            'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 5, enrollment 5
+        courseSchedule::create([
+            'enrollment_id' => 5,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-12-01 08:00:00',
+            'end_time' => '2024-12-01 09:30:00',
+            'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, enrollment 6
+        courseSchedule::create([
+            'enrollment_id' => 6,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-20 14:30:00',
+            'end_time' => '2024-11-20 16:00:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, enrollment 6
+        courseSchedule::create([
+            'enrollment_id' => 6,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-24 14:30:00',
+            'end_time' => '2024-11-24 16:00:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 3, enrollment 6
+        courseSchedule::create([
+            'enrollment_id' => 6,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-28 14:30:00',
+            'end_time' => '2024-11-28 16:00:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 4, enrollment 6
+        courseSchedule::create([
+            'enrollment_id' => 6,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-11-30 14:30:00',
+            'end_time' => '2024-11-30 16:00:00',
+            'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 5, enrollment 6
+        courseSchedule::create([
+            'enrollment_id' => 6,
+            'course_id' => 7,
+            'instructor_id' => 13,
+            'start_time' => '2024-12-01 14:30:00',
+            'end_time' => '2024-12-01 16:00:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -980,17 +1092,42 @@ class DatabaseSeeder extends Seeder
         // Bukti Pembayaran untuk Siswa 1
         coursePayment::create([
             'enrollment_id' => 1,
-            'paymentFile' => '1723140944.png',
+            'paymentFile' => '1723140944.jpg',
         ]);
         // Bukti Pembayaran untuk Siswa 2
         coursePayment::create([
             'enrollment_id' => 2,
-            'paymentFile' => '1722842843.png',
+            'paymentFile' => '1722842843.jpg',
         ]);
         // Bukti Pembayaran untuk Siswa 3
         coursePayment::create([
             'enrollment_id' => 3,
-            'paymentFile' => '1722842843.png',
+            'paymentFile' => '1723140944.jpg',
+        ]);
+        // Bukti Pembayaran untuk Siswa 4
+        coursePayment::create([
+            'enrollment_id' => 4,
+            'paymentFile' => '1722842843.jpg',
+        ]);
+        // Bukti Pembayaran untuk Siswa 5
+        coursePayment::create([
+            'enrollment_id' => 5,
+            'paymentFile' => '1723140944.jpg',
+        ]);
+        // Bukti Pembayaran untuk Siswa 6
+        coursePayment::create([
+            'enrollment_id' => 6,
+            'paymentFile' => '1722842843.jpg',
+        ]);
+        // Bukti Pembayaran untuk Siswa 7
+        coursePayment::create([
+            'enrollment_id' => 7,
+            'paymentFile' => '1723140944.jpg',
+        ]);
+        // Bukti Pembayaran untuk Siswa 8
+        coursePayment::create([
+            'enrollment_id' => 8,
+            'paymentFile' => '1722842843.jpg',
         ]);
 
         paymentMethod::create([
