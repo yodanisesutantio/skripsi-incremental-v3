@@ -82,10 +82,10 @@
                             {{-- Instructor Card --}}
                             <div class="swiper-slide {{ $loop->last ? 'pr-12 lg:pr-16' : '' }}" style="width: auto !important;">
                                 <div class="flex flex-col w-40 lg:w-72 flex-shrink-0 lg:flex-grow items-center p-3 bg-custom-white-hover border border-custom-disabled-light rounded-xl gap-3">
-                                    @if ($availableInstructor->hash_for_profile_picture)
-                                        <img src="{{ asset('storage/profile_pictures/' . $availableInstructor->instructor->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-16 h-16 flex-shrink-0 mt-2 rounded-full bg-cover bg-center bg-no-repeat">
+                                    @if ($availableInstructor->instructor->hash_for_profile_picture)
+                                        <img src="{{ asset('storage/profile_pictures/' . $availableInstructor->instructor->hash_for_profile_picture) }}" alt="Instructor Profile Picture" class="w-16 h-16 flex-shrink-0 mt-2 rounded-full object-cover object-center object-no-repeat">
                                     @else
-                                        <img src="{{ asset('img/blank-profile.webp') }}" alt="Instructor Profile Picture" class="w-16 h-16 flex-shrink-0 mt-2 rounded-full bg-cover bg-center bg-no-repeat">
+                                        <img src="{{ asset('img/blank-profile.webp') }}" alt="Instructor Profile Picture" class="w-16 h-16 flex-shrink-0 mt-2 rounded-full object-cover object-center object-no-repeat">
                                     @endif
     
                                     {{-- Instructor Information --}}

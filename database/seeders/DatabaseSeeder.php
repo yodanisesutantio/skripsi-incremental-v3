@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('sayasiebersaudara'),
             'role' => "admin",
             'description' => 'Kursus Mengemudi Paling Lawas sak Suroboyo',
+            'hash_for_profile_picture' => '1730173476.png',
             'open_hours_for_admin' => '08:00:00',
             'close_hours_for_admin' => '17:00:00',
             'fp_question' => 'Satu ditambah satu sama dengan?',
@@ -50,6 +51,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('sayapulung'),
             'role' => "admin",
             'description' => 'Kursus Mengemudi Pulung buka dari Jam 9 pagi sampai 8 malam',
+            'hash_for_profile_picture' => '1732615376.png',
             'open_hours_for_admin' => '09:00:00',
             'close_hours_for_admin' => '20:00:00',
             'fp_question' => 'Satu ditambah satu sama dengan?',
@@ -63,6 +65,7 @@ class DatabaseSeeder extends Seeder
             'age' => 43,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Sie Bersaudara',
+            'hash_for_profile_picture' => '1732615541.png',
             'availability' => 0,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -76,6 +79,7 @@ class DatabaseSeeder extends Seeder
             'age' => 33,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Sie Bersaudara',
+            'hash_for_profile_picture' => '1732615690.png',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -89,6 +93,7 @@ class DatabaseSeeder extends Seeder
             'age' => 27,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Sie Bersaudara',
+            'hash_for_profile_picture' => '1732615605.png',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -134,6 +139,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('sayasiebersaudara'),
             'role' => "admin",
             'description' => 'Kursus Mengemudi Sie Bersaudara Banyu Urip',
+            'hash_for_profile_picture' => '1732615186.png',
             'open_hours_for_admin' => '08:00:00',
             'close_hours_for_admin' => '17:00:00',
             'fp_question' => 'Satu ditambah satu sama dengan?',
@@ -146,6 +152,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('kursushafiz'),
             'role' => "admin",
             'description' => 'Kursus Mengemudi HAFIZ dari 2018',
+            'hash_for_profile_picture' => '1732614956.png',
             'open_hours_for_admin' => '09:00:00',
             'close_hours_for_admin' => '16:00:00',
             'fp_question' => 'Satu ditambah satu sama dengan?',
@@ -159,6 +166,7 @@ class DatabaseSeeder extends Seeder
             'age' => 38,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Pulung',
+            'hash_for_profile_picture' => '1732615648.png',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -185,6 +193,7 @@ class DatabaseSeeder extends Seeder
             'age' => 44,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Sie Bersaudara',
+            'hash_for_profile_picture' => '1732617381.jpg',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -198,6 +207,7 @@ class DatabaseSeeder extends Seeder
             'age' => 50,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi Sie Bersaudara',
+            'hash_for_profile_picture' => '1732612560912.webp',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -211,6 +221,7 @@ class DatabaseSeeder extends Seeder
             'age' => 39,
             'role' => "instructor",
             'description' => 'Saya adalah Instruktur untuk Kursus Mengemudi HAFIZ',
+            'hash_for_profile_picture' => '1732614805.png',
             'availability' => 1,
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("Dua"),
@@ -325,6 +336,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         course::create([
+            'course_thumbnail' => '1732615008.png',
             'course_name' => 'Kursus Mobil Manual untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -348,6 +360,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 2,
         ]);
         course::create([
+            'course_thumbnail' => '1732615098.png',
             'course_name' => 'Kursus Kilat Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 3,
@@ -359,6 +372,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 2,
         ]);
         course::create([
+            'course_thumbnail' => '1732615212.png',
             'course_name' => 'Kursus Privat',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda. Anda bebas memilih transmisi yang ingin anda pelajari.',
             'course_quota' => 6,
@@ -371,6 +385,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         course::create([
+            'course_thumbnail' => '1732615219.png',
             'course_name' => 'Belajar Mengemudi Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -382,6 +397,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 3,
         ]);
         course::create([
+            'course_thumbnail' => '1732615241.png',
             'course_name' => 'Belajar Mengemudi Mobil Matic',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 8,
@@ -393,6 +409,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 3,
         ]);
         course::create([
+            'course_thumbnail' => '1732615283.png',
             'course_name' => 'Kursus Mengemudi Murah di Surabaya',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 8,
@@ -404,6 +421,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 3,
         ]);
         course::create([
+            'course_thumbnail' => '1732615303.png',
             'course_name' => 'Kursus Mengemudi Mobil Surabaya',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 11,
@@ -415,6 +433,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 3,
         ]);
         course::create([
+            'course_thumbnail' => '1732615320.png',
             'course_name' => 'Kursus Mengemudi Mobil Mandiri',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat dengan mobil anda sendiri, kursus ini tepat untuk anda.',
             'course_quota' => 5,
@@ -427,6 +446,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         course::create([
+            'course_thumbnail' => '1732615404.png',
             'course_name' => 'Kursus Mobil Manual untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda. Untuk anda yang baru belajar mengemudi dengan mobil manual, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -438,6 +458,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 10,
         ]);
         course::create([
+            'course_thumbnail' => '1732615432.png',
             'course_name' => 'Kursus Mobil Matic untuk Pemula',
             'course_description' => 'Untuk anda yang baru belajar mengemudi dengan mobil matic, kursus ini tepat untuk anda.',
             'course_quota' => 5,
@@ -450,6 +471,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 10,
         ]);
         course::create([
+            'course_thumbnail' => '1732615455.png',
             'course_name' => 'Kursus Kilat Mobil Manual',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 3,
@@ -462,6 +484,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         course::create([
+            'course_thumbnail' => '1732615432.png',
             'course_name' => 'Kursus Mobil Paket A',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan cepat, kursus ini tepat untuk anda.',
             'course_quota' => 4,
@@ -473,6 +496,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 11,
         ]);
         course::create([
+            'course_thumbnail' => '1732615419.png',
             'course_name' => 'Kursus Mobil Paket B',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan lancar & cepat, kursus ini tepat untuk anda.',
             'course_quota' => 10,
@@ -484,6 +508,7 @@ class DatabaseSeeder extends Seeder
             'admin_id' => 11,
         ]);
         course::create([
+            'course_thumbnail' => '1732615076.png',
             'course_name' => 'Kursus Mobil Paket C',
             'course_description' => 'Untuk anda yang ingin bisa mengemudi dengan lancar, kursus ini tepat untuk anda.',
             'course_quota' => 10,
