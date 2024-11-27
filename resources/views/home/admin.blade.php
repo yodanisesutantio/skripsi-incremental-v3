@@ -291,15 +291,15 @@
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($todayCourse !== $todaySchedule->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey lg:hidden"></div>                                            
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-grey flex-grow lg:hidden"></div>                                            
                                         @endif
                                     </div>
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($todayCourse !== $todaySchedule->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 lg:pb-0 gap-5">
+                                        <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey pb-7 lg:pb-0 gap-5">
                                     @else
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
+                                        <div class="col-span-6 flex flex-row justify-between items-center text-custom-grey gap-5">
                                     @endif
                                         <div class="flex flex-col gap-2 lg:gap-4">
                                             {{-- Name, Meeting Number and Course Start and End Time --}}
@@ -330,13 +330,13 @@
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($todayCourse !== $todaySchedule->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-dark flex-grow"></div>
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-dark flex-grow lg:hidden"></div>
                                         @endif
                                     </div>
                                     
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($todayCourse !== $todaySchedule->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 lg:pb-0 gap-5">
                                     @else
                                     <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
                                     @endif
@@ -369,13 +369,13 @@
 
                                         {{-- If this is the last item in the collection, abandon this decorative element --}}
                                         @if ($todayCourse !== $todaySchedule->last())
-                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green flex-grow"></div>
+                                            <div class="w-1/2 ml-0.5 h-full border-r-2 border-dashed border-custom-green flex-grow lg:hidden"></div>
                                         @endif
                                     </div>
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($todayCourse !== $todaySchedule->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 lg:pb-0 gap-5">
                                     @else
                                     <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
                                     @endif
@@ -424,7 +424,7 @@
 
                                     {{-- If this is the last item in the collection, do not add padding-bottom-7 --}}
                                     @if ($schedule !== $schedules->last())
-                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 gap-5">
+                                    <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark pb-7 lg:pb-0 gap-5">
                                     @else
                                     <div class="col-span-6 flex flex-row justify-between items-center text-custom-dark gap-5">
                                     @endif

@@ -305,63 +305,63 @@ class DatabaseSeeder extends Seeder
         ]);
 
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Sudah Divalidasi',
             'instructor_id' => 4,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 5,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2020-08-01',
             'endCertificateDate' => '2025-08-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 6,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2022-04-01',
             'endCertificateDate' => '2027-04-01',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 12,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2022-04-22',
             'endCertificateDate' => '2027-04-22',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 13,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2022-06-19',
             'endCertificateDate' => '2027-06-19',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 14,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2023-02-14',
             'endCertificateDate' => '2028-02-14',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 15,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2019-02-28',
             'endCertificateDate' => '2024-02-28',
             'certificateStatus' => 'Tidak Berlaku',
             'instructor_id' => 16,
         ]);
         instructorCertificate::create([
-            'certificatePath' => '1722614055.webp',
+            'certificatePath' => '1722614055.jpg',
             'startCertificateDate' => '2024-02-28',
             'endCertificateDate' => '2029-02-28',
             'certificateStatus' => 'Aktif',
@@ -1134,8 +1134,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 7,
             'course_id' => 13,
             'instructor_id' => 16,
-            'start_time' => '2024-11-20 14:30:00',
-            'end_time' => '2024-11-20 16:00:00',
+            'start_time' => '2024-11-20 16:00:00',
+            'end_time' => '2024-11-20 17:00:00',
             'meeting_number' => 1,
             'theoryStatus' => 1,
             'quizStatus' => 1,
@@ -1145,8 +1145,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 7,
             'course_id' => 13,
             'instructor_id' => 16,
-            'start_time' => '2024-11-24 14:30:00',
-            'end_time' => '2024-11-24 16:00:00',
+            'start_time' => '2024-11-24 16:00:00',
+            'end_time' => '2024-11-24 17:00:00',
             'meeting_number' => 2,
             'theoryStatus' => 1,
             'quizStatus' => 0,
@@ -1156,8 +1156,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 7,
             'course_id' => 13,
             'instructor_id' => 16,
-            'start_time' => '2024-11-28 14:30:00',
-            'end_time' => '2024-11-28 16:00:00',
+            'start_time' => '2024-11-28 16:00:00',
+            'end_time' => '2024-11-28 17:00:00',
             'meeting_number' => 3,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -1167,8 +1167,8 @@ class DatabaseSeeder extends Seeder
             'enrollment_id' => 7,
             'course_id' => 13,
             'instructor_id' => 16,
-            'start_time' => '2024-11-30 14:30:00',
-            'end_time' => '2024-11-30 16:00:00',
+            'start_time' => '2024-11-30 16:00:00',
+            'end_time' => '2024-11-30 17:00:00',
             'meeting_number' => 4,
             'theoryStatus' => 0,
             'quizStatus' => 0,
@@ -1225,6 +1225,141 @@ class DatabaseSeeder extends Seeder
             'instructor_id' => 16,
             'start_time' => '2024-12-01 14:30:00',
             'end_time' => '2024-12-01 16:00:00',
+            'meeting_number' => 5,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 6, enrollment 8
+        courseSchedule::create([
+            'enrollment_id' => 8,
+            'course_id' => 15,
+            'instructor_id' => 16,
+            'start_time' => '2024-12-05 14:30:00',
+            'end_time' => '2024-12-05 16:00:00',
+            'meeting_number' => 6,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, enrollment 9
+        courseSchedule::create([
+            'enrollment_id' => 9,
+            'course_id' => 3,
+            'instructor_id' => 5,
+            'start_time' => '2024-11-30 10:00:00',
+            'end_time' => '2024-11-30 11:30:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, enrollment 9
+        courseSchedule::create([
+            'enrollment_id' => 9,
+            'course_id' => 3,
+            'instructor_id' => 5,
+            'start_time' => '2024-12-01 10:00:00',
+            'end_time' => '2024-12-01 11:30:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 3, enrollment 9
+        courseSchedule::create([
+            'enrollment_id' => 9,
+            'course_id' => 3,
+            'instructor_id' => 5,
+            'start_time' => '2024-12-02 10:00:00',
+            'end_time' => '2024-12-02 11:30:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, enrollment 10
+        courseSchedule::create([
+            'enrollment_id' => 10,
+            'course_id' => 3,
+            'instructor_id' => 6,
+            'start_time' => '2024-11-30 10:00:00',
+            'end_time' => '2024-11-30 11:30:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, enrollment 10
+        courseSchedule::create([
+            'enrollment_id' => 10,
+            'course_id' => 3,
+            'instructor_id' => 6,
+            'start_time' => '2024-12-01 10:00:00',
+            'end_time' => '2024-12-01 11:30:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 3, enrollment 10
+        courseSchedule::create([
+            'enrollment_id' => 10,
+            'course_id' => 3,
+            'instructor_id' => 6,
+            'start_time' => '2024-12-02 10:00:00',
+            'end_time' => '2024-12-02 11:30:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+
+        // Pertemuan 1, enrollment 11
+        courseSchedule::create([
+            'enrollment_id' => 11,
+            'course_id' => 4,
+            'instructor_id' => 6,
+            'start_time' => '2024-11-27 14:00:00',
+            'end_time' => '2024-11-27 16:00:00',
+            'meeting_number' => 1,
+            'theoryStatus' => 1,
+            'quizStatus' => 1,
+        ]);
+        // Pertemuan 2, enrollment 11
+        courseSchedule::create([
+            'enrollment_id' => 11,
+            'course_id' => 4,
+            'instructor_id' => 6,
+            'start_time' => '2024-11-29 14:00:00',
+            'end_time' => '2024-11-29 16:00:00',
+            'meeting_number' => 2,
+            'theoryStatus' => 1,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 3, enrollment 11
+        courseSchedule::create([
+            'enrollment_id' => 11,
+            'course_id' => 4,
+            'instructor_id' => 6,
+            'start_time' => '2024-12-02 14:00:00',
+            'end_time' => '2024-12-02 16:00:00',
+            'meeting_number' => 3,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 4, enrollment 11
+        courseSchedule::create([
+            'enrollment_id' => 11,
+            'course_id' => 4,
+            'instructor_id' => 6,
+            'start_time' => '2024-12-04 14:00:00',
+            'end_time' => '2024-12-04 16:00:00',
+            'meeting_number' => 4,
+            'theoryStatus' => 0,
+            'quizStatus' => 0,
+        ]);
+        // Pertemuan 5, enrollment 11
+        courseSchedule::create([
+            'enrollment_id' => 11,
+            'course_id' => 4,
+            'instructor_id' => 6,
+            'start_time' => '2024-12-07 14:00:00',
+            'end_time' => '2024-12-02 16:00:00',
             'meeting_number' => 5,
             'theoryStatus' => 0,
             'quizStatus' => 0,
