@@ -16,7 +16,7 @@
                 {{-- Website Mark --}}
                 <img src="{{ asset('img/Logo-Hitam.svg') }}" alt="Logo Kemudi" class="w-44">
                 {{-- Website Description --}}
-                <p class="font-league text-lg/snug text-custom-dark">Sebuah platform untuk Penyedia Jasa Kursus Mengemudi dapat menawarkan jasanya kepada masyarakat umum. Platform untuk menjembatani Instruktur, Lembaga Kursus, dan Siswa Kursus</p>
+                <p class="font-league text-xl/snug text-custom-dark">Sebuah platform untuk Penyedia Jasa Kursus Mengemudi dapat menawarkan jasanya kepada masyarakat umum. Platform untuk menjembatani Instruktur, Lembaga Kursus, dan Siswa Kursus</p>
             </div>
     
             <div class="grid grid-cols-2 grid-rows-3">

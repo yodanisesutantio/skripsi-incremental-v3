@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon; // Use Carbon Method by Laravel
+
 use App\Models\User; // Access User Tables
 use App\Models\drivingSchoolLicense; // Access DrivingSchoolLicense Tables
 use Illuminate\Support\Facades\Auth; // Use Auth Method by Laravel
@@ -16,7 +18,7 @@ class DrivingSchoolLicenseController extends Controller
         $this->validate($request, [
             'licensePath' => 'required|mimes:jpeg,png,jpg,webp|max:2048',
             'startLicenseDate' => 'required',
-            'endLicenseDate' => 'required',
+            'endLicenseDate' => 'required|after:startLicenseDate',
         ],
         
         // Validation Error Message
@@ -26,7 +28,10 @@ class DrivingSchoolLicenseController extends Controller
             'licensePath.max' => 'Ukuran gambar maksimal adalah 2 MB',
             'startLicenseDate.required' => 'Kolom ini harus diisi',
             'endLicenseDate.required' => 'Kolom ini harus diisi',
+            'endLicenseDate.after' => 'Pastikan "Tanggal Akhir Berlaku" lebih besar dari "Tanggal Awal Berlaku"',
         ]);
+
+
 
         // Check if the incoming request has an uploaded license
         $fileName = null;
@@ -45,8 +50,15 @@ class DrivingSchoolLicenseController extends Controller
         $newLicense->licensePath = $fileName;
         // assign the value of the startLicenseDate attribute as per request
         $newLicense->startLicenseDate = $request['startLicenseDate'];
+
+        // => Either this :
         // assign the value of the endLicenseDate attribute as per request
         $newLicense->endLicenseDate = $request['endLicenseDate'];
+
+        // => or this:
+        // assign the value of the endLicenseDate attribute as 3 years after startLicenseDate
+        $newLicense->endLicenseDate = \Carbon\Carbon::parse($request['startLicenseDate'])->addYears(3);
+
         // assign the value of the admin_id attribute by the currently authenticated user
         $newLicense->admin_id = Auth::id();
         // Save the new array of data to DrivingSchoolLicense Tables
