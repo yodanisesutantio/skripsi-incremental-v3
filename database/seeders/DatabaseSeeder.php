@@ -710,6 +710,19 @@ class DatabaseSeeder extends Seeder
             'student_address' => 'Surabaya',
             'student_education_level' => 'SMA Sederajat',
         ]);
+        enrollment::create([
+            'course_id' => 13,
+            'instructor_id' => 16,
+            'student_id' => 20,
+            'student_real_name' => 'Budiono Siregar',
+            'student_gender' => 'Pria',
+            'student_birth_of_place' => 'Surabaya',
+            'student_birth_of_date' => '2000-06-03',
+            'student_occupation' => 'Pekerja Swasta',
+            'student_phone_number' => '+6283978930164',
+            'student_address' => 'Surabaya',
+            'student_education_level' => 'SMA Sederajat',
+        ]);
 
         courseInstructor::create([
             'course_id' => 1,
