@@ -21,7 +21,7 @@
 
         <div class="lg:col-span-2 lg:px-24">
             {{-- New Schedule Form --}}
-            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0" data-enrollment-id="{{ $enrollment['id'] }}">
                 @csrf
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
@@ -71,9 +71,7 @@
                         {{-- Dropdown --}}
                         <select name="course_time" id="course_time" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time') border-2 border-custom-destructive @enderror">
                             <option disabled selected>-- Pilih Jam Kursus --</option>
-                            @foreach ($availableSlots as $slot)
-                                <option value="{{ $slot['start'] }} - {{ $slot['end'] }}">{{ $slot['start'] }} - {{ $slot['end'] }}</option>
-                            @endforeach
+                            {{-- Option Time is generated here --}}
                         </select>
                         {{-- Error in Validation Message --}}
                         @error('course_time')
@@ -105,6 +103,7 @@
         const datepicker = {
             currentDate: new Date(),
             selectedDate: null,
+
             render() {
                 const currentMonth = this.currentDate.getMonth();
                 const currentYear = this.currentDate.getFullYear();
@@ -179,8 +178,10 @@
                         dateCell.classList.add("hover:bg-custom-dark/15");
 
                         // Add click event for date selection
-                        dateCell.addEventListener("click", () => {
+                        dateCell.addEventListener("click", (e) => {
                             this.selectedDate = currentDate;
+                            e.preventDefault(); // Prevent the default action (form submission)
+                            this.handleDateSelection(currentDate); // Call the new function
                             this.render(); // Re-render to update styles
                         });
                     }
@@ -203,11 +204,26 @@
                     grid.appendChild(dateCell);
                 }
             },
-                changeMonth(offset) {
-                    this.currentDate.setMonth(this.currentDate.getMonth() + offset);
+
+            handleDateSelection(selectedDate) {
+                console.log("Date selected:", selectedDate);
+
+                // Format the selected date as YYYY-MM-DD without using toISOString
+                const year = selectedDate.getFullYear();
+                const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so we add 1
+                const day = String(selectedDate.getDate()).padStart(2, '0'); // Ensure 2-digit day
+
+                const formattedDate = `${year}-${month}-${day}`; // Format the date as YYYY-MM-DD
+                console.log("Formatted Date:", formattedDate); // Debugging log
+
+                fetchAvailableSlots(formattedDate);
+            },
+
+            changeMonth(offset) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + offset);
                 this.render();
             },
-        }
+        };
 
         // Initialize datepicker
         datepicker.render();
@@ -220,6 +236,66 @@
         document.getElementById("nextMonth").addEventListener("click", () => {
             datepicker.changeMonth(1);
         });
+
+        function fetchAvailableSlots(selectedDate) {
+            // Get the enrollment ID from the form's data attribute
+            const enrollmentId = $('#proposeScheduleForm').data('enrollment-id');
+
+            // Debug: Log the enrollment ID and selected date
+            console.log("Selected Date:", selectedDate);
+            console.log("Enrollment ID:", enrollmentId);
+
+            // Check if values are null or undefined
+            if (!enrollmentId) {
+                console.error("Enrollment ID is missing!");
+                alert("Enrollment ID is missing. Please check the form configuration.");
+                return;
+            }
+
+            if (!selectedDate) {
+                console.error("Selected date is missing!");
+                alert("Selected date is not defined. Please try again.");
+                return;
+            }
+
+            // Proceed with the AJAX request
+            $.ajax({
+                url: '/get-available-slots',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    start_date: selectedDate,
+                    enrollment_id: enrollmentId,
+                },
+                success: function (response) {
+                    console.log("Available slots response:", response); // Log response for debugging
+                    updateTimeOptions(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching slots:', xhr.responseText || error);
+                    alert('Failed to fetch available time slots.');
+                },
+            });
+        }
+
+        function updateTimeOptions(slots) {
+            const timeSelect = $('#course_time');
+            timeSelect.empty();
+
+            $.each(slots, function (date, times) {
+                timeSelect.append(`<optgroup label="${date}">`);
+                times.forEach(function (time) {
+                    timeSelect.append(`<option value="${date} ${time}">${date} ${time}</option>`);
+                });
+                timeSelect.append(`</optgroup>`);
+            });
+
+            if (!slots || Object.keys(slots).length === 0) {
+                timeSelect.append(`<option>No slots available</option>`);
+                return;
+            }
+
+        }
 
         // Mobile Submit Button Function
         $('#mobileSubmitButton').click(function(event) {
