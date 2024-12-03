@@ -269,6 +269,12 @@
                 },
                 success: function (response) {
                     console.log("Available slots response:", response); // Log response for debugging
+
+                    // Check if response is an object and log it in a more readable format
+                    if (typeof response === 'object') {
+                        console.table(response); // Use console.table for better visualization
+                    }
+                    
                     updateTimeOptions(response);
                 },
                 error: function (xhr, status, error) {
@@ -294,7 +300,6 @@
                 timeSelect.append(`<option>No slots available</option>`);
                 return;
             }
-
         }
 
         // Mobile Submit Button Function
