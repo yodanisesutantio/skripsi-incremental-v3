@@ -288,17 +288,13 @@
             const timeSelect = $('#course_time');
             timeSelect.empty();
 
-            $.each(slots, function (date, times) {
-                timeSelect.append(`<optgroup label="${date}">`);
-                times.forEach(function (time) {
-                    timeSelect.append(`<option value="${date} ${time}">${date} ${time}</option>`);
+            // Since the response now contains only time slots, we can directly append them
+            if (slots.length > 0) {
+                slots.forEach(function (time) {
+                    timeSelect.append(`<option value="${time}">${time}</option>`); // Only show time
                 });
-                timeSelect.append(`</optgroup>`);
-            });
-
-            if (!slots || Object.keys(slots).length === 0) {
+            } else {
                 timeSelect.append(`<option>No slots available</option>`);
-                return;
             }
         }
 

@@ -241,21 +241,20 @@ class CourseScheduleController extends Controller
     }
 
     public function getAvailableSlots(Request $request) {
-        // Try a basic response for testing
-        // return response()->json(['status' => 'success', 'data' => []]);
-
-        // Retrieve the enrollment ID and start date from the request
-        $enrollmentId = $request->input('enrollment_id');
-        $startDate = $request->input('start_date');
+        \Log::info('Received request for available slots', [
+            'enrollment_id' => 12,
+            'start_date' => '2024-12-09',
+        ]);
         
-        // Fetch the enrollment record based on the enrollment ID (assuming you have an Enrollment model)
-        $enrollment = Enrollment::find($enrollmentId);
-    
+        // Fetch the enrollment record based on the enrollment ID
+        $enrollment = Enrollment::find(12);
+        $startDate = '2024-12-09';
+        
         // Check if the enrollment exists
         if (!$enrollment) {
             return response()->json(['error' => 'Invalid enrollment ID'], 400);
         }
-    
+        
         // Get Open and Close Times
         $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
         $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
@@ -263,11 +262,11 @@ class CourseScheduleController extends Controller
         // Get Break Start and End Times
         $breakStart = \Carbon\Carbon::parse("11:30");
         $breakEnd = \Carbon\Carbon::parse("13:00");
-    
+        
         // Get Course Duration & Length
         $courseDuration = $enrollment->course->course_duration;
         $courseLength = $enrollment->course->course_length;
-    
+        
         // Calculate Course Dates
         $courseDates = [];
         $currentDate = \Carbon\Carbon::parse($startDate);
@@ -275,62 +274,57 @@ class CourseScheduleController extends Controller
             $courseDates[] = $currentDate->copy();
             $currentDate->addWeek();
         }
-        // Prepare the response
-        // $response = [
-        //     'open_time' => $openTime->format('H:i'), // Format as needed
-        //     'close_time' => $closeTime->format('H:i'), // Format as needed
-        //     'break_start' => $breakStart->format('H:i'), // Format as needed
-        //     'break_end' => $breakEnd->format('H:i'), // Format as needed
-        //     'course_dates' => array_map(function($date) {
-        //         return $date->format('Y-m-d'); // Format each date in the array
-        //     }, $courseDates),
-        // ];
+        
+        $availableTimeSlots = []; // To store unique available time slots
 
-        // return response()->json($response);
-
-    
-        $availableSlots = [];
-    
+        // Generate slots for each course date
         foreach ($courseDates as $date) {
             // Fetch instructor's existing schedules for the date
-            $instructorId = $enrollment->course->instructor_id;
+            $instructorId = $enrollment->instructor_id;
             $existingSchedules = CourseSchedule::where('instructor_id', $instructorId)
                 ->whereDate('start_time', $date->format('Y-m-d'))
                 ->get();
-    
-            // Generate slots for the day
+
+            // Generate daily slots
             $currentTime = $openTime->copy();
             $dailySlots = [];
-    
+
             while ($currentTime->lessThan($closeTime)) {
                 $startSlot = $currentTime->copy();
                 $endSlot = $startSlot->copy()->addMinutes($courseDuration);
-    
+
                 // Skip break time
                 if (($startSlot->between($breakStart, $breakEnd)) || ($endSlot->between($breakStart, $breakEnd))) {
+                    $currentTime = $breakEnd->copy();
                     continue;
                 }
-    
+
                 // Check for conflicts
                 $conflict = $existingSchedules->contains(function ($schedule) use ($startSlot, $endSlot) {
                     $scheduleStart = \Carbon\Carbon::parse($schedule->start_time);
                     $scheduleEnd = \Carbon\Carbon::parse($schedule->end_time);
-    
                     return $startSlot->between($scheduleStart, $scheduleEnd) ||
                            $endSlot->between($scheduleStart, $scheduleEnd);
                 });
-    
+
+                // If no conflict, add the time slot to daily slots
                 if (!$conflict) {
                     $dailySlots[] = $startSlot->format('H:i') . " - " . $endSlot->format('H:i');
                 }
-    
+
                 // Move to the next slot
                 $currentTime = $endSlot;
             }
-    
-            $availableSlots[$date->format('Y-m-d')] = $dailySlots;
+
+            // Merge daily slots into available time slots
+            foreach ($dailySlots as $slot) {
+                if (!in_array($slot, $availableTimeSlots)) {
+                    $availableTimeSlots[] = $slot; // Store unique time slots
+                }
+            }
         }
-    
-        return response()->json($availableSlots);
-    } 
+
+        // Return only the unique available time slots
+        return response()->json($availableTimeSlots);
+    }
 }
