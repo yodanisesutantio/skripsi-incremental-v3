@@ -103,8 +103,6 @@ Route::get('/course/{course_name}/{course_id}', [generalPage::class, 'courseDeta
 // Guest / Student Access Admin Course List Page
 Route::get('/course/{admin_username}', [generalPage::class, 'drivingSchoolCoursePage']);
 
-Route::post('/get-available-slots', [CourseScheduleController::class, 'getAvailableSlots']);
-
 // Admin Specific Route
 Route::middleware(['auth', 'App\Http\Middleware\adminMiddleware'])->group(function () {
     // Admin Dashboard Page

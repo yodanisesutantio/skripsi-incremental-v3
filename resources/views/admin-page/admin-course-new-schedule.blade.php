@@ -28,7 +28,7 @@
                     <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Jadwal Kursus Pertemuan {{ $schedule->meeting_number }}</h2>
 
                     {{-- Select Date --}}
-                    <div class="flex flex-col gap-1">
+                    <div class="flex flex-col gap-1 -mt-3">
                         <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Date Interface --}}
                         <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
