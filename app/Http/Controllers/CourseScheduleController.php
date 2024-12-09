@@ -136,6 +136,63 @@ class CourseScheduleController extends Controller
         }
 
         // dd($selectedDates);
+
+        // Extract start and end times from course_time
+        list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
+
+        // Validate each selected date for overlapping schedules
+        foreach ($selectedDates as $selectedDate) {
+            // Create full datetime for start and end times
+            $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
+            $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+
+            // Check for existing schedules that overlap
+            $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
+                $query->where('instructor_id', $instructor_id)
+                    ->where(function ($q) use ($selectedStartTime, $selectedEndTime) {
+                        $q->whereBetween('start_time', [$selectedStartTime, $selectedEndTime])
+                            ->orWhereBetween('end_time', [$selectedStartTime, $selectedEndTime])
+                            ->orWhere(function ($q) use ($selectedStartTime, $selectedEndTime) {
+                                $q->where('start_time', '<=', $selectedStartTime)
+                                    ->where('end_time', '>=', $selectedEndTime);
+                            });
+                    });
+            })->first();
+
+            // When there's a conflicting schedule, return error
+            if ($existingSchedule) {
+                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . ' pada tanggal ' . $selectedDate->format('Y-m-d') . '. Mohon coba dengan tanggal dan jam yang berbeda');
+                return redirect()->back();
+            }
+        }
+
+        $meetingNumber = 1; // Initialize the meeting number counter
+        // If no conflicts are found, insert new schedules
+        foreach ($selectedDates as $selectedDate) {
+            // Create full datetime for start and end times
+            $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
+            $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+
+            // Create a new course schedule entry
+            $newSchedule = new courseSchedule();
+            $newSchedule->enrollment_id = $enrollmentData->id;
+            $newSchedule->course_id = $enrollmentData->course->id;
+            $newSchedule->instructor_id = $instructor_id;
+            $newSchedule->start_time = $selectedStartTime;
+            $newSchedule->end_time = $selectedEndTime;
+            $newSchedule->meeting_number = $meetingNumber;
+            $newSchedule->theoryStatus = 0;
+            $newSchedule->quizStatus = 0;
+
+            // dd($newSchedule);
+            $newSchedule->save();
+
+            $meetingNumber++;
+        }
+
+        // Flash success message and redirect
+        $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
+        return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
     
         $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
         return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));

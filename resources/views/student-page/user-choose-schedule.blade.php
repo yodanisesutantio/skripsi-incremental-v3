@@ -33,6 +33,10 @@
                         <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
                         {{-- Hidden input to store the selected date --}}
                         <input type="hidden" name="course_date" id="course_date" value="">
+                        {{-- Error in Validation Message --}}
+                        @error('course_date')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
 
                         {{-- Date Interface --}}
                         <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
