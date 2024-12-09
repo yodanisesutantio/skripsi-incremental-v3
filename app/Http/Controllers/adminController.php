@@ -757,7 +757,6 @@ class adminController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
-
         $availableSlots = [];
 
         // Generate the course time option until the start time is not more than close time
@@ -786,10 +785,13 @@ class adminController extends Controller
             $openTime->addMinutes($courseDuration);
         }
 
+        $selectedDate = $schedule->start_time->format("Y-m-d");
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'schedule' => $schedule,
             'instructors' => $instructors,
+            'selectedDate' => $selectedDate,
             'availableSlots' => $availableSlots,
         ]);
     }
