@@ -261,7 +261,7 @@
             // Proceed with the AJAX request
             $.ajax({
                 url: '/get-available-slots',
-                method: 'POST',
+                method: 'GET',
                 data: {
                     _token: '{{ csrf_token() }}',
                     start_date: selectedDate,
