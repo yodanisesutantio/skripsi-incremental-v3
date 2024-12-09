@@ -251,11 +251,7 @@ class CourseScheduleController extends Controller
         
         // $formattedOpenTime = $openTime->format("H:i");
         // $formattedCloseTime = $closeTime->format("H:i");
-        // dd($enrollment->course->admin->open_hours_for_admin);        
-
-        // Get Break Start and End Times
-        $breakStart = \Carbon\Carbon::parse("11:30");
-        $breakEnd = \Carbon\Carbon::parse("13:00");
+        // dd($enrollment->course->admin->open_hours_for_admin);
 
         $courseDuration = $enrollment->course->course_duration;
         $courseLength = $enrollment->course->course_length;
@@ -281,25 +277,28 @@ class CourseScheduleController extends Controller
         //     $i++;
         // }
 
+        $allGeneratedSlots = [];  // Array to store slots for all dates
+
         // Fetch instructor's existing schedules for the date
+        foreach ($courseDates as $date) {
+            // Step 3: Update open and close times for the current date
+            $openTime = \Carbon\Carbon::parse($date->format('Y-m-d') . ' ' . $enrollment->course->admin->open_hours_for_admin);
+            $closeTime = \Carbon\Carbon::parse($date->format('Y-m-d') . ' ' . $enrollment->course->admin->close_hours_for_admin);
+
+            // Fetch instructor's existing schedules for the current date
             $instructorId = 5;
             $existingSchedules = CourseSchedule::where('instructor_id', $instructorId)
-                ->whereDate('start_time', $startDate)
+                ->whereDate('start_time', $date->format('Y-m-d'))
                 ->get();
 
-            $dailySlots = [];
-
+            // Initialize generated slots for the current date
             // dd($existingSchedules);
+            $generatedSlots = [];
 
+            // Step 4: Iterate through the available slots for the current date
             while ($openTime->lessThan($closeTime)) {
                 $startSlot = $openTime->copy();
                 $endSlot = $startSlot->copy()->addMinutes($courseDuration);
-
-                // Skip break time
-                if (($startSlot->between($breakStart, $breakEnd)) || ($endSlot->between($breakStart, $breakEnd))) {
-                    $openTime = $breakEnd->copy();
-                    continue;
-                }
 
                 // Add the generated time slots to the array
                 $generatedSlots[] = [
@@ -311,7 +310,19 @@ class CourseScheduleController extends Controller
                 $openTime = $endSlot;
             }
 
-            dd($generatedSlots);
+            // Step 5: Now you can compare the generated slots with existing schedules
+            // Use $generatedSlots for comparison to avoid conflicts with $existingSchedules
+            // (Perform conflict checks here if needed)
+            // You can then add the non-conflicting slots to $dailySlots or whatever you need
+
+            // Append the current date's slots to the allGeneratedSlots array
+            $allGeneratedSlots[] = [
+                'date' => $date->format('Y-m-d'),
+                'slots' => $generatedSlots,
+            ];
+        }
+
+        dd($allGeneratedSlots);
     }
 
     // public function getAvailableSlots(Request $request) {        
