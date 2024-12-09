@@ -278,6 +278,7 @@ class CourseScheduleController extends Controller
         // }
 
         $allGeneratedSlots = [];  // Array to store slots for all dates
+        $timeSlotAvailability = [];
 
         // Fetch instructor's existing schedules for the date
         foreach ($courseDates as $date) {
@@ -300,29 +301,46 @@ class CourseScheduleController extends Controller
                 $startSlot = $openTime->copy();
                 $endSlot = $startSlot->copy()->addMinutes($courseDuration);
 
-                // Add the generated time slots to the array
-                $generatedSlots[] = [
-                    'start' => $startSlot->format('H:i'),
-                    'end' => $endSlot->format('H:i'),
-                ];
+                // Check for conflicts with existing schedules
+                $conflict = false;
+                foreach ($existingSchedules as $schedule) {
+                    $scheduleStart = \Carbon\Carbon::parse($schedule->start_time);
+                    $scheduleEnd = \Carbon\Carbon::parse($schedule->end_time);
+
+                    // Check if the generated slot overlaps with any of the existing schedule slots
+                    if ($startSlot->between($scheduleStart, $scheduleEnd, true) || 
+                        $endSlot->between($scheduleStart, $scheduleEnd, true) ||
+                        ($startSlot->lessThan($scheduleStart) && $endSlot->greaterThan($scheduleEnd))) {
+                        $conflict = true;
+                        break;  // If a conflict is found, exit the loop
+                    }
+                }
+
+                if (!$conflict) {
+                    $timeSlotKey = $startSlot->format('H:i') . ' - ' . $endSlot->format('H:i');
+                    // Add this time slot to the dictionary and mark it as available for this date
+                    if (!isset($timeSlotAvailability[$timeSlotKey])) {
+                        $timeSlotAvailability[$timeSlotKey] = [];
+                    }
+                    $timeSlotAvailability[$timeSlotKey][] = $date->format('Y-m-d');
+                }
 
                 // Move to the next slot
                 $openTime = $endSlot;
             }
-
-            // Step 5: Now you can compare the generated slots with existing schedules
-            // Use $generatedSlots for comparison to avoid conflicts with $existingSchedules
-            // (Perform conflict checks here if needed)
-            // You can then add the non-conflicting slots to $dailySlots or whatever you need
-
-            // Append the current date's slots to the allGeneratedSlots array
-            $allGeneratedSlots[] = [
-                'date' => $date->format('Y-m-d'),
-                'slots' => $generatedSlots,
-            ];
         }
 
-        dd($allGeneratedSlots);
+        // Step 2: Filter out slots that aren't available for all dates
+        $finalSlots = [];
+        $totalDates = count($courseDates);
+
+        foreach ($timeSlotAvailability as $slot => $datesAvailable) {
+            if (count($datesAvailable) === $totalDates) {
+                $finalSlots[] = $slot;
+            }
+        }
+
+        dd($finalSlots);
     }
 
     // public function getAvailableSlots(Request $request) {        
