@@ -108,11 +108,11 @@ class CourseScheduleController extends Controller
     public function createNewSchedule(Request $request, $student_real_name, $enrollment_id) {
         // Validation Rules and Error Message
         $request->validate([
-            'course_date.*' => 'required|date',
-            'course_time.*' => 'required',
+            'course_date' => 'required|date',
+            'course_time' => 'required',
         ],[
-            'course_date.*.required' => 'Silahkan Pilih Tanggal Kursus',
-            'course_time.*.required' => 'Silahkan Pilih Salah Satu Opsi',
+            'course_date.required' => 'Silahkan Pilih Tanggal Kursus',
+            'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
         ]);
 
         // dd($request);
@@ -121,84 +121,21 @@ class CourseScheduleController extends Controller
         $enrollmentData = enrollment::findOrFail($enrollment_id);
         // Fetch the instructor_id from Enrollment Data
         $instructor_id = $enrollmentData['instructor_id'];
+        // Get the course_length
+        $courseLength = $enrollmentData->course->course_length;
+        // dd($courseLength);
         
-        // Array to track selected schedules
-        $selectedSchedules = [];
-        // Prepare an array to hold new schedules
-        $newSchedules = [];
+        $selectedDates = [];
+        $currentDate = \Carbon\Carbon::parse($request->course_date);
+        $i = 0;
 
-        $current_time = \Carbon\Carbon::now();
-
-        // Assuming course_time is also an array with the same length as course_date
-        foreach ($request->course_date as $date_index => $course_date) {
-            // Get the corresponding course time for the current date
-            if (isset($request->course_time[$date_index])) {
-                $course_time = $request->course_time[$date_index];
-
-                // Split course_time into start_time and end_time
-                list($start_time_str, $end_time_str) = explode(' - ', $course_time);
-                $start_time = \Carbon\Carbon::parse($course_date . ' ' . $start_time_str);
-                $end_time = \Carbon\Carbon::parse($course_date . ' ' . $end_time_str);
-
-                // Calculate the minimum allowed start time (24 hours from now)
-                $minimum_start_time = \Carbon\Carbon::now()->addHours(24);
-
-                // Check for minimum schedule time
-                if ($start_time < $minimum_start_time || $end_time < $minimum_start_time) {
-                    $request->session()->flash('error', 'Pastikan jadwal baru berlangsung tidak kurang dari 24 jam');
-                    return redirect()->back()->withInput();
-                }
-
-                // Check for duplicate schedules in the user's input
-                $scheduleKey = $course_date . ' ' . $start_time_str . ' - ' . $end_time_str; // Unique key for the schedule
-                if (in_array($scheduleKey, $selectedSchedules)) {
-                    $request->session()->flash('error', 'Anda sudah memilih jadwal untuk tanggal ' . $course_date . ' pada jam ' . $course_time . '. Silahkan pilih waktu yang berbeda.');
-                    return redirect()->back();
-                }
-                // Add the schedule to the selected schedules array
-                $selectedSchedules[] = $scheduleKey;
-
-                // Check for conflicting schedules
-                $existingSchedule = courseSchedule::where('instructor_id', $instructor_id)
-                    ->where(function ($query) use ($start_time, $end_time) {
-                        $query->whereBetween('start_time', [$start_time, $end_time])
-                            ->orWhereBetween('end_time', [$start_time, $end_time])
-                            ->orWhere(function ($q) use ($start_time, $end_time) {
-                                $q->where('start_time', '<=', $start_time)
-                                    ->where('end_time', '>=', $end_time);
-                            });
-                    })->first();
-
-                // If there's a conflict, return error
-                if ($existingSchedule) {
-                    $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus di tanggal ' . $course_date . ' pada jam ' . $course_time . '. Silahkan Ubah Opsi Tanggal atau Jam Kursus');
-                    return redirect()->back()->withInput();
-                }
-
-                // Prepare the new schedule for later saving
-                $newSchedules[] = [
-                    'enrollment_id' => $enrollment_id,
-                    'course_id' => $enrollmentData->course->id,
-                    'instructor_id' => $instructor_id,
-                    'start_time' => $start_time,
-                    'end_time' => $end_time,
-                    'meeting_number' => $date_index + 1, // Use date_index + 1 for meeting number
-                    'theoryStatus' => 0,
-                    'quizStatus' => 0,
-                ];
-            }
+        while ($i < $courseLength) {
+            $selectedDates[] = $currentDate->copy();
+            $currentDate->addWeek();
+            $i++;
         }
 
-        // dd($newSchedules);
-
-        // Use DB transaction to save all schedules
-        DB::transaction(function () use ($newSchedules) {
-            foreach ($newSchedules as $scheduleData) {
-                $newSchedule = new CourseSchedule();
-                $newSchedule->fill($scheduleData);
-                $newSchedule->save();
-            }
-        });
+        // dd($selectedDates);
     
         $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
         return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
