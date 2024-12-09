@@ -757,6 +757,8 @@ class adminController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
+        // dd($openTime);
+
         $availableSlots = [];
 
         // Generate the course time option until the start time is not more than close time
@@ -769,12 +771,6 @@ class adminController extends Controller
                 break; // Exit the loop if it exceeds
             }
     
-            // Skip lunch break
-            if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
-                $openTime->addMinutes($courseDuration);
-                continue;
-            }
-    
             // Add the slot to available slots
             $availableSlots[] = [
                 'start' => $openTime->format('H:i'),
@@ -784,6 +780,8 @@ class adminController extends Controller
             // Create new start time by adding the previous start time with course duration
             $openTime->addMinutes($courseDuration);
         }
+
+        // dd($availableSlots);
 
         $selectedDate = \Carbon\Carbon::parse($schedule->start_time)->format('Y-m-d');
 

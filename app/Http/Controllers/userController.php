@@ -413,9 +413,43 @@ class userController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Get the Open Time of the Admin's
+        $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
+        // Get the Close Time of the Admin's
+        $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
+        // Get the course duration of the selected schedule
+        $courseDuration = $enrollment->course->course_duration;
+
+        // dd($openTime->format("H:i"));
+
+        $availableSlots = [];
+
+        // Generate the course time option until the start time is not more than close time
+        while ($openTime->lessThan($closeTime)) {
+            // Generate the end time from adding the open time with course duration
+            $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+    
+            // When the end time is passed the close time, end the generation
+            if ($endOptionTime->greaterThan($closeTime)) {
+                break; // Exit the loop if it exceeds
+            }
+    
+            // Add the slot to available slots
+            $availableSlots[] = [
+                'start' => $openTime->format('H:i'),
+                'end' => $endOptionTime->format('H:i'),
+            ];
+    
+            // Create new start time by adding the previous start time with course duration
+            $openTime->addMinutes($courseDuration);
+        }
+
+        // dd($availableSlots);
+
         return view('student-page.user-choose-schedule', [
             'pageName' => "Pilih Jadwal Kursus | ",
             'enrollment' => $enrollment,
+            'availableSlots' => $availableSlots,
         ]);
     }
 

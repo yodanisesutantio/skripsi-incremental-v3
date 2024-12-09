@@ -74,7 +74,9 @@
                         {{-- Dropdown --}}
                         <select name="course_time" id="course_time" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time') border-2 border-custom-destructive @enderror">
                             <option disabled selected>-- Pilih Jam Kursus --</option>
-                            {{-- Option Time is generated here --}}
+                            @foreach ($availableSlots as $slot)
+                                <option value="{{ $slot['start'] }} - {{ $slot['end'] }}">{{ $slot['start'] }} - {{ $slot['end'] }}</option>
+                            @endforeach
                         </select>
                         {{-- Error in Validation Message --}}
                         @error('course_time')
