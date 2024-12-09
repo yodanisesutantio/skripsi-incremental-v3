@@ -757,42 +757,42 @@ class adminController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
-        $availableSlots = [];
+        // $availableSlots = [];
 
-        // Generate the course time option until the start time is not more than close time
-        while ($openTime->lessThan($closeTime)) {
-            // Generate the end time from adding the open time with course duration
-            $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+        // // Generate the course time option until the start time is not more than close time
+        // while ($openTime->lessThan($closeTime)) {
+        //     // Generate the end time from adding the open time with course duration
+        //     $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
     
-            // When the end time is passed the close time, end the generation
-            if ($endOptionTime->greaterThan($closeTime)) {
-                break; // Exit the loop if it exceeds
-            }
+        //     // When the end time is passed the close time, end the generation
+        //     if ($endOptionTime->greaterThan($closeTime)) {
+        //         break; // Exit the loop if it exceeds
+        //     }
     
-            // Skip lunch break
-            if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
-                $openTime->addMinutes($courseDuration);
-                continue;
-            }
+        //     // Skip lunch break
+        //     if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
+        //         $openTime->addMinutes($courseDuration);
+        //         continue;
+        //     }
     
-            // Add the slot to available slots
-            $availableSlots[] = [
-                'start' => $openTime->format('H:i'),
-                'end' => $endOptionTime->format('H:i'),
-            ];
+        //     // Add the slot to available slots
+        //     $availableSlots[] = [
+        //         'start' => $openTime->format('H:i'),
+        //         'end' => $endOptionTime->format('H:i'),
+        //     ];
     
-            // Create new start time by adding the previous start time with course duration
-            $openTime->addMinutes($courseDuration);
-        }
+        //     // Create new start time by adding the previous start time with course duration
+        //     $openTime->addMinutes($courseDuration);
+        // }
 
-        $selectedDate = $schedule->start_time->format("Y-m-d");
+        $selectedDate = \Carbon\Carbon::parse($schedule->start_time)->format('Y-m-d');
 
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'schedule' => $schedule,
             'instructors' => $instructors,
             'selectedDate' => $selectedDate,
-            'availableSlots' => $availableSlots,
+            // 'availableSlots' => $availableSlots,
         ]);
     }
 

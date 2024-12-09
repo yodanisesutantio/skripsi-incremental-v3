@@ -242,16 +242,16 @@ class CourseScheduleController extends Controller
         }
     }
 
-    public function getAvailableSlots(Request $request) {
-        $enrollment = Enrollment::findOrFail(12);
-        $startDate = '2024-12-13';
+    public function getAvailableSlots(Request $request)
+    {
+        // Validate the request inputs
+        $request->validate([
+            'start_date' => 'required|date',
+            'enrollment_id' => 'required|exists:enrollments,id',
+        ]);
 
-        $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
-        $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
-        
-        // $formattedOpenTime = $openTime->format("H:i");
-        // $formattedCloseTime = $closeTime->format("H:i");
-        // dd($enrollment->course->admin->open_hours_for_admin);
+        $enrollment = Enrollment::findOrFail($request->enrollment_id);
+        $startDate = $request->start_date;
 
         $courseDuration = $enrollment->course->course_duration;
         $courseLength = $enrollment->course->course_length;
@@ -266,71 +266,51 @@ class CourseScheduleController extends Controller
             $i++;
         }
 
-        // Use this to dd the $courseDates
-        // $courseDates = [];
-        // $currentDate = \Carbon\Carbon::parse($startDate);
-        // $i = 0;
+        $timeSlotAvailability = []; // To store availability for each slot across dates
 
-        // while ($i < $courseLength) {
-        //     $courseDates[] = $currentDate->copy()->format('Y-m-d'); // Format date before adding
-        //     $currentDate->addWeek();
-        //     $i++;
-        // }
-
-        $allGeneratedSlots = [];  // Array to store slots for all dates
-        $timeSlotAvailability = [];
-
-        // Fetch instructor's existing schedules for the date
         foreach ($courseDates as $date) {
-            // Step 3: Update open and close times for the current date
+            // Fetch admin's working hours for the current date
             $openTime = \Carbon\Carbon::parse($date->format('Y-m-d') . ' ' . $enrollment->course->admin->open_hours_for_admin);
             $closeTime = \Carbon\Carbon::parse($date->format('Y-m-d') . ' ' . $enrollment->course->admin->close_hours_for_admin);
 
-            // Fetch instructor's existing schedules for the current date
-            $instructorId = 5;
+            // Fetch instructor's schedules for the current date
+            $instructorId = $enrollment->instructor_id;
             $existingSchedules = CourseSchedule::where('instructor_id', $instructorId)
                 ->whereDate('start_time', $date->format('Y-m-d'))
                 ->get();
 
-            // Initialize generated slots for the current date
-            // dd($existingSchedules);
-            $generatedSlots = [];
-
-            // Step 4: Iterate through the available slots for the current date
+            // Generate and check slots
             while ($openTime->lessThan($closeTime)) {
                 $startSlot = $openTime->copy();
                 $endSlot = $startSlot->copy()->addMinutes($courseDuration);
 
-                // Check for conflicts with existing schedules
                 $conflict = false;
+
                 foreach ($existingSchedules as $schedule) {
                     $scheduleStart = \Carbon\Carbon::parse($schedule->start_time);
                     $scheduleEnd = \Carbon\Carbon::parse($schedule->end_time);
 
-                    // Check if the generated slot overlaps with any of the existing schedule slots
                     if ($startSlot->between($scheduleStart, $scheduleEnd, true) || 
                         $endSlot->between($scheduleStart, $scheduleEnd, true) ||
                         ($startSlot->lessThan($scheduleStart) && $endSlot->greaterThan($scheduleEnd))) {
                         $conflict = true;
-                        break;  // If a conflict is found, exit the loop
+                        // Skip adding this slot and move to the next iteration
+                        continue 2; // Skip this slot and continue the outer loop
                     }
                 }
 
-                if (!$conflict) {
-                    $timeSlotKey = $startSlot->format('H:i') . ' - ' . $endSlot->format('H:i');
-                    // Add this time slot to the dictionary and mark it as available for this date
-                    if (!isset($timeSlotAvailability[$timeSlotKey])) {
-                        $timeSlotAvailability[$timeSlotKey] = [];
-                    }
-                    $timeSlotAvailability[$timeSlotKey][] = $date->format('Y-m-d');
+                // If no conflict was found, add the slot to the availability array
+                $timeSlotKey = $startSlot->format('H:i') . ' - ' . $endSlot->format('H:i');
+                if (!isset($timeSlotAvailability[$timeSlotKey])) {
+                    $timeSlotAvailability[$timeSlotKey] = [];
                 }
+                $timeSlotAvailability[$timeSlotKey][] = $date->format('Y-m-d');
 
-                // Move to the next slot
                 $openTime = $endSlot;
             }
         }
 
-        // Step 2: Filter out slots that aren't available for all dates
+        // Filter slots that are available for all dates
         $finalSlots = [];
         $totalDates = count($courseDates);
 
@@ -340,7 +320,11 @@ class CourseScheduleController extends Controller
             }
         }
 
-        dd($finalSlots);
+        // Return the final slots as a JSON response
+        return response()->json([
+            'status' => 'success',
+            'finalSlots' => $finalSlots,
+        ]);
     }
 
     // public function getAvailableSlots(Request $request) {        

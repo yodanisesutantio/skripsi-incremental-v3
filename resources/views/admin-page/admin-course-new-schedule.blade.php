@@ -20,7 +20,7 @@
 
         <div class="lg:col-span-2 lg:px-24">
             {{-- Update Schedule Form --}}
-            <form action="{{ url('/admin-course/new-schedule/' . $schedule->id) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/admin-course/new-schedule/' . $schedule->id) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0" data-enrollment-id="{{ $schedule->enrollment->id }}">
                 @csrf
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
@@ -75,9 +75,9 @@
                         {{-- Dropdown --}}
                         <select name="course_time" id="course_time" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time') border-2 border-custom-destructive @enderror">
                             <option disabled selected>-- Pilih Jam Kursus --</option>
-                            @foreach ($availableSlots as $slot)
+                            {{-- @foreach ($availableSlots as $slot)
                                 <option value="{{ $slot['start'] }} - {{ $slot['end'] }}">{{ $slot['start'] }} - {{ $slot['end'] }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         {{-- Error in Validation Message --}}
                         @error('course_time')
@@ -165,7 +165,7 @@
     <script>
         const datepicker = {
             currentDate: new Date(),
-            selectedDate: null,
+            selectedDate: new Date("{{ $selectedDate }}"),
 
             render() {
                 const currentMonth = this.currentDate.getMonth();
