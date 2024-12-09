@@ -30,6 +30,8 @@
                     {{-- Select Date --}}
                     <div class="flex flex-col gap-1 -mt-3">
                         <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Hidden input to store the selected date --}}
+                        <input type="hidden" name="course_date" id="course_date" value="">
                         {{-- Date Interface --}}
                         <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
                             {{-- Calendar Header --}}
@@ -60,8 +62,6 @@
                                 {{-- Dates Are Generated Dynamically Here --}}
                             </div>
                         </div>
-
-                        <p class="text-custom-destructive text-base/tight lg:text-lg/tight font-league">*Hari yang Anda pilih akan menjadi jadwal mingguan. Untuk mengubah jadwal di pertemuan tertentu, hubungi Admin Kursus.</p>
                     </div>
 
                     {{-- Select Time --}}
@@ -273,6 +273,9 @@
 
                 const formattedDate = `${year}-${month}-${day}`; // Format the date as YYYY-MM-DD
                 console.log("Formatted Date:", formattedDate); // Debugging log
+
+                // Update the hidden input field with the selected date
+                document.getElementById('course_date').value = formattedDate; // Set the value of the hidden input
             },
 
             changeMonth(offset) {

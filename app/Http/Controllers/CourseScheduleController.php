@@ -32,7 +32,7 @@ class CourseScheduleController extends Controller
 
         // When Users accidentally entered a schedule less than the current time, return error
         if ($start_time < now()->addHours(24) || $end_time < now()->addHours(24)) {
-            $request->session()->flash('error', 'Pastikan jadwal baru berlangsung tidak kurang dari 24 jam');
+            $request->session()->flash('error', 'Jadwal berikutnya tidak bisa berlangsung kurang dari 24 jam. Silahkan coba lagi');
             return redirect()->back();
         }
 
@@ -52,7 +52,7 @@ class CourseScheduleController extends Controller
     
             // When there's a conflicting schedule, return error
             if ($existingSchedule) {
-                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . '. Silahkan Ubah Opsi Tanggal atau Jam Kursus');
+                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . '. Mohon coba dengan tanggal dan jam yang berbeda');
                 return redirect()->back();
             }
     
