@@ -21,7 +21,7 @@
 
         <div class="lg:col-span-2 lg:px-24">
             {{-- New Schedule Form --}}
-            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0" data-enrollment-id="{{ $enrollment['id'] }}">
+            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
@@ -31,6 +31,9 @@
                     {{-- Select Date --}}
                     <div class="flex flex-col gap-1">
                         <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Hidden input to store the selected date --}}
+                        <input type="hidden" name="course_date" id="course_date" value="">
+
                         {{-- Date Interface --}}
                         <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
                             {{-- Calendar Header --}}
@@ -216,7 +219,8 @@
                 const formattedDate = `${year}-${month}-${day}`; // Format the date as YYYY-MM-DD
                 console.log("Formatted Date:", formattedDate); // Debugging log
 
-                fetchAvailableSlots(formattedDate);
+                // Update the hidden input field with the selected date
+                document.getElementById('course_date').value = formattedDate; // Set the value of the hidden input
             },
 
             changeMonth(offset) {
@@ -236,67 +240,6 @@
         document.getElementById("nextMonth").addEventListener("click", () => {
             datepicker.changeMonth(1);
         });
-
-        function fetchAvailableSlots(selectedDate) {
-            // Get the enrollment ID from the form's data attribute
-            const enrollmentId = $('#proposeScheduleForm').data('enrollment-id');
-
-            // Debug: Log the enrollment ID and selected date
-            console.log("Selected Date:", selectedDate);
-            console.log("Enrollment ID:", enrollmentId);
-
-            // Check if values are null or undefined
-            if (!enrollmentId) {
-                console.error("Enrollment ID is missing!");
-                alert("Enrollment ID is missing. Please check the form configuration.");
-                return;
-            }
-
-            if (!selectedDate) {
-                console.error("Selected date is missing!");
-                alert("Selected date is not defined. Please try again.");
-                return;
-            }
-
-            // Proceed with the AJAX request
-            $.ajax({
-                url: '/get-available-slots',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    start_date: selectedDate,
-                    enrollment_id: enrollmentId,
-                },
-                success: function (response) {
-                    console.log("Available slots response:", response); // Log response for debugging
-
-                    // Check if response is an object and log it in a more readable format
-                    if (typeof response === 'object') {
-                        console.table(response); // Use console.table for better visualization
-                    }
-                    
-                    updateTimeOptions(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error fetching slots:', xhr.responseText || error);
-                    alert('Failed to fetch available time slots.');
-                },
-            });
-        }
-
-        function updateTimeOptions(slots) {
-            const timeSelect = $('#course_time');
-            timeSelect.empty();
-
-            // Since the response now contains only time slots, we can directly append them
-            if (slots.length > 0) {
-                slots.forEach(function (time) {
-                    timeSelect.append(`<option value="${time}">${time}</option>`); // Only show time
-                });
-            } else {
-                timeSelect.append(`<option>No slots available</option>`);
-            }
-        }
 
         // Mobile Submit Button Function
         $('#mobileSubmitButton').click(function(event) {
