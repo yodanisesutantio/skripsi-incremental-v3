@@ -253,6 +253,9 @@ class generalPage extends Controller
         // Fetch similar courses based on course_length or similar course_price, limited to 5
         $offered = course::where('id', '!=', $classProperties->id) // Exclude the current course
             ->where('course_availability', 1) // Check if course is available
+            ->whereHas('admin', function($query) {
+                $query->where('availability', 1); // Check if admin is available
+            })
             ->where(function($query) use ($classProperties) {
                 $query->where('course_length', $classProperties->course_length)
                       ->orWhere('course_price', '<=', $classProperties->course_price * 1.5)

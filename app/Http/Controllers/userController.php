@@ -60,7 +60,7 @@ class userController extends Controller
                 })->count();
 
                 // Check if the course is available and not filled
-                return $course->course_availability === 1 && $activeEnrollmentsCount < $course->course_quota;
+                return $course->course_availability === 1 && $course->admin->availability === 1 && $activeEnrollmentsCount < $course->course_quota;
             });
 
             // Merge the filtered courses into the availableCourses collection
@@ -323,7 +323,8 @@ class userController extends Controller
         Carbon::setLocale('id');
 
         if ($course->course_availability === 0 || $course->admin->availability === 0) {
-            return redirect()->back()->with('error', 'Kelas sedang tidak menerima siswa baru. Silahkan coba lagi nanti');
+            return redirect()->back()->with('error', 'Penyedia Kursus saat ini sedang tidak beroperasi. Silahkan pilih kelas kursus lain');
+            // Tmbahi pesan error untuk menjelaskan bahwa penyedia kursus sedang tutup
         }
 
         // Checking how many student that still has incoming schedules

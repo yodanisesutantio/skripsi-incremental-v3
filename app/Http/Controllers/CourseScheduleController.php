@@ -161,9 +161,9 @@ class CourseScheduleController extends Controller
 
             // When there's a conflicting schedule, return error
             if ($existingSchedule) {
-                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah memiliki kursus pada jam ' . $request->course_time . ' pada tanggal ' . $selectedDate->format('Y-m-d') . '. Mohon coba dengan tanggal dan jam yang berbeda');
+                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $selectedDate->format('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
                 return redirect()->back();
-            }
+            }            
         }
 
         $meetingNumber = 1; // Initialize the meeting number counter
