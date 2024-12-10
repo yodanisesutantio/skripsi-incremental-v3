@@ -144,6 +144,7 @@ class DatabaseSeeder extends Seeder
             'close_hours_for_admin' => '17:00:00',
             'fp_question' => 'Satu ditambah satu sama dengan?',
             'fp_answer' => Crypt::encryptString("2"),
+            'availability' => 0,
         ]);
         User::create([
             'fullname' => 'Kursus Mengemudi "HAFIZ"',

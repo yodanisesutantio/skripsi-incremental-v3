@@ -172,6 +172,9 @@ class generalPage extends Controller
         // Find the closest Course that has the same name as the entered Search Query
         $courseResults = course::where('course_name', 'LIKE', "%{$searchQuery}%")
             ->where('course_availability', 1) // Check if course is available
+            ->whereHas('admin', function($query) {
+                $query->where('availability', 1); // Check if admin is available
+            })
             ->where(function ($subQuery) { // Renamed to $subQuery
                 $subQuery->doesntHave('enrollments') // Include courses with no enrollments
                           ->orWhere(function ($enrollmentQuery) { // Renamed to $enrollmentQuery

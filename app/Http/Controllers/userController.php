@@ -322,6 +322,10 @@ class userController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        if ($course->course_availability === 0 || $course->admin->availability === 0) {
+            return redirect()->back()->with('error', 'Kelas sedang tidak menerima siswa baru. Silahkan coba lagi nanti');
+        }
+
         // Checking how many student that still has incoming schedules
         $activeEnrollmentsCount = $course->enrollments->filter(function ($enrollment) {
             return $enrollment->schedule->contains(function ($schedule) {
