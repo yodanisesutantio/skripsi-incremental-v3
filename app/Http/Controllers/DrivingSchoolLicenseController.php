@@ -31,8 +31,6 @@ class DrivingSchoolLicenseController extends Controller
             'endLicenseDate.after' => 'Pastikan "Tanggal Akhir Berlaku" lebih besar dari "Tanggal Awal Berlaku"',
         ]);
 
-
-
         // Check if the incoming request has an uploaded license
         $fileName = null;
         if ($request->hasFile('licensePath')) {
@@ -57,7 +55,7 @@ class DrivingSchoolLicenseController extends Controller
 
         // => or this:
         // assign the value of the endLicenseDate attribute as 3 years after startLicenseDate
-        $newLicense->endLicenseDate = \Carbon\Carbon::parse($request['startLicenseDate'])->addYears(3);
+        // $newLicense->endLicenseDate = \Carbon\Carbon::parse($request['startLicenseDate'])->addYears(3);
 
         // assign the value of the admin_id attribute by the currently authenticated user
         $newLicense->admin_id = Auth::id();

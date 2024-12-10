@@ -7,18 +7,6 @@
             <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
             <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
         </div>
-
-        {{-- Tabs --}}
-        <div class="overflow-x-auto px-6" style="scrollbar-width: none;">
-            <ul class="flex flex-row gap-5 font-league text-custom-dark text-lg font-medium text-center">
-                @for ($i = 0; $i < $enrollment->course->course_length; $i++)
-                    {{-- Meeting Number Tabs --}}
-                    <li class="whitespace-nowrap rounded-lg duration-300">
-                        <button class="py-1 {{ $i === 0 ? 'border-b-2 font-semibold text-custom-green border-custom-green opacity-100' : 'opacity-40' }} {{ $i === $enrollment->course->course_length - 1 ? 'mr-6' : '' }}" id="mobile_tabs_{{ $i + 1 }}" data-index="{{ $i }}">Pertemuan {{ $i + 1 }}</button>
-                    </li>
-                @endfor
-            </ul>
-        </div>
     </div>
 
 
@@ -29,16 +17,6 @@
                 <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
                 <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
             </div>
-
-           {{-- Tabs --}}
-            <ul class="flex flex-row flex-wrap gap-5 px-6 font-league text-custom-dark text-lg font-medium">
-                @for ($i = 0; $i < $enrollment->course->course_length; $i++)
-                    {{-- Meeting Number Tabs --}}
-                    <li class="whitespace-nowrap rounded-lg duration-300">
-                        <button class="py-2 px-4 rounded-xl lg:hover:bg-custom-disabled-dark/30 {{ $i === 0 ? 'font-semibold bg-custom-white-hover text-custom-green opacity-100' : 'opacity-40' }}" id="desktop_tabs_{{ $i + 1 }}" data-index="{{ $i }}">Pertemuan {{ $i + 1 }}</button>
-                    </li>
-                @endfor
-            </ul>
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
@@ -46,52 +24,75 @@
             <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        @for ($i = 0; $i < $enrollment->course->course_length; $i++)
-                            <div class="swiper-slide">
-                                <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
-                                    {{-- Form Sub Headers --}}
-                                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Jadwal Kursus untuk Pertemuan {{ $i + 1 }}</h2>
-                
-                                    {{-- Select Date --}}
-                                    <div class="flex flex-col gap-1">
-                                        <label for="course_date_{{ $i }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Kursus<span class="text-custom-destructive">*</span></label>
-                                        {{-- Input Number Column --}}
-                                        <input type="date" name="course_date[]" id="course_date_{{ $i }}" class="p-3 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date.' . $i) border-2 border-custom-destructive @enderror" value="{{ old('course_date.' . $i) }}">
-                                        {{-- Error in Validation Message --}}
-                                        @error('course_date.' . $i)
-                                            <span class="text-custom-destructive">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                
-                                    {{-- Select Time --}}
-                                    <div class="flex flex-col gap-1">
-                                        <label for="course_time_{{ $i }}" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Jam Kursus<span class="text-custom-destructive">*</span></label>
-                                        {{-- Dropdown --}}
-                                        <select name="course_time[]" id="course_time_{{ $i }}" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time.' . $i) border-2 border-custom-destructive @enderror">
-                                            <option disabled selected>-- Pilih Jam Kursus --</option>
-                                            @foreach ($availableSlots as $slot)
-                                                <option value="{{ $slot['start'] }} - {{ $slot['end'] }}">{{ $slot['start'] }} - {{ $slot['end'] }}</option>
-                                            @endforeach
-                                        </select>
-                                        {{-- Error in Validation Message --}}
-                                        @error('course_time.' . $i)
-                                            <span class="text-custom-destructive">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
+                <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
+                    {{-- Form Sub Headers --}}
+                    <h2 class="hidden lg:block text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Pilih Tanggal Mulai dan Sesi Kursus</h2>
+
+                    {{-- Select Date --}}
+                    <div class="flex flex-col gap-1">
+                        <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Hidden input to store the selected date --}}
+                        <input type="hidden" name="course_date" id="course_date" value="">
+                        {{-- Error in Validation Message --}}
+                        @error('course_date')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
+
+                        {{-- Date Interface --}}
+                        <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
+                            {{-- Calendar Header --}}
+                            <div class="flex justify-between items-center mb-4 lg:mb-7">
+                                {{-- Prev Month --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" id="prevMonth" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+
+                                {{-- Current Month --}}
+                                <h2 id="currentMonth" class="text-lg/snug lg:text-xl/snug font-league font-semibold mt-0.5"></h2>
+
+                                {{-- Next Month --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" id="nextMonth" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
                             </div>
-                        @endfor
+
+                            {{-- Days Header --}}
+                            <div class="grid grid-cols-7 lg:gap-3 justify-between items-center pb-1 lg:pb-2 border-b-[1px] border-custom-dark">
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Min</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sen</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sel</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Rab</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Kam</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Jum</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sab</h2>
+                            </div>
+
+                            {{-- Dates --}}
+                            <div class="grid grid-cols-7 lg:gap-3 mt-2" id="calendarGrid">
+                                {{-- Dates Are Generated Dynamically Here --}}
+                            </div>
+                        </div>
+
+                        <p class="text-custom-destructive text-base/tight lg:text-lg/tight font-league">*Hari yang Anda pilih akan menjadi jadwal mingguan. Untuk mengubah jadwal di pertemuan tertentu, hubungi Admin Kursus.</p>
+                    </div>
+
+                    {{-- Select Time --}}
+                    <div class="flex flex-col gap-1">
+                        <label for="course_time" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Jam Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Dropdown --}}
+                        <select name="course_time" id="course_time" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_time') border-2 border-custom-destructive @enderror">
+                            <option disabled selected>-- Pilih Jam Kursus --</option>
+                            @foreach ($availableSlots as $slot)
+                                <option value="{{ $slot['start'] }} - {{ $slot['end'] }}">{{ $slot['start'] }} - {{ $slot['end'] }}</option>
+                            @endforeach
+                        </select>
+                        {{-- Error in Validation Message --}}
+                        @error('course_time')
+                            <span class="text-custom-destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                    <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
-                    <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
-                    <button type="button" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-                    <button type="submit" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
+                    <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Kembali</a>
+                    <button type="submit" class="px-8 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
                 </div>
             </form>
         </div>
@@ -99,10 +100,8 @@
 
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
-        <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
-        <button type="button" class="hidden text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover prev-button">Kembali</a>
-        <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 next-button">Lanjut</button>
-        <button type="submit" id="mobileSubmitButton" class="hidden px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
+        <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Kembali</a>
+        <button type="submit" id="mobileSubmitButton" class="px-8 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Simpan Jadwal</button>
     </div>
 
     {{-- Swiper CDN --}}
@@ -110,84 +109,142 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        // Initialize Swiper
-        const swiper = new Swiper('.swiper', {
-            direction: 'horizontal',
-            loop: false,
-            spaceBetween: 40,
-            autoHeight: true,
-            navigation: {
-                prevEl: '.prev-button',
-                nextEl: '.next-button',
+        const datepicker = {
+            currentDate: new Date(),
+            selectedDate: null,
+
+            render() {
+                const currentMonth = this.currentDate.getMonth();
+                const currentYear = this.currentDate.getFullYear();
+
+                // Update the header
+                document.getElementById("currentMonth").textContent = 
+                    `${this.currentDate.toLocaleString('id', { month: 'long' })} ${currentYear}`;
+
+                // Generate the calendar grid
+                this.generateCalendar(currentYear, currentMonth);
             },
 
-            on: {
-                slideChange: function() {
-                    // Update button states on slide change for both mobile and desktop
-                    const activeIndex = this.activeIndex;
+            generateCalendar(year, month) {
+                const grid = document.getElementById("calendarGrid");
+                grid.innerHTML = ""; // Clear previous dates
 
-                    // Update desktop buttons
-                    document.querySelectorAll('button[id^="desktop_tabs_"]').forEach((button, index) => {
-                        if (index === activeIndex) {
-                            button.classList.add('font-semibold', 'bg-custom-white-hover', 'text-custom-green', 'opacity-100');
-                            button.classList.remove('opacity-40');
-                        } else {
-                            button.classList.remove('font-semibold', 'bg-custom-white-hover', 'text-custom-green', 'opacity-100');
-                            button.classList.add('opacity-40');
-                        }
-                    });
+                // First day of the month and total days in the month
+                const today = new Date(); // Get today's date
+                today.setHours(0, 0, 0, 0);
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-                    // Update mobile buttons
-                    document.querySelectorAll('button[id^="mobile_tabs_"]').forEach((button, index) => {
-                        if (index === activeIndex) {
-                            button.classList.add('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
-                            button.classList.remove('opacity-40');
-                        } else {
-                            button.classList.remove('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
-                            button.classList.add('opacity-40');
-                        }
-                    });
-
-                    // Toggle hidden class based on activeIndex
-                    document.querySelectorAll('.back-button').forEach(button => {
-                        button.classList.toggle('hidden', activeIndex !== 0);
-                    });
-                    document.querySelectorAll('.prev-button').forEach(button => {
-                        button.classList.toggle('hidden', activeIndex === 0);
-                    });
-                    document.querySelectorAll('.next-button').forEach(button => {
-                        button.classList.toggle('hidden', activeIndex === this.slides.length - 1);
-                    });
-                    document.querySelectorAll('.submit-button').forEach(button => {
-                        button.classList.toggle('hidden', activeIndex !== this.slides.length - 1);
-                    });
+                // Fill blank spaces before the first day
+                for (let i = 0; i < firstDay; i++) {
+                    const blankCell = document.createElement("div");
+                    grid.appendChild(blankCell);
                 }
-            }
+
+                // Add actual dates
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateCell = document.createElement("button");
+                    dateCell.className = "font-league font-normal text-base lg:text-lg text-center p-2 rounded-xl";
+
+                    // Create the date text
+                    const dateText = document.createElement("span");
+                    dateText.textContent = day;
+
+                    // Create the underline div
+                    const underlineDiv = document.createElement("div");
+                    underlineDiv.className = "w-full h-0.5 border-b-2 opacity-0";
+                    underlineDiv.style.transition = "opacity 0.3s ease";
+
+                    // Current date for comparison
+                    const currentDate = new Date(year, month, day);
+
+                    // Check if the date is before or is today
+                    const isBeforeToday = currentDate < today;
+
+                    if (isBeforeToday) {
+                        // Make unselectable dates visually different
+                        dateCell.classList.add("opacity-40", "cursor-not-allowed");
+
+                        dateCell.addEventListener("click", (e) => {
+                            e.preventDefault(); // Prevent the default action (form submission)
+                        });
+                    } else if (
+                        currentDate.getDate() === today.getDate() &&
+                        currentDate.getMonth() === today.getMonth() &&
+                        currentDate.getFullYear() === today.getFullYear()
+                    ) {
+                        // Make today's date unclickable but visible
+                        dateCell.classList.remove("opacity-40", "font-normal");
+                        dateCell.classList.add("cursor-not-allowed", "font-bold");
+                        underlineDiv.classList.add("opacity-100"); // Show underline for today
+
+                        dateCell.addEventListener("click", (e) => {
+                            e.preventDefault(); // Prevent the default action (form submission)
+                        });
+                    }                    
+                    else {
+                        // Add hover effects and click only for selectable dates
+                        dateCell.classList.add("hover:bg-custom-dark/15");
+
+                        // Add click event for date selection
+                        dateCell.addEventListener("click", (e) => {
+                            this.selectedDate = currentDate;
+                            e.preventDefault(); // Prevent the default action (form submission)
+                            this.handleDateSelection(currentDate); // Call the new function
+                            this.render(); // Re-render to update styles
+                        });
+                    }
+
+                    // Highlight selected date
+                    const isSelected =
+                        this.selectedDate &&
+                        this.selectedDate.getDate() === day &&
+                        this.selectedDate.getMonth() === month &&
+                        this.selectedDate.getFullYear() === year;
+
+                    if (isSelected) {
+                        dateCell.classList.add("bg-custom-green", "text-custom-white");
+                        dateCell.classList.remove("hover:bg-custom-dark/15");
+                    }
+
+                    // Append text and underline to the date cell
+                    dateCell.appendChild(dateText);
+                    dateCell.appendChild(underlineDiv);
+                    grid.appendChild(dateCell);
+                }
+            },
+
+            handleDateSelection(selectedDate) {
+                console.log("Date selected:", selectedDate);
+
+                // Format the selected date as YYYY-MM-DD without using toISOString
+                const year = selectedDate.getFullYear();
+                const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so we add 1
+                const day = String(selectedDate.getDate()).padStart(2, '0'); // Ensure 2-digit day
+
+                const formattedDate = `${year}-${month}-${day}`; // Format the date as YYYY-MM-DD
+                console.log("Formatted Date:", formattedDate); // Debugging log
+
+                // Update the hidden input field with the selected date
+                document.getElementById('course_date').value = formattedDate; // Set the value of the hidden input
+            },
+
+            changeMonth(offset) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + offset);
+                this.render();
+            },
+        };
+
+        // Initialize datepicker
+        datepicker.render();
+
+        // Event listeners for navigation
+        document.getElementById("prevMonth").addEventListener("click", () => {
+            datepicker.changeMonth(-1);
         });
 
-        // Set initial button state for both mobile and desktop
-        document.querySelectorAll('button[id^="desktop_tabs_"]').forEach((button, index) => {
-            if (index === 0) {
-                button.classList.add('font-semibold', 'bg-custom-white-hover', 'text-custom-green','opacity-100');
-            } else {
-                button.classList.add('opacity-40');
-            }
-        });
-
-        document.querySelectorAll('button[id^="mobile_tabs_"]').forEach((button, index) => {
-            if (index === 0) {
-                button.classList.add('border-b-2', 'font-semibold',  'text-custom-green', 'border-custom-green', 'opacity-100');
-            } else {
-                button.classList.add('opacity-40');
-            }
-        });
-
-        // Add click event listener to each tab button for both mobile and desktop
-        document.querySelectorAll('button[id^="desktop_tabs_"], button[id^="mobile_tabs_"]').forEach(button => {
-            button.addEventListener('click', function() {
-                const index = this.getAttribute('data-index');
-                swiper.slideTo(index); // Jump to the corresponding slide
-            });
+        document.getElementById("nextMonth").addEventListener("click", () => {
+            datepicker.changeMonth(1);
         });
 
         // Mobile Submit Button Function

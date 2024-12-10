@@ -757,6 +757,7 @@ class adminController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $schedule->course->course_duration;
 
+        // dd($openTime);
 
         $availableSlots = [];
 
@@ -770,12 +771,6 @@ class adminController extends Controller
                 break; // Exit the loop if it exceeds
             }
     
-            // Skip lunch break
-            if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
-                $openTime->addMinutes($courseDuration);
-                continue;
-            }
-    
             // Add the slot to available slots
             $availableSlots[] = [
                 'start' => $openTime->format('H:i'),
@@ -786,9 +781,14 @@ class adminController extends Controller
             $openTime->addMinutes($courseDuration);
         }
 
+        // dd($availableSlots);
+
+        $selectedDate = \Carbon\Carbon::parse($schedule->start_time)->format('Y-m-d');
+
         return view('admin-page.admin-course-new-schedule', [
             'pageName' => "Ajukan Jadwal Baru | ",
             'schedule' => $schedule,
+            'selectedDate' => $selectedDate,
             'instructors' => $instructors,
             'availableSlots' => $availableSlots,
         ]);

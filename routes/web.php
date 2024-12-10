@@ -63,6 +63,9 @@ Route::get('/search/results', [generalPage::class, 'searchResult'])->name('searc
 // Delete Search History Query
 Route::delete('/search-history/{id}', [generalPage::class, 'deleteSearchHistoryItem']);
 
+// Search Results Page
+Route::get('/dd', [CourseScheduleController::class, 'dd']);
+
 // Guest Dashboard Page
 Route::get('/tamu', [generalPage::class, 'tamu'])->middleware('guest');
 

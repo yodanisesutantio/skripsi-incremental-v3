@@ -125,8 +125,8 @@
                     <button name="submit" type="submit" class="hidden submit-button px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green lg:hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold duration-500">Daftar</button>
                 </div>
             </div>
-            {{-- Redirect to Register Link --}}
-            <p class="mt-8 lg:mt-2 text-custom-white text-center text-lg font-league font-light lg:text-xl">Sudah punya akun? <a href="{{ url('/register') }}" class="text-custom-white font-medium underline hover:no-underline">Masuk</a></p>
+            {{-- Redirect to Login Link --}}
+            <p class="mt-8 lg:mt-2 text-custom-white text-center text-lg font-league font-light lg:text-xl">Sudah punya akun? <a href="{{ url('/login') }}" class="text-custom-white font-medium underline hover:no-underline">Masuk</a></p>
         </div>
     </div>
 

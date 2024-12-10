@@ -60,7 +60,7 @@ class userController extends Controller
                 })->count();
 
                 // Check if the course is available and not filled
-                return $course->course_availability === 1 && $activeEnrollmentsCount < $course->course_quota;
+                return $course->course_availability === 1 && $course->admin->availability === 1 && $activeEnrollmentsCount < $course->course_quota;
             });
 
             // Merge the filtered courses into the availableCourses collection
@@ -322,6 +322,11 @@ class userController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        if ($course->course_availability === 0 || $course->admin->availability === 0) {
+            return redirect()->back()->with('error', 'Penyedia Kursus saat ini sedang tidak beroperasi. Silahkan pilih kelas kursus lain');
+            // Tmbahi pesan error untuk menjelaskan bahwa penyedia kursus sedang tutup
+        }
+
         // Checking how many student that still has incoming schedules
         $activeEnrollmentsCount = $course->enrollments->filter(function ($enrollment) {
             return $enrollment->schedule->contains(function ($schedule) {
@@ -420,6 +425,8 @@ class userController extends Controller
         // Get the course duration of the selected schedule
         $courseDuration = $enrollment->course->course_duration;
 
+        // dd($openTime->format("H:i"));
+
         $availableSlots = [];
 
         // Generate the course time option until the start time is not more than close time
@@ -432,12 +439,6 @@ class userController extends Controller
                 break; // Exit the loop if it exceeds
             }
     
-            // Skip lunch break
-            if ($openTime->between('11:30', '13:00', true) || $endOptionTime->between('11:30', '13:00', true)) {
-                $openTime->addMinutes($courseDuration);
-                continue;
-            }
-    
             // Add the slot to available slots
             $availableSlots[] = [
                 'start' => $openTime->format('H:i'),
@@ -448,15 +449,12 @@ class userController extends Controller
             $openTime->addMinutes($courseDuration);
         }
 
-        // Collect every Instructors that are assigned to this class from Course Instructor Tables
-        $instructorOption = courseInstructor::query()->where('course_id', $enrollment->course->id)->orderBy('created_at', 'desc')->get();
-        // dd($instructorOption);
+        // dd($availableSlots);
 
         return view('student-page.user-choose-schedule', [
             'pageName' => "Pilih Jadwal Kursus | ",
             'enrollment' => $enrollment,
             'availableSlots' => $availableSlots,
-            'instructorOption' => $instructorOption,
         ]);
     }
 

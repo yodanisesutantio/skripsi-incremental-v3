@@ -47,6 +47,20 @@
                 </div>
             </div>
         @endif
+
+        {{-- Warning for expiring driving school license --}}
+        @php
+            $endLicenseDate = auth()->user()->drivingSchoolLicense()->where('licenseStatus', 'Aktif')->first()->endLicenseDate;
+            $daysUntilExpiration = now()->diffInDays($endLicenseDate);
+        @endphp
+        @if ($daysUntilExpiration < 90)
+            <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
+                <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
+                    <p>Masa berlaku izin kursus anda kurang {{ $daysUntilExpiration }} hari lagi</p>
+                    <a class="underline lg:hover:no-underline text-right" href="{{ url('/admin-driving-school-license') }}">Kelola Izin</a>
+                </div>
+            </div>
+        @endif
         
         <p class="text-custom-grey font-league font-medium text-lg/tight lg:text-2xl/tight">Hi, {{ auth()->user()->fullname }}</p>
         @if ($incomingSchedule)

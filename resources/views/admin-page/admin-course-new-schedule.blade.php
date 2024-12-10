@@ -25,17 +25,43 @@
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
                     {{-- Form Sub Headers --}}
-                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Jadwal Kursus</h2>
+                    <h2 class="text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Jadwal Kursus Pertemuan {{ $schedule->meeting_number }}</h2>
 
                     {{-- Select Date --}}
-                    <div class="flex flex-col gap-1">
-                        <label for="course_date" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Kursus<span class="text-custom-destructive">*</span></label>
-                        {{-- Input Number Column --}}
-                        <input type="date" name="course_date" id="course_date" class="px-3 py-4 font-league font-medium text-lg bg-custom-white-hover text-custom-secondary placeholder:#48484833 rounded-lg @error('course_date') border-2 border-custom-destructive @enderror" value="{{ \Carbon\Carbon::parse($schedule['start_time'])->format('Y-m-d') }}">
-                        {{-- Error in Validation Message --}}
-                        @error('course_date')
-                            <span class="text-custom-destructive">{{ $message }}</span>
-                        @enderror
+                    <div class="flex flex-col gap-1 -mt-3">
+                        <label for="date-picker" class="font-semibold font-league text-lg lg:text-xl text-custom-grey">Pilih Tanggal Mulai Kursus<span class="text-custom-destructive">*</span></label>
+                        {{-- Hidden input to store the selected date --}}
+                        <input type="hidden" name="course_date" id="course_date" value="">
+                        {{-- Date Interface --}}
+                        <div id="date-picker" class="px-2 pb-4 pt-2 lg:px-0 lg:pb-6 lg:pt-3 font-league font-normal text-base text-custom-dark rounded-lg">
+                            {{-- Calendar Header --}}
+                            <div class="flex justify-between items-center mb-4 lg:mb-7">
+                                {{-- Prev Month --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" id="prevMonth" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 5l-6 7l6 7"/></svg>
+
+                                {{-- Current Month --}}
+                                <h2 id="currentMonth" class="text-lg/snug lg:text-xl/snug font-league font-semibold mt-0.5"></h2>
+
+                                {{-- Next Month --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" id="nextMonth" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#040B0D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5l6 7l-6 7"/></svg>
+                            </div>
+
+                            {{-- Days Header --}}
+                            <div class="grid grid-cols-7 lg:gap-3 justify-between items-center pb-1 lg:pb-2 border-b-[1px] border-custom-dark">
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Min</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sen</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sel</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Rab</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Kam</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Jum</h2>
+                                <h2 class="font-league font-semibold text-base lg:text-lg text-center">Sab</h2>
+                            </div>
+
+                            {{-- Dates --}}
+                            <div class="grid grid-cols-7 lg:gap-3 mt-2" id="calendarGrid">
+                                {{-- Dates Are Generated Dynamically Here --}}
+                            </div>
+                        </div>
                     </div>
 
                     {{-- Select Time --}}
@@ -132,6 +158,144 @@
     {{-- jQuery JS --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        const datepicker = {
+            currentDate: new Date(),
+            selectedDate: new Date("{{ $selectedDate }}"),
+
+            render() {
+                const currentMonth = this.currentDate.getMonth();
+                const currentYear = this.currentDate.getFullYear();
+
+                // Update the header
+                document.getElementById("currentMonth").textContent = 
+                    `${this.currentDate.toLocaleString('id', { month: 'long' })} ${currentYear}`;
+
+                // Generate the calendar grid
+                this.generateCalendar(currentYear, currentMonth);
+            },
+
+            generateCalendar(year, month) {
+                const grid = document.getElementById("calendarGrid");
+                grid.innerHTML = ""; // Clear previous dates
+
+                // First day of the month and total days in the month
+                const today = new Date(); // Get today's date
+                today.setHours(0, 0, 0, 0);
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                // Fill blank spaces before the first day
+                for (let i = 0; i < firstDay; i++) {
+                    const blankCell = document.createElement("div");
+                    grid.appendChild(blankCell);
+                }
+
+                // Add actual dates
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateCell = document.createElement("button");
+                    dateCell.className = "font-league font-normal text-base lg:text-lg text-center p-2 rounded-xl";
+
+                    // Create the date text
+                    const dateText = document.createElement("span");
+                    dateText.textContent = day;
+
+                    // Create the underline div
+                    const underlineDiv = document.createElement("div");
+                    underlineDiv.className = "w-full h-0.5 border-b-2 opacity-0";
+                    underlineDiv.style.transition = "opacity 0.3s ease";
+
+                    // Current date for comparison
+                    const currentDate = new Date(year, month, day);
+
+                    // Check if the date is before or is today
+                    const isBeforeToday = currentDate < today;
+
+                    if (isBeforeToday) {
+                        // Make unselectable dates visually different
+                        dateCell.classList.add("opacity-40", "cursor-not-allowed");
+
+                        dateCell.addEventListener("click", (e) => {
+                            e.preventDefault(); // Prevent the default action (form submission)
+                        });
+                    } else if (
+                        currentDate.getDate() === today.getDate() &&
+                        currentDate.getMonth() === today.getMonth() &&
+                        currentDate.getFullYear() === today.getFullYear()
+                    ) {
+                        // Make today's date unclickable but visible
+                        dateCell.classList.remove("opacity-40", "font-normal");
+                        dateCell.classList.add("cursor-not-allowed", "font-bold");
+                        underlineDiv.classList.add("opacity-100"); // Show underline for today
+
+                        dateCell.addEventListener("click", (e) => {
+                            e.preventDefault(); // Prevent the default action (form submission)
+                        });
+                    }                    
+                    else {
+                        // Add hover effects and click only for selectable dates
+                        dateCell.classList.add("hover:bg-custom-dark/15");
+
+                        // Add click event for date selection
+                        dateCell.addEventListener("click", (e) => {
+                            this.selectedDate = currentDate;
+                            e.preventDefault(); // Prevent the default action (form submission)
+                            this.handleDateSelection(currentDate); // Call the new function
+                            this.render(); // Re-render to update styles
+                        });
+                    }
+
+                    // Highlight selected date
+                    const isSelected =
+                        this.selectedDate &&
+                        this.selectedDate.getDate() === day &&
+                        this.selectedDate.getMonth() === month &&
+                        this.selectedDate.getFullYear() === year;
+
+                    if (isSelected) {
+                        dateCell.classList.add("bg-custom-green", "text-custom-white");
+                        dateCell.classList.remove("hover:bg-custom-dark/15");
+                    }
+
+                    // Append text and underline to the date cell
+                    dateCell.appendChild(dateText);
+                    dateCell.appendChild(underlineDiv);
+                    grid.appendChild(dateCell);
+                }
+            },
+
+            handleDateSelection(selectedDate) {
+                console.log("Date selected:", selectedDate);
+
+                // Format the selected date as YYYY-MM-DD without using toISOString
+                const year = selectedDate.getFullYear();
+                const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so we add 1
+                const day = String(selectedDate.getDate()).padStart(2, '0'); // Ensure 2-digit day
+
+                const formattedDate = `${year}-${month}-${day}`; // Format the date as YYYY-MM-DD
+                console.log("Formatted Date:", formattedDate); // Debugging log
+
+                // Update the hidden input field with the selected date
+                document.getElementById('course_date').value = formattedDate; // Set the value of the hidden input
+            },
+
+            changeMonth(offset) {
+                this.currentDate.setMonth(this.currentDate.getMonth() + offset);
+                this.render();
+            },
+        };
+
+        // Initialize datepicker
+        datepicker.render();
+
+        // Event listeners for navigation
+        document.getElementById("prevMonth").addEventListener("click", () => {
+            datepicker.changeMonth(-1);
+        });
+
+        document.getElementById("nextMonth").addEventListener("click", () => {
+            datepicker.changeMonth(1);
+        });
+
         // Mobile Submit Button Function
         $('#mobileSubmitButton').click(function(event) {
             event.preventDefault();
