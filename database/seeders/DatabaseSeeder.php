@@ -275,23 +275,16 @@ class DatabaseSeeder extends Seeder
 
         drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2024-10-21',
-            'endLicenseDate' => '2026-10-21',
+            'startLicenseDate' => '2021-12-21',
+            'endLicenseDate' => '2024-12-21',
             'licenseStatus' => 'Sudah Tervalidasi',
             'admin_id' => 2,
         ]);
         drivingSchoolLicense::create([
             'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2022-10-21',
-            'endLicenseDate' => '2024-10-21',
+            'startLicenseDate' => '2018-12-21',
+            'endLicenseDate' => '2021-12-21',
             'licenseStatus' => 'Aktif',
-            'admin_id' => 2,
-        ]);
-        drivingSchoolLicense::create([
-            'licensePath' => '1723210503.webp',
-            'startLicenseDate' => '2020-10-21',
-            'endLicenseDate' => '2022-10-21',
-            'licenseStatus' => 'Tidak Berlaku',
             'admin_id' => 2,
         ]);
         drivingSchoolLicense::create([
@@ -325,8 +318,8 @@ class DatabaseSeeder extends Seeder
         ]);
         instructorCertificate::create([
             'certificatePath' => '1722614055.jpg',
-            'startCertificateDate' => '2020-08-01',
-            'endCertificateDate' => '2025-08-01',
+            'startCertificateDate' => '2019-12-19',
+            'endCertificateDate' => '2024-12-19',
             'certificateStatus' => 'Aktif',
             'instructor_id' => 5,
         ]);
