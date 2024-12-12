@@ -216,6 +216,10 @@
 
                         dateCell.addEventListener("click", (e) => {
                             e.preventDefault(); // Prevent the default action (form submission)
+                            toastr.options.timeOut = 4000;
+                            toastr.options.closeButton = true;
+                            toastr.options.progressBar = true;
+                            toastr.warning('Anda tidak bisa memilih tanggal lampau');
                         });
                     } else if (
                         currentDate.getDate() === today.getDate() &&
@@ -229,6 +233,10 @@
 
                         dateCell.addEventListener("click", (e) => {
                             e.preventDefault(); // Prevent the default action (form submission)
+                            toastr.options.timeOut = 4000;
+                            toastr.options.closeButton = true;
+                            toastr.options.progressBar = true;
+                            toastr.warning('Anda tidak bisa memilih tanggal lampau');
                         });
                     }                    
                     else {
