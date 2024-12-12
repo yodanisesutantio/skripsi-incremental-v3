@@ -52,8 +52,10 @@
         @php
             $endLicenseDate = auth()->user()->drivingSchoolLicense()->where('licenseStatus', 'Aktif')->first()->endLicenseDate;
             $daysUntilExpiration = now()->diffInDays($endLicenseDate);
+
+            $hasTriedToExtend = auth()->user()->drivingSchoolLicense()->where('licenseStatus', 'Sudah Tervalidasi')->exists();
         @endphp
-        @if ($daysUntilExpiration < 90)
+        @if ($daysUntilExpiration < 90 && !$hasTriedToExtend)
             <div class="mb-4 p-3 lg:p-5 bg-custom-warning/15 w-full rounded-lg lg:rounded-xl">
                 <div class="flex flex-row justify-between items-center gap-4 font-league font-normal text-lg/tight lg:text-xl/tight text-custom-destructive">
                     <p>Masa berlaku izin kursus anda kurang {{ $daysUntilExpiration }} hari lagi</p>

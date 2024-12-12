@@ -77,7 +77,7 @@
                                 <form action="{{ url('/sysAdmin-certificate/status/' . $certificates->id) }}" method="POST" class="w-fit" onsubmit="return confirm('Are you sure you want to validate this Instructor Certificate?');">
                                     @csrf
 
-                                    <input type="hidden" name="certificateStatus" value="Sudah Divalidasi">
+                                    <input type="hidden" name="certificateStatus" value="Sudah Tervalidasi">
                                     <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="26" height="26" viewBox="0 0 256 256"><path fill="#3AB500" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg></button>
                                 </form>
 

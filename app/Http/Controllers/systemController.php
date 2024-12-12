@@ -114,8 +114,8 @@ class systemController extends Controller
         $certificate->save();
 
         // Generate a flash message via Toastr to let user know that the process is successful
-        if ($request['certificateStatus'] === 'Sudah Divalidasi') {
-            $request->session()->flash('success', 'Sertifikat Instruktur berhasil divalidasi!');
+        if ($request['certificateStatus'] === 'Sudah Tervalidasi') {
+            $request->session()->flash('success', 'Sertifikat Instruktur berhasil tervalidasi!');
         } elseif ($request['certificateStatus'] === 'Validasi Gagal') {
             $request->session()->flash('success', 'Validasi Sertifikat Instruktur digagalkan!');
         }
@@ -202,8 +202,8 @@ class systemController extends Controller
         $license->save();
 
         // Generate a flash message via Toastr to let user know that the process is successful
-        if ($request['licenseStatus'] === 'Sudah Divalidasi') {
-            $request->session()->flash('success', 'Izin Kursus berhasil divalidasi!');
+        if ($request['licenseStatus'] === 'Sudah Tervalidasi') {
+            $request->session()->flash('success', 'Izin Kursus berhasil tervalidasi!');
         } elseif ($request['licenseStatus'] === 'Validasi Gagal') {
             $request->session()->flash('success', 'Validasi Izin Kursus digagalkan!');
         }
