@@ -18,12 +18,11 @@
             </div>
         </div>
 
-        <div class="lg:col-span-2 lg:mt-7 lg:px-24">
+        <div class="lg:col-span-2 lg:mt-10 lg:px-24">
             @foreach ($meetings as $meetingData)
-                <div class="flex flex-col gap-5 lg:gap-8 my-3 mx-6 lg:mx-0 p-6 bg-custom-white-hover rounded-lg lg:rounded-xl">
-                    {{-- Personal Information Data --}}
-                    <h2 class="font-encode font-semibold text-xl/tight lg:text-[26px]/tight text-custom-dark">Pertemuan {{ $loop->iteration }}</h2>
-            
+                {{-- Personal Information Data --}}
+                <h2 class="font-encode font-semibold mx-6 lg:mx-0 mt-3 lg:mt-0 text-xl/tight lg:text-[26px]/tight text-custom-dark">Pertemuan {{ $loop->iteration }}</h2>
+                <div class="flex flex-col lg:grid lg:grid-cols-2 gap-5 lg:gap-8 mt-5 mb-5 lg:mb-8 mx-6 lg:mx-0 pb-5 lg:pb-8 border-b-2 border-custom-dark">            
                     {{-- Meeting Date --}}
                     <div class="flex flex-col gap-1">
                         <p class="font-league font-medium text-base/tight lg:text-xl/tight text-custom-grey">Tanggal Kursus</p>
@@ -34,7 +33,7 @@
                         <p class="font-league font-medium text-base/tight lg:text-xl/tight text-custom-grey">Sesi Kursus</p>
                         <h3 class="font-encode font-semibold text-lg/tight lg:text-[22px]/tight text-custom-dark">{{ $meetingData['time'] }} WIB</h3>
                     </div>
-                </div>                
+                </div>
             @endforeach
         </div>
     </div>
