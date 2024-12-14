@@ -5,28 +5,27 @@
     <div class="sticky z-40 top-0 pt-8 pb-4 bg-custom-white flex flex-col gap-5 lg:hidden" id="form-header">
         <div class="flex flex-col gap-1 px-6">
             <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
-            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
+            <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus anda</p>
         </div>
     </div>
-
 
     <div class="lg:grid lg:grid-cols-3 lg:pl-16 lg:pr-48">
         {{-- Desktop View Forms Header --}}
         <div class="pt-8 pb-4 bg-custom-white flex-col gap-5 hidden lg:flex" id="form-header">
             <div class="flex flex-col gap-1 px-6">
                 <h1 class="text-2xl/tight lg:text-4xl text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal</h1>
-                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus mu</p>
+                <p class="text-custom-grey text-lg/tight lg:text-2xl/tight font-league">Tentukan jadwal kursus anda</p>
             </div>
         </div>
 
         <div class="lg:col-span-2 lg:px-24">
             {{-- New Schedule Form --}}
-            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
+            <form action="{{ url('/user-course/schedule/' . $enrollment->student_real_name . '/' . $enrollment['id']) . '/' . $meeting_number }}" method="post" id="proposeScheduleForm" class="px-6 pb-24 lg:pt-5 lg:pb-0">
                 @csrf
 
                 <div class="flex flex-col mt-0 lg:mt-4 gap-5 lg:gap-7">
                     {{-- Form Sub Headers --}}
-                    <h2 class="hidden lg:block text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Pilih Tanggal Mulai dan Sesi Kursus</h2>
+                    <h2 class="hidden lg:block text-xl lg:text-2xl/snug text-custom-dark font-encode tracking-tight font-semibold">Pilih Jadwal untuk Pertemuan {{ $meeting_number }}</h2>
 
                     {{-- Select Date --}}
                     <div class="flex flex-col gap-1">
@@ -89,7 +88,7 @@
 
                 {{-- Button Groups for Desktop View --}}
                 <div class="lg:flex flex-row w-full lg:mt-5 py-4 lg:py-5 items-center justify-between bg-custom-white hidden">
-                    <a href="{{ url()->previous() }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Kembali</a>
+                    <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
                     <button type="submit" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green hover:bg-custom-green-hover text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Lanjut</button>
                 </div>
             </form>
@@ -98,7 +97,7 @@
 
     {{-- Sticky Button Groups for Mobile --}}
     <div class="flex flex-row fixed w-full z-20 bottom-0 px-6 py-4 lg:py-5 items-center justify-between bg-custom-white lg:hidden">
-        <a href="{{ url()->previous() }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Kembali</a>
+        <a href="{{ url('/user-course-progress/' . $enrollment->student_real_name . '/' . $enrollment['id']) }}" class="text-custom-dark font-league font-medium px-1 pt-2 pb-1 text-lg/none underline hover:text-custom-green-hover back-button">Batal</a>
         <button type="submit" id="mobileSubmitButton" class="px-12 py-3 rounded-lg lg:rounded-lg bg-custom-green text-center lg:text-lg text-custom-white-hover font-semibold lg:order-2 duration-500 submit-button">Lanjut</button>
     </div>
 

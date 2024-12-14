@@ -354,6 +354,17 @@ class userController extends Controller
         // Manipulate and localize this page to Indonesian 
         Carbon::setLocale('id');
 
+        // Clear session meeting data
+        for ($i = 1; $i <= $enrollment->course->course_length; $i++) {
+            // Check if the session keys exist before forgetting them
+            if (session()->has("meeting_{$i}_date")) {
+                session()->forget("meeting_{$i}_date");
+            }
+            if (session()->has("meeting_{$i}_time")) {
+                session()->forget("meeting_{$i}_time");
+            }
+        }
+
         // Get the current date and time
         $now = now();
 
@@ -466,11 +477,46 @@ class userController extends Controller
         // Check if this is the last meeting
         $isLastMeeting = $meeting_number == $course->course_length;
 
+        // Find the enrollment data for this student
+        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+
+        // Manipulate and localize this page to Indonesian 
+        Carbon::setLocale('id');
+
+        // Get the Open Time of the Admin's
+        $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
+        // Get the Close Time of the Admin's
+        $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
+        // Get the course duration of the selected schedule
+        $courseDuration = $enrollment->course->course_duration;
+
+        // Generate the course time option until the start time is not more than close time
+        while ($openTime->lessThan($closeTime)) {
+            // Generate the end time from adding the open time with course duration
+            $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+    
+            // When the end time is passed the close time, end the generation
+            if ($endOptionTime->greaterThan($closeTime)) {
+                break; // Exit the loop if it exceeds
+            }
+    
+            // Add the slot to available slots
+            $availableSlots[] = [
+                'start' => $openTime->format('H:i'),
+                'end' => $endOptionTime->format('H:i'),
+            ];
+    
+            // Create new start time by adding the previous start time with course duration
+            $openTime->addMinutes($courseDuration);
+        }
+
         // Return the form for selecting the date and time for the current meeting
         return view('student-page.user-choose-schedule', [
+            'pageName' => "Pilih Jadwal Kursus | ",
             'enrollment' => $enrollment,
             'course' => $course,
             'meeting_number' => $meeting_number,
+            'availableSlots' => $availableSlots,
             'isLastMeeting' => $isLastMeeting,
         ]);
     }
@@ -487,7 +533,10 @@ class userController extends Controller
             ];
         }
 
+        Carbon::setLocale('id');
+
         return view('student-page.user-confirm-schedule', [
+            'pageName' => "Konfirmasi Jadwal Kursus | ",
             'meetings' => $meetings,
             'enrollment_id' => $enrollment_id,
         ]);

@@ -279,12 +279,12 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
     // Route for selecting meeting times
     Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}/{meeting_number}', [userController::class, 'showMeetingForm'])->name('schedule.form');
     // Route to check conflict and save each meeting Data to Session
-    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}/{meeting_number}', [CourseController::class, 'storeMeetingData'])->name('schedule.store');
+    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}/{meeting_number}', [CourseScheduleController::class, 'storeMeetingData'])->name('schedule.store');
 
     // Route for confirmation page
     Route::get('/user-confirm/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'showConfirmationPage'])->name('schedule.confirmation');
     // Route for saving data to the database after confirmation
-    Route::post('/user-confirm/schedule/{student_real_name}/{enrollment_id}', [CourseController::class, 'saveSchedule'])->name('schedule.save');
+    Route::post('/user-confirm/schedule/{student_real_name}/{enrollment_id}', [CourseScheduleController::class, 'saveSchedule'])->name('schedule.save');
 
     // Student's Payment Page Controller
     Route::get('/user-course/payment/{student_real_name}/{enrollment_id}', [userController::class, 'paymentPage']);

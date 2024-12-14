@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon; // Use Carbon Method by Laravel
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // Use DB Method by Laravel
 use App\Models\courseSchedule; // Access Course Schedule Tables
@@ -22,6 +24,8 @@ class CourseScheduleController extends Controller
             'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
             'instructor_ids.required' => 'Silahkan Pilih Salah Satu Instruktur',
         ]);
+
+        Carbon::setLocale('id'); // This can be set in a service provider or at the start of your controller
 
         // Split course_time from for example : 09:30 - 11:00 into start_time : 09:30 and end_time 11:00
         list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
@@ -207,13 +211,14 @@ class CourseScheduleController extends Controller
             'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
         ]);
 
+        Carbon::setLocale('id'); // This can be set in a service provider or at the start of your controller
         // Get the Enrollment Data
         $enrollmentData = enrollment::findOrFail($enrollment_id);
         // Fetch the instructor_id from Enrollment Data
         $instructor_id = $enrollmentData['instructor_id'];
         // Get the course_length
         $courseLength = $enrollmentData->course->course_length;
-        // dd($courseLength);
+        // dd($request);
 
         // Extract start and end times from course_time
         list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
@@ -221,8 +226,10 @@ class CourseScheduleController extends Controller
         $currentDate = \Carbon\Carbon::parse($request->course_date);
 
         // Create full datetime for start and end times
-        $selectedStartTime = \Carbon\Carbon::parse($request->course_date->format('Y-m-d') . ' ' . $start_time_str);
-        $selectedEndTime = \Carbon\Carbon::parse($request->course_date->format('Y-m-d') . ' ' . $end_time_str);
+        $selectedStartTime = \Carbon\Carbon::parse($currentDate->format('Y-m-d') . ' ' . $start_time_str);
+        $selectedEndTime = \Carbon\Carbon::parse($currentDate->format('Y-m-d') . ' ' . $end_time_str);
+
+        // dd($selectedStartTime, $selectedEndTime);
 
         // Check for conflicts here (but don't store in database yet)
         $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
@@ -239,7 +246,7 @@ class CourseScheduleController extends Controller
 
         // When there's a conflicting schedule, return error
         if ($existingSchedule) {
-            $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $selectedDate->format('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
+            $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $currentDate->translatedFormat('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
             return redirect()->back();
         }            
 
@@ -247,10 +254,12 @@ class CourseScheduleController extends Controller
         session()->put("meeting_{$meeting_number}_date", $request->course_date);
         session()->put("meeting_{$meeting_number}_time", $request->course_time);
 
+        // dd(session()->get("meeting_{$meeting_number}_date"), session()->get("meeting_{$meeting_number}_time"));
+
         // Redirect to the next meeting or confirmation page
         $nextMeetingNumber = $meeting_number + 1;
 
-        if ($nextMeetingNumber > $course->course_length) {
+        if ($nextMeetingNumber > $courseLength) {
             return redirect()->route('schedule.confirmation', [
                 'student_real_name' => $student_real_name,
                 'enrollment_id' => $enrollment_id,
