@@ -104,19 +104,109 @@ class CourseScheduleController extends Controller
     //     dd('sukses'); // Iki ganti success
     // }
 
-    // User/Student Choose New Schedule Logic Controller
-    public function createNewSchedule(Request $request, $student_real_name, $enrollment_id) {
-        // Validation Rules and Error Message
+    // // User/Student Choose New Schedule Logic Controller
+    // public function createNewSchedule(Request $request, $student_real_name, $enrollment_id) {
+    //     // Validation Rules and Error Message
+    //     $request->validate([
+    //         'course_date' => 'required|date',
+    //         'course_time' => 'required',
+    //     ],[
+    //         'course_date.required' => 'Silahkan Pilih Tanggal Kursus',
+    //         'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
+    //     ]);
+
+    //     // dd($request);
+    
+    //     // Get the Enrollment Data
+    //     $enrollmentData = enrollment::findOrFail($enrollment_id);
+    //     // Fetch the instructor_id from Enrollment Data
+    //     $instructor_id = $enrollmentData['instructor_id'];
+    //     // Get the course_length
+    //     $courseLength = $enrollmentData->course->course_length;
+    //     // dd($courseLength);
+        
+    //     $selectedDates = [];
+    //     $currentDate = \Carbon\Carbon::parse($request->course_date);
+    //     $i = 0;
+
+    //     while ($i < $courseLength) {
+    //         $selectedDates[] = $currentDate->copy();
+    //         $currentDate->addWeek();
+    //         $i++;
+    //     }
+
+    //     // dd($selectedDates);
+
+    //     // Extract start and end times from course_time
+    //     list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
+
+    //     // Validate each selected date for overlapping schedules
+    //     foreach ($selectedDates as $selectedDate) {
+    //         // Create full datetime for start and end times
+    //         $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
+    //         $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+
+    //         // Check for existing schedules that overlap
+    //         $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
+    //             $query->where('instructor_id', $instructor_id)
+    //                 ->where(function ($q) use ($selectedStartTime, $selectedEndTime) {
+    //                     $q->whereBetween('start_time', [$selectedStartTime, $selectedEndTime])
+    //                         ->orWhereBetween('end_time', [$selectedStartTime, $selectedEndTime])
+    //                         ->orWhere(function ($q) use ($selectedStartTime, $selectedEndTime) {
+    //                             $q->where('start_time', '<=', $selectedStartTime)
+    //                                 ->where('end_time', '>=', $selectedEndTime);
+    //                         });
+    //                 });
+    //         })->first();
+
+    //         // When there's a conflicting schedule, return error
+    //         if ($existingSchedule) {
+    //             $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $selectedDate->format('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
+    //             return redirect()->back();
+    //         }            
+    //     }
+
+    //     $meetingNumber = 1; // Initialize the meeting number counter
+    //     // If no conflicts are found, insert new schedules
+    //     foreach ($selectedDates as $selectedDate) {
+    //         // Create full datetime for start and end times
+    //         $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
+    //         $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+
+    //         // Create a new course schedule entry
+    //         $newSchedule = new courseSchedule();
+    //         $newSchedule->enrollment_id = $enrollmentData->id;
+    //         $newSchedule->course_id = $enrollmentData->course->id;
+    //         $newSchedule->instructor_id = $instructor_id;
+    //         $newSchedule->start_time = $selectedStartTime;
+    //         $newSchedule->end_time = $selectedEndTime;
+    //         $newSchedule->meeting_number = $meetingNumber;
+    //         $newSchedule->theoryStatus = 0;
+    //         $newSchedule->quizStatus = 0;
+
+    //         // dd($newSchedule);
+    //         $newSchedule->save();
+
+    //         $meetingNumber++;
+    //     }
+
+    //     // Flash success message and redirect
+    //     $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
+    //     return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
+    
+    //     $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
+    //     return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
+    // }
+
+    public function storeMeetingData(Request $request, $student_real_name, $enrollment_id, $meeting_number) {
         $request->validate([
             'course_date' => 'required|date',
             'course_time' => 'required',
-        ],[
+        ], [
             'course_date.required' => 'Silahkan Pilih Tanggal Kursus',
             'course_time.required' => 'Silahkan Pilih Salah Satu Opsi',
         ]);
 
-        // dd($request);
-    
         // Get the Enrollment Data
         $enrollmentData = enrollment::findOrFail($enrollment_id);
         // Fetch the instructor_id from Enrollment Data
@@ -124,76 +214,77 @@ class CourseScheduleController extends Controller
         // Get the course_length
         $courseLength = $enrollmentData->course->course_length;
         // dd($courseLength);
-        
-        $selectedDates = [];
-        $currentDate = \Carbon\Carbon::parse($request->course_date);
-        $i = 0;
-
-        while ($i < $courseLength) {
-            $selectedDates[] = $currentDate->copy();
-            $currentDate->addWeek();
-            $i++;
-        }
-
-        // dd($selectedDates);
 
         // Extract start and end times from course_time
         list($start_time_str, $end_time_str) = explode(' - ', $request->course_time);
 
-        // Validate each selected date for overlapping schedules
-        foreach ($selectedDates as $selectedDate) {
-            // Create full datetime for start and end times
-            $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
-            $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+        $currentDate = \Carbon\Carbon::parse($request->course_date);
 
-            // Check for existing schedules that overlap
-            $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
-                $query->where('instructor_id', $instructor_id)
-                    ->where(function ($q) use ($selectedStartTime, $selectedEndTime) {
-                        $q->whereBetween('start_time', [$selectedStartTime, $selectedEndTime])
-                            ->orWhereBetween('end_time', [$selectedStartTime, $selectedEndTime])
-                            ->orWhere(function ($q) use ($selectedStartTime, $selectedEndTime) {
-                                $q->where('start_time', '<=', $selectedStartTime)
-                                    ->where('end_time', '>=', $selectedEndTime);
-                            });
-                    });
-            })->first();
+        // Create full datetime for start and end times
+        $selectedStartTime = \Carbon\Carbon::parse($request->course_date->format('Y-m-d') . ' ' . $start_time_str);
+        $selectedEndTime = \Carbon\Carbon::parse($request->course_date->format('Y-m-d') . ' ' . $end_time_str);
 
-            // When there's a conflicting schedule, return error
-            if ($existingSchedule) {
-                $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $selectedDate->format('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
-                return redirect()->back();
-            }            
+        // Check for conflicts here (but don't store in database yet)
+        $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
+            $query->where('instructor_id', $instructor_id)
+                ->where(function ($q) use ($selectedStartTime, $selectedEndTime) {
+                    $q->whereBetween('start_time', [$selectedStartTime, $selectedEndTime])
+                        ->orWhereBetween('end_time', [$selectedStartTime, $selectedEndTime])
+                        ->orWhere(function ($q) use ($selectedStartTime, $selectedEndTime) {
+                            $q->where('start_time', '<=', $selectedStartTime)
+                                ->where('end_time', '>=', $selectedEndTime);
+                        });
+                });
+        })->first();
+
+        // When there's a conflicting schedule, return error
+        if ($existingSchedule) {
+            $request->session()->flash('error', 'Instruktur ' . $existingSchedule->instructor->fullname . ' sudah terjadwal pada pukul ' . $request->course_time . ' di ' . $selectedDate->format('d F Y') . '. Silakan pilih waktu atau tanggal lain.');
+            return redirect()->back();
+        }            
+
+        // Store the selected meeting data in session
+        session()->put("meeting_{$meeting_number}_date", $request->course_date);
+        session()->put("meeting_{$meeting_number}_time", $request->course_time);
+
+        // Redirect to the next meeting or confirmation page
+        $nextMeetingNumber = $meeting_number + 1;
+
+        if ($nextMeetingNumber > $course->course_length) {
+            return redirect()->route('schedule.confirmation', [
+                'student_real_name' => $student_real_name,
+                'enrollment_id' => $enrollment_id,
+            ]);
+        } else {
+            return redirect()->route('schedule.form', [
+                'student_real_name' => $student_real_name,
+                'enrollment_id' => $enrollment_id,
+                'meeting_number' => $nextMeetingNumber,
+            ]);
         }
+    }
 
-        $meetingNumber = 1; // Initialize the meeting number counter
-        // If no conflicts are found, insert new schedules
-        foreach ($selectedDates as $selectedDate) {
-            // Create full datetime for start and end times
-            $selectedStartTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $start_time_str);
-            $selectedEndTime = \Carbon\Carbon::parse($selectedDate->format('Y-m-d') . ' ' . $end_time_str);
+    public function saveSchedule(Request $request, $student_real_name, $enrollment_id) {
+        // Save all meeting data to the database
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $course = $enrollment->course;
 
-            // Create a new course schedule entry
-            $newSchedule = new courseSchedule();
-            $newSchedule->enrollment_id = $enrollmentData->id;
-            $newSchedule->course_id = $enrollmentData->course->id;
-            $newSchedule->instructor_id = $instructor_id;
-            $newSchedule->start_time = $selectedStartTime;
-            $newSchedule->end_time = $selectedEndTime;
+        $meetingNumber = 1;
+        foreach ($course->meetings as $meeting) {
+            $newSchedule = new CourseSchedule();
+            $newSchedule->enrollment_id = $enrollment_id;
+            $newSchedule->course_id = $course->id;
+            $newSchedule->start_time = Carbon::parse(session()->get("meeting_{$meetingNumber}_date") . ' ' . session()->get("meeting_{$meetingNumber}_time"));
+            $newSchedule->end_time = $newSchedule->start_time->copy()->addMinutes($course->duration); // adjust according to course duration
             $newSchedule->meeting_number = $meetingNumber;
-            $newSchedule->theoryStatus = 0;
-            $newSchedule->quizStatus = 0;
-
-            // dd($newSchedule);
             $newSchedule->save();
 
             $meetingNumber++;
         }
 
-        // Flash success message and redirect
-        $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
-        return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
-    
+        // Clear the session
+        session()->forget('meeting_*');
+
         $request->session()->flash('success', 'Jadwal berhasil dibuat. Silahkan hubungi Admin Kursus untuk proses lebih lanjut.');
         return redirect(url('/user-course-progress/' . $student_real_name . '/' . $enrollment_id));
     }

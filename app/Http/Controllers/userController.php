@@ -411,50 +411,85 @@ class userController extends Controller
     }
 
     // Choose Schedule for the First Time Page Controller 
-    public function chooseFirstSchedulePage($student_fullname, $enrollment_id) {
-        // Find the enrollment data for this student
-        $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
+    // public function chooseFirstSchedulePage($student_fullname, $enrollment_id) {
+    //     // Find the enrollment data for this student
+    //     $enrollment = enrollment::with(['schedule', 'coursePayment'])->find($enrollment_id);
 
-        // Manipulate and localize this page to Indonesian 
-        Carbon::setLocale('id');
+    //     // Manipulate and localize this page to Indonesian 
+    //     Carbon::setLocale('id');
 
-        // Get the Open Time of the Admin's
-        $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
-        // Get the Close Time of the Admin's
-        $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
-        // Get the course duration of the selected schedule
-        $courseDuration = $enrollment->course->course_duration;
+    //     // Get the Open Time of the Admin's
+    //     $openTime = \Carbon\Carbon::parse($enrollment->course->admin->open_hours_for_admin);
+    //     // Get the Close Time of the Admin's
+    //     $closeTime = \Carbon\Carbon::parse($enrollment->course->admin->close_hours_for_admin);
+    //     // Get the course duration of the selected schedule
+    //     $courseDuration = $enrollment->course->course_duration;
 
-        // dd($openTime->format("H:i"));
+    //     // dd($openTime->format("H:i"));
 
-        $availableSlots = [];
+    //     $availableSlots = [];
 
-        // Generate the course time option until the start time is not more than close time
-        while ($openTime->lessThan($closeTime)) {
-            // Generate the end time from adding the open time with course duration
-            $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
+    //     // Generate the course time option until the start time is not more than close time
+    //     while ($openTime->lessThan($closeTime)) {
+    //         // Generate the end time from adding the open time with course duration
+    //         $endOptionTime = $openTime->copy()->addMinutes($courseDuration);
     
-            // When the end time is passed the close time, end the generation
-            if ($endOptionTime->greaterThan($closeTime)) {
-                break; // Exit the loop if it exceeds
-            }
+    //         // When the end time is passed the close time, end the generation
+    //         if ($endOptionTime->greaterThan($closeTime)) {
+    //             break; // Exit the loop if it exceeds
+    //         }
     
-            // Add the slot to available slots
-            $availableSlots[] = [
-                'start' => $openTime->format('H:i'),
-                'end' => $endOptionTime->format('H:i'),
+    //         // Add the slot to available slots
+    //         $availableSlots[] = [
+    //             'start' => $openTime->format('H:i'),
+    //             'end' => $endOptionTime->format('H:i'),
+    //         ];
+    
+    //         // Create new start time by adding the previous start time with course duration
+    //         $openTime->addMinutes($courseDuration);
+    //     }
+
+    //     // dd($availableSlots);
+
+    //     return view('student-page.user-choose-schedule', [
+    //         'pageName' => "Pilih Jadwal Kursus | ",
+    //         'enrollment' => $enrollment,
+    //         'availableSlots' => $availableSlots,
+    //     ]);
+    // }
+
+    public function showMeetingForm($student_real_name, $enrollment_id, $meeting_number) {
+        // Fetch enrollment and course details
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $course = $enrollment->course;
+
+        // Check if this is the last meeting
+        $isLastMeeting = $meeting_number == $course->course_length;
+
+        // Return the form for selecting the date and time for the current meeting
+        return view('student-page.user-choose-schedule', [
+            'enrollment' => $enrollment,
+            'course' => $course,
+            'meeting_number' => $meeting_number,
+            'isLastMeeting' => $isLastMeeting,
+        ]);
+    }
+
+    public function showConfirmationPage($student_real_name, $enrollment_id) {
+        // Fetch the schedule data from the session
+        $course = Enrollment::findOrFail($enrollment_id)->course;
+        $meetings = [];
+
+        for ($i = 1; $i <= $course->course_length; $i++) {
+            $meetings[] = [
+                'date' => session()->get("meeting_{$i}_date"),
+                'time' => session()->get("meeting_{$i}_time"),
             ];
-    
-            // Create new start time by adding the previous start time with course duration
-            $openTime->addMinutes($courseDuration);
         }
 
-        // dd($availableSlots);
-
-        return view('student-page.user-choose-schedule', [
-            'pageName' => "Pilih Jadwal Kursus | ",
-            'enrollment' => $enrollment,
-            'availableSlots' => $availableSlots,
+        return view('student-page.user-confirm-schedule', [
+            'meetings' => $meetings,
+            'enrollment_id' => $enrollment_id,
         ]);
     }
 
