@@ -271,10 +271,21 @@ Route::middleware(['auth', 'App\Http\Middleware\userMiddleware'])->group(functio
 
     // Student's View Course Progress Detail Page
     Route::get('/user-course-progress/{student_real_name}/{enrollment_id}', [userController::class, 'courseProgressPage']);
-    // Student's Choose Course Schedule Page
-    Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'chooseFirstSchedulePage']);
-    // Student's Choose Course Schedule Logic Handler
-    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}', [CourseScheduleController::class, 'createNewSchedule']);
+    // // Student's Choose Course Schedule Page
+    // Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'chooseFirstSchedulePage']);
+    // // Student's Choose Course Schedule Logic Handler
+    // Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}', [CourseScheduleController::class, 'createNewSchedule']);
+
+    // Route for selecting meeting times
+    Route::get('/user-course/schedule/{student_real_name}/{enrollment_id}/{meeting_number}', [userController::class, 'showMeetingForm'])->name('schedule.form');
+    // Route to check conflict and save each meeting Data to Session
+    Route::post('/user-course/schedule/{student_real_name}/{enrollment_id}/{meeting_number}', [CourseController::class, 'storeMeetingData'])->name('schedule.store');
+
+    // Route for confirmation page
+    Route::get('/user-confirm/schedule/{student_real_name}/{enrollment_id}', [userController::class, 'showConfirmationPage'])->name('schedule.confirmation');
+    // Route for saving data to the database after confirmation
+    Route::post('/user-confirm/schedule/{student_real_name}/{enrollment_id}', [CourseController::class, 'saveSchedule'])->name('schedule.save');
+
     // Student's Payment Page Controller
     Route::get('/user-course/payment/{student_real_name}/{enrollment_id}', [userController::class, 'paymentPage']);
     // Student's Payment Logic Handler
