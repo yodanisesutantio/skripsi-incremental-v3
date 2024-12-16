@@ -231,6 +231,20 @@ class CourseScheduleController extends Controller
 
         // dd($selectedStartTime, $selectedEndTime);
 
+        // Check for earlier date than the previous meeting
+        if ($meeting_number > 1) {
+            $previousMeetingDate = session()->get("meeting_" . ($meeting_number - 1) . "_date");
+            $previousMeetingDateCarbon = \Carbon\Carbon::parse($previousMeetingDate);
+
+            if ($currentDate->lt($previousMeetingDateCarbon)) {
+                $request->session()->flash(
+                    'error',
+                    'Tanggal untuk Pertemuan ' . $meeting_number . ' tidak boleh lebih awal dari tanggal Pertemuan ' . ($meeting_number - 1) . ' (' . $previousMeetingDateCarbon->translatedFormat('d F Y') . ').'
+                );
+                return redirect()->back();
+            }
+        }
+
         // Check for conflicts here (but don't store in database yet)
         $existingSchedule = courseSchedule::where(function ($query) use ($instructor_id, $selectedStartTime, $selectedEndTime) {
             $query->where('instructor_id', $instructor_id)
