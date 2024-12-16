@@ -523,7 +523,9 @@ class userController extends Controller
 
     public function showConfirmationPage($student_real_name, $enrollment_id) {
         // Fetch the schedule data from the session
-        $course = Enrollment::findOrFail($enrollment_id)->course;
+        $enrollment = Enrollment::findOrFail($enrollment_id);
+        $course = $enrollment->course;
+        $student_real_name = $enrollment->student_real_name;
         $meetings = [];
 
         for ($i = 1; $i <= $course->course_length; $i++) {
@@ -537,8 +539,9 @@ class userController extends Controller
 
         return view('student-page.user-confirm-schedule', [
             'pageName' => "Konfirmasi Jadwal Kursus | ",
+            'enrollment' => $enrollment,
+            'student_real_name' => $student_real_name,
             'meetings' => $meetings,
-            'enrollment_id' => $enrollment_id,
         ]);
     }
 

@@ -278,17 +278,26 @@ class CourseScheduleController extends Controller
         $enrollment = Enrollment::findOrFail($enrollment_id);
         $course = $enrollment->course;
 
-        $meetingNumber = 1;
-        foreach ($course->meetings as $meeting) {
+        // Retrieve the submitted meetings from the request
+        $meetings = $request->input('meetings');
+
+        // Save each meeting
+        foreach ($meetings as $meetingNumber => $meetingData) {
             $newSchedule = new CourseSchedule();
             $newSchedule->enrollment_id = $enrollment_id;
             $newSchedule->course_id = $course->id;
-            $newSchedule->start_time = Carbon::parse(session()->get("meeting_{$meetingNumber}_date") . ' ' . session()->get("meeting_{$meetingNumber}_time"));
-            $newSchedule->end_time = $newSchedule->start_time->copy()->addMinutes($course->duration); // adjust according to course duration
-            $newSchedule->meeting_number = $meetingNumber;
-            $newSchedule->save();
+            $newSchedule->instructor_id = $enrollment->instructor_id;
 
-            $meetingNumber++;
+            // Parse date and time
+            $newSchedule->start_time = Carbon::parse($meetingData['date'] . ' ' . $meetingData['start_time']);
+            $newSchedule->end_time = Carbon::parse($meetingData['date'] . ' ' . $meetingData['end_time']);
+            $newSchedule->meeting_number = $meetingNumber; // Convert to 1-based index
+            $newSchedule->theoryStatus = 0;
+            $newSchedule->quizStatus = 0;
+
+            // dd($newSchedule);
+
+            $newSchedule->save();
         }
 
         // Clear the session
